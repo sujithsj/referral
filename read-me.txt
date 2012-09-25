@@ -1,0 +1,2 @@
+You will be needing javaee.jar for REST.
+Add the jar to Tomcat lib folder to make things work.
