@@ -31,7 +31,7 @@ public class Employee implements java.io.Serializable {
 
 
   @Column(name = "EMPLOYEEID", unique = true, nullable = false)
-  private String employeeid;
+  private String employeeId;
 
 
   @Column(name = "COMPANY_SHORT_NAME", nullable = false, length = 50)
@@ -43,7 +43,7 @@ public class Employee implements java.io.Serializable {
 
 
   @Column(name = "FULLNAME", nullable = false)
-  private String fullname;
+  private String fullName;
 
 
   @Column(name = "ORIGINAL_IMAGE_URL")
@@ -71,10 +71,11 @@ public class Employee implements java.io.Serializable {
 
 
   @Column(name = "ENABLED", length = 1)
-  private Character enabled;
+  private boolean enabled;
 
 
   @Column(name = "LOCK_VERSION", nullable = false)
+  @Version
   private Long lockVersion;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employee")
@@ -104,13 +105,6 @@ public class Employee implements java.io.Serializable {
     this.company = company;
   }
 
-  public String getEmployeeid() {
-    return this.employeeid;
-  }
-
-  public void setEmployeeid(String employeeid) {
-    this.employeeid = employeeid;
-  }
 
   public String getCompanyShortName() {
     return this.companyShortName;
@@ -128,13 +122,6 @@ public class Employee implements java.io.Serializable {
     this.password = password;
   }
 
-  public String getFullname() {
-    return this.fullname;
-  }
-
-  public void setFullname(String fullname) {
-    this.fullname = fullname;
-  }
 
   public String getOriginalImageUrl() {
     return this.originalImageUrl;
@@ -184,11 +171,27 @@ public class Employee implements java.io.Serializable {
     this.email = email;
   }
 
-  public Character getEnabled() {
-    return this.enabled;
+  public String getEmployeeId() {
+    return employeeId;
   }
 
-  public void setEnabled(Character enabled) {
+  public void setEmployeeId(String employeeId) {
+    this.employeeId = employeeId;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
+
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(boolean enabled) {
     this.enabled = enabled;
   }
 

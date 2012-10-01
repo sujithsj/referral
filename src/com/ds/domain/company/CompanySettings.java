@@ -43,6 +43,7 @@ public class CompanySettings implements java.io.Serializable {
 
 
   @Column(name = "LOCK_VERSION", nullable = false)
+  @Version
   private Long lockVersion;
 
   public Long getId() {

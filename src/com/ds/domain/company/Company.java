@@ -54,6 +54,7 @@ public class Company implements java.io.Serializable {
 
 
   @Column(name = "LOCK_VERSION", nullable = false)
+  @Version
   private Long lockVersion;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")

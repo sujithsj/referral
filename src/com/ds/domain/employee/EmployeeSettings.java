@@ -24,31 +24,32 @@ public class EmployeeSettings implements java.io.Serializable {
 
 
   @Column(name = "SEND_EMAIL_ON_ADD_AFF", nullable = false, length = 1)
-  private char sendEmailOnAddAff;
+  private boolean sendEmailOnAddAff;
 
 
   @Column(name = "SEND_EMAIL_ON_ASSIGNED_POST", nullable = false, length = 1)
-  private char sendEmailOnAssignedPost;
+  private boolean sendEmailOnAssignedPost;
 
 
   @Column(name = "LOCK_VERSION", nullable = false)
+  @Version
   private Long lockVersion;
 
 
   @Column(name = "SEND_EMAIL_ON_TERM_AFF", nullable = false, length = 1)
-  private char sendEmailOnTermAff;
+  private boolean sendEmailOnTermAff;
 
 
   @Column(name = "SEND_EMAIL_ON_JOIN_AFF", nullable = false, length = 1)
-  private char sendEmailOnJoinAff;
+  private boolean sendEmailOnJoinAff;
 
 
   @Column(name = "SEND_EMAIL_ON_PAYOUT", nullable = false, length = 1)
-  private char sendEmailOnPayout;
+  private boolean sendEmailOnPayout;
 
 
   @Column(name = "SEND_EMAIL_ON_GOAL_CONV", nullable = false, length = 1)
-  private char sendEmailOnGoalConv;
+  private boolean sendEmailOnGoalConv;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employeeSettings")
   private Set<Employee> employees = new HashSet<Employee>(0);
@@ -69,21 +70,6 @@ public class EmployeeSettings implements java.io.Serializable {
     this.employee = employee;
   }
 
-  public char getSendEmailOnAddAff() {
-    return this.sendEmailOnAddAff;
-  }
-
-  public void setSendEmailOnAddAff(char sendEmailOnAddAff) {
-    this.sendEmailOnAddAff = sendEmailOnAddAff;
-  }
-
-  public char getSendEmailOnAssignedPost() {
-    return this.sendEmailOnAssignedPost;
-  }
-
-  public void setSendEmailOnAssignedPost(char sendEmailOnAssignedPost) {
-    this.sendEmailOnAssignedPost = sendEmailOnAssignedPost;
-  }
 
   public Long getLockVersion() {
     return this.lockVersion;
@@ -91,38 +77,6 @@ public class EmployeeSettings implements java.io.Serializable {
 
   public void setLockVersion(Long lockVersion) {
     this.lockVersion = lockVersion;
-  }
-
-  public char getSendEmailOnTermAff() {
-    return this.sendEmailOnTermAff;
-  }
-
-  public void setSendEmailOnTermAff(char sendEmailOnTermAff) {
-    this.sendEmailOnTermAff = sendEmailOnTermAff;
-  }
-
-  public char getSendEmailOnJoinAff() {
-    return this.sendEmailOnJoinAff;
-  }
-
-  public void setSendEmailOnJoinAff(char sendEmailOnJoinAff) {
-    this.sendEmailOnJoinAff = sendEmailOnJoinAff;
-  }
-
-  public char getSendEmailOnPayout() {
-    return this.sendEmailOnPayout;
-  }
-
-  public void setSendEmailOnPayout(char sendEmailOnPayout) {
-    this.sendEmailOnPayout = sendEmailOnPayout;
-  }
-
-  public char getSendEmailOnGoalConv() {
-    return this.sendEmailOnGoalConv;
-  }
-
-  public void setSendEmailOnGoalConv(char sendEmailOnGoalConv) {
-    this.sendEmailOnGoalConv = sendEmailOnGoalConv;
   }
 
   public Set<Employee> getEmployees() {
@@ -133,7 +87,53 @@ public class EmployeeSettings implements java.io.Serializable {
     this.employees = employees;
   }
 
+  public boolean isSendEmailOnAddAff() {
+    return sendEmailOnAddAff;
+  }
 
+  public void setSendEmailOnAddAff(boolean sendEmailOnAddAff) {
+    this.sendEmailOnAddAff = sendEmailOnAddAff;
+  }
+
+  public boolean isSendEmailOnAssignedPost() {
+    return sendEmailOnAssignedPost;
+  }
+
+  public void setSendEmailOnAssignedPost(boolean sendEmailOnAssignedPost) {
+    this.sendEmailOnAssignedPost = sendEmailOnAssignedPost;
+  }
+
+  public boolean isSendEmailOnTermAff() {
+    return sendEmailOnTermAff;
+  }
+
+  public void setSendEmailOnTermAff(boolean sendEmailOnTermAff) {
+    this.sendEmailOnTermAff = sendEmailOnTermAff;
+  }
+
+  public boolean isSendEmailOnJoinAff() {
+    return sendEmailOnJoinAff;
+  }
+
+  public void setSendEmailOnJoinAff(boolean sendEmailOnJoinAff) {
+    this.sendEmailOnJoinAff = sendEmailOnJoinAff;
+  }
+
+  public boolean isSendEmailOnPayout() {
+    return sendEmailOnPayout;
+  }
+
+  public void setSendEmailOnPayout(boolean sendEmailOnPayout) {
+    this.sendEmailOnPayout = sendEmailOnPayout;
+  }
+
+  public boolean isSendEmailOnGoalConv() {
+    return sendEmailOnGoalConv;
+  }
+
+  public void setSendEmailOnGoalConv(boolean sendEmailOnGoalConv) {
+    this.sendEmailOnGoalConv = sendEmailOnGoalConv;
+  }
 }
 
 
