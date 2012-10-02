@@ -138,6 +138,14 @@
 		<delete dir="${project.dist.dir}" />
 	</target>
 
+  <target name="web" description="build production WAR">
+    <copy todir="${project.dist.dir}">
+      <fileset dir="${project.view.dir}">
+        <include name="**/**"/>
+      </fileset>
+    </copy>
+  </target>
+
 	<!-- Check timestamp on files -->
 	<target name="prepare">
 		<mkdir dir="${project.dist.dir}" />
