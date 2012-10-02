@@ -1,4 +1,4 @@
-package com.hk.pact.dao;
+package com.ds.pact.dao;
 
 
 import java.io.Serializable;

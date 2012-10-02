@@ -8,16 +8,13 @@ import javax.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.hk.constants.JSONResponseConstants;
-import com.hk.domain.Product;
-import com.hk.pact.service.ProductService;
-import com.hk.util.json.JSONResponseBuilder;
+
 
 @Path("/product")
 @Component
 public class ProductResource {
 
-    @Autowired
+    /*@Autowired
     private ProductService productService;
 
     @GET
@@ -34,6 +31,6 @@ public class ProductResource {
 
     public void setProductService(ProductService productService) {
         this.productService = productService;
-    }
+    }*/
 
 }

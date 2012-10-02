@@ -1,4 +1,4 @@
-<project name="HK Web" basedir="." default="build">
+<project name="DS" basedir="." default="build">
 
 	<property file="build.properties" />
   <property file="environmentLocator.properties" />
@@ -76,6 +76,11 @@
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.thirdParty.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.stripes.root}">
 				<include name="*.jar" />
 			</fileset>
 		</copy>
