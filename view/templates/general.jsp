@@ -20,32 +20,30 @@
     <s:layout-component name="htmlHead"/>
       <%--<link href="../assets/css/grid.css" rel="stylesheet" type="text/css"/>--%>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/screen.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/kickstart.css"
-          media="all"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/chosen.css"
-          media="all"/>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/assets/css/jquery.ui.autocomplete.css"
-          media="all"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/jquery.ui.theme.css"
-          media="all"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css"
-          media="all"/>
-    <!-- CUSTOM STYLES -->
-      <%--<link href="../assets/css/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css"/>--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/docs.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.css" type="text/css"/>
 
-      <%--<link href="../assets/css/admin.css" rel="stylesheet" type="text/css"/>--%>
+     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/application.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-affix.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-alert.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-button.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-carousel.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-collapse.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-popover.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-scrollspy.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-tab.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-tooltip.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-typeahead.js"></script>
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript"
-            src="${pageContext.request.contextPath}/assets/js/jquery-ui-1.8.21.custom.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.js"></script>
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/prettify.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/underscore-1.3.1.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/kickstart.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/hkCommon.js"></script>
-    <%--<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/tag.js"></script>--%>
   </head>
   <body>
   <s:layout-component name="modal"/>
@@ -59,13 +57,13 @@
 
   <s:layout-component name="messages">
     <s:errors/>
-    <div id="error-messages" ></div>
-    <div class="alert messages "><s:messages key="generalMessages"/></div>
+    <%--<div id="error-messages" ></div>
+    <div class="alert messages "><s:messages key="generalMessages"/></div>--%>
   </s:layout-component>
                                                
   <s:layout-component name="content">
   </s:layout-component>
-              teststststt
+              
   <s:layout-component name="scriptComponent"/>
   <%--<s:layout-render name="/templates/footer.jsp"/>--%>
 
