@@ -1,8 +1,14 @@
 package com.ds.pact.service.admin;
 
 import com.ds.domain.company.Company;
+import com.ds.domain.core.GAAuthInfo;
+import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
+import com.ds.domain.user.UserSettings;
+import com.ds.domain.visitor.VisitorInfo;
+import com.ds.exception.DSException;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 
@@ -150,75 +156,75 @@ public interface AdminService {
        */
       public User getUser(String userId);
 
-      /**
+     /* *//**
        * Creates a IssueTracker into the Userrules
        *
        * @param issueTrackerConfig
-       */
+       *//*
       public void createIssueTracker(IssueTrackerConfig issueTrackerConfig);
 
-      /**
+      *//**
        * Allows Reconfiguring an IssueTracker so that it can fetch/update details like Issue Create Screen from the host
        * system.
        *
        * @param issueTrackerConfig
-       */
+       *//*
       public void reconfigure(IssueTrackerConfig issueTrackerConfig);
 
-      /**
+      *//**
        * Loads an IssueTrackerConfig with given issueTrackerConfigName
        *
        * @param issueTrackerConfigName
        * @return IssueTrackerConfig
-       */
+       *//*
       public IssueTrackerConfig loadIssueTrackerConfig(String issueTrackerConfigName);
 
-      /**
+      *//**
        * Loads an IssueTrackerConfig with given issueTrackerId and company Short Name
        *
        * @param companyShortName
        * @param issueTrackerId
        * @return IssueTrackerConfig
-       */
+       *//*
       public IssueTrackerConfig loadIssueTrackerConfig(String companyShortName, long issueTrackerId);
 
-      /**
+      *//**
        * Loads an IssueTrackerConfig with given issueTrackerId
        *
        * @param issueTrackerId
        * @return IssueTrackerConfig
-       */
+       *//*
       public IssueTrackerConfig loadIssueTrackerConfig(long issueTrackerId);
 
-      /**
+      *//**
        * Gets All Issue Trackers configured for the companyShortName
        *
        * @param companyShortName
        * @return List Of IssueTrackers
-       */
+       *//*
       public List<IssueTrackerConfig> getIssueTrackers(String companyShortName);
 
-      /**
+      *//**
        * Updates a IssueTracker into the Userrules
        *
        * @param issueTrackerConfig
-       */
+       *//*
       public void updateIssueTracker(IssueTrackerConfig issueTrackerConfig);
 
-      /**
+      *//**
        * Allows Creation of a Form
        *
        * @param form
-       */
+       *//*
       public void createForm(Form form);
 
-      /**
+      *//**
        * Allows updation of a Form
        *
        * @param form
-       */
+       *//*
       public void saveOrUpdateForm(Form form);
-
+*/
       /**
        * Finds or Creates User if doesnt exist
        *
@@ -226,74 +232,74 @@ public interface AdminService {
        */
       public User findOrCreateUser(User user);
 
-      /**
+      /**//**
        * Finds the form with the given Name which has been saved for IssueTracker
        *
        * @param issueTrackerConfig for which to find form
        * @param formName name of form to search
        * @return Form
-       */
+       *//*
       public Form findForm(IssueTrackerConfig issueTrackerConfig, String formName);
 
-      /**
+      *//**
        * Gets the Form which cna be used to generate a UI to Capture Issue Details for Creating an Issue
        *
        * @param issueTrackerConfig
        * @param post for which an issue has to be created
        * @return Form which holds details of fields required for Issue Create
-       */
+       *//*
       public Form getIssueCreateForm(IssueTrackerConfig issueTrackerConfig, Post post);
 
-      /**
+      *//**
        * Creates an Issue in the Issue Tracker with the data Passed and associates that to given Post in the System
        *
        * @param issueTrackerConfig
        * @param postId post which has to be related to the issue
        * @param data to be used in creating issue
-       */
+       *//*
       public void createIssue(IssueTrackerConfig issueTrackerConfig, long postId, Map<String, String> data);
 
-      /**
+      *//**
        * Checks the Status of Issues on the Issue Tracker represented by IssueTrackerConfig, by using issueIds passed
        *
        * @param issueIds
        * @param issueTrackerConfig
        * @return Map of IssueId as Key and its status as value
-       */
-      public Map<String, String> checkStatus(List<String> issueIds, IssueTrackerConfig issueTrackerConfig);
+       *//*
+      public Map<String, String> checkStatus(List<String> issueIds, IssueTrackerConfig issueTrackerConfig);*/
 
-      /**
+      /**//**
        * Saves UserLoginConfirmationRequest
        *
        * @param userLoginConfirmationRequest
-       */
+       *//*
       public void saveUserLoginConfirmationRequest(UserLoginConfirmationRequest userLoginConfirmationRequest);
 
-      /**
+      *//**
        * Associates User Email to LoginConfirmationRequest This method will also send an email to user to confirm the
        * Request
        *
        * @param userLoginConfirmationRequestId
        * @param email
-       */
+       *//*
       public UserLoginConfirmationRequest associateEmailToUserLoginConfirmationRequest(final UserLoginConfirmationRequest userLoginConfirmationRequest, String email,
               boolean isThirdPartyConfirmation);
 
-      /**
+      *//**
        * Confirms the UserLogin Confirmation Request
        *
        * @param userLoginConfirmationRequestId
        * @param confirmationKey
        * @return true if confirmed, false if could not be confirmed
-       */
+       *//*
       public boolean confirmUserLoginConfirmationRequest(HttpServletRequest request, HttpServletResponse response, long userLoginConfirmationRequestId, String confirmationKey);
 
-      /**
+      *//**
        * Loads UserLoginConfirmationRequest
        *
        * @param userLoginConfirmationRequest
-       */
-      public UserLoginConfirmationRequest loadUserLoginConfirmationRequest(long userLoginConfirmationRequestId);
+       *//*
+      public UserLoginConfirmationRequest loadUserLoginConfirmationRequest(long userLoginConfirmationRequestId);*/
 
       /**
        * Configure Google Analytics for the Company
@@ -318,7 +324,7 @@ public interface AdminService {
        */
       public void resetEmployeePassword(String userEmail);
 
-      /**
+      /**//**
        * Gets Form Field Options identified by fieldName belonging to form identified by formName and belonging to
        * mentioned IssueTrackerConfig
        *
@@ -326,9 +332,9 @@ public interface AdminService {
        * @param formName
        * @param fieldName
        * @return List of FormFieldOption
-       */
+       *//*
       public List<FormFieldOption> getFormFieldOptions(IssueTrackerConfig issueTrackerConfig, String formName, String fieldName);
-
+*/
       /**
        * Delete the employee indicated by username.
        *
@@ -344,7 +350,7 @@ public interface AdminService {
        * @param newPassword
        * @return boolean true if updated sucessfully
        */
-      public boolean changePassword(String emailId, String oldPassword, String newPassword) throws UserrulesException;
+      public boolean changePassword(String emailId, String oldPassword, String newPassword) throws DSException;
 
       /**
        * Get all employees registered for a company.

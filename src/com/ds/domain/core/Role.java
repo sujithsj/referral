@@ -29,6 +29,11 @@ public class Role implements java.io.Serializable {
   @Version
   private Long lockVersion;
 
+
+  public enum Type {
+        admin, moderator
+    }
+
   public Long getId() {
     return this.id;
   }

@@ -1,9 +1,13 @@
 package com.ds.i18n;
 
+import com.ds.core.web.PropertyResolving;
 import com.ds.impl.service.admin.AdminServiceImpl;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+
+import java.util.Locale;
 
 /**
  * @author adlakha.vaibhav
@@ -18,7 +22,7 @@ import org.springframework.context.MessageSource;
  */
 public class MessageHelper implements PropertyResolving {
 
-  private Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
+  private static Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
   private static MessageSource messageSource;
 
@@ -122,7 +126,7 @@ public class MessageHelper implements PropertyResolving {
   public static String getMessage(String messageKey, Object[] args, String defaultMessage, Locale locale, boolean ignoreUnknown) {
 
     if (messageSource == null) {
-      log.warn("The MessageSource is null. This is normal in Unit testing but a problem if running in Production.");
+      logger.warn("The MessageSource is null. This is normal in Unit testing but a problem if running in Production.");
       StringBuffer buffer = null;
       if (defaultMessage != null) {
         if (args != null && args.length > 0) {
@@ -159,7 +163,7 @@ public class MessageHelper implements PropertyResolving {
     try {
       retVal = messageSource.getMessage(messageKey, args, defaultMessage, locale);
     } catch (RuntimeException e) {
-      log.error(e);
+      logger.error("Error getting message", e);
       retVal = "";
     }
     if (!ignoreUnknown && StringUtils.isBlank(retVal)) {
@@ -169,7 +173,7 @@ public class MessageHelper implements PropertyResolving {
       buffer.append("\nDefaultMessage: ").append(defaultMessage);
       buffer.append("\nLocale:").append(locale);
       buffer.append("\nSubstitutions: ");
-      log.warn(printArgs(args, buffer));
+      logger.warn(printArgs(args, buffer).toString());
       //
       // Return something, otherwise there will be no error message at all
       // on the UI.
