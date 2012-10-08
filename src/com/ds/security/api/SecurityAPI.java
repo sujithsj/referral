@@ -32,7 +32,7 @@ public interface SecurityAPI {
      *
      * @param user
      */
-    public void grantRolesToUser(User user, Role.Type... role);
+    public void grantRolesToUser(User user, Role.RoleType... role);
 
     /**
      * Finds and Returns all the Permissions granted to User
@@ -48,7 +48,7 @@ public interface SecurityAPI {
      * @param user
      * @param role
      */
-    public void revokeRolesFromUser(User user, Role.Type... role);
+    public void revokeRolesFromUser(User user, Role.RoleType... role);
 
     /**
      * Does a User Exists with the given email

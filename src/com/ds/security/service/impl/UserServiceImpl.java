@@ -1,12 +1,15 @@
 package com.ds.security.service.impl;
 
 import com.ds.domain.user.User;
+import com.ds.security.api.SecurityAPI;
+import com.ds.security.dao.UserDao;
 import com.ds.security.service.UserService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -15,10 +18,11 @@ import java.util.Collection;
 /**
  * @author adlakha.vaibhav
  */
+@Service
 public class UserServiceImpl implements UserService {
 
 
-  private UserDao     userDao;
+  private UserDao userDao;
 
     private UserAPI     userAPI;
     private CacheAPI    cacheAPI;

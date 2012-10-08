@@ -132,7 +132,7 @@ public interface AdminService {
        *
        * @return
        */
-      public void addUser(User user, Role.Type[] roleTypes);
+      public void addUser(User user, Role.RoleType[] roleRoleTypes);
 
       /**
        * Updates the User

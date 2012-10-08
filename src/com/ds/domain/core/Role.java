@@ -2,6 +2,7 @@ package com.ds.domain.core;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author vaibhav.adlakha
@@ -25,12 +26,14 @@ public class Role implements java.io.Serializable {
   private String description;
 
 
+  private Set<Permission> permissions;
+
   @Column(name = "LOCK_VERSION", nullable = false)
   @Version
   private Long lockVersion;
 
 
-  public enum Type {
+  public enum RoleType {
         admin, moderator
     }
 
@@ -66,7 +69,13 @@ public class Role implements java.io.Serializable {
     this.lockVersion = lockVersion;
   }
 
+  public Set<Permission> getPermissions() {
+    return permissions;
+  }
 
+  public void setPermissions(Set<Permission> permissions) {
+    this.permissions = permissions;
+  }
 }
 
 

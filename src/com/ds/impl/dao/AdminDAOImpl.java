@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author adlakha.vaibhav
  */
-public class AdminDAOImpl extends BaseDAOImpl implements AdminDAO {
+public class AdminDaoImpl extends BaseDaoImpl implements AdminDAO {
 
   @Override
   public void saveCompany(Company company) {

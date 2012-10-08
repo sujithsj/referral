@@ -30,17 +30,8 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
-
 import org.quartz.CronTrigger;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallback;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author adlakha.vaibhav
@@ -117,7 +108,7 @@ public class AdminServiceImpl implements AdminService {
           getFeatureAPI().grantCompanyAccessTo(company, "ENTERPRISE");
 
           user.setCompanyShortName(company.getShortName());
-          addUser(user, new Role.Type[] { Role.Type.admin });
+          addUser(user, new Role.RoleType[] { Role.RoleType.admin });
       }
 
       private void validateUser(User user, CompositeValidationException compositeValidationException, Object[] recaptchaParams) {
@@ -243,7 +234,7 @@ public class AdminServiceImpl implements AdminService {
           }
       }
 
-      public void addUser(final User user, Role.Type[] roleTypes) {
+      public void addUser(final User user, Role.RoleType[] roleRoleTypes) {
           CompositeValidationException compositeValidationException = new CompositeValidationException();
 
           validateUser(user, compositeValidationException, null);
@@ -280,7 +271,7 @@ public class AdminServiceImpl implements AdminService {
               }
           });
 
-          getSecurityAPI().grantRolesToUser(user, roleTypes);
+          getSecurityAPI().grantRolesToUser(user, roleRoleTypes);
 
           UserLoginConfirmationRequest userLoginConfirmationRequest = new UserLoginConfirmationRequest();
           userLoginConfirmationRequest.setConfirmationKey(GeneralUtils.getRandomAlphaNumericString(20, 5));
@@ -475,7 +466,7 @@ public class AdminServiceImpl implements AdminService {
           user.setCompanyShortName(companyShortName);
           getAdminDAO().save(user);
           user.setEnabled(true);// temproray enabling it
-          getSecurityAPI().grantRolesToUser(user, Role.Type.admin);
+          getSecurityAPI().grantRolesToUser(user, Role.RoleType.admin);
       }
 
       @Override
