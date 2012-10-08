@@ -1,7 +1,7 @@
 package com.ds.impl.dao;
 
 
-import com.ds.pact.dao.BaseDao;
+import com.ds.pact.dao.BaseDAO;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.*;
 import org.hibernate.criterion.DetachedCriteria;
@@ -30,7 +30,7 @@ import java.util.List;
 @Repository
 @Primary
 @SuppressWarnings("unchecked")
-public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
+public class BaseDAOImpl extends HibernateDaoSupport implements BaseDAO {
 
   @Autowired
   public void init(SessionFactory factory) {

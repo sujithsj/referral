@@ -26,11 +26,11 @@ public class Company implements java.io.Serializable {
 
 
   @Column(name = "SHORTNAME", nullable = false, length = 50)
-  private String shortname;
+  private String shortName;
 
 
   @Column(name = "VERIFICATIONTOKEN", length = 100)
-  private String verificationtoken;
+  private String verificationToken;
 
 
   @Column(name = "ENABLED", length = 1)
@@ -79,20 +79,20 @@ public class Company implements java.io.Serializable {
     this.name = name;
   }
 
-  public String getShortname() {
-    return this.shortname;
+  public String getShortName() {
+    return shortName;
   }
 
-  public void setShortname(String shortname) {
-    this.shortname = shortname;
+  public void setShortName(String shortName) {
+    this.shortName = shortName;
   }
 
-  public String getVerificationtoken() {
-    return this.verificationtoken;
+  public String getVerificationToken() {
+    return verificationToken;
   }
 
-  public void setVerificationtoken(String verificationtoken) {
-    this.verificationtoken = verificationtoken;
+  public void setVerificationToken(String verificationToken) {
+    this.verificationToken = verificationToken;
   }
 
   public Character getEnabled() {

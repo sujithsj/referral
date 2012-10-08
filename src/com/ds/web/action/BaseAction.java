@@ -1,7 +1,7 @@
 package com.ds.web.action;
 
 
-import com.ds.pact.dao.BaseDao;
+import com.ds.pact.dao.BaseDAO;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.SimpleMessage;
@@ -31,7 +31,7 @@ public class BaseAction implements ActionBean {
   private RoleService roleService;*/
 
   @Autowired
-  private BaseDao baseDao;
+  private BaseDAO baseDAO;
 
   public ActionBeanContext getContext() {
     return context;
@@ -113,12 +113,12 @@ public class BaseAction implements ActionBean {
     this.securityManager = securityManager;
   }*/
 
-  public BaseDao getBaseDao() {
-    return baseDao;
+  public BaseDAO getBaseDao() {
+    return baseDAO;
   }
 
-  public void setBaseDao(BaseDao baseDao) {
-    this.baseDao = baseDao;
+  public void setBaseDao(BaseDAO baseDAO) {
+    this.baseDAO = baseDAO;
   }
 
   /*public RoleService getRoleService() {

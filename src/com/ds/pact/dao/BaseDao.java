@@ -14,7 +14,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @author vaibhav.adlakha
  *
  */
-public interface BaseDao {
+public interface BaseDAO {
 
     /**
      * @param key
