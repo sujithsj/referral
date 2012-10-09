@@ -6,6 +6,7 @@ import com.ds.api.FeatureAPI;
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
+import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.DSException;
@@ -17,16 +18,17 @@ import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.admin.LoadPropertyService;
 import com.ds.pact.service.mail.MailService;
 import com.ds.security.api.SecurityAPI;
+import com.ds.utils.GeneralUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.quartz.CronTrigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -252,7 +254,7 @@ public class AdminServiceImpl implements AdminService {
     validateUser(user, compositeValidationException, null);
 
     if (!compositeValidationException.getValidationExceptions().isEmpty()) {
-      logger.error(compositeValidationException);
+      logger.error("Error while adding new user", compositeValidationException);
       throw compositeValidationException;
     }
 

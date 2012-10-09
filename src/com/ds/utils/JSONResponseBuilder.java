@@ -1,4 +1,4 @@
-package com.hk.util.json;
+package com.ds.utils;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

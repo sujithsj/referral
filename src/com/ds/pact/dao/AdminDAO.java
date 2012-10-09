@@ -3,6 +3,7 @@ package com.ds.pact.dao;
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Plan;
 import com.ds.domain.user.User;
+import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
 
 import java.util.List;
@@ -137,21 +138,21 @@ public interface AdminDAO extends BaseDao{
       *//*
      public Form findForm(IssueTrackerConfig issueTrackerConfig, String formName);*/
 
-     /**//**
+     /**
       * Saves UserLoginConfirmationRequest
       *
       * @param userLoginConfirmationRequest
-      *//*
+      */
      public void saveUserLoginConfirmationRequest(UserLoginConfirmationRequest userLoginConfirmationRequest);
 
-     *//**
+     /**
       * Loads UserLoginConfirmationRequest
       *
-      * @param userLoginConfirmationRequest
-      *//*
+      * 
+      */
      public UserLoginConfirmationRequest loadUserLoginConfirmationRequest(long userLoginConfirmationRequestId);
 
-     *//**
+     /**
       * Gets Form Field Options identified by fieldName belonging to form identified by formName and belonging to
       * mentioned IssueTrackerConfig
       *

@@ -3,6 +3,7 @@ package com.ds.impl.dao;
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Plan;
 import com.ds.domain.user.User;
+import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
 import com.ds.pact.dao.AdminDAO;
 import org.apache.commons.lang.StringUtils;
@@ -112,7 +113,7 @@ public class AdminDAOImpl extends BaseDaoImpl implements AdminDAO {
     return form;
   }*/
 
-  /*@Override
+  @Override
   public void saveUserLoginConfirmationRequest(UserLoginConfirmationRequest userLoginConfirmationRequest) {
     saveOrUpdate(userLoginConfirmationRequest);
   }
@@ -122,7 +123,7 @@ public class AdminDAOImpl extends BaseDaoImpl implements AdminDAO {
     return get(UserLoginConfirmationRequest.class, userLoginConfirmationRequestId);
   }
 
-  @Override
+/*@Override
   public List<FormFieldOption> getFormFieldOptions(IssueTrackerConfig issueTrackerConfig, String formName, String fieldName) {
     String hql = " select formField.options from FormField formField where formField.form.name=? and formField.form.issueTrackerConfig=? and formField.name = ? ";
     return find(hql, formName, issueTrackerConfig, fieldName);
