@@ -5,7 +5,7 @@ import org.springframework.transaction.support.TransactionCallback;
 /**
  * @author adlakha.vaibhav
  */
-public interface RequiresNewTemplate {
+public class RequiresNewTemplate {
 
   public Object executeInNewTransaction(TransactionCallback transactionCallback) {
         return transactionCallback.doInTransaction(null);

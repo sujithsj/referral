@@ -3,25 +3,29 @@ package com.ds.impl.service.admin;
 import com.ds.api.AdminAPI;
 import com.ds.api.CacheAPI;
 import com.ds.api.FeatureAPI;
+import com.ds.core.transaction.RequiresNewTemplate;
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Role;
+import com.ds.domain.core.event.EmailEvent;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
+import com.ds.domain.visitor.VisitorInfo;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.DSException;
 import com.ds.exception.ValidationException;
 import com.ds.impl.service.ServiceLocatorFactory;
+import com.ds.impl.service.mail.UserContext;
 import com.ds.pact.dao.AdminDAO;
 import com.ds.pact.service.HttpService;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.admin.LoadPropertyService;
+import com.ds.pact.service.mail.EmailTemplateService;
 import com.ds.pact.service.mail.MailService;
 import com.ds.security.api.SecurityAPI;
 import com.ds.utils.GeneralUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
-import org.quartz.CronTrigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +37,7 @@ import org.springframework.transaction.support.TransactionCallback;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -55,12 +59,12 @@ public class AdminServiceImpl implements AdminService {
   private HttpService httpService;
   @Autowired
   private MailService mailService;
-  //private String                       activationLink;                                   // TODO : to be removed.
+  //private String activationLink;                                   // TODO : to be removed.
   @Autowired
   private SecurityAPI securityAPI;
 
   //      private PostService                  postService;
-  private ScheduleService scheduleService;
+  // private ScheduleService scheduleService;
   @Autowired
   private LoadPropertyService loadPropertyService;
   //    private RPXService                   rpxService;
@@ -86,7 +90,7 @@ public class AdminServiceImpl implements AdminService {
     company.setVerificationToken(String.valueOf(RandomUtils.nextInt()));
     // if no karma profile has not been specified we assign a default one.
 
-   /* if (company.getKarmaProfile() == null) {
+    /* if (company.getKarmaProfile() == null) {
       company.setKarmaProfile(defaultCompanyKarmaProfile);
     }*/
 
@@ -95,7 +99,7 @@ public class AdminServiceImpl implements AdminService {
     }*/
 
     if (!compositeValidationException.getValidationExceptions().isEmpty()) {
-      logger.error(compositeValidationException);
+      logger.error("Error registering company", compositeValidationException);
       throw compositeValidationException;
     }
 
@@ -264,7 +268,7 @@ public class AdminServiceImpl implements AdminService {
     getAdminDAO().save(karmaProfile);*/
 
     UserSettings userSettings = new UserSettings();
-   // userSettings.setCreatedDate(new Date());
+    // userSettings.setCreatedDate(new Date());
     //userSettings.setCreatedBy(user.getUsername());
     userSettings.setUsername(user.getUsername());
     userSettings.setSendEmailOnAssignedPost(true);
@@ -373,7 +377,7 @@ public class AdminServiceImpl implements AdminService {
     this.activationLink = activationLink;
   }
 
-  @Override
+  /*@Override
   public void createForm(Form form) {
     getAdminDAO().createForm(form);
   }
@@ -393,9 +397,9 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public IssueTrackerConfig loadIssueTrackerConfig(String issueTrackerConfigName) {
     return getAdminDAO().loadIssueTrackerConfig(issueTrackerConfigName);
-  }
+  }*/
 
-  @Override
+  /*@Override
   public void reconfigure(IssueTrackerConfig issueTrackerConfig) {
     IssueTracker issueTrackerAPI = getIssueTrackerAPI(issueTrackerConfig);
     issueTrackerAPI.configure();
@@ -416,9 +420,9 @@ public class AdminServiceImpl implements AdminService {
       throw new InvalidParameterException("UNKNOWN_ISSUETRACKER_TYPE");
     }
     return issueTrackerAPI;
-  }
+  }*/
 
-  @Override
+  /*@Override
   public void saveOrUpdateForm(Form form) {
     getAdminDAO().saveOrUpdateForm(form);
   }
@@ -436,7 +440,7 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public IssueTrackerConfig loadIssueTrackerConfig(String companyShortName, long issueTrackerId) {
     return getAdminDAO().loadIssueTrackerConfig(companyShortName, issueTrackerId);
-  }
+  }*/
 
   @Override
   public List<Company> getAllCompanies() {
@@ -457,11 +461,11 @@ public class AdminServiceImpl implements AdminService {
     this.securityAPI = securityAPI;
   }
 
-  @Override
+  /*@Override
   public List<IssueTrackerConfig> getIssueTrackers(String companyShortName) {
     return getAdminDAO().getIssueTrackers(companyShortName);
   }
-
+*/
   @Override
   public void registerEmployee(String companyShortName, User user) {
     CompositeValidationException compositeValidationException = new CompositeValidationException();
@@ -469,7 +473,7 @@ public class AdminServiceImpl implements AdminService {
     // validateUser(user, compositeValidationException);
 
     if (!compositeValidationException.getValidationExceptions().isEmpty()) {
-      logger.error(compositeValidationException);
+      logger.error("error registering employee", compositeValidationException);
       throw compositeValidationException;
     }
 
@@ -491,7 +495,7 @@ public class AdminServiceImpl implements AdminService {
     return user;
   }
 
-  @Override
+  /*@Override
   public Form findForm(IssueTrackerConfig issueTrackerConfig, String formName) {
     return getAdminDAO().findForm(issueTrackerConfig, formName);
   }
@@ -517,37 +521,37 @@ public class AdminServiceImpl implements AdminService {
     getPostService().updatePost(post);
 
     getEventDispatcher().dispatchEvent(new IssueCreatedForPostEvent(post, issueTrackerConfig, externalIssueDetail.getIssueId(), externalIssueDetail.getIssueUrl()));
-  }
+  }*/
 
   /**
    * @return the postService
    */
-  public PostService getPostService() {
+  /*public PostService getPostService() {
     return postService;
   }
 
-  /**
+  *//**
    * @param postService the postService to set
-   */
+   *//*
   public void setPostService(PostService postService) {
     this.postService = postService;
-  }
+  }*/
 
   /**
    * @return the scheduleService
    */
-  public ScheduleService getScheduleService() {
+  /* public ScheduleService getScheduleService() {
     return scheduleService;
   }
 
-  /**
+  *//**
    * @param scheduleService the scheduleService to set
-   */
+   *//*
   public void setScheduleService(ScheduleService scheduleService) {
     this.scheduleService = scheduleService;
-  }
+  }*/
 
-  @Override
+  /*@Override
   public Map<String, String> checkStatus(List<String> issueIds, IssueTrackerConfig issueTrackerConfig) {
     return getIssueTrackerAPI(issueTrackerConfig).checkStatus(issueIds);
   }
@@ -584,7 +588,7 @@ public class AdminServiceImpl implements AdminService {
 
     getScheduleService().saveOrUpdate(schedule);
 
-  }
+  }*/
 
   /**
    * @return the loadPropertyService
@@ -635,9 +639,9 @@ public class AdminServiceImpl implements AdminService {
     });
 
     if (isThirdPartyConfirmation) {
-      getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailEventType.UserLoggedInThirdPartyEmailConfirmation));
+      getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserLoggedInThirdPartyEmailConfirmation));
     } else {
-      getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailEventType.UserRegistrationConfirmation));
+      getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserRegistrationConfirmation));
     }
 
     return userLoginConfirmationRequest;
@@ -645,7 +649,7 @@ public class AdminServiceImpl implements AdminService {
 
   @Override
   public VisitorInfo getUserInfo(String userName, String postId) {
-    List result = getAdminDAO().find("from VisitorInfo where userName = ? and entityId = ? ", new Object[]{userName, postId});
+    List result = getAdminDAO().findByQuery("from VisitorInfo where userName = ? and entityId = ? ", new Object[]{userName, postId});
 
     if (result.size() > 0)
       return (VisitorInfo) result.get(0);
@@ -709,7 +713,7 @@ public class AdminServiceImpl implements AdminService {
 
     UserContext userContext = new UserContext(getAdminDAO().getUser(userEmail), generatedPassword);
 
-    EmailEvent emailEvent = new EmailEvent(EmailEventType.UserPasswordResetConfirmation, userContext);
+    EmailEvent emailEvent = new EmailEvent(EmailTemplateService.EmailEventType.UserPasswordResetConfirmation, userContext);
     getMailService().sendAsyncMail(emailEvent);
 
   }
@@ -720,9 +724,9 @@ public class AdminServiceImpl implements AdminService {
 
     if (!userLoginConfirmationRequest.isConfirmed() && userLoginConfirmationRequest.getConfirmationKey().equalsIgnoreCase(confirmationKey)
         && !("userrules".equalsIgnoreCase(userLoginConfirmationRequest.getProviderName()))) {
-      userLoginConfirmationRequest.setConfirmed(true);
+      /*userLoginConfirmationRequest.setConfirmed(true);
       saveUserLoginConfirmationRequest(userLoginConfirmationRequest);
-      getRpxService().confirmUserEmail(request, response, userLoginConfirmationRequest);
+      getRpxService().confirmUserEmail(request, response, userLoginConfirmationRequest);*/
       return true;
     } else if (!userLoginConfirmationRequest.isConfirmed() && userLoginConfirmationRequest.getConfirmationKey().equalsIgnoreCase(confirmationKey)
         && "userrules".equalsIgnoreCase(userLoginConfirmationRequest.getProviderName())) {
@@ -739,25 +743,22 @@ public class AdminServiceImpl implements AdminService {
   /**
    * @return the rpxService
    */
-  public RPXService getRpxService() {
+  /*public RPXService getRpxService() {
     if (this.rpxService == null) {
       this.rpxService = ServiceLocatorFactory.getService(RPXService.class);
     }
     return rpxService;
-  }
+  }*/
 
-  /**
-   * @param rpxService the rpxService to set
-   */
-  public void setRpxService(RPXService rpxService) {
+
+  /*public void setRpxService(RPXService rpxService) {
     this.rpxService = rpxService;
   }
 
   @Override
   public List<FormFieldOption> getFormFieldOptions(IssueTrackerConfig issueTrackerConfig, String formName, String fieldName) {
     return getAdminDAO().getFormFieldOptions(issueTrackerConfig, formName, fieldName);
-  }
-
+  }*/
   @Override
   public void deleteEmployee(String username) {
     User user = getAdminAPI().getUser(username);
@@ -769,7 +770,7 @@ public class AdminServiceImpl implements AdminService {
 
     getAdminDAO().delete(user);
 
-    getCacheAPI().remove(CacheConfig.USER_CACHE, user.getUsername());
+    getCacheAPI().remove(CacheAPI.CacheConfig.USER_CACHE, user.getUsername());
 
   }
 
@@ -812,7 +813,7 @@ public class AdminServiceImpl implements AdminService {
   }
 
   @Override
-  public int employeesCount(String companyShortName) {
+  public long employeesCount(String companyShortName) {
     return getAdminDAO().employeesCount(companyShortName);
   }
 
@@ -829,13 +830,13 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public void updateUser(User user) {
     getAdminDAO().update(user);
-    getCacheAPI().remove(CacheConfig.USER_CACHE, user.getUsername());
+    getCacheAPI().remove(CacheAPI.CacheConfig.USER_CACHE, user.getUsername());
   }
 
-  @Override
+  /*@Override
   public Badge getBadgeForCompany(String badgeName, String companyShortName) {
     return getAdminDAO().getBadgeForCompany(badgeName, companyShortName);
-  }
+  }*/
 
   /**
    * @return the cacheAPI
@@ -851,7 +852,7 @@ public class AdminServiceImpl implements AdminService {
     this.cacheAPI = cacheAPI;
   }
 
-  /**//**
+   /**//**
    * @return the recaptchaService
    *//*
   public RecaptchaService getRecaptchaService() {
@@ -906,7 +907,7 @@ public class AdminServiceImpl implements AdminService {
     return logger;
   }
 
-  /**//**
+   /**//**
    * @param logger the logger to set
    *//*
   public void setLogger(Logger logger) {
