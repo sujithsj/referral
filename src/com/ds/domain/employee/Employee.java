@@ -55,15 +55,15 @@ public class Employee implements java.io.Serializable {
 
 
   @Column(name = "ACCOUNT_NON_EXPIRED", length = 1)
-  private Character accountNonExpired;
+  private boolean accountNonExpired;
 
 
   @Column(name = "ACCOUNT_NON_LOCKED", length = 1)
-  private Character accountNonLocked;
+  private boolean accountNonLocked;
 
 
   @Column(name = "CREDENTIALS_NON_EXPIRED", length = 1)
-  private Character credentialsNonExpired;
+  private boolean credentialsNonExpired;
 
 
   @Column(name = "EMAIL", nullable = false)
@@ -139,27 +139,29 @@ public class Employee implements java.io.Serializable {
     this.thumbnailImageUrl = thumbnailImageUrl;
   }
 
-  public Character getAccountNonExpired() {
-    return this.accountNonExpired;
+  
+
+  public boolean isAccountNonExpired() {
+    return accountNonExpired;
   }
 
-  public void setAccountNonExpired(Character accountNonExpired) {
+  public void setAccountNonExpired(boolean accountNonExpired) {
     this.accountNonExpired = accountNonExpired;
   }
 
-  public Character getAccountNonLocked() {
-    return this.accountNonLocked;
+  public boolean isAccountNonLocked() {
+    return accountNonLocked;
   }
 
-  public void setAccountNonLocked(Character accountNonLocked) {
+  public void setAccountNonLocked(boolean accountNonLocked) {
     this.accountNonLocked = accountNonLocked;
   }
 
-  public Character getCredentialsNonExpired() {
-    return this.credentialsNonExpired;
+  public boolean isCredentialsNonExpired() {
+    return credentialsNonExpired;
   }
 
-  public void setCredentialsNonExpired(Character credentialsNonExpired) {
+  public void setCredentialsNonExpired(boolean credentialsNonExpired) {
     this.credentialsNonExpired = credentialsNonExpired;
   }
 

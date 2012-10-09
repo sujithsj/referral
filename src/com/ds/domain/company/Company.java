@@ -1,6 +1,7 @@
 package com.ds.domain.company;
 
 
+import com.ds.domain.core.Feature;
 import com.ds.domain.employee.Employee;
 
 import javax.persistence.*;
@@ -34,7 +35,7 @@ public class Company implements java.io.Serializable {
 
 
   @Column(name = "ENABLED", length = 1)
-  private Character enabled;
+  private boolean enabled;
 
 
   @Column(name = "DESCRIPTION")
@@ -61,7 +62,9 @@ public class Company implements java.io.Serializable {
   private Set<Employee> employees = new HashSet<Employee>(0);
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
-  private Set<CompanySettings> companySettingses = new HashSet<CompanySettings>(0);
+  private Set<CompanySettings> companySettings = new HashSet<CompanySettings>(0);
+
+  private Set<Feature> features = new HashSet<Feature>();
 
   public Long getId() {
     return this.id;
@@ -95,11 +98,11 @@ public class Company implements java.io.Serializable {
     this.verificationToken = verificationToken;
   }
 
-  public Character getEnabled() {
-    return this.enabled;
+  public boolean isEnabled() {
+    return enabled;
   }
 
-  public void setEnabled(Character enabled) {
+  public void setEnabled(boolean enabled) {
     this.enabled = enabled;
   }
 
@@ -151,15 +154,21 @@ public class Company implements java.io.Serializable {
     this.employees = employees;
   }
 
-  public Set<CompanySettings> getCompanySettingses() {
-    return this.companySettingses;
+  public Set<CompanySettings> getCompanySettings() {
+    return companySettings;
   }
 
-  public void setCompanySettingses(Set<CompanySettings> companySettingses) {
-    this.companySettingses = companySettingses;
+  public void setCompanySettings(Set<CompanySettings> companySettings) {
+    this.companySettings = companySettings;
   }
 
+  public Set<Feature> getFeatures() {
+    return features;
+  }
 
+  public void setFeatures(Set<Feature> features) {
+    this.features = features;
+  }
 }
 
 

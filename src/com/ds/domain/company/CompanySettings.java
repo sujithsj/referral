@@ -1,7 +1,6 @@
 package com.ds.domain.company;
 
 
-
 import javax.persistence.*;
 
 /**
@@ -27,7 +26,7 @@ public class CompanySettings implements java.io.Serializable {
 
 
   @Column(name = "DEFAULT_PUBLISH", length = 1)
-  private Character defaultPublish;
+  private boolean defaultPublish;
 
 
   @Column(name = "COMPANY_SHORT_NAME", nullable = false, length = 50)
@@ -70,11 +69,11 @@ public class CompanySettings implements java.io.Serializable {
     this.gaCustomVarNo = gaCustomVarNo;
   }
 
-  public Character getDefaultPublish() {
-    return this.defaultPublish;
+  public boolean isDefaultPublish() {
+    return defaultPublish;
   }
 
-  public void setDefaultPublish(Character defaultPublish) {
+  public void setDefaultPublish(boolean defaultPublish) {
     this.defaultPublish = defaultPublish;
   }
 
