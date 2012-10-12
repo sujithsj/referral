@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="broker" class="org.apache.activemq.xbean.BrokerFactoryBean">
+	    <property name="config" value="classpath:spring/activemq.xml" />
+	    <property name="start" value="true" />
+	 </bean>
+
+
+		<!-- a pooling based JMS provider -->
+	  <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+	    <property name="connectionFactory">
+	      <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+	        <property name="brokerURL">
+	          <value>vm://localhost</value>
+	        </property>
+	      </bean>
+	    </property>
+	  </bean>
+
+	 <!-- Spring JMS Template -->
+	 <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+	   <property name="connectionFactory">
+	     <ref local="jmsFactory"/>
+	   </property>
+	 </bean>
+
+ 	<bean id="eventQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName"><value>EventQueue</value></property>
+		<property name="jndiEnvironment">
+			<props>
+				<prop key="java.naming.factory.initial">org.apache.activemq.jndi.ActiveMQInitialContextFactory</prop>
+				<prop key="java.naming.provider.url">vm://localhost</prop>
+				<prop key="queue.EventQueue">userrules.EventQueue</prop>
+			</props>
+
+		</property>
+	</bean>
+
+	<bean id="emailQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName"><value>EmailQueue</value></property>
+		<property name="jndiEnvironment">
+			<props>
+				<prop key="java.naming.factory.initial">org.apache.activemq.jndi.ActiveMQInitialContextFactory</prop>
+				<prop key="java.naming.provider.url">vm://localhost</prop>
+				<prop key="queue.EmailQueue">userrules.EmailQueue</prop>
+			</props>
+
+		</property>
+	</bean>
+
+
+
+	<!--<bean id="emailProcessingMDB" class="com.userrules.async.mdb.EmailProcessingMDB">
+		<property name="mailService">
+			<ref bean="mailService" />
+		</property>
+		<property name="emailTemplateService">
+			<ref bean="emailTemplateService" />
+		</property>
+		<property name="transactionTemplate" ref="transactionTemplate" />
+	</bean>-->
+
+	<!--<bean id="emailProcessingMDBListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="concurrentConsumers" value="16" />
+        <property name="connectionFactory" ref="jmsFactory" />
+        <property name="destination" ref="emailQueue" />
+        <property name="messageListener" ref="emailProcessingMDB" />
+    </bean>-->
+
+
+<!--	<bean id="asyncEventProcessingMDB" class="com.userrules.async.mdb.AsyncEventProcessingMDB">
+		    <property name="eventDispatcher" ref="eventDispatcher" />
+		    <property name="transactionTemplate" ref="transactionTemplate" />
+	</bean>-->
+    <!--<bean id="asyncEventProcessingMDBListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="concurrentConsumers" value="16" />
+        <property name="connectionFactory" ref="jmsFactory" />
+        <property name="destination" ref="eventQueue" />
+        <property name="messageListener" ref="asyncEventProcessingMDB" />
+    </bean>-->
+
+
+
+
+
+</beans>
