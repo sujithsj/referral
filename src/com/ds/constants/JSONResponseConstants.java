@@ -1,4 +1,4 @@
-package com.hk.constants;
+package com.ds.constants;
 
 public class JSONResponseConstants {
 

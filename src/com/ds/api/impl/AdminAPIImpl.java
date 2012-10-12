@@ -6,15 +6,21 @@ import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
 import com.ds.pact.dao.AdminDAO;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 /**
  * @author adlakha.vaibhav
  */
+@Service
 public class AdminAPIImpl implements AdminAPI {
 
+
+  @Autowired
   private CacheAPI cacheAPI;
+  @Autowired
   private AdminDAO adminDAO;
 
   @Override
@@ -30,6 +36,18 @@ public class AdminAPIImpl implements AdminAPI {
       }
     }
     return company;
+  }
+
+  @Override
+  public User getUser(String userId) {
+    User user = (User) getCacheAPI().get(CacheAPI.CacheConfig.USER_CACHE, userId);
+    if (user == null) {
+      user = getAdminDAO().getUser(userId);
+      if (user != null) {
+        getCacheAPI().put(CacheAPI.CacheConfig.USER_CACHE, userId, user);
+      }
+    }
+    return user;
   }
 
   @Override
@@ -74,16 +92,6 @@ public class AdminAPIImpl implements AdminAPI {
     this.adminDAO = adminDAO;
   }
 
-  @Override
-  public User getUser(String userId) {
-    User user = (User) getCacheAPI().get(CacheAPI.CacheConfig.USER_CACHE, userId);
-    if (user == null) {
-      user = getAdminDAO().getUser(userId);
-      if (user != null) {
-        getCacheAPI().put(CacheAPI.CacheConfig.USER_CACHE, userId, user);
-      }
-    }
-    return user;
-  }
+
 
 }

@@ -34,7 +34,12 @@
 		<copy todir="${project.dist.dir}/WEB-INF/classes/spring">
 			<fileset dir="${project.resources.dir}/${project.env}/spring" />
 		</copy>
-
+    <copy todir="${project.dist.dir}/WEB-INF/classes">
+      <fileset dir="${project.resources.dir}/${project.env}/cache"/>
+    </copy>
+    <copy todir="${project.dist.dir}/WEB-INF/classes">
+      <fileset dir="${project.resources.dir}/${project.env}/i18n"/>
+    </copy>
 		<copy todir="${project.dist.dir}/WEB-INF">
 			<fileset dir="${project.resources.dir}/${project.env}/logging" />
 		</copy>
@@ -49,6 +54,11 @@
 				<include name="*.jar" />
 			</fileset>
 		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.activemq.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.json.root}">
 				<include name="*.jar" />
@@ -56,6 +66,11 @@
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.logger.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.infinispan.root}">
 				<include name="*.jar" />
 			</fileset>
 		</copy>
@@ -71,6 +86,11 @@
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.spring.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.acegi.root}">
 				<include name="*.jar" />
 			</fileset>
 		</copy>

@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
@@ -20,6 +21,7 @@ import java.util.Locale;
  *
  * @author adlakha.vaibhav
  */
+@Service
 public class MessageHelper implements PropertyResolving {
 
   private static Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);

@@ -9,6 +9,7 @@ import com.ds.domain.core.Plan;
 import com.ds.exception.FeatureNotAccessibleException;
 import com.ds.pact.dao.AdminDAO;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.InvalidParameterException;
 
@@ -17,7 +18,10 @@ import java.security.InvalidParameterException;
  */
 @Service
 public class FeatureAPIImpl implements FeatureAPI {
+
+  @Autowired
   private AdminDAO adminDAO;
+  @Autowired
   private CacheAPI cacheAPI;
 
   @Override

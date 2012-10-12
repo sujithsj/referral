@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * @author adlakha.vaibhav
  */
 @Service
-public class InfinispanCacheAPI implements CacheAPI {
+public class CacheAPIImpl implements CacheAPI {
 
   @Autowired
   private EmbeddedCacheManager cacheManager;

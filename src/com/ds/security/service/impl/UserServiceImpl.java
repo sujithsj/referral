@@ -18,6 +18,7 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -32,10 +33,14 @@ public class UserServiceImpl implements UserService {
 
   private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
+  @Autowired
   private UserDao userDao;
 
+  @Autowired
   private UserAPI userAPI;
+  @Autowired
   private CacheAPI cacheAPI;
+  @Autowired
   private SecurityAPI securityAPI;
 
   /*

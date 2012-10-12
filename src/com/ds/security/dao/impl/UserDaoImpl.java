@@ -6,12 +6,14 @@ import com.ds.domain.user.UserKarmaProfile;
 import com.ds.domain.user.UserSettings;
 import com.ds.impl.dao.BaseDaoImpl;
 import com.ds.security.dao.UserDao;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author adlakha.vaibhav
  */
+@Repository
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
   @SuppressWarnings("unchecked")

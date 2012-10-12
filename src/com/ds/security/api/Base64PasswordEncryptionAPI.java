@@ -1,11 +1,12 @@
 package com.ds.security.api;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Service;
 /**
  * @author adlakha.vaibhav
  */
+@Service
 public class Base64PasswordEncryptionAPI implements PasswordEncryptionAPI {
 
     public String decrypt(String encryptedPassword) {

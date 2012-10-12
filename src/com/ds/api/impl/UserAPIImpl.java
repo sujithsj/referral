@@ -4,13 +4,18 @@ import com.ds.api.CacheAPI;
 import com.ds.api.UserAPI;
 import com.ds.domain.user.UserSettings;
 import com.ds.security.dao.UserDao;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author adlakha.vaibhav
  */
+@Service
 public class UserAPIImpl implements UserAPI {
 
+  @Autowired
   private UserDao userDao;
+  @Autowired
   private CacheAPI cacheAPI;
 
 
