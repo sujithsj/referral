@@ -1,4 +1,4 @@
-package com.ds.domain.core.event;
+package com.ds.core.event;
 
 import java.io.Serializable;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.ds.domain.core.event;
+package com.ds.core.event;
 
 import com.ds.exception.DSException;
 import com.ds.impl.service.ServiceLocatorFactory;

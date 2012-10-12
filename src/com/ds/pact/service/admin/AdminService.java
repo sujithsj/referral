@@ -1,7 +1,6 @@
 package com.ds.pact.service.admin;
 
 import com.ds.domain.company.Company;
-import com.ds.domain.core.GAAuthInfo;
 import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
@@ -42,12 +41,12 @@ public interface AdminService {
    * @param rows  no of vendors ot be returned
    * @return
    */
-  public List<Company> getAllVendors(int start, int rows);
+  /*public List<Company> getAllVendors(int start, int rows);*/
 
   /**
    * @return the No of Vendors
    */
-  public int getNoOfVendors();
+  /*public int getNoOfVendors();*/
 
   /**
    * Register a new employee for the company in the system
@@ -311,7 +310,7 @@ public interface AdminService {
    * @param company
    * @param gaAuthInfo
    */
-  public void configureGoogleAnalytics(Company company, GAAuthInfo gaAuthInfo);
+  /*public void configureGoogleAnalytics(Company company, GAAuthInfo gaAuthInfo);*/
 
   /**
    * Get information like ip, latitude, longitude etc for the user specified by userName.

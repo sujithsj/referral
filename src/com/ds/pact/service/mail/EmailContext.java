@@ -1,6 +1,6 @@
 package com.ds.pact.service.mail;
 
-import com.ds.domain.core.event.SmartSerializable;
+import com.ds.core.event.SmartSerializable;
 
 /**
  * @author adlakha.vaibhav

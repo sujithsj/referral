@@ -1,6 +1,6 @@
 package com.ds.pact.service.mail;
 
-import com.ds.domain.core.event.EmailEvent;
+import com.ds.core.event.EmailEvent;
 
 import javax.mail.internet.MimeMessage;
 

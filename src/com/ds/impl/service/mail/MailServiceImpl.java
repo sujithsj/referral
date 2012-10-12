@@ -1,7 +1,7 @@
 package com.ds.impl.service.mail;
 
 import com.ds.domain.core.Properties;
-import com.ds.domain.core.event.EmailEvent;
+import com.ds.core.event.EmailEvent;
 import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.pact.service.admin.LoadPropertyService;
 import com.ds.pact.service.mail.MailService;

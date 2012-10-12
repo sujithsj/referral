@@ -1,6 +1,8 @@
 package com.ds.security.dao.impl;
 
+import com.ds.domain.user.ThirdPartyAuth;
 import com.ds.domain.user.User;
+import com.ds.domain.user.UserKarmaProfile;
 import com.ds.domain.user.UserSettings;
 import com.ds.impl.dao.BaseDaoImpl;
 import com.ds.security.dao.UserDao;
@@ -21,11 +23,11 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     return findByQuery("from User where username!='admin'");
   }
 
-  /*public List<ThirdPartyAuth> getThirdPartyAuth(String userName) {
+  public List<ThirdPartyAuth> getThirdPartyAuth(String userName) {
     String hql = " from ThirdPartyAuth where user.username = ?";
 
-    return find(hql, new Object[]{userName});
-  }*/
+    return findByQuery(hql, new Object[]{userName});
+  }
 
   @Override
   public UserSettings getUserSettings(String userName) {
@@ -34,12 +36,12 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     return getByQuery(hql, new Object[]{userName});
   }
 
-  /*@Override
+  @Override
   public UserKarmaProfile getUserKarmaProfile(String userName, String companyShortName) {
     String hql = " from UserKarmaProfile where userName = ? and companyShortName = ?";
 
     return getByQuery(hql, new Object[]{userName, companyShortName});
-  }*/
+  }
 
   @Override
   public void saveOrUpdateUserSettings(UserSettings userSettings) {

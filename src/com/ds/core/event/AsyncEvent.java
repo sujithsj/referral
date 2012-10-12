@@ -1,4 +1,4 @@
-package com.ds.domain.core.event;
+package com.ds.core.event;
 
 /**
  * @author adlakha.vaibhav

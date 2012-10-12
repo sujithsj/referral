@@ -3,10 +3,12 @@ package com.ds.impl.service.admin;
 import com.ds.api.AdminAPI;
 import com.ds.api.CacheAPI;
 import com.ds.api.FeatureAPI;
+import com.ds.core.event.EmailEvent;
+import com.ds.core.event.EventDispatcher;
+import com.ds.core.event.UserLoginEmailConfirmationRequestEvent;
 import com.ds.core.transaction.RequiresNewTemplate;
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Role;
-import com.ds.domain.core.event.EmailEvent;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
@@ -369,13 +371,13 @@ public class AdminServiceImpl implements AdminService {
    *
    * @return
    */
-  public String getActivationLink() {
+  /*public String getActivationLink() {
     return activationLink;
   }
 
   public void setActivationLink(String activationLink) {
     this.activationLink = activationLink;
-  }
+  }*/
 
   /*@Override
   public void createForm(Form form) {
@@ -679,7 +681,7 @@ public class AdminServiceImpl implements AdminService {
     this.eventDispatcher = eventDispatcher;
   }
 
-  @Override
+  /*@Override
   public void configureGoogleAnalytics(Company company, GAAuthInfo gaAuthInfo) {
     // if there is existing GAAuthInfo lets get rid of it
     if (company.getGaAuthInfo() != null) {
@@ -687,7 +689,7 @@ public class AdminServiceImpl implements AdminService {
     }
     company.setGaAuthInfo(gaAuthInfo);
     getAdminDAO().update(company);
-  }
+  }*/
 
   @Override
   public void resetEmployeePassword(final String userEmail) {

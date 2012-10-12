@@ -3,8 +3,11 @@ package com.ds.domain.user;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,15 +24,18 @@ public class User implements java.io.Serializable {
   // userName
   private String fullName;
 
+  private Set<ThirdPartyAuth> thirdPartyAuths = new HashSet<ThirdPartyAuth>();
 
-  
+  @XmlTransient
+  private Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
 
   private boolean accountNonExpired = true;
   private boolean accountNonLocked = true;
   private boolean credentialsNonExpired = true;
   private boolean enabled = false;
 
-  
+
   private Set<String> roleNames = new HashSet<String>();
 
   private String email;
@@ -64,6 +70,16 @@ public class User implements java.io.Serializable {
     this.username = username;
   }
 
+
+  @XmlTransient
+  public void setAuthorities(Collection<GrantedAuthority> authorities) {
+    this.authorities = authorities;
+  }
+
+  @XmlTransient
+  public Collection<GrantedAuthority> getAuthorities() {
+    return authorities;
+  }
 
 
   public boolean isAccountNonExpired() {

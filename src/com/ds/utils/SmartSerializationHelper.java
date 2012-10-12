@@ -1,6 +1,6 @@
 package com.ds.utils;
 
-import com.ds.domain.core.event.SmartSerializable;
+import com.ds.core.event.SmartSerializable;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
