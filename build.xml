@@ -34,6 +34,9 @@
 		<copy todir="${project.dist.dir}/WEB-INF/classes/spring">
 			<fileset dir="${project.resources.dir}/${project.env}/spring" />
 		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/classes/hibernate">
+			<fileset dir="${project.resources.dir}/${project.env}/hibernate" />
+		</copy>
     <copy todir="${project.dist.dir}/WEB-INF/classes">
       <fileset dir="${project.resources.dir}/${project.env}/cache"/>
     </copy>

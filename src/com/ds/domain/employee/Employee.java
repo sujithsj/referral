@@ -11,8 +11,8 @@ import java.util.Set;
 /**
  * @author vaibhav.adlakha
  */
-@Entity
-@Table(name = "employee", uniqueConstraints = @UniqueConstraint(columnNames = "EMPLOYEEID"))
+/*@Entity
+@Table(name = "employee", uniqueConstraints = @UniqueConstraint(columnNames = "EMPLOYEEID"))*/
 public class Employee implements java.io.Serializable {
 
 

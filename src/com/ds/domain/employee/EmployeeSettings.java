@@ -8,8 +8,8 @@ import java.util.Set;
 /**
  * @author vaibhav.adlakha
  */
-@Entity
-@Table(name = "employee_settings")
+/*@Entity
+@Table(name = "employee_settings")*/
 public class EmployeeSettings implements java.io.Serializable {
 
 

@@ -11,8 +11,10 @@ import java.util.Set;
 /**
  * @author vaibhav.adlakha
  */
+/*
 @Entity
 @Table(name = "company")
+*/
 public class Company implements java.io.Serializable {
 
 
@@ -58,12 +60,14 @@ public class Company implements java.io.Serializable {
   @Version
   private Long lockVersion;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
+  //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
+  @Transient
   private Set<Employee> employees = new HashSet<Employee>(0);
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
+  //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
+  @Transient
   private Set<CompanySettings> companySettings = new HashSet<CompanySettings>(0);
-
+    @Transient
   private Set<Feature> features = new HashSet<Feature>();
 
   public Long getId() {

@@ -1,16 +1,13 @@
-package com.hk.domain;
+package com.ds.domain;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-import com.hk.domain.core.JSONObject;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name = "product")
-public class Product extends JSONObject {
+/*@Entity
+@Table(name = "product")*/
+public class Product  {
 
     @Id
     @Column(name = "id", unique = true, nullable = false, length = 20)
@@ -46,7 +43,7 @@ public class Product extends JSONObject {
         this.thumbUrl = thumbUrl;
     }
 
-    @Override
+    /*@Override
     protected String[] getKeys() {
         return new String[]{"id","turl","nm"};
     }
@@ -54,6 +51,6 @@ public class Product extends JSONObject {
     @Override
     protected Object[] getValues() {
         return new Object[]{id,thumbUrl,name};
-    }
+    }*/
 
 }

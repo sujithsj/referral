@@ -7,8 +7,8 @@ import java.util.Set;
 /**
  * @author vaibhav.adlakha
  */
-@Entity
-@Table(name = "role")
+/*@Entity
+@Table(name = "role")*/
 public class Role implements java.io.Serializable {
 
 

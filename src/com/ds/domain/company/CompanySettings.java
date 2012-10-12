@@ -6,8 +6,8 @@ import javax.persistence.*;
 /**
  * @author vaibhav.adlakha
  */
-@Entity
-@Table(name = "company_settings")
+/*@Entity
+@Table(name = "company_settings")*/
 public class CompanySettings implements java.io.Serializable {
 
 

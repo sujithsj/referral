@@ -6,8 +6,8 @@ import javax.persistence.*;
 /**
  * @author vaibhav.adlakha
  */
-@Entity
-@Table(name = "feature")
+/*@Entity
+@Table(name = "feature")*/
 public class Feature implements java.io.Serializable {
 
 

@@ -6,8 +6,8 @@ import javax.persistence.*;
 /**
  * @author vaibhav.adlakha
  */
-@Entity
-@Table(name = "permission")
+/*@Entity
+@Table(name = "permission")*/
 public class Permission implements java.io.Serializable {
 
 
