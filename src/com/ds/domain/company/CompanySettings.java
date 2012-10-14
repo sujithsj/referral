@@ -1,8 +1,6 @@
 package com.ds.domain.company;
 
 
-import javax.persistence.*;
-
 /**
  * @author vaibhav.adlakha
  */
@@ -11,102 +9,102 @@ import javax.persistence.*;
 public class CompanySettings implements java.io.Serializable {
 
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID", unique = true, nullable = false)
-  private Long id;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "COMPANY_ID", nullable = false)
+  private long id;
+  private long gaCustomVarNumber;
   private Company company;
 
-
-  @Column(name = "GA_CUSTOM_VAR_NO")
-  private Long gaCustomVarNo;
-
-
-  @Column(name = "DEFAULT_PUBLISH", length = 1)
+  // whether by default we should publish all customer feebacks publicly, obviously it doesnt stop profanity filter
+  // from being applied
   private boolean defaultPublish;
 
-
-  @Column(name = "COMPANY_SHORT_NAME", nullable = false, length = 50)
-  private String companyShortName;
-
-
-  @Column(name = "API_KEY", length = 500)
   private String apiKey;
 
-
-  @Column(name = "DOMAIN_ALIAS_URL", length = 500)
+  // Basically if company is using domain aliasing then we can use this in urls which we send out in emails and
+  // internal navigation
   private String domainAliasUrl;
 
-
-  @Column(name = "LOCK_VERSION", nullable = false)
-  @Version
-  private Long lockVersion;
-
-  public Long getId() {
-    return this.id;
+  /**
+   * @return the id
+   */
+  public long getId() {
+    return id;
   }
 
-  public void setId(Long id) {
+  /**
+   * @param id the id to set
+   */
+  public void setId(long id) {
     this.id = id;
   }
 
-  public Company getCompany() {
-    return this.company;
+  /**
+   * @return the gaCustomVarNumber
+   */
+  public long getGaCustomVarNumber() {
+    return gaCustomVarNumber;
   }
 
+  /**
+   * @param gaCustomVarNumber the gaCustomVarNumber to set
+   */
+  public void setGaCustomVarNumber(long gaCustomVarNumber) {
+    this.gaCustomVarNumber = gaCustomVarNumber;
+  }
+
+  /**
+   * @return the company
+   */
+  public Company getCompany() {
+    return company;
+  }
+
+  /**
+   * @param company the company to set
+   */
   public void setCompany(Company company) {
     this.company = company;
   }
 
-  public Long getGaCustomVarNo() {
-    return this.gaCustomVarNo;
-  }
-
-  public void setGaCustomVarNo(Long gaCustomVarNo) {
-    this.gaCustomVarNo = gaCustomVarNo;
-  }
-
+  /**
+   * @return the defaultPublish
+   */
   public boolean isDefaultPublish() {
     return defaultPublish;
   }
 
+  /**
+   * @param defaultPublish the defaultPublish to set
+   */
   public void setDefaultPublish(boolean defaultPublish) {
     this.defaultPublish = defaultPublish;
   }
 
-  public String getCompanyShortName() {
-    return this.companyShortName;
-  }
-
-  public void setCompanyShortName(String companyShortName) {
-    this.companyShortName = companyShortName;
-  }
-
+  /**
+   * @return the apiKey
+   */
   public String getApiKey() {
-    return this.apiKey;
+    return apiKey;
   }
 
+  /**
+   * @param apiKey the apiKey to set
+   */
   public void setApiKey(String apiKey) {
     this.apiKey = apiKey;
   }
 
+  /**
+   * @return the domainAliasUrl
+   */
   public String getDomainAliasUrl() {
-    return this.domainAliasUrl;
+    return domainAliasUrl;
   }
 
+  /**
+   * @param domainAliasUrl the domainAliasUrl to set
+   */
   public void setDomainAliasUrl(String domainAliasUrl) {
     this.domainAliasUrl = domainAliasUrl;
-  }
-
-  public Long getLockVersion() {
-    return this.lockVersion;
-  }
-
-  public void setLockVersion(Long lockVersion) {
-    this.lockVersion = lockVersion;
   }
 
 

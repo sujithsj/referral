@@ -1,8 +1,6 @@
 package com.ds.domain.core;
 
 
-import javax.persistence.*;
-
 /**
  * @author vaibhav.adlakha
  */
@@ -11,50 +9,23 @@ import javax.persistence.*;
 public class Feature implements java.io.Serializable {
 
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID", unique = true, nullable = false)
-  private Long id;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "PLAN_ID", nullable = false)
+  private long id;
+  // optional name to describe the feature
+  private String name;
+  private String featureType;
+  private int count;
   private Plan plan;
 
-
-  @Column(name = "NAME", nullable = false)
-  private String name;
-
-
-  @Column(name = "FEATURE_TYPE", nullable = false)
-  private String featureType;
-
-
-  @Column(name = "COUNT")
-  private Long count;
-
-
-  @Column(name = "LOCK_VERSION", nullable = false)
-  @Version
-  private Long lockVersion;
-
-  public Long getId() {
-    return this.id;
+  public long getId() {
+    return id;
   }
 
-  public void setId(Long id) {
+  public void setId(long id) {
     this.id = id;
   }
 
-  public Plan getPlan() {
-    return this.plan;
-  }
-
-  public void setPlan(Plan plan) {
-    this.plan = plan;
-  }
-
   public String getName() {
-    return this.name;
+    return name;
   }
 
   public void setName(String name) {
@@ -62,27 +33,51 @@ public class Feature implements java.io.Serializable {
   }
 
   public String getFeatureType() {
-    return this.featureType;
+    return featureType;
   }
 
   public void setFeatureType(String featureType) {
     this.featureType = featureType;
   }
 
-  public Long getCount() {
-    return this.count;
+  /**
+   * @return the count
+   */
+  public int getCount() {
+    return count;
   }
 
-  public void setCount(Long count) {
+  /**
+   * @param count the count to set
+   */
+  public void setCount(int count) {
     this.count = count;
   }
 
-  public Long getLockVersion() {
-    return this.lockVersion;
+  public Plan getPlan() {
+    return plan;
   }
 
-  public void setLockVersion(Long lockVersion) {
-    this.lockVersion = lockVersion;
+  public void setPlan(Plan plan) {
+    this.plan = plan;
+  }
+
+  public boolean equals(Object obj) {
+    if (obj instanceof Feature == false)
+      return false;
+
+    Feature other = (Feature) obj;
+    if (this.getId() > 0 && other.getId() > 0)
+      return this.getId() == other.getId();
+
+    return new EqualsBuilder().append(getName(), other.getName()).append(getFeatureType(), other.getFeatureType()).append(getCount(), other.getCount()).isEquals();
+  }
+
+  public int hashCode() {
+    if (getId() > 0) {
+      return new HashCodeBuilder().append(getId()).toHashCode();
+    }
+    return new HashCodeBuilder().append(getName()).append(getFeatureType()).append(getCount()).toHashCode();
   }
 
 
