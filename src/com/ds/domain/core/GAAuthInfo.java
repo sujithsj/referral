@@ -1,5 +1,6 @@
 package com.ds.domain.core;
 
+import com.ds.domain.BaseDataObject;
 import com.ds.domain.company.Company;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -7,7 +8,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * @author adlakha.vaibhav
  */
-public class GAAuthInfo {
+public class GAAuthInfo extends BaseDataObject {
   private Long id;
   private String userName;
   private String password;

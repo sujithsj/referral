@@ -1,12 +1,14 @@
 package com.ds.domain.company;
 
+import com.ds.domain.BaseDataObject;
+
 
 /**
  * @author vaibhav.adlakha
  */
 /*@Entity
 @Table(name = "company_settings")*/
-public class CompanySettings implements java.io.Serializable {
+public class CompanySettings extends BaseDataObject{
 
 
   private long id;

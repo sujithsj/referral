@@ -1,12 +1,16 @@
 package com.ds.domain.core;
 
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import com.ds.domain.BaseDataObject;
+
 /**
  * @author vaibhav.adlakha
  */
 /*@Entity
 @Table(name = "feature")*/
-public class Feature implements java.io.Serializable {
+public class Feature extends BaseDataObject {
 
 
   private long id;

@@ -1,6 +1,7 @@
 package com.ds.domain.company;
 
 
+import com.ds.domain.BaseDataObject;
 import com.ds.domain.core.Feature;
 import com.ds.domain.core.FileAttachment;
 import com.ds.domain.core.GAAuthInfo;
@@ -19,7 +20,7 @@ import java.util.Set;
 @Entity
 @Table(name = "company")
 */
-public class Company implements java.io.Serializable {
+public class Company extends BaseDataObject {
 
 
   private String name;
