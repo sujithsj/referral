@@ -183,7 +183,7 @@
 			<jdbcconfiguration
 					configurationfile="${project.resources.dir}/dev/hbm/hibernate.master.cfg.xml"
 					revengfile="${project.resources.dir}/dev/hbm//hibernate.reveng.xml"
-					packagename="com.hk.domain"
+					packagename="com.ds.domain"
 					/>
 			<hbm2java jdk5="true" ejb3="true" destdir="${project.root.dir}/out/generated"/>
 		</hibernatetool>
