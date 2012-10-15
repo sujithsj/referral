@@ -47,18 +47,12 @@
         <prop key="hibernate.connection.release_mode">
           on_close
         </prop>
-        <prop key="hibernate.connection.isolation">1</prop>
+        <prop key="hibernate.connection.isolation">2</prop>
         <prop
             key="hibernate.bytecode.use_reflection_optimizer">
           true
         </prop>
-        <!--  <prop key="hibernate.cache.region.factory_class">
-              net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory
-            </prop>
-
-            <prop key="cache.use_second_level_cache">true</prop>
-            <prop key="hibernate.cache.use_query_cache">false</prop>
-            -->
+       
       </props>
     </property>
 
@@ -116,6 +110,7 @@
       <value>50</value>
     </property>
     <property name="poolPreparedStatements" value="true"/>
+    <property name="defaultTransactionIsolation" value="2" />
     <property name="maxOpenPreparedStatements" value="30"/>
     <property name="timeBetweenEvictionRunsMillis" value="-1"/>
   </bean>

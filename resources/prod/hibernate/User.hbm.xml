@@ -15,9 +15,9 @@
  	<property name="originalImageUrl" type="string" column="ORIGINAL_IMAGE_URL" not-null="false"/>
  	<property name="thumbnailImageUrl" type="string" column="THUMBNAIL_IMAGE_URL" not-null="false"/>
 	<property name="companyShortName" type="string" column="COMPANY_SHORT_NAME" />
-	<property name="karmaProfileId" type="long" column="KARMA_PROFILE_ID" />
+	<!--<property name="karmaProfileId" type="long" column="KARMA_PROFILE_ID" />-->
 	<property name="userSettingsId" type="long" column="USER_SETTINGS_ID" />
-	<property name="logoId" type="long" column="LOGO_FILE_ID" />
+	<!--<property name="logoId" type="long" column="LOGO_FILE_ID" />-->
 	 	
  	<property name="accountNonExpired" type="boolean"
  		column="ACCOUNT_NON_EXPIRED" />
