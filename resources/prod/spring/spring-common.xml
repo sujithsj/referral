@@ -3,34 +3,200 @@
 
 <!-- This xml will contain the common bean configurations -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context-3.0.xsd 
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<context:annotation-config />
-	<context:component-scan base-package="com.hk" />
-	<tx:annotation-driven transaction-manager="transactionManager" />
+  <context:annotation-config/>
+  <context:component-scan base-package="com.ds"/>
+  <tx:annotation-driven transaction-manager="transactionManager"/>
 
-	<bean id="transactionTemplate"
-		class="org.springframework.transaction.support.TransactionTemplate"
-		lazy-init="true">
-		<property name="transactionManager">
-			<ref bean="transactionManager" />
-		</property>
-	</bean>
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-		<property name="nestedTransactionAllowed" value="true" />
-	</bean>
-    
+  <bean id="serviceLocatorFactory"
+        class="com.ds.impl.service.ServiceLocatorFactory"/>
+
+
+  <bean id="transactionProxyFactoryBean"
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+        abstract="true">
+    <property name="transactionManager">
+      <ref bean="transactionManager"/>
+    </property>
+  </bean>
+
+  <bean id="transactionTemplate"
+        class="org.springframework.transaction.support.TransactionTemplate"
+        lazy-init="true">
+    <property name="transactionManager">
+      <ref bean="transactionManager"/>
+    </property>
+  </bean>
+
+  <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+    <property name="nestedTransactionAllowed" value="true"/>
+  </bean>
+
+  <bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basenames">
+      <list>
+        <value>ds_validations</value>
+      </list>
+    </property>
+  </bean>
+
+
+  <bean
+      class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="targetObject">
+      <bean class="com.ds.i18n.MessageHelper"/>
+    </property>
+    <property name="targetMethod">
+      <value>setMessageSource</value>
+    </property>
+    <property name="arguments">
+      <list>
+        <ref bean="messageSource"/>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="eventDispatcher" class="com.ds.core.event.DefaultEventDispatcher" lazy-init="true">
+    <!--<property name="syncEventListenerRegistry">
+      <map>
+        <entry key="FeedbackGivenEvent">
+          <list>
+            <ref bean="feedbackListener"/>
+          </list>
+        </entry>
+      </map>
+    </property>
+    <property name="asyncEventListenerRegistry">
+      <map>
+        <entry key="PostStatusChangedEvent">
+          <list>
+            <ref bean="followerListener"/>
+            <ref bean="postHistoryListener"/>
+          </list>
+        </entry>
+        <entry key="IssueCreatedForPostEvent">
+          <list>
+            <ref bean="postHistoryListener"/>
+          </list>
+        </entry>
+        <entry key="IssueStatusChangedForPostEvent">
+          <list>
+            <ref bean="postHistoryListener"/>
+          </list>
+        </entry>
+        <entry key="PostAssignedEvent">
+          <list>
+            <ref bean="postHistoryListener"/>
+          </list>
+        </entry>
+        <entry key="PostMarkedSpamEvent">
+          <list>
+            <ref bean="postHistoryListener"/>
+          </list>
+        </entry>
+        <entry key="PostUnMarkedSpamEvent">
+          <list>
+            <ref bean="postHistoryListener"/>
+          </list>
+        </entry>
+        <entry key="FeedbackGivenEvent">
+          <list>
+            <ref bean="assignKarmaPointsListener"/>
+            <ref bean="profanityListener"/>
+            <ref bean="postEmailNotificationListener"/>
+          </list>
+        </entry>
+        <entry key="PostEvent">
+          <list>
+            <ref bean="deletePostFromSearchIndexListener"/>
+          </list>
+        </entry>
+        <entry key="FollowPostEvent">
+          <list>
+            <ref bean="assignKarmaPointsListener"/>
+          </list>
+        </entry>
+        <entry key="CommentGivenEvent">
+          <list>
+            <ref bean="assignKarmaPointsListener"/>
+            <ref bean="followerListener"/>
+            <ref bean="postCommentEmailNotificationListener"/>
+          </list>
+        </entry>
+        <entry key="VoteEvent">
+          <list>
+            <ref bean="assignKarmaPointsListener"/>
+          </list>
+        </entry>
+        <entry key="AnswerEvent">
+          <list>
+            <ref bean="followerListener"/>
+          </list>
+        </entry>
+        <entry key="LogRolloverEvent">
+          <list>
+            <ref bean="logRolloverEventListener"/>
+          </list>
+        </entry>
+        <entry key="GravatarConfigureImageEvent">
+          <list>
+            <ref bean="gravatarConfigureImageListener"/>
+          </list>
+        </entry>
+        <entry key="ConfigureImageEvent">
+          <list>
+            <ref bean="associateUserImageListener"/>
+          </list>
+        </entry>
+        <entry key="UserLoginEmailConfirmationRequestEvent">
+          <list>
+            <ref bean="userLoginEmailConfirmationRequestListener"/>
+          </list>
+        </entry>
+        <entry key="ClaimRewardEvent">
+          <list>
+            <ref bean="claimRewardEventListener"/>
+          </list>
+        </entry>
+      </map>
+    </property>-->
+    <property name="jmsTemplate">
+      <ref bean="jmsTemplate"/>
+    </property>
+    <property name="eventQueue">
+      <ref bean="eventQueue"/>
+    </property>
+  </bean>
+
+  
+
+  <bean id="requiresNewTemplateImpl" class="com.ds.core.transaction.RequiresNewTemplate">
+  </bean>
+
+  <bean id="requiresNewTemplate" parent="transactionProxyFactoryBean">
+    <property name="target">
+      <ref local="requiresNewTemplateImpl"/>
+    </property>
+    <property name="transactionAttributes">
+      <props>
+        <prop key="*">PROPAGATION_REQUIRES_NEW</prop>
+      </props>
+    </property>
+  </bean>
+
 </beans>

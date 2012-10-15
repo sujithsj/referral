@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/security
+			http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+
+	<http>
+		<intercept-url pattern="/admin/login*"
+			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER" />
+		<intercept-url pattern="/html/admin/login.xhtml*"
+			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER" />
+		<intercept-url pattern="/html/admin/*" access="ROLE_EMPLOYEE" />
+		<intercept-url pattern="/html/admin/store/*" access="ROLE_EMPLOYEE" />
+		<intercept-url pattern="/admin/*" access="ROLE_EMPLOYEE" />
+		<intercept-url pattern="/company*"
+			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER,ROLE_EMPLOYEE" />
+		<intercept-url pattern=" /j_ascend_security_check*"
+			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER,ROLE_EMPLOYEE" />
+		<intercept-url pattern="/**" filters="none" />
+		<form-login login-page="/admin/login"
+			authentication-success-handler-ref="authenticationSuccessRedirectHandler"
+			authentication-failure-handler-ref="authenticationFailureRedirectHandler" />
+		<anonymous />
+		<custom-filter ref="transactionFilter" before="CHANNEL_FILTER" />
+		<!--<custom-filter ref="SSOFilter" after="FIRST" />
+		<custom-filter ref="trackUserDetailsFilter" after="LAST" />
+		<remember-me services-ref="rememberMeServices" />
+
+		<custom-filter ref="userRulesLogoutFilter" position="LOGOUT_FILTER" />-->
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userService">
+			<password-encoder hash="md5" base64="true">
+				<salt-source user-property="username" />
+			</password-encoder>
+		</authentication-provider>
+
+	</authentication-manager>
+
+	<beans:bean id="authenticationSuccessRedirectHandler"
+		class="com.ds.security.web.AuthenticationSuccessRedirectHandler">
+		<beans:property name="defaultTargetUrl" value="/admin/dashboard" />
+	</beans:bean>
+
+	<beans:bean id="authenticationFailureRedirectHandler"
+		class="com.ds.security.web.AuthenticationFailureRedirectHandler">
+		<beans:property name="defaultFailureUrl" value="/admin/login?authException=true" />
+		<beans:property name="useForward" value="false" />
+	</beans:bean>
+
+
+	<beans:bean id="messageDigestPasswordEncoder"
+		class="org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder">
+		<beans:constructor-arg index="0">
+			<beans:value>md5</beans:value>
+		</beans:constructor-arg>
+		<beans:constructor-arg index="1">
+			<beans:value>true</beans:value>
+		</beans:constructor-arg>
+	</beans:bean>
+
+	<!--<beans:bean id="userRulesLogoutFilter"
+		class="com.userrules.security.UserRulesLogoutFilter">
+		<beans:constructor-arg>
+			<beans:list>
+				<beans:bean
+					class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+				<beans:ref bean="rememberMeServices" />
+			</beans:list>
+		</beans:constructor-arg>
+		<beans:property name="redirectURL" value="/admin/login" />
+	</beans:bean>-->
+
+	<beans:bean id="transactionFilter"
+		class="com.ds.web.filter.TransactionInterceptorFilter" />
+	<!--<beans:bean id="SSOFilter" class="com.userrules.core.web.SSOFilter" />-->
+	<!--<beans:bean id="trackUserDetailsFilter"
+		class="com.userrules.core.web.analytics.TrackUserDetailsFilter" />-->
+
+	<beans:bean id="userService" parent="transactionProxyFactoryBean">
+		<beans:property name="target">
+			<beans:ref bean="userServiceImpl" />
+		</beans:property>
+		<beans:property name="transactionAttributes">
+			<beans:props>
+				<beans:prop key="*">PROPAGATION_REQUIRED</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
+
+
+
+
+	<beans:bean id="securityAPI" class="com.ds.security.api.SecurityAPIImpl">
+		<beans:property name="securityDao">
+			<beans:ref bean="securityDao" />
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="securityDao"
+		class="com.ds.security.dao.impl.SecurityDaoImpl">
+		<beans:property name="hibernateTemplate">
+			<beans:ref bean="hibernateTemplate" />
+		</beans:property>
+	</beans:bean>
+
+
+
+	<beans:bean id="rememberMeServices"
+		class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+		<beans:property name="userDetailsService">
+			<beans:ref bean="userService" />
+		</beans:property>
+		<beans:property name="alwaysRemember" value="true" />
+		<beans:property name="key" value="Userrules" />
+	</beans:bean>
+
+
+
+</beans:beans>

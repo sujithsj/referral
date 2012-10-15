@@ -1,4 +1,4 @@
-<project name="HK Web" basedir="." default="build">
+<project name="DS" basedir="." default="build">
 
 	<property file="build.properties" />
   <property file="environmentLocator.properties" />
@@ -34,7 +34,15 @@
 		<copy todir="${project.dist.dir}/WEB-INF/classes/spring">
 			<fileset dir="${project.resources.dir}/${project.env}/spring" />
 		</copy>
-
+    <copy todir="${project.dist.dir}/WEB-INF/classes/hibernate">
+			<fileset dir="${project.resources.dir}/${project.env}/hibernate" />
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/classes">
+      <fileset dir="${project.resources.dir}/${project.env}/cache"/>
+    </copy>
+    <copy todir="${project.dist.dir}/WEB-INF/classes">
+      <fileset dir="${project.resources.dir}/${project.env}/i18n"/>
+    </copy>
 		<copy todir="${project.dist.dir}/WEB-INF">
 			<fileset dir="${project.resources.dir}/${project.env}/logging" />
 		</copy>
@@ -49,6 +57,11 @@
 				<include name="*.jar" />
 			</fileset>
 		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.activemq.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.json.root}">
 				<include name="*.jar" />
@@ -56,6 +69,11 @@
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.logger.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.infinispan.root}">
 				<include name="*.jar" />
 			</fileset>
 		</copy>
@@ -74,8 +92,18 @@
 				<include name="*.jar" />
 			</fileset>
 		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.acegi.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.thirdParty.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.stripes.root}">
 				<include name="*.jar" />
 			</fileset>
 		</copy>
@@ -132,6 +160,14 @@
 		<delete dir="${package.target.dir}" />
 		<delete dir="${project.dist.dir}" />
 	</target>
+
+  <target name="web" description="build production WAR">
+    <copy todir="${project.dist.dir}">
+      <fileset dir="${project.view.dir}">
+        <include name="**/**"/>
+      </fileset>
+    </copy>
+  </target>
 
 	<!-- Check timestamp on files -->
 	<target name="prepare">

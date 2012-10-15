@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
 	"http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
@@ -17,12 +17,21 @@
 		<property name="lobHandler">
 			<ref bean="lobHandler" />
 		</property>
-	
+
+		<!--<property name="mappingDirectoryLocations">
+			<ref bean="mappingDirectoryList" />
+			</property> -->
+
 		<property name="packagesToScan">
 			<list>
 				<value>com.hk.domain</value>
 			</list>
 		</property>
+
+
+		<!--<property name="typeDefinitions">
+			<ref bean="typeDefinitionList" />
+			</property>-->
 
 		<property name="entityInterceptor">
 			<ref local="defaultHibernateInterceptor" />
@@ -33,17 +42,27 @@
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.MySQL5InnoDBDialect
 				</prop>
-				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.connection.release_mode">
 					on_close
 				</prop>
-				<prop key="hibernate.connection.isolation">2</prop>
+				<prop key="hibernate.connection.isolation">1</prop>
 				<prop
 					key="hibernate.bytecode.use_reflection_optimizer">
 					true
 				</prop>
+				<!--  <prop key="hibernate.cache.region.factory_class">
+					net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory
+				</prop>
+
+				<prop key="cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				-->
 			</props>
 		</property>
+
+
 	</bean>
 
 
@@ -55,19 +74,35 @@
 	</bean>
 
 
+	<!--<bean id="mappingDirectoryList" class="java.util.ArrayList">
+		<constructor-arg>
+		<list>
+		<value>classpath:hibernate</value>
+		</list>
+		</constructor-arg>
+		</bean>-->
+
+
+
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName">
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:mysql://localhost:3306/kachra</value>
+			<value>jdbc:mysql://DB_SERVER:DB_PORT/DB_NAME</value>
 		</property>
 		<property name="username">
-			<value>root</value>
+			<value>DB_USERID</value>
 		</property>
 		<property name="password">
-			<value></value>
+			<value>DB_PASSWD</value>
+		</property>
+		<property name="maxActive">
+			<value>50</value>
+		</property>
+		<property name="maxWait">
+			<value>15000</value>
 		</property>
 		<property name="removeAbandoned">
 			<value>true</value>
@@ -81,7 +116,32 @@
 		<property name="initialSize">
 			<value>50</value>
 		</property>
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxOpenPreparedStatements" value="30" />
+		<property name="timeBetweenEvictionRunsMillis" value="-1" />
 	</bean>
+
+
+	<!--  bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass">
+		<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="jdbcUrl">
+		<value>jdbc:mysql://DB_SERVER:DB_PORT/DB_NAME</value>
+		</property>
+		<property name="properties">
+		<props>
+		<prop key="c3p0.acquire_increment">1</prop>
+		<prop key="c3p0.idle_test_period">100</prop>
+		<prop key="c3p0.max_size">100</prop>
+		<prop key="c3p0.max_statements">0</prop>
+		<prop key="c3p0.min_size">1</prop>
+		<prop key="user">DB_USERID</prop>
+		<prop key="password">DB_PASSWD</prop>
+		</props>
+		</property>
+		</bean>  -->
+
 
 	<bean id="defaultHibernateInterceptor"
 		class="org.hibernate.EmptyInterceptor" />

@@ -11,8 +11,9 @@
 	</session-config>
 
 	<welcome-file-list>
-		<welcome-file>/index.html</welcome-file>
+		<welcome-file>/pages/setup.jsp</welcome-file>
 	</welcome-file-list>
+
 
 	<!--  Listeners Start -->
 	<listener>
@@ -27,13 +28,132 @@
 		</listener-class>
 	</listener>
 
-	<!--  <listener>
+	<listener>
 		<display-name>Startup</display-name>
 		<listener-class>
-			com.hk.web.listener.HKStartupListener
-		</listener-class>
+      com.ds.web.listener.DSStartupListener
+    </listener-class>
 	</listener>
--->
+
+	<!--  Listeners End -->
+
+
+	<filter>
+		<filter-name>StripesFilter</filter-name>
+		<filter-class>
+			net.sourceforge.stripes.controller.StripesFilter
+		</filter-class>
+		<init-param>
+			<param-name>ActionResolver.Packages</param-name>
+			<param-value>com.ds.action</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Interceptor.Classes</param-name>
+			<param-value>
+				<!--org.stripesstuff.plugin.session.SessionStoreInterceptor,
+				com.akube.framework.stripes.controller.BreadcrumbInterceptor,-->
+				com.ds.web.interceptor.StripesSpringInterceptor
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Stripes.EncryptionKey</param-name>
+			<param-value>szsdvfmulwl#@$jfdhm38nszfn</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Extension.Packages</param-name>
+			<param-value>com.hk.admin.convertor</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ActionBeanPropertyBinder.Class</param-name>
+			<param-value>
+				net.sourceforge.stripes.controller.SafeActionBeanPropertyBinder
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>TypeConverterFactory.Class</param-name>
+			<param-value>
+        com.hk.admin.factory.SpringTypeConverterFactory
+      </param-value>
+		</init-param>
+		<!--<init-param>
+			<param-name>CoreInterceptor.Classes</param-name>
+			<param-value>
+				org.stripesstuff.plugin.security.SecurityInterceptor,
+				net.sourceforge.stripes.controller.BeforeAfterMethodInterceptor,
+				net.sourceforge.stripes.controller.HttpCacheInterceptor
+			</param-value>
+		</init-param>-->
+		<init-param>
+			<param-name>SecurityManager.Class</param-name>
+			<param-value>
+				org.stripesstuff.plugin.security.J2EESecurityManager
+			</param-value>
+		</init-param>
+		<!--<init-param>
+			<param-name>SecurityManager.AuthBeanClass</param-name>
+			<param-value>
+				com.hk.web.action.core.auth.LoginAction
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>SecurityManager.modal.AuthBeanClass</param-name>
+			<param-value>
+				com.hk.web.action.core.auth.LoggedOffModalAction
+			</param-value>
+		</init-param>-->
+		<init-param>
+			<param-name>SSL.Enabled</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>SSL.SecureHost</param-name>
+			<param-value>dev.healthkart.com</param-value>
+		</init-param>
+		<init-param>
+			<param-name>SSL.UnsecureHost</param-name>
+			<param-value>dev.healthkart.com</param-value>
+		</init-param>
+		<init-param>
+			<param-name>SSL.SessionMode</param-name>
+			<param-value>never</param-value>
+		</init-param>
+		<init-param>
+			<param-name>FileUpload.MaximumPostSize</param-name>
+			<param-value>50mb</param-value>
+		</init-param>
+
+	</filter>
+
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>
+			net.sourceforge.stripes.controller.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<filter-mapping>
+		<filter-name>StripesFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>StripesFilter</filter-name>
+		<servlet-name>StripesDispatcher</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+
+	<!--  Stripes end -->
+
+
 
 	<!--  Context Params Start -->
 
@@ -44,8 +164,9 @@
 
 	<context-param>
 		<param-name>resteasy.servlet.mapping.prefix</param-name>
-		<param-value>/rest/api</param-value>
+		<param-value>/api</param-value>
 	</context-param>
+
 
 	<!--  Context Params End -->
 
@@ -59,14 +180,39 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Resteasy</servlet-name>
-		<url-pattern>/rest/api/*</url-pattern>
+		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 
-	
+	<servlet>
+		<servlet-name>StripesDispatcher</servlet-name>
+		<servlet-class>
+			net.sourceforge.stripes.controller.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!--<servlet-mapping>
+		<servlet-name>StripesDispatcher</servlet-name>
+		<url-pattern>*.action</url-pattern>
+		<url-pattern>/action/*</url-pattern>
+	</servlet-mapping>-->
+
+
+	<!--  Servlet End -->
+
 	<!--  Filter Start -->
 
-	
-	<!--  <filter>
+	<!--<filter>
+		<filter-name>DisableUrlSessionFilter</filter-name>
+		<filter-class>
+			com.akube.framework.filter.DisableUrlSessionFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>DisableUrlSessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+
+	<filter>
 		<filter-name>OpenViewInSession</filter-name>
 		<filter-class>
 			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
@@ -76,7 +222,95 @@
 		<filter-name>OpenViewInSession</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<!--<filter>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>
+			org.apache.shiro.spring.SpringShiroFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+
+
+	<!--<filter>
+		<filter-name>AffiliateFilter</filter-name>
+		<filter-class>
+			com.hk.web.filter.AffiliateTrackingFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AffiliateFilter</filter-name>
+		<servlet-name>StripesDispatcher</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>/</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>CampaignTrackingFilter</filter-name>
+		<filter-class>
+			com.hk.web.filter.CampaignTrackingFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CampaignTrackingFilter</filter-name>
+		<servlet-name>StripesDispatcher</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>/</url-pattern>
+	</filter-mapping>-->
+
+	<!--<filter>
+		<filter-name>ServiceCityFilter</filter-name>
+		<filter-class>com.hk.web.filter.ServiceCityFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ServiceCityFilter</filter-name>
+		<servlet-name>StripesDispatcher</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>/services</url-pattern>
+	</filter-mapping>
 -->
 
+
+
+	<!--<filter>
+		<filter-name>RememberMeFilter</filter-name>
+		<filter-class>com.hk.web.filter.RememberMeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RememberMeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+
+	<!--<filter>
+		<description>
+			This filter class removes any whitespace from the response.
+			It actually trims all leading and trailing spaces or tabs
+			and newlines before writing to the response stream. This
+			will greatly save the network bandwith, but this will make
+			the source of the response more hard to read.
+		</description>
+		<filter-name>whitespaceFilter</filter-name>
+		<filter-class>com.hk.web.filter.WhitespaceFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>whitespaceFilter</filter-name>
+		<servlet-name>StripesDispatcher</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>/</url-pattern>
+	</filter-mapping>-->
+
+
+	<!--<filter>
+		<filter-name>WebContextFilter</filter-name>
+		<filter-class>com.hk.web.filter.WebContextFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>WebContextFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+-->
 
 </web-app>
