@@ -140,5 +140,41 @@
 		<tstamp />
 	</target>
 
+	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
+	         classpathref="compile.classpath"/>
+	<target name="hibernateGeneration">
+		<hibernatetool destdir="${project.root.dir}/out" templatepath="${lib.dependencies.dir}/hibernate-tools">
+			<jdbcconfiguration
+					configurationfile="${project.resources.dir}/dev/hbm/hibernate.master.cfg.xml"
+					revengfile="${project.resources.dir}/dev/hbm//hibernate.reveng.xml"
+					packagename="com.hk.domain"
+					/>
+			<hbm2java jdk5="true" ejb3="true" destdir="${project.root.dir}/out/generated"/>
+		</hibernatetool>
+	</target>
+
+	<!--<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
+	         classpathref="compile.classpath"/>
+	<target name="hibernateGeneration">
+		<hibernatetool destdir="${project.basedir}/test-output"
+		               templatepath="${lib.dependencies.dir}/hibernate-tools">
+			<jdbcconfiguration
+					configurationfile="${project.environment.dir}/hibernate.master.cfg.xml"
+					revengfile="${project.environment.dir}/hibernate.reveng.xml"
+					packagename="mhc.domain"
+					/>
+			<hbm2java jdk5="true" ejb3="true" destdir="${project.basedir}/test-output/generated"/>
+		</hibernatetool>
+		<hibernatetool destdir="${project.basedir}/test-output"
+		               templatepath="${project.basedir}/dependencies/hibernate-tools">
+			<jdbcconfiguration
+					configurationfile="${project.environment.dir}/hibernate.master.cfg.xml"
+					revengfile="${project.environment.dir}/hibernate.reveng.xml"
+					packagename="mhc.service.dao"
+					/>
+			<hbm2dao destdir="${project.basedir}/test-output/generated"/>
+		</hibernatetool>
+	</target> -->
+
 
 </project>
