@@ -8,8 +8,11 @@ import com.ds.domain.BaseDataObject;
 public class UserSettings extends BaseDataObject {
 
   private long id;
-  private boolean sendEmailOnPost;
-  private boolean sendEmailOnAssignedPost;
+  private boolean sendEmailOnAddAffiliate;
+  private boolean sendEmailOnTerminateAffiliate;
+  private boolean sendEmailOnJoinAffiliate;
+  private boolean sendEmailOnPayout;
+  private boolean sendEmailOnGoalConversion;
   private String username;
 
   /**
@@ -40,37 +43,53 @@ public class UserSettings extends BaseDataObject {
     this.username = username;
   }
 
-  /**
-   * @return the sendEmailOnPost
-   */
-  public boolean isSendEmailOnPost() {
-    return sendEmailOnPost;
-  }
-
-  /**
-   * @param sendEmailOnPost the sendEmailOnPost to set
-   */
-  public void setSendEmailOnPost(boolean sendEmailOnPost) {
-    this.sendEmailOnPost = sendEmailOnPost;
-  }
-
-  /**
-   * @return the sendEmailOnAssignedPost
-   */
-  public boolean isSendEmailOnAssignedPost() {
-    return sendEmailOnAssignedPost;
-  }
-
-  /**
-   * @param sendEmailOnAssignedPost the sendEmailOnAssignedPost to set
-   */
-  public void setSendEmailOnAssignedPost(boolean sendEmailOnAssignedPost) {
-    this.sendEmailOnAssignedPost = sendEmailOnAssignedPost;
-  }
 
   public void syncWith(UserSettings userSettings) {
-    this.sendEmailOnAssignedPost = userSettings.isSendEmailOnAssignedPost();
-    this.sendEmailOnPost = userSettings.isSendEmailOnPost();
+    this.sendEmailOnAddAffiliate = userSettings.isSendEmailOnAddAffiliate();
+    this.sendEmailOnTerminateAffiliate = userSettings.isSendEmailOnTerminateAffiliate();
+    this.sendEmailOnJoinAffiliate = userSettings.isSendEmailOnJoinAffiliate();
+    this.sendEmailOnPayout = userSettings.isSendEmailOnPayout();
+    this.sendEmailOnGoalConversion = userSettings.isSendEmailOnGoalConversion();
 
+  }
+
+  public boolean isSendEmailOnAddAffiliate() {
+    return sendEmailOnAddAffiliate;
+  }
+
+  public void setSendEmailOnAddAffiliate(boolean sendEmailOnAddAffiliate) {
+    this.sendEmailOnAddAffiliate = sendEmailOnAddAffiliate;
+  }
+
+  public boolean isSendEmailOnTerminateAffiliate() {
+    return sendEmailOnTerminateAffiliate;
+  }
+
+  public void setSendEmailOnTerminateAffiliate(boolean sendEmailOnTerminateAffiliate) {
+    this.sendEmailOnTerminateAffiliate = sendEmailOnTerminateAffiliate;
+  }
+
+  public boolean isSendEmailOnJoinAffiliate() {
+    return sendEmailOnJoinAffiliate;
+  }
+
+  public void setSendEmailOnJoinAffiliate(boolean sendEmailOnJoinAffiliate) {
+    this.sendEmailOnJoinAffiliate = sendEmailOnJoinAffiliate;
+  }
+
+  public boolean isSendEmailOnPayout() {
+    return sendEmailOnPayout;
+  }
+
+  public void setSendEmailOnPayout(boolean sendEmailOnPayout) {
+    this.sendEmailOnPayout = sendEmailOnPayout;
+  }
+
+  public boolean isSendEmailOnGoalConversion() {
+    return sendEmailOnGoalConversion;
+  }
+
+  public void setSendEmailOnGoalConversion(boolean sendEmailOnGoalConversion) {
+    this.sendEmailOnGoalConversion = sendEmailOnGoalConversion;
   }
 }

@@ -19,7 +19,7 @@ public interface AdminDAO extends BaseDao{
       *
       * @param company
       */
-     public void saveCompany(Company company);
+     public Company saveCompany(Company company);
 
      /**
       * Checks whether shortName is already taken by some company
