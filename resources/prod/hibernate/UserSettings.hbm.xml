@@ -6,9 +6,12 @@
  	</id>
     <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>        
  	
-    <property name="sendEmailOnPost" not-null="true" type="boolean" column="SEND_EMAIL_ON_POST"/>
-    <property name="sendEmailOnAssignedPost" not-null="true" type="boolean" column="SEND_EMAIL_ON_ASSIGNED_POST"/>
-    <property name="username" type="string" column="USER_ID" not-null="true"/>   
+    <property name="sendEmailOnAddAffiliate" not-null="true" type="boolean" column="SEND_EMAIL_ON_ADD_AFF"/>
+    <property name="sendEmailOnTerminateAffiliate" not-null="true" type="boolean" column="SEND_EMAIL_ON_TERM_AFF"/>
+    <property name="sendEmailOnJoinAffiliate" not-null="true" type="boolean" column="SEND_EMAIL_ON_JOIN_AFF"/>
+    <property name="sendEmailOnPayout" not-null="true" type="boolean" column="SEND_EMAIL_ON_PAYOUT"/>
+    <property name="sendEmailOnGoalConversion" not-null="true" type="boolean" column="SEND_EMAIL_ON_GOAL_CONV"/>
+    <property name="username" type="string" column="USERID" not-null="true"/>   
    
   </class>
 </hibernate-mapping>

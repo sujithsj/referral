@@ -11,7 +11,7 @@
     <property name="name" not-null="true" length="255" type="java.lang.String" column="NAME"/>
     <property name="description" not-null="false" length="255" type="java.lang.String" column="DESCRIPTION"/>
     <property name="url" not-null="true" length="500" type="java.lang.String" column="URL"/>
-    <property name="fromEmail" not-null="false" length="255" type="java.lang.String" column="FROMEMAIL"/>
+    <property name="fromEmail" not-null="false" length="255" type="java.lang.String" column="FROM_EMAIL"/>
     <property name="verificationToken" not-null="false" length="100" type="java.lang.String"
               column="VERIFICATIONTOKEN"/>
     <property name="enabled" not-null="true" length="1" type="boolean" column="ENABLED"/>
