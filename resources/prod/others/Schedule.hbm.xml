@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-update="true" table="SCHEDULE" lazy="true" name="com.userrules.dataobject.Schedule" dynamic-insert="true">
+    <id name="id" type="long" column="ID" unsaved-value="0">
+     	<generator class="native" />
+    </id>
+    <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>
+    <property name="name" not-null="true" length="255" type="java.lang.String" column="NAME"/>
+    <property name="userid" not-null="false" length="255" type="java.lang.String" column="USERID"/>    
+    <property name="enabled" not-null="false" type="boolean" column="ENABLED"/>
+    <property name="scheduleReference" not-null="false" length="255" type="java.lang.String" column="SCHEDULEREFERENCE"/>
+    <property name="description" not-null="false" length="255" type="java.lang.String" column="DESCRIPTION"/>
+    <property name="jobClass" not-null="true" length="255" type="java.lang.String" column="JOB_CLASS"/>
+    <property name="taskType" not-null="false" length="10" type="java.lang.String" column="TASK_TYPE"/>
+    <property name="cronString" not-null="false" length="255" type="java.lang.String" column="CRONSTRING"/>
+    <property name="executionTime" not-null="false" length="10" type="java.lang.String" column="EXECUTION_TIME"/>
+    <property name="scheduleType" not-null="false" length="20" type="java.lang.String" column="SCHEDULE_TYPE"/>
+    <property name="startDate" not-null="false" type="timestamp" column="START_DATE"/>
+    <property name="endDate" not-null="false" type="timestamp" column="END_DATE"/>    
+    <many-to-one not-null="false" unique="true" column="SCHEDULE_EMAIL_CONFIG_ID" cascade="save-update" name="scheduleEmailConfig" class="com.userrules.dataobject.ScheduleEmailConfig"/>    
+    <set lazy="true" inverse="true" cascade="all-delete-orphan" name="parameterValues" where="DATAOBJECT_SHORT_NAME = 'SCHD'">
+      <key column="DATAOBJECT_ID"/>
+      <one-to-many class="com.userrules.dataobject.ParameterValue"/>
+    </set>    
+    <property name="createdBy" not-null="false" length="30" type="java.lang.String" column="CREATED_BY"/>
+    <property name="createdDate" not-null="false" type="timestamp" column="CREATED_DATE"/>
+    <property name="updatedBy" not-null="false" length="30" type="java.lang.String" column="UPDATED_BY"/>
+    <property name="updatedDate" not-null="false" type="timestamp" column="UPDATED_DATE"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+  <class dynamic-update="true" table="USER_SETTINGS" lazy="true" name="com.ds.domain.user.UserSettings" dynamic-insert="true">
+    <id name="id" type="long" column="ID" unsaved-value="0">
+ 		<generator class="native" />
+ 	</id>
+    <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>        
+ 	
+    <property name="sendEmailOnPost" not-null="true" type="boolean" column="SEND_EMAIL_ON_POST"/>
+    <property name="sendEmailOnAssignedPost" not-null="true" type="boolean" column="SEND_EMAIL_ON_ASSIGNED_POST"/>
+    <property name="username" type="string" column="USER_ID" not-null="true"/>   
+   
+  </class>
+</hibernate-mapping>

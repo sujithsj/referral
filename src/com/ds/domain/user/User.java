@@ -273,6 +273,13 @@ public class User extends BaseDataObject {
     this.logoId = logoId;
   }
 
+  public Set<ThirdPartyAuth> getThirdPartyAuths() {
+    return thirdPartyAuths;
+  }
+
+  public void setThirdPartyAuths(Set<ThirdPartyAuth> thirdPartyAuths) {
+    this.thirdPartyAuths = thirdPartyAuths;
+  }
 
   public boolean equals(Object obj) {
     if (!(obj instanceof User)) {

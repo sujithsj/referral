@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-lazy="false">
+ <class name="com.ds.domain.user.User" table="USER">
+ 	<id name="username" type="string" column="USERID" >
+ 		<generator class="assigned" />
+ 	</id>
+        <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>        
+ 	
+ 	<property name="password" type="string" column="PASSWORD" not-null="true"/>
+ 	<property name="email" type="string" column="EMAIL" not-null="true"/>
+ 	<property name="fullName" type="string" column="FULLNAME" not-null="true"/>
+ 	<property name="originalImageUrl" type="string" column="ORIGINAL_IMAGE_URL" not-null="false"/>
+ 	<property name="thumbnailImageUrl" type="string" column="THUMBNAIL_IMAGE_URL" not-null="false"/>
+	<property name="companyShortName" type="string" column="COMPANY_SHORT_NAME" />
+	<property name="karmaProfileId" type="long" column="KARMA_PROFILE_ID" />
+	<property name="userSettingsId" type="long" column="USER_SETTINGS_ID" />
+	<property name="logoId" type="long" column="LOGO_FILE_ID" />
+	 	
+ 	<property name="accountNonExpired" type="boolean"
+ 		column="ACCOUNT_NON_EXPIRED" />
+ 	<property name="accountNonLocked" type="boolean"
+ 		column="ACCOUNT_NON_LOCKED" />
+ 	<property name="credentialsNonExpired" type="boolean"
+ 		column="CREDENTIALS_NON_EXPIRED" />
+ 	<property name="enabled" type="boolean" column="ENABLED" />
+	
+	<set lazy="true" inverse="true" cascade="all-delete-orphan" name="thirdPartyAuths">
+      <key column="USER_ID"/>
+      <one-to-many class="com.ds.domain.user.ThirdPartyAuth"/>
+    </set>
+    
+ 	<set name="roleNames" table="USER_ROLE" lazy="false" fetch="join">
+		<key column="USERID" />
+		<element type="string" column="ROLE_NAME" not-null="true"/>
+	</set>
+	
+  </class>
+</hibernate-mapping>

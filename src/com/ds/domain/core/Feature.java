@@ -17,7 +17,7 @@ public class Feature extends BaseDataObject {
   // optional name to describe the feature
   private String name;
   private String featureType;
-  private int count;
+  private long count;
   private Plan plan;
 
   public long getId() {
@@ -47,14 +47,14 @@ public class Feature extends BaseDataObject {
   /**
    * @return the count
    */
-  public int getCount() {
+  public long getCount() {
     return count;
   }
 
   /**
    * @param count the count to set
    */
-  public void setCount(int count) {
+  public void setCount(long count) {
     this.count = count;
   }
 

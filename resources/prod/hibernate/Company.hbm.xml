@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+  <class dynamic-update="true" table="COMPANY" lazy="true" name="com.ds.domain.company.Company" dynamic-insert="true">
+    <id name="shortName" length="50" type="java.lang.String" column="SHORTNAME" unsaved-value="">
+      <generator class="assigned"/>
+    </id>
+
+    <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>
+
+    <property name="name" not-null="true" length="255" type="java.lang.String" column="NAME"/>
+    <property name="description" not-null="false" length="255" type="java.lang.String" column="DESCRIPTION"/>
+    <property name="url" not-null="true" length="500" type="java.lang.String" column="URL"/>
+    <property name="fromEmail" not-null="false" length="255" type="java.lang.String" column="FROMEMAIL"/>
+    <property name="verificationToken" not-null="false" length="100" type="java.lang.String"
+              column="VERIFICATIONTOKEN"/>
+    <property name="enabled" not-null="true" length="1" type="boolean" column="ENABLED"/>
+    <!--<property name="vendor" not-null="true" length="1" type="boolean" column="VENDOR"/>-->
+    <many-to-one name="logo" class="com.ds.domain.core.FileAttachment" cascade="all" column="LOGO_FILE_ID"
+                 lazy="false"/>
+    <one-to-one name="gaAuthInfo" class="com.ds.domain.core.GAAuthInfo" property-ref="company" cascade="save-update"
+                lazy="false"/>
+    <map name="karmaProfile" lazy="true" table="COMPANY_KARMA_PROFILE" cascade="all-delete-orphan" outer-join="true">
+      <key column="COMPANY_SHORT_NAME"/>
+      <index column="ACTIVITY_NAME" type="java.lang.String"/>
+      <element type="java.lang.Integer" column="ACTIVIY_POINTS" not-null="true"/>
+    </map>
+    <map name="badges" lazy="true" table="BADGE" cascade="all-delete-orphan" outer-join="true">
+      <key column="COMPANY_SHORT_NAME"/>
+      <index column="NAME" type="java.lang.String"/>
+      <element type="java.lang.Integer" column="KARMA_POINTS" not-null="true"/>
+    </map>
+    <set name="features" table="COMPANY_FEATURE" lazy="false">
+      <key column="COMPANY_SHORTNAME"/>
+      <many-to-many class="com.ds.domain.core.Feature" column="FEATURE_ID"/>
+    </set>
+    <one-to-one name="companySettings" class="com.ds.domain.company.CompanySettings" property-ref="company"
+                cascade="all" lazy="false"/>
+  </class>
+</hibernate-mapping>

@@ -1,11 +1,13 @@
 package com.ds.domain.visitor;
 
+import com.ds.domain.BaseDataObject;
+
 import javax.persistence.Transient;
 
 /**
  * @author adlakha.vaibhav
  */
-public class VisitorInfo {
+public class VisitorInfo extends BaseDataObject{
 
   private String ipAddress;
   private String hostName;
