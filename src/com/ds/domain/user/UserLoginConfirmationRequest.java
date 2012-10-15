@@ -1,11 +1,11 @@
 package com.ds.domain.user;
 
-import java.io.Serializable;
+import com.ds.domain.BaseDataObject;
 
 /**
  * @author adlakha.vaibhav
  */
-public class UserLoginConfirmationRequest implements Serializable {
+public class UserLoginConfirmationRequest extends BaseDataObject {
 
   private long id;
 

@@ -1,7 +1,8 @@
 package com.ds.domain.core;
 
 
-import javax.persistence.*;
+import com.ds.domain.BaseDataObject;
+
 import java.util.Set;
 
 /**
@@ -9,28 +10,28 @@ import java.util.Set;
  */
 /*@Entity
 @Table(name = "role")*/
-public class Role implements java.io.Serializable {
+public class Role extends BaseDataObject {
 
 
-  @Id
+  /*@Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID", unique = true, nullable = false)
+  @Column(name = "ID", unique = true, nullable = false)*/
   private Long id;
 
 
-  @Column(name = "NAME", nullable = false)
+  /*@Column(name = "NAME", nullable = false)*/
   private String name;
 
 
-  @Column(name = "DESCRIPTION", nullable = false)
+  /*@Column(name = "DESCRIPTION", nullable = false)*/
   private String description;
 
 
   private Set<Permission> permissions;
 
-  @Column(name = "LOCK_VERSION", nullable = false)
+  /*@Column(name = "LOCK_VERSION", nullable = false)
   @Version
-  private Long lockVersion;
+  private Long lockVersion;*/
 
 
   public enum RoleType {
@@ -61,13 +62,13 @@ public class Role implements java.io.Serializable {
     this.description = description;
   }
 
-  public Long getLockVersion() {
+  /*public Long getLockVersion() {
     return this.lockVersion;
   }
 
   public void setLockVersion(Long lockVersion) {
     this.lockVersion = lockVersion;
-  }
+  }*/
 
   public Set<Permission> getPermissions() {
     return permissions;

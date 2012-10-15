@@ -3,6 +3,7 @@ package com.ds.domain.employee;
 
 
 import com.ds.domain.company.Company;
+import com.ds.domain.BaseDataObject;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,20 +14,20 @@ import java.util.Set;
  */
 /*@Entity
 @Table(name = "employee", uniqueConstraints = @UniqueConstraint(columnNames = "EMPLOYEEID"))*/
-public class Employee implements java.io.Serializable {
+public class Employee extends BaseDataObject {
 
 
-  @Id
+  /*@Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID", unique = true, nullable = false)
+  @Column(name = "ID", unique = true, nullable = false)*/
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "USER_SETTINGS_ID", nullable = false)
+  /*@ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "USER_SETTINGS_ID", nullable = false)*/
   private EmployeeSettings employeeSettings;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "COMPANY_ID", nullable = false)
+ /* @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "COMPANY_ID", nullable = false)*/
   private Company company;
 
 
@@ -34,49 +35,49 @@ public class Employee implements java.io.Serializable {
   private String employeeId;
 
 
-  @Column(name = "COMPANY_SHORT_NAME", nullable = false, length = 50)
+ /* @Column(name = "COMPANY_SHORT_NAME", nullable = false, length = 50)*/
   private String companyShortName;
 
 
-  @Column(name = "PASSWORD", nullable = false)
+  /*@Column(name = "PASSWORD", nullable = false)*/
   private String password;
 
 
-  @Column(name = "FULLNAME", nullable = false)
+  /*@Column(name = "FULLNAME", nullable = false)*/
   private String fullName;
 
 
-  @Column(name = "ORIGINAL_IMAGE_URL")
+  /*@Column(name = "ORIGINAL_IMAGE_URL")*/
   private String originalImageUrl;
 
 
-  @Column(name = "THUMBNAIL_IMAGE_URL")
+  /*@Column(name = "THUMBNAIL_IMAGE_URL")*/
   private String thumbnailImageUrl;
 
 
-  @Column(name = "ACCOUNT_NON_EXPIRED", length = 1)
+  /*@Column(name = "ACCOUNT_NON_EXPIRED", length = 1)*/
   private boolean accountNonExpired;
 
 
-  @Column(name = "ACCOUNT_NON_LOCKED", length = 1)
+  /*@Column(name = "ACCOUNT_NON_LOCKED", length = 1)*/
   private boolean accountNonLocked;
 
 
-  @Column(name = "CREDENTIALS_NON_EXPIRED", length = 1)
+  /*@Column(name = "CREDENTIALS_NON_EXPIRED", length = 1)*/
   private boolean credentialsNonExpired;
 
 
-  @Column(name = "EMAIL", nullable = false)
+  /*@Column(name = "EMAIL", nullable = false)*/
   private String email;
 
 
-  @Column(name = "ENABLED", length = 1)
+  /*@Column(name = "ENABLED", length = 1)*/
   private boolean enabled;
 
 
-  @Column(name = "LOCK_VERSION", nullable = false)
+ /* @Column(name = "LOCK_VERSION", nullable = false)
   @Version
-  private Long lockVersion;
+  private Long lockVersion;*/
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employee")
   private Set<EmployeeSettings> employeeSettingses = new HashSet<EmployeeSettings>(0);
@@ -197,13 +198,13 @@ public class Employee implements java.io.Serializable {
     this.enabled = enabled;
   }
 
-  public Long getLockVersion() {
+  /*public Long getLockVersion() {
     return this.lockVersion;
   }
 
   public void setLockVersion(Long lockVersion) {
     this.lockVersion = lockVersion;
-  }
+  }*/
 
   public Set<EmployeeSettings> getEmployeeSettingses() {
     return this.employeeSettingses;

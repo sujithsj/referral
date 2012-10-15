@@ -1,9 +1,11 @@
 package com.ds.domain.core;
 
+import com.ds.domain.BaseDataObject;
+
 /**
  * @author adlakha.vaibhav
  */
-public class FileAttachment {
+public class FileAttachment extends BaseDataObject {
 
   private long id;
   private String mimeType;

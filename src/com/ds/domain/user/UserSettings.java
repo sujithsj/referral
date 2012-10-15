@@ -1,9 +1,11 @@
 package com.ds.domain.user;
 
+import com.ds.domain.BaseDataObject;
+
 /**
  * @author adlakha.vaibhav
  */
-public class UserSettings {
+public class UserSettings extends BaseDataObject {
 
   private long id;
   private boolean sendEmailOnPost;

@@ -1,7 +1,8 @@
 package com.ds.domain.core;
 
 
-import javax.persistence.*;
+import com.ds.domain.BaseDataObject;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,28 +11,28 @@ import java.util.Set;
  */
 /*@Entity
 @Table(name = "plan")*/
-public class Plan implements java.io.Serializable {
+public class Plan extends BaseDataObject {
 
 
-  @Id
+  /*@Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID", unique = true, nullable = false)
+  @Column(name = "ID", unique = true, nullable = false)*/
   private Long id;
 
 
-  @Column(name = "NAME", nullable = false)
+  /*@Column(name = "NAME", nullable = false)*/
   private String name;
 
 
-  @Column(name = "DESCRIPTION")
+  /*@Column(name = "DESCRIPTION")*/
   private String description;
 
 
-  @Column(name = "LOCK_VERSION", nullable = false)
-  @Version
-  private Long lockVersion;
+  /* @Column(name = "LOCK_VERSION", nullable = false)
+@Version
+private Long lockVersion;*/
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "plan")
+  /*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "plan")*/
   private Set<Feature> features = new HashSet<Feature>(0);
 
   public Long getId() {
@@ -58,14 +59,14 @@ public class Plan implements java.io.Serializable {
     this.description = description;
   }
 
-  public Long getLockVersion() {
+  /*public Long getLockVersion() {
     return this.lockVersion;
   }
 
   public void setLockVersion(Long lockVersion) {
     this.lockVersion = lockVersion;
   }
-
+*/
   public Set<Feature> getFeatures() {
     return this.features;
   }

@@ -1,5 +1,6 @@
 package com.ds.domain.user;
 
+import com.ds.domain.BaseDataObject;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -14,7 +15,7 @@ import java.util.Set;
 /**
  * @author adlakha.vaibhav
  */
-public class User implements java.io.Serializable {
+public class User extends BaseDataObject {
 
   private static final long serialVersionUID = 1L;
   private String password;

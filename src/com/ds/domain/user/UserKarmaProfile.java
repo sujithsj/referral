@@ -1,5 +1,6 @@
 package com.ds.domain.user;
 
+import com.ds.domain.BaseDataObject;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -10,7 +11,7 @@ import java.util.Set;
 /**
  * @author adlakha.vaibhav
  */
-public class UserKarmaProfile {
+public class UserKarmaProfile extends BaseDataObject {
 
   private long id;
   private Long karmaPoints;

@@ -1,7 +1,8 @@
 package com.ds.domain.employee;
 
 
-import javax.persistence.*;
+import com.ds.domain.BaseDataObject;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,48 +11,48 @@ import java.util.Set;
  */
 /*@Entity
 @Table(name = "employee_settings")*/
-public class EmployeeSettings implements java.io.Serializable {
+public class EmployeeSettings extends BaseDataObject {
 
 
-  @Id
+  /*@Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID", unique = true, nullable = false)
+  @Column(name = "ID", unique = true, nullable = false)*/
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "EMPLOYEE_ID", nullable = false)
+  /*@ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "EMPLOYEE_ID", nullable = false)*/
   private Employee employee;
 
 
-  @Column(name = "SEND_EMAIL_ON_ADD_AFF", nullable = false, length = 1)
+  /*@Column(name = "SEND_EMAIL_ON_ADD_AFF", nullable = false, length = 1)*/
   private boolean sendEmailOnAddAff;
 
 
-  @Column(name = "SEND_EMAIL_ON_ASSIGNED_POST", nullable = false, length = 1)
+  /*@Column(name = "SEND_EMAIL_ON_ASSIGNED_POST", nullable = false, length = 1)*/
   private boolean sendEmailOnAssignedPost;
 
 
-  @Column(name = "LOCK_VERSION", nullable = false)
-  @Version
-  private Long lockVersion;
+ /* @Column(name = "LOCK_VERSION", nullable = false)
+  @Version*/
+  /*private Long lockVersion;*/
 
 
-  @Column(name = "SEND_EMAIL_ON_TERM_AFF", nullable = false, length = 1)
+  /*@Column(name = "SEND_EMAIL_ON_TERM_AFF", nullable = false, length = 1)*/
   private boolean sendEmailOnTermAff;
 
 
-  @Column(name = "SEND_EMAIL_ON_JOIN_AFF", nullable = false, length = 1)
+  /*@Column(name = "SEND_EMAIL_ON_JOIN_AFF", nullable = false, length = 1)*/
   private boolean sendEmailOnJoinAff;
 
 
-  @Column(name = "SEND_EMAIL_ON_PAYOUT", nullable = false, length = 1)
+  /*@Column(name = "SEND_EMAIL_ON_PAYOUT", nullable = false, length = 1)*/
   private boolean sendEmailOnPayout;
 
 
-  @Column(name = "SEND_EMAIL_ON_GOAL_CONV", nullable = false, length = 1)
+  /*@Column(name = "SEND_EMAIL_ON_GOAL_CONV", nullable = false, length = 1)*/
   private boolean sendEmailOnGoalConv;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employeeSettings")
+  /*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employeeSettings")*/
   private Set<Employee> employees = new HashSet<Employee>(0);
 
   public Long getId() {
@@ -71,13 +72,13 @@ public class EmployeeSettings implements java.io.Serializable {
   }
 
 
-  public Long getLockVersion() {
+  /*public Long getLockVersion() {
     return this.lockVersion;
-  }
+  }*/
 
-  public void setLockVersion(Long lockVersion) {
+ /* public void setLockVersion(Long lockVersion) {
     this.lockVersion = lockVersion;
-  }
+  }*/
 
   public Set<Employee> getEmployees() {
     return this.employees;
