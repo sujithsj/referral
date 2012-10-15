@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+  <class dynamic-update="true" table="REWARD" lazy="true" name="com.userrules.dataobject.Reward" dynamic-insert="true">
+    <id name="id" type="long" column="ID" unsaved-value="0">
+ 		<generator class="native" />
+ 	</id>
+        <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>        
+ 	
+    <property name="minKarmaPoints" type="java.lang.Long" column="MIN_KARMA_POINTS"/>
+	<property name="companyShortName" type="string" column="COMPANY_SHORT_NAME" />
+	<property name="name" not-null="true" length="255" type="java.lang.String" column="NAME"/>
+	<property name="howToClaim" length="1000" type="java.lang.String" column="STEPS_TO_CLAIM"/>
+	<property name="originalImageUrl" type="string" column="ORIGINAL_IMAGE_URL" not-null="false"/>
+ 	<property name="thumbnailImageUrl" type="string" column="THUMBNAIL_IMAGE_URL" not-null="false"/>
+	<property name="logoId" type="long" column="LOGO_FILE_ID" />
+    
+  </class>
+</hibernate-mapping>

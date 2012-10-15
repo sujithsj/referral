@@ -34,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,6 +85,7 @@ public class AdminServiceImpl implements AdminService {
   private EventDispatcher eventDispatcher;
 
   @Override
+  @Transactional
   public void registerCompany(Company company) {
     CompositeValidationException compositeValidationException = new CompositeValidationException();
 
@@ -110,6 +112,7 @@ public class AdminServiceImpl implements AdminService {
   }
 
   @Override
+  @Transactional
   public void registerCompany(Company company, final User user, Object[] recaptchaParams) {
     CompositeValidationException compositeValidationException = new CompositeValidationException();
 
@@ -123,7 +126,7 @@ public class AdminServiceImpl implements AdminService {
       throw compositeValidationException;
     }
 
-    getAdminDAO().saveCompany(company);
+    company = getAdminDAO().saveCompany(company);
 
     getFeatureAPI().grantCompanyAccessTo(company, "ENTERPRISE");
 
@@ -254,7 +257,7 @@ public class AdminServiceImpl implements AdminService {
     }
   }
 
-  public void addUser(final User user, Role.RoleType[] roleRoleTypes) {
+  public void addUser(User user, Role.RoleType[] roleRoleTypes) {
     CompositeValidationException compositeValidationException = new CompositeValidationException();
 
     validateUser(user, compositeValidationException, null);
@@ -273,14 +276,21 @@ public class AdminServiceImpl implements AdminService {
     // userSettings.setCreatedDate(new Date());
     //userSettings.setCreatedBy(user.getUsername());
     userSettings.setUsername(user.getUsername());
-    userSettings.setSendEmailOnAssignedPost(true);
-    userSettings.setSendEmailOnPost(true);
-    getAdminDAO().save(userSettings);
+    userSettings.setSendEmailOnAddAffiliate(true);
+    userSettings.setSendEmailOnGoalConversion(true);
+    userSettings.setSendEmailOnJoinAffiliate(true);
+    userSettings.setSendEmailOnPayout(true);
+    userSettings.setSendEmailOnTerminateAffiliate(true);
+    userSettings = (UserSettings) getAdminDAO().save(userSettings);
 
     //user.setKarmaProfileId(karmaProfile.getId());
     user.setUserSettingsId(userSettings.getId());
 
-    ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
+    user.setPassword(getMessageDigestPasswordEncoder().encodePassword(user.getPassword(), user.getUsername()));
+
+    user = (User) getAdminDAO().save(user);
+
+    /*ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
 
       @Override
       public Object doInTransaction(TransactionStatus status) {
@@ -289,7 +299,7 @@ public class AdminServiceImpl implements AdminService {
         getAdminDAO().save(user);
         return null;
       }
-    });
+    });*/
 
     getSecurityAPI().grantRolesToUser(user, roleRoleTypes);
 
@@ -443,7 +453,6 @@ public class AdminServiceImpl implements AdminService {
   public IssueTrackerConfig loadIssueTrackerConfig(String companyShortName, long issueTrackerId) {
     return getAdminDAO().loadIssueTrackerConfig(companyShortName, issueTrackerId);
   }*/
-
   @Override
   public List<Company> getAllCompanies() {
     return getAdminDAO().getAll(Company.class);

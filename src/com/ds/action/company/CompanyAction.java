@@ -25,7 +25,7 @@ public class CompanyAction extends BasePaginatedAction {
   public Resolution pre() {
     System.out.println("in pre for action");
 
-    baseDao.get(Company.class,1L);
+    baseDao.get(Company.class,"abc");
     return null;
   }
 

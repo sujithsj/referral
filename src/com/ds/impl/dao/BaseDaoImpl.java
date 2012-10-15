@@ -1,7 +1,7 @@
 package com.ds.impl.dao;
 
-
 import com.ds.pact.dao.BaseDao;
+import com.ds.web.action.Page;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.*;
 import org.hibernate.criterion.DetachedCriteria;
@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author vaibhav.adlakha
+ * @author adlakha.vaibhav
  */
 @Repository
 @Primary
@@ -38,10 +38,12 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
   }
 
   @SuppressWarnings("unchecked")
+  @Override
   public boolean containsKey(Class entityClass, Serializable key) {
     return containsKey(entityClass.getName(), key);
   }
 
+  @Override
   public boolean containsKey(final String entityName, final Serializable key) {
     Boolean contains = (Boolean) getHibernateTemplate().execute(new HibernateCallback() {
       public Object doInHibernate(Session session) throws HibernateException, SQLException {
@@ -52,17 +54,21 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     return contains;
   }
 
-  public void delete(Object entity) {
-    //prepareHibernateForWrite();
-    getHibernateTemplate().delete(entity);
-    //resetHibernateAfterWrite();
+  @Override
+  public Query createQuery(String queryString) {
+    return getSession().createQuery(queryString);
   }
 
+  @Override
+  public void delete(Object entity) {
+    getHibernateTemplate().delete(entity);
+
+  }
+
+  @Override
   @SuppressWarnings("unchecked")
   public void deleteAll(Collection entities) {
-    //prepareHibernateForWrite();
     getHibernateTemplate().deleteAll(entities);
-    //resetHibernateAfterWrite();
   }
 
   private boolean containsKey(String entityName, Serializable key, SessionImplementor sessionImpl) {
@@ -79,6 +85,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     return persistenceContext.containsEntity(keyToLoad);
   }
 
+  @Override
   @SuppressWarnings("unchecked")
   public List findByQuery(String queryString) {
     return getHibernateTemplate().find(queryString);
@@ -89,7 +96,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     return getHibernateTemplate().find(queryString, bindings);
   }
 
-  @Override
+  //@Override
   @SuppressWarnings("unchecked")
   public Object findUnique(String queryString) {
     List<Object> results = getHibernateTemplate().find(queryString);
@@ -176,7 +183,6 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
   }
 
   @SuppressWarnings("unchecked")
-  @Override
   public Object findUniqueByNamedQueryAndNamedParam(String queryString, String[] paramNames, Object[] paramValues) {
     List<Object> results = getHibernateTemplate().findByNamedQueryAndNamedParam(queryString, paramNames, paramValues);
 
@@ -185,6 +191,10 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     }
 
     return null;
+  }
+
+  public List findByNamedQueryAndNamedParam(String queryString, String[] paramNames, Object[] paramValues) {
+    return getHibernateTemplate().findByNamedQueryAndNamedParam(queryString, paramNames, paramValues);
   }
 
   @SuppressWarnings({"unchecked", "hiding"})
@@ -217,40 +227,39 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
   }
 
   public Object save(Object entity) {
-    //prepareHibernateForWrite();
     Object updatedEntity = getHibernateTemplate().merge(entity);
-    //resetHibernateAfterWrite();
     return updatedEntity;
   }
 
-/*    private void prepareHibernateForWrite() {
-        getHibernateTemplate().getSessionFactory().getCurrentSession().setFlushMode(FlushMode.AUTO);
-        getHibernateTemplate().setCheckWriteOperations(false);
-    }
+  /*private void prepareHibernateForWrite() {
+    getHibernateTemplate().getSessionFactory().getCurrentSession().setFlushMode(FlushMode.AUTO);
+    getHibernateTemplate().setCheckWriteOperations(false);
+  }
 
-    private void resetHibernateAfterWrite() {
-        getHibernateTemplate().flush();
-        getHibernateTemplate().getSessionFactory().getCurrentSession().setFlushMode(FlushMode.MANUAL);
-        getHibernateTemplate().setCheckWriteOperations(true);
-    }*/
+  private void resetHibernateAfterWrite() {
+    getHibernateTemplate().flush();
+    getHibernateTemplate().getSessionFactory().getCurrentSession().setFlushMode(FlushMode.MANUAL);
+    getHibernateTemplate().setCheckWriteOperations(true);
+  }*/
+
+  /**
+   * WARNING: Make sure that you should not access any lazy initialization in this session after calling this method
+   */
+  public void clearSession() {
+    getHibernateTemplate().clear();
+  }
 
   public void saveOrUpdate(Object entity) {
-    //prepareHibernateForWrite();
     getHibernateTemplate().saveOrUpdate(entity);
-    //resetHibernateAfterWrite();
   }
 
   @SuppressWarnings("unchecked")
   public void saveOrUpdate(Collection entities) throws DataAccessException {
-    //prepareHibernateForWrite();
     getHibernateTemplate().saveOrUpdateAll(entities);
-    //resetHibernateAfterWrite();
   }
 
   public void update(Object entity) {
-    //prepareHibernateForWrite();
     getHibernateTemplate().update(entity);
-    //resetHibernateAfterWrite();
   }
 
   public <T> T findDataObject(Class<T> dataObjectClass, String[] propertyNames, Object[] values) {
@@ -298,7 +307,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
   public int executeNativeSql(final String sql, final Object... params) {
     return ((Integer) getHibernateTemplate().execute(new HibernateCallback() {
 
-      @Override
+      //@Override
       public Object doInHibernate(Session session) throws HibernateException, SQLException {
         SQLQuery sqlQuery = session.createSQLQuery(sql);
 
@@ -317,7 +326,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
   public List<Object[]> findByNativeSql(final String sql, final int start, final int rows, final Object... params) {
     return (List<Object[]>) getHibernateTemplate().execute(new HibernateCallback() {
 
-      @Override
+      //@Override
       public Object doInHibernate(Session session) throws HibernateException, SQLException {
         SQLQuery sqlQuery = session.createSQLQuery("select * from (" + sql + ") t");
 
@@ -331,7 +340,6 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
           sqlQuery.setMaxResults(rows);
         }
         sqlQuery.setFirstResult(start);
-
         return sqlQuery.list();
       }
 
@@ -353,7 +361,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     return "DESC";
   }
 
-  @Override
+  //@Override
   public int countByNativeSql(String sql, Object... params) {
     List result = findByNativeSql(sql, 0, 0, params);
     if (result.isEmpty() || result.get(0) == null) {
@@ -376,10 +384,6 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     return ((Number) result.get(0)).longValue();
   }
 
-  @Override
-  public void flush() {
-    getHibernateTemplate().flush();
-  }
 
   @SuppressWarnings("unchecked")
   private int count(DetachedCriteria criteria, boolean hasDistinctRootEntity) {
@@ -393,6 +397,26 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
     totalResults = (Integer) totalResultsList.get(0);
 
     return totalResults;
+  }
+
+  @Override
+  public Page list(DetachedCriteria criteria, boolean hasDistinctRootEntity, int pageNo, int perPage) {
+
+    int totalResults = count(criteria, hasDistinctRootEntity);
+    criteria.setProjection(null);
+    if (hasDistinctRootEntity) {
+      criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+    } else {
+      criteria.setResultTransformer(Criteria.ROOT_ENTITY);
+    }
+    int firstResult = (pageNo - 1) * perPage;
+    List resultList = findByCriteria(criteria, firstResult, perPage);
+    return new Page(resultList, perPage, pageNo, totalResults);
+  }
+
+
+  protected Page list(DetachedCriteria criteria, int pageNo, int perPage) {
+    return list(criteria, false, pageNo, perPage);
   }
 
   @Override

@@ -18,8 +18,8 @@ import java.util.List;
 public class AdminDAOImpl extends BaseDaoImpl implements AdminDAO {
 
   @Override
-  public void saveCompany(Company company) {
-    save(company);
+  public Company saveCompany(Company company) {
+    return (Company)save(company);
   }
 
   @SuppressWarnings("unchecked")

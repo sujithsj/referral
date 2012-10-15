@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-update="true" table="FEATURE" lazy="true" name="com.ds.domain.core.Feature" dynamic-insert="true">
+    <id name="id" type="long" column="ID" unsaved-value="0">
+ 		<generator class="native" />
+ 	</id>
+    <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>
+ 	
+ 	
+    <property name="name" not-null="true" length="255" type="java.lang.String" column="NAME"/>
+	<property name="featureType" length="255" type="java.lang.String" column="FEATURE_TYPE"/>      
+	<property name="count" length="5" type="int" column="COUNT"/>
+	<many-to-one name="plan" class="com.ds.domain.core.Plan" column="PLAN_ID" not-null="false" unique="true" lazy="false"/>
+  </class>
+</hibernate-mapping>
