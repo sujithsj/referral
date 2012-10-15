@@ -257,7 +257,7 @@ public class AdminServiceImpl implements AdminService {
     }
   }
 
-  public void addUser(final User user, Role.RoleType[] roleRoleTypes) {
+  public void addUser(User user, Role.RoleType[] roleRoleTypes) {
     CompositeValidationException compositeValidationException = new CompositeValidationException();
 
     validateUser(user, compositeValidationException, null);
@@ -281,12 +281,16 @@ public class AdminServiceImpl implements AdminService {
     userSettings.setSendEmailOnJoinAffiliate(true);
     userSettings.setSendEmailOnPayout(true);
     userSettings.setSendEmailOnTerminateAffiliate(true);
-    userSettings = (UserSettings)getAdminDAO().save(userSettings);
+    userSettings = (UserSettings) getAdminDAO().save(userSettings);
 
     //user.setKarmaProfileId(karmaProfile.getId());
     user.setUserSettingsId(userSettings.getId());
 
-    ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
+    user.setPassword(getMessageDigestPasswordEncoder().encodePassword(user.getPassword(), user.getUsername()));
+
+    user = (User) getAdminDAO().save(user);
+
+    /*ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
 
       @Override
       public Object doInTransaction(TransactionStatus status) {
@@ -295,7 +299,7 @@ public class AdminServiceImpl implements AdminService {
         getAdminDAO().save(user);
         return null;
       }
-    });
+    });*/
 
     getSecurityAPI().grantRolesToUser(user, roleRoleTypes);
 
