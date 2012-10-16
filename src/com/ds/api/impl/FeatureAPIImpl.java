@@ -42,7 +42,7 @@ public class FeatureAPIImpl implements FeatureAPI {
   }
 
   @Override
-  public boolean isFeatureAccessible(Company company, FeatureType featureType, int count) {
+  public boolean isFeatureAccessible(Company company, FeatureType featureType, long count) {
     for (Feature feature : company.getFeatures()) {
       if (featureType.featureType().equals(feature.getFeatureType()) && feature.getCount() >= count) {
         return true;
@@ -52,7 +52,7 @@ public class FeatureAPIImpl implements FeatureAPI {
   }
 
   @Override
-  public void doesCompanyHaveAccessTo(Company company, FeatureType featureType, int count) {
+  public void doesCompanyHaveAccessTo(Company company, FeatureType featureType, long count) {
     if (!isFeatureAccessible(company, featureType, count)) {
       throw new FeatureNotAccessibleException("FEATURE_NOT_ACCESSIBLE", featureType.featureType());
     }
