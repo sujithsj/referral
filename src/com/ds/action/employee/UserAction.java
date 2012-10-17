@@ -1,17 +1,26 @@
 package com.ds.action.employee;
 
+import com.ds.api.CacheAPI;
 import com.ds.api.FeatureAPI;
 import com.ds.constants.FeatureType;
 import com.ds.domain.company.Company;
+import com.ds.domain.core.Permission;
+import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
+import com.ds.domain.user.UserSettings;
 import com.ds.dto.user.UserDTO;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.security.api.SecurityAPI;
+import com.ds.security.helper.SecurityHelper;
+import com.ds.security.service.UserService;
 import com.ds.web.action.BaseAction;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.Map;
 
 /**
  * @author adlakha.vaibhav
@@ -24,6 +33,10 @@ public class UserAction extends BaseAction {
   private String companyShortName;
   private UserDTO userDTO;
 
+  private String employeeId;
+  private String roleName;
+  private String employeeEmail;
+
 
   @Autowired
   private AdminService adminService;
@@ -31,6 +44,10 @@ public class UserAction extends BaseAction {
   private FeatureAPI featureAPI;
   @Autowired
   private SecurityAPI securityAPI;
+  @Autowired
+  private UserService userService;
+  @Autowired
+  private CacheAPI cacheAPI;
 
 
   public Resolution createEmployee() {
@@ -47,20 +64,14 @@ public class UserAction extends BaseAction {
   }
 
 
-  @Requires(rights = {Type.UPDATE_EMPLOYEE})
-  @POST
-  @Path("/{companyId}/employee/{employeeId}")
-  @Produces("application/json")
-  public String updateEmployee(UserDTO userDTO, @PathParam("companyId")
-  String companyId, @PathParam("employeeId")
-  String employeeId) {
+  public Resolution updateEmployee() {
 
     return updateEmployeeDetails(userDTO, employeeId);
   }
 
-  private String updateEmployeeDetails(UserDTO userDTO, String employeeId) {
-    User user = userDTO.extractUser();
-    UserSettings userSettings = userDTO.extactUserSettings();
+  private Resolution updateEmployeeDetails(UserDTO userDTOForUpdate, String employeeId) {
+    User user = userDTOForUpdate.extractUser();
+    UserSettings userSettings = userDTOForUpdate.extactUserSettings();
 
     User userToUpdate = getAdminService().getUser(employeeId);
     UserSettings userSettingsToUpdate = getAdminService().getUserSettings(userToUpdate.getUsername());
@@ -74,92 +85,67 @@ public class UserAction extends BaseAction {
         userSettingsToUpdate.setCreatedDate(new Date());
         userSettingsToUpdate.setCreatedBy(userToUpdate.getUsername());
         userSettingsToUpdate.setUsername(userToUpdate.getUsername());
-        userSettingsToUpdate.setSendEmailOnAssignedPost(true);
-        userSettingsToUpdate.setSendEmailOnPost(true);
+        userSettingsToUpdate.setSendEmailOnPayout(true);
+        userSettingsToUpdate.setSendEmailOnTerminateAffiliate(true);
+        userSettingsToUpdate.setSendEmailOnAddAffiliate(true);
+        userSettingsToUpdate.setSendEmailOnGoalConversion(true);
+        userSettingsToUpdate.setSendEmailOnJoinAffiliate(true);
       } else {
         userSettingsToUpdate.syncWith(userSettings);
       }
       getUserService().saveOrUpdateUserSettings(userSettingsToUpdate);
 
-      userToUpdate.syncWith(user, userDTO.isSyncRoles());
+      userToUpdate.syncWith(user, userDTOForUpdate.isSyncRoles());
       userToUpdate.setUserSettingsId(userSettingsToUpdate.getId());
 
       getAdminService().updateUser(userToUpdate);
 
       // TODO Bug of Update
-      if (userDTO.isSyncRoles()) {
-        getSecurityAPI().grantRolesToUser(userToUpdate, userDTO.getRoleTypes());
+      if (userDTOForUpdate.isSyncRoles()) {
+        getSecurityAPI().grantRolesToUser(userToUpdate, userDTOForUpdate.getRoleTypes());
       }
 
       UserDTO updatedUserDTO = new UserDTO();
       updatedUserDTO.bindUser(userToUpdate, userSettingsToUpdate);
       updatedUserDTO.setAllowedActions(permisisons);
 
-      return new JSONResponse().addField("message", "User Updated Successfully").addField("data", updatedUserDTO).build();
+      userDTO = updatedUserDTO;
     }
-
-    return new JSONResponse().addField("message", "User Does not Exist").build();
+    return new ForwardResolution("/pages/setup.jsp");
   }
 
 
-  @POST
-  @Path("/{companyId}/employee/self")
-  @Produces("application/json")
-  public String updateSelfDetails(UserDTO userDTO, @PathParam("companyId")
-  String companyId) {
+  public Resolution updateSelfDetails() {
     return updateEmployeeDetails(userDTO, SecurityHelper.getLoggedInUser().getUsername());
   }
 
-  @GET
-  @Path("/employee/{employeeEmail}/resetPassword")
-  @Produces("application/json")
-  public String resetPassword(@PathParam("employeeEmail")
-  String employeeEmail) {
 
+  public Resolution resetPassword() {
     getAdminService().resetEmployeePassword(employeeEmail);
-
-    return new JSONResponse().addField("message", "Password reset successfully").build();
+    return new ForwardResolution("/pages/setup.jsp");
   }
 
-  @POST
-  @Path("/{companyId}/employee/{employeeId}/delete")
-  @Produces("application/json")
-  public String deleteEmployee(@PathParam("companyId")
-  String companyId, @PathParam("employeeId")
-  String employeeId) {
 
+  public Resolution deleteEmployee() {
     getAdminService().deleteEmployee(employeeId);
-
-    return new JSONResponse().addField("message", "Employee deleted successfully").build();
+    return new ForwardResolution("/pages/setup.jsp");
   }
 
-  @POST
-  @Path("/{companyId}/employee/{employeeId}/role/{roleName}/delete")
-  @Produces("application/json")
-  public String deleteEmployeeRole(@PathParam("companyId")
-  String companyId, @PathParam("employeeId")
-  String employeeId, @PathParam("roleName")
-  String roleName) {
 
+  public Resolution deleteEmployeeRole() {
     User user = getAdminService().getUser(employeeId);
     if (user != null) {
-      getSecurityAPI().revokeRolesFromUser(user, "admin".equals(roleName) ? Role.Type.admin : Role.Type.moderator);
-      getCacheAPI().remove(CacheConfig.USER_CACHE, employeeId);
-      return new JSONResponse().addField("message", "Employee Role deleted successfully").build();
-    } else
-      return new JSONResponse().addField("message", "Employee with email: " + employeeId + " Not found").build();
+      getSecurityAPI().revokeRolesFromUser(user, "admin".equals(roleName) ? Role.RoleType.admin : Role.RoleType.moderator);
+      getCacheAPI().remove(CacheAPI.CacheConfig.USER_CACHE, employeeId);
+
+    }
+
+    return new ForwardResolution("/pages/setup.jsp");
   }
 
-  @GET
-  @Path("/{companyShortName}/employee")
-  @Produces("application/json")
-  public String getEmployees(@PathParam("companyShortName")
-  String companyShortName, @QueryParam("start")
-  int start, @QueryParam("rows")
-  int rows, @QueryParam("sort_by")
-  String sortBy, @QueryParam("sort_how")
-  String sortHow) {
-    List<UserDTO> usersList = new ArrayList<UserDTO>();
+
+  public Resolution getEmployees() {
+    /*List<UserDTO> usersList = new ArrayList<UserDTO>();
 
     List<User> users = getAdminService().findEmployees(companyShortName, start, rows, sortBy, sortHow);
 
@@ -173,13 +159,9 @@ public class UserAction extends BaseAction {
       userDTO.bindUser(user);
       userDTO.setAllowedActions(permisisons);
       usersList.add(userDTO);
-    }
+    }*/
 
-    JSONResponse response = new JSONResponse();
-    response.addField("data", usersList);
-    response.addField("count", getAdminService().employeesCount(companyShortName));
-
-    return response.build();
+    return new ForwardResolution("/pages/setup.jsp");
   }
 
   public UserDTO getUserDTO() {
@@ -198,11 +180,47 @@ public class UserAction extends BaseAction {
     return featureAPI;
   }
 
+  public UserService getUserService() {
+    return userService;
+  }
+
   public String getCompanyShortName() {
     return companyShortName;
   }
 
   public void setCompanyShortName(String companyShortName) {
     this.companyShortName = companyShortName;
+  }
+
+  public SecurityAPI getSecurityAPI() {
+    return securityAPI;
+  }
+
+  public String getEmployeeId() {
+    return employeeId;
+  }
+
+  public void setEmployeeId(String employeeId) {
+    this.employeeId = employeeId;
+  }
+
+  public String getRoleName() {
+    return roleName;
+  }
+
+  public void setRoleName(String roleName) {
+    this.roleName = roleName;
+  }
+
+  public CacheAPI getCacheAPI() {
+    return cacheAPI;
+  }
+
+  public String getEmployeeEmail() {
+    return employeeEmail;
+  }
+
+  public void setEmployeeEmail(String employeeEmail) {
+    this.employeeEmail = employeeEmail;
   }
 }
