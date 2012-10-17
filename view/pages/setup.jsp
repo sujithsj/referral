@@ -9,8 +9,8 @@
 
 
 <div class="row">
-<div class="span3 bs-docs-sidebar">
-  <s:layout-render name="/includes/menu/setupSidebar.jsp"/>
+<div class="span3 bs-docs-sidebar" >
+  <s:layout-render name="${pageContext.request.contextPath}/includes/menu/setupSidebar.jsp"/>
 </div>
 <div class="span9">
 

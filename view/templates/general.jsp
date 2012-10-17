@@ -21,9 +21,10 @@
       <%--<link href="../assets/css/grid.css" rel="stylesheet" type="text/css"/>--%>
 
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/docs.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/docs.css" type="text/css"/>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.css" type="text/css"/>
 
      <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
