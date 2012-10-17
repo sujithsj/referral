@@ -15,7 +15,7 @@
 
         <div class="nav-collapse">
           <ul class="nav" style="float:right;font-size:18px;">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="/pages/signup.jsp">SignUp</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#feedbackModal" data-toggle="modal">Feedback</a></li>
             <!--<li><a href="#contact">Contact</a></li>-->
