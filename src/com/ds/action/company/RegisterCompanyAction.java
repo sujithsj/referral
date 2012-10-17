@@ -2,6 +2,7 @@ package com.ds.action.company;
 
 import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
+import com.ds.dto.company.CompanyRegistrationDTO;
 import com.ds.exception.CompositeValidationException;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.web.action.BaseAction;
@@ -16,10 +17,12 @@ import org.springframework.stereotype.Component;
  * @author adlakha.vaibhav
  */
 @Component
-public class RegisterCompanyAction extends BaseAction{
+public class RegisterCompanyAction extends BaseAction {
 
   @Autowired
   private AdminService adminService;
+
+  private CompanyRegistrationDTO companyRegistrationDTO;
 
 
   @DontValidate
@@ -60,5 +63,13 @@ public class RegisterCompanyAction extends BaseAction{
 
   public AdminService getAdminService() {
     return adminService;
+  }
+
+  public CompanyRegistrationDTO getCompanyRegistrationDTO() {
+    return companyRegistrationDTO;
+  }
+
+  public void setCompanyRegistrationDTO(CompanyRegistrationDTO companyRegistrationDTO) {
+    this.companyRegistrationDTO = companyRegistrationDTO;
   }
 }
