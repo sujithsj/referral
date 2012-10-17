@@ -22,13 +22,14 @@
       <div class="span9">
 
         <s:form beanclass="com.ds.action.company.RegisterCompanyAction" class="form-horizontal">
-
+           <fieldset><legend>test</legend>
           <div class="control-group">
             <s:label class="control-label" name="Your Name"/>
             <div class="controls ">
               <s:text name="companyRegistrationDTO.userName" placeholder="user name"/>
             </div>
           </div>
+             </fieldset>
           <div class="control-group">
             <s:label class="control-label" name="Company Name"/>
             <div class="controls ">
