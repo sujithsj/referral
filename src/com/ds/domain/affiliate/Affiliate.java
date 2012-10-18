@@ -1,5 +1,8 @@
 package com.ds.domain.affiliate;
+// Generated Oct 19, 2012 1:58:01 AM by Hibernate Tools 3.2.4.CR1
 
+
+import com.ds.domain.BaseDataObject;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -10,11 +13,10 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "affiliate")
-public class Affiliate extends {
+public class Affiliate extends BaseDataObject {
 
 
 	@Id
-
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
@@ -22,56 +24,49 @@ public class Affiliate extends {
 	@JoinColumn(name = "PARENT_AFFILIATE_ID", nullable = false)
 	private Affiliate parentAffiliate;
 
-
 	@Column(name = "COMPANY_ID", nullable = false)
 	private Long companyId;
 
-
-	@Column(name = "FIRST_NAME", length = 45)
+	@Column(name = "FIRST_NAME", nullable = false, length = 45)
 	private String firstName;
-
 
 	@Column(name = "LAST_NAME", length = 45)
 	private String lastName;
 
-
 	@Column(name = "EMAIL", length = 45)
 	private String email;
 
-
-	@Column(name = "ADDRESS", length = 45)
+	@Column(name = "ADDRESS", length = 90)
 	private String address;
-
 
 	@Column(name = "CITY", length = 45)
 	private String city;
 
-
 	@Column(name = "STATE", length = 45)
 	private String state;
-
 
 	@Column(name = "ZIP", length = 45)
 	private String zip;
 
-
-	@Column(name = "MOBILE", length = 45)
+	@Column(name = "MOBILE", length = 25)
 	private String mobile;
-
 
 	@Column(name = "COMMENTS", length = 65535)
 	private String comments;
 
-
 	@Column(name = "PASSWORD_CHECKSUM", length = 45)
 	private String passwordChecksum;
-
 
 	@Column(name = "DELETED", nullable = false)
 	private Boolean deleted;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "affiliate")
-	private Set<AffiliateSettings> affiliateSettingses = new HashSet<AffiliateSettings>(0);
+	private Set<AffiliateCompany> affiliateCompanies = new HashSet<AffiliateCompany>(0);
+
+/*
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "affiliate")
+	private Set<Affiliate> affiliates = new HashSet<Affiliate>(0);
+*/
 
 	public Long getId() {
 		return this.id;
@@ -185,14 +180,23 @@ public class Affiliate extends {
 		this.deleted = deleted;
 	}
 
-	public Set<AffiliateSettings> getAffiliateSettingses() {
-		return this.affiliateSettingses;
+	public Set<AffiliateCompany> getAffiliateCompanies() {
+		return this.affiliateCompanies;
 	}
 
-	public void setAffiliateSettingses(Set<AffiliateSettings> affiliateSettingses) {
-		this.affiliateSettingses = affiliateSettingses;
+	public void setAffiliateCompanies(Set<AffiliateCompany> affiliateCompanies) {
+		this.affiliateCompanies = affiliateCompanies;
 	}
 
+/*
+	public Set<Affiliate> getAffiliates() {
+		return this.affiliates;
+	}
+
+	public void setAffiliates(Set<Affiliate> affiliates) {
+		this.affiliates = affiliates;
+	}
+*/
 
 }
 
