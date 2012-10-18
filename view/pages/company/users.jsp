@@ -4,7 +4,7 @@
 
   <%--<s:layout-component name="heading">Split Base Order Manually</s:layout-component>--%>
   <s:layout-component name="content">
-
+    <s:useActionBean beanclass="com.ds.action.employee.UserSearchAction" var="userSearchAction"/>
     <div class="container">
 
         <%--<s:layout-render name="${pageContext.request.contextPath}/includes/menu/setupSidebar.jsp"/>--%>
@@ -32,18 +32,38 @@
             <li class="active">User Accounts</li>
           </ul>
 
+
+          <fieldset>
+              <legend><em>Filter Brands</em></legend>
+              <s:form beanclass="com.ds.action.employee.UserSearchAction">
+                <s:label name="User name"/>
+                <s:text name="userName" placeholder="user name"/>
+
+                <s:label name="Email"/>
+                <s:text name="email"/>
+                <s:submit name="searchUsers" class="button blue small">Search</s:submit>
+              </s:form>
+            </fieldset>
+
+          
+          <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${userSearchAction}"/>
+          <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${userSearchAction}"/>
           <table class="table table-condensed table-bordered table-striped">
             <thead>
             <tr>
-              <th>heading 1</th>
-              <th>heading 2</th>
+              <th>User Id</th>
+              <th>Name</th>
+              <th>Email</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>one</td>
-              <td>two</td>
-            </tr>
+            <c:forEach items="${userSearchAction.users}" var="user">
+              <tr>
+                <td>${user.username}</td>
+                <td>${user.fullName}</td>
+                <td>${user.email}</td>
+              </tr>
+            </c:forEach>
             </tbody>
           </table>
         </div>
@@ -57,12 +77,12 @@
 
       $(document).ready(function() {
         /*alert('aaa');
-        $('.bs-docs-sidenav').affix({
-          offset: {
-            top: 155
-            , bottom: 170
-          }
-        });*/
+         $('.bs-docs-sidenav').affix({
+         offset: {
+         top: 155
+         , bottom: 170
+         }
+         });*/
       });
 
     </script>
