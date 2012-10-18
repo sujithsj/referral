@@ -6,19 +6,22 @@ import com.ds.domain.user.ThirdPartyAuth;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserKarmaProfile;
 import com.ds.domain.user.UserSettings;
+import com.ds.pact.service.core.SearchService;
+import com.ds.search.impl.UserQuery;
 import com.ds.security.api.SecurityAPI;
 import com.ds.security.dao.UserDao;
 import com.ds.security.service.UserService;
+import com.ds.web.action.Page;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -42,6 +45,8 @@ public class UserServiceImpl implements UserService {
   private CacheAPI cacheAPI;
   @Autowired
   private SecurityAPI securityAPI;
+  @Autowired
+  private SearchService searchService;
 
   /*
   * (non-Javadoc)
@@ -158,6 +163,14 @@ public class UserServiceImpl implements UserService {
     getCacheAPI().remove(CacheAPI.CacheConfig.USER_SETTINGS_CACHE, userSettings.getUsername());
   }
 
+  @Override
+  public Page searchUser(String userName, String email, int pageNo, int perPage) {
+    UserQuery userQuery = new UserQuery();
+    userQuery.setUsername(userName);
+    userQuery.setEmail(email).setOrderByField("un").setPageNo(pageNo).setRows(perPage);
+    return getSearchService().list(userQuery);
+  }
+
   /**
    * @return the userAPI
    */
@@ -198,5 +211,9 @@ public class UserServiceImpl implements UserService {
    */
   public void setSecurityAPI(SecurityAPI securityAPI) {
     this.securityAPI = securityAPI;
+  }
+
+  public SearchService getSearchService() {
+    return searchService;
   }
 }

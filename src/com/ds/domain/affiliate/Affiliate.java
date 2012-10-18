@@ -10,7 +10,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "affiliate")
-public class Affiliate implements java.io.Serializable {
+public class Affiliate extends {
 
 
 	@Id

@@ -27,7 +27,7 @@ public interface FeatureAPI {
      *            employees)
      * @return true if company has access to this feature. false otherwise
      */
-    public void doesCompanyHaveAccessTo(Company company, FeatureType featureType, int count);
+    public void doesCompanyHaveAccessTo(Company company, FeatureType featureType, long count);
 
     /**
      * Grants a Company Access to the FeatureType
@@ -103,5 +103,5 @@ public interface FeatureAPI {
      *            employees)
      * @return true if company has access to this feature. false otherwise
      */
-    public boolean isFeatureAccessible(Company company, FeatureType featureType, int count);
+    public boolean isFeatureAccessible(Company company, FeatureType featureType, long count);
 }
