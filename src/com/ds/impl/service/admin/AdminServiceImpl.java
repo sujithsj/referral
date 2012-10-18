@@ -257,6 +257,7 @@ public class AdminServiceImpl implements AdminService {
     }
   }
 
+  @Transactional
   public void addUser(User user, Role.RoleType[] roleRoleTypes) {
     CompositeValidationException compositeValidationException = new CompositeValidationException();
 
@@ -315,6 +316,7 @@ public class AdminServiceImpl implements AdminService {
 
   }
 
+  @Transactional
   public void updateEntity(Object entity) {
     getAdminDAO().update(entity);
   }
@@ -839,6 +841,7 @@ public class AdminServiceImpl implements AdminService {
   }
 
   @Override
+  @Transactional
   public void updateUser(User user) {
     getAdminDAO().update(user);
     getCacheAPI().remove(CacheAPI.CacheConfig.USER_CACHE, user.getUsername());

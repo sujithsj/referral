@@ -167,7 +167,10 @@ public class UserServiceImpl implements UserService {
   public Page searchUser(String userName, String email, int pageNo, int perPage) {
     UserQuery userQuery = new UserQuery();
     userQuery.setUsername(userName);
+
+    //TODO: set the sort field on basis on whether it was email or userName
     userQuery.setEmail(email).setOrderByField("un").setPageNo(pageNo).setRows(perPage);
+    //TODO: ignore logged in user from search results.
     return getSearchService().list(userQuery);
   }
 

@@ -16,6 +16,7 @@ import com.ds.security.service.UserService;
 import com.ds.web.action.BaseAction;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.DefaultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,6 +51,18 @@ public class UserAction extends BaseAction {
   private CacheAPI cacheAPI;
 
 
+
+  @DefaultHandler
+  public Resolution createOrEditUser() {
+    if (employeeId != null) {
+      User user = getUserService().getUser(employeeId);
+      UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
+      userDTO = new UserDTO();
+      userDTO.bindUser(user, userSettings);                          
+    }
+    return new ForwardResolution("/pages/company/userCrud.jsp");
+  }
+  
   public Resolution createEmployee() {
 
     Company company = getAdminService().getCompany(companyShortName);

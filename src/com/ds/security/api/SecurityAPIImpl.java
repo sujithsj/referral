@@ -6,6 +6,7 @@ import com.ds.domain.user.User;
 import com.ds.security.dao.SecurityDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class SecurityAPIImpl implements SecurityAPI {
   }
 
   @Override
+  @Transactional
   public void grantRolesToUser(User user, Role.RoleType... roles) {
     for (Role.RoleType roleRoleType : roles) {
       Role role = getSecurityDao().loadRole(roleRoleType);
@@ -41,6 +43,7 @@ public class SecurityAPIImpl implements SecurityAPI {
   }
 
   @Override
+  @Transactional
   public void revokeRolesFromUser(User user, Role.RoleType... roles) {
     for (Role.RoleType roleRoleType : roles) {
       Role role = getSecurityDao().loadRole(roleRoleType);
