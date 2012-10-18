@@ -54,6 +54,7 @@
               <th>User Id</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -62,6 +63,18 @@
                 <td>${user.username}</td>
                 <td>${user.fullName}</td>
                 <td>${user.email}</td>
+                <td>
+                <s:link beanclass="com.ds.action.employee.UserAction"
+                        event="createOrEditUser" class="button blue small">
+                  <span class="icon white small" data-icon="7"></span>Edit
+                  <s:param name="employeeId" value="${user.username}"/>
+                </s:link>
+                 <%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
+                        event="entityTags" target="_blank" class="button orange small">Tag
+                  <s:param name="entityId" value="${brand.id}"/>
+                  <s:param name="type" value="${type}"/>
+                </s:link>--%>
+              </td>
               </tr>
             </c:forEach>
             </tbody>
