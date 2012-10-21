@@ -14,8 +14,8 @@
           <s:layout-render name="/includes/menu/setupSidebar.jsp"/>
         </div>
 
-        <div class="span9">
-          <div class="container">
+        <div class="span9 wrap">
+          <div class="container ">
             <div class="row">
               <div class="span4">
                 <p class="lead">User Accounts</p>
@@ -32,20 +32,18 @@
             <li class="active">User Accounts</li>
           </ul>
 
-
           <fieldset>
-              <legend><em>Filter Brands</em></legend>
-              <s:form beanclass="com.ds.action.employee.UserSearchAction">
-                <s:label name="User name"/>
-                <s:text name="userName" placeholder="user name"/>
+            <legend><em>Search Users</em></legend>
+            <s:form beanclass="com.ds.action.employee.UserSearchAction" class="form-inline">
+              <s:label name="User name"/>
+              <s:text name="userName" placeholder="user name"/>
+              <s:label name="Email"/>
+              <s:text name="email"/>
+              <s:submit name="searchUsers" class="btn-small btn-primary">Search</s:submit>
+            </s:form>
+          </fieldset>
 
-                <s:label name="Email"/>
-                <s:text name="email"/>
-                <s:submit name="searchUsers" class="button blue small">Search</s:submit>
-              </s:form>
-            </fieldset>
 
-          
           <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${userSearchAction}"/>
           <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${userSearchAction}"/>
           <table class="table table-condensed table-bordered table-striped">
@@ -64,17 +62,17 @@
                 <td>${user.fullName}</td>
                 <td>${user.email}</td>
                 <td>
-                <s:link beanclass="com.ds.action.employee.UserAction"
-                        event="createOrEditUser" class="button blue small">
-                  <span class="icon white small" data-icon="7"></span>Edit
-                  <s:param name="employeeId" value="${user.username}"/>
-                </s:link>
-                 <%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
-                        event="entityTags" target="_blank" class="button orange small">Tag
-                  <s:param name="entityId" value="${brand.id}"/>
-                  <s:param name="type" value="${type}"/>
-                </s:link>--%>
-              </td>
+                  <s:link beanclass="com.ds.action.employee.UserAction"
+                          event="createOrEditUser" class="button blue small">
+                    <span class="icon white small" data-icon="7"></span>Edit
+                    <s:param name="employeeId" value="${user.username}"/>
+                  </s:link>
+                    <%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
+                            event="entityTags" target="_blank" class="button orange small">Tag
+                      <s:param name="entityId" value="${brand.id}"/>
+                      <s:param name="type" value="${type}"/>
+                    </s:link>--%>
+                </td>
               </tr>
             </c:forEach>
             </tbody>
