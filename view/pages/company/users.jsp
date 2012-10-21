@@ -34,12 +34,12 @@
 
           <fieldset>
             <legend><em>Search Users</em></legend>
-            <s:form beanclass="com.ds.action.employee.UserSearchAction" class="form-inline">
+            <s:form beanclass="com.ds.action.employee.UserSearchAction" class="form-inline" style="margin-bottom:10px;">
               <s:label name="User name"/>
               <s:text name="userName" placeholder="user name"/>
               <s:label name="Email"/>
               <s:text name="email"/>
-              <s:submit name="searchUsers" class="btn-small btn-primary">Search</s:submit>
+              <s:submit name="searchUsers" class="btn btn-warning">Search</s:submit>
             </s:form>
           </fieldset>
 
