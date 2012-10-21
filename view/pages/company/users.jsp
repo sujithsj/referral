@@ -26,11 +26,12 @@
                 </s:link>
               </div>
             </div>
+          
           </div>
-          <ul class="breadcrumb">
+          <%--<ul class="breadcrumb">
             <li><a href="#">Setup</a> <span class="divider">/</span></li>
             <li class="active">User Accounts</li>
-          </ul>
+          </ul>--%>
 
           <fieldset>
             <legend><em>Search Users</em></legend>
@@ -44,17 +45,16 @@
           </fieldset>
 
 
-          <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${userSearchAction}"/>
-          <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${userSearchAction}"/>
-          <table class="table table-condensed table-bordered table-striped">
-            <thead>
+
+          <table class="striped table-condensed table-hover table-striped">
+
             <tr>
               <th>User Id</th>
               <th>Name</th>
               <th>Email</th>
               <th>Actions</th>
             </tr>
-            </thead>
+            
             <tbody>
             <c:forEach items="${userSearchAction.users}" var="user">
               <tr>
@@ -77,6 +77,8 @@
             </c:forEach>
             </tbody>
           </table>
+          <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${userSearchAction}"/>
+          <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${userSearchAction}"/>
         </div>
 
       </div>
