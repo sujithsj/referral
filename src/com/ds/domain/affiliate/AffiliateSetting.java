@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Table(name = "affiliate_setting")
 public class AffiliateSetting extends BaseDataObject {
 
-
 	@Id
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
@@ -59,7 +58,6 @@ public class AffiliateSetting extends BaseDataObject {
 	public void setFireInitialEmail(Boolean fireInitialEmail) {
 		this.fireInitialEmail = fireInitialEmail;
 	}
-
 
 }
 

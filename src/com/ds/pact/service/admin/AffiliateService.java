@@ -1,30 +1,33 @@
 package com.ds.pact.service.admin;
 
 import com.ds.domain.company.Company;
-import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
-import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
+import com.ds.domain.user.UserLoginConfirmationRequest;
+import com.ds.domain.core.Role;
 import com.ds.domain.visitor.VisitorInfo;
 import com.ds.exception.DSException;
+import com.ds.web.action.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-
 /**
- * @author adlakha.vaibhav
+ * Created by IntelliJ IDEA.
+ * User: Rahul
+ * Date: Oct 22, 2012
+ * Time: 12:40:30 AM
+ * To change this template use File | Settings | File Templates.
  */
-public interface AdminService {
+public interface AffiliateService {
 
   /**
    * Register a new company in the system only if it passes all business validations
    *
    * @param company
    * @param user
-   * @param recaptchaParams
    */
   public void registerCompany(Company company, User user, Object[] recaptchaParams);
 
@@ -34,20 +37,6 @@ public interface AdminService {
    * @param company
    */
   public void registerCompany(Company company);
-
-  /**
-   * Gets all Vendor Companies
-   *
-   * @param start form where to start
-   * @param rows  no of vendors ot be returned
-   * @return
-   */
-  /*public List<Company> getAllVendors(int start, int rows);*/
-
-  /**
-   * @return the No of Vendors
-   */
-  /*public int getNoOfVendors();*/
 
   /**
    * Register a new employee for the company in the system
@@ -111,15 +100,14 @@ public interface AdminService {
 
   /**
    * Finds the company corresponding to the companyShortName
-   * @param companyShortName
+   *
    * @return company
-   * @throws InvalidParameterException
    */
   public Company getCompany(String companyShortName) throws InvalidParameterException;
 
   /**
    * Gets the UserSettings corresponding to the username
-   * @param username
+   *
    * @return UserSettings
    */
   public UserSettings getUserSettings(String username);
@@ -131,11 +119,11 @@ public interface AdminService {
    */
   public List<Company> getAllCompanies();
 
-	/**
-	 *
-	 * @param user
-	 * @param roleRoleTypes
-	 */
+  /**
+   * Add a user for a company.
+   *
+   * @return
+   */
   public void addUser(User user, Role.RoleType[] roleRoleTypes);
 
   /**
@@ -160,75 +148,6 @@ public interface AdminService {
    */
   public User getUser(String userId);
 
-  /* *//**
-   * Creates a IssueTracker into the Userrules
-   *
-   * @param issueTrackerConfig
-   *//*
-      public void createIssueTracker(IssueTrackerConfig issueTrackerConfig);
-
-      *//**
-   * Allows Reconfiguring an IssueTracker so that it can fetch/update details like Issue Create Screen from the host
-   * system.
-   *
-   * @param issueTrackerConfig
-   *//*
-      public void reconfigure(IssueTrackerConfig issueTrackerConfig);
-
-      *//**
-   * Loads an IssueTrackerConfig with given issueTrackerConfigName
-   *
-   * @param issueTrackerConfigName
-   * @return IssueTrackerConfig
-   *//*
-      public IssueTrackerConfig loadIssueTrackerConfig(String issueTrackerConfigName);
-
-      *//**
-   * Loads an IssueTrackerConfig with given issueTrackerId and company Short Name
-   *
-   * @param companyShortName
-   * @param issueTrackerId
-   * @return IssueTrackerConfig
-   *//*
-      public IssueTrackerConfig loadIssueTrackerConfig(String companyShortName, long issueTrackerId);
-
-      *//**
-   * Loads an IssueTrackerConfig with given issueTrackerId
-   *
-   * @param issueTrackerId
-   * @return IssueTrackerConfig
-   *//*
-      public IssueTrackerConfig loadIssueTrackerConfig(long issueTrackerId);
-
-      *//**
-   * Gets All Issue Trackers configured for the companyShortName
-   *
-   * @param companyShortName
-   * @return List Of IssueTrackers
-   *//*
-      public List<IssueTrackerConfig> getIssueTrackers(String companyShortName);
-
-      *//**
-   * Updates a IssueTracker into the Userrules
-   *
-   * @param issueTrackerConfig
-   *//*
-      public void updateIssueTracker(IssueTrackerConfig issueTrackerConfig);
-
-      *//**
-   * Allows Creation of a Form
-   *
-   * @param form
-   *//*
-      public void createForm(Form form);
-
-      *//**
-   * Allows updation of a Form
-   *
-   * @param form
-   *//*
-      public void saveOrUpdateForm(Form form);
-*/
 
   /**
    * Finds or Creates User if doesnt exist
@@ -237,41 +156,6 @@ public interface AdminService {
    */
   public User findOrCreateUser(User user);
 
-   /**//**
-   * Finds the form with the given Name which has been saved for IssueTracker
-   *
-   * @param issueTrackerConfig for which to find form
-   * @param formName name of form to search
-   * @return Form
-   *//*
-      public Form findForm(IssueTrackerConfig issueTrackerConfig, String formName);
-
-      *//**
-   * Gets the Form which cna be used to generate a UI to Capture Issue Details for Creating an Issue
-   *
-   * @param issueTrackerConfig
-   * @param post for which an issue has to be created
-   * @return Form which holds details of fields required for Issue Create
-   *//*
-      public Form getIssueCreateForm(IssueTrackerConfig issueTrackerConfig, Post post);
-
-      *//**
-   * Creates an Issue in the Issue Tracker with the data Passed and associates that to given Post in the System
-   *
-   * @param issueTrackerConfig
-   * @param postId post which has to be related to the issue
-   * @param data to be used in creating issue
-   *//*
-      public void createIssue(IssueTrackerConfig issueTrackerConfig, long postId, Map<String, String> data);
-
-      *//**
-   * Checks the Status of Issues on the Issue Tracker represented by IssueTrackerConfig, by using issueIds passed
-   *
-   * @param issueIds
-   * @param issueTrackerConfig
-   * @return Map of IssueId as Key and its status as value
-   *//*
-      public Map<String, String> checkStatus(List<String> issueIds, IssueTrackerConfig issueTrackerConfig);*/
 
   /**
    * Saves UserLoginConfirmationRequest
@@ -384,7 +268,7 @@ public interface AdminService {
    * @param companyShortName
    * @return No of Employees of Company
    */
-  public long employeesCount(String companyShortName);
+  public long affiliatesCount(String companyShortName);
 
   /**
    * Encrypts the password
@@ -395,13 +279,7 @@ public interface AdminService {
    */
   public String getEncryptedPassword(String username, String password);
 
-   /**//**
-   * Get badge specified by badge name for a particular company.
-   *
-   * @param badgeName
-   * @param companyShortName
-   * @return
-   *//*
-      public Badge getBadgeForCompany(String badgeName, String companyShortName);*/
+	public Page searchAffiliate(String userName, String email, String companyShortName, int pageNo, int perPage);
+
 
 }

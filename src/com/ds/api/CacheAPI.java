@@ -7,7 +7,7 @@ public interface CacheAPI {
 
    public enum CacheConfig {
         COMPANY_CACHE, PRODUCT_CACHE, ISSUTRACKER_CACHE, TAG_CACHE, USER_CACHE,
-        USER_SETTINGS_CACHE,PLAN_CACHE
+        USER_SETTINGS_CACHE,PLAN_CACHE, COMPANY_CACHE_ID
     }
 
     /**

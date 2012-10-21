@@ -2,7 +2,6 @@ package com.ds.domain.affiliate;
 // Generated Oct 19, 2012 1:58:01 AM by Hibernate Tools 3.2.4.CR1
 
 
-import com.ds.domain.company.Company;
 import com.ds.domain.BaseDataObject;
 
 import javax.persistence.*;
@@ -23,9 +22,14 @@ public class AffiliateCompany extends BaseDataObject {
 	@JoinColumn(name = "AFFILIATE_ID", nullable = false)
 	private Affiliate affiliate;
 
+	@Column(name = "COMPANY_SHORT_NAME", nullable = false)
+	private String companyShortName;
+
+/*
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COMPANY_ID", nullable = false)
 	private Company company;
+*/
 
 
 	public Long getId() {
@@ -44,13 +48,23 @@ public class AffiliateCompany extends BaseDataObject {
 		this.affiliate = affiliate;
 	}
 
-	public Company getCompanyId() {
+	public String getCompanyShortName() {
+		return companyShortName;
+	}
+
+	public void setCompanyShortName(String companyShortName) {
+		this.companyShortName = companyShortName;
+	}
+
+/*
+	public Company getCompany() {
 		return this.company;
 	}
 
-	public void setCompanyId(Company company) {
+	public void setCompany(Company company) {
 		this.company = company;
 	}
+*/
 
 }
 

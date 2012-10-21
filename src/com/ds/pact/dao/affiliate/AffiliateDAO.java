@@ -1,18 +1,22 @@
-package com.ds.pact.dao;
+package com.ds.pact.dao.affiliate;
 
+import com.ds.pact.dao.BaseDao;
 import com.ds.domain.company.Company;
-import com.ds.domain.core.Plan;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
+import com.ds.domain.core.Plan;
 
 import java.util.List;
 
-
 /**
- * @author adlakha.vaibhav
+ * Created by IntelliJ IDEA.
+ * User: Rahul
+ * Date: Oct 22, 2012
+ * Time: 12:37:54 AM
+ * To change this template use File | Settings | File Templates.
  */
-public interface AdminDAO extends BaseDao{
+public interface AffiliateDAO extends BaseDao {
 
   /**
       * Saves a new Company Record
@@ -44,12 +48,12 @@ public interface AdminDAO extends BaseDao{
       */
      public Company getCompany(String companyShortName);
 
-	/**
-	 * Find a user based on emailId.
-	 * @param emailId
-	 * @return user
-	 */
-	public User getUser(String emailId);
+     /**
+      * Find a user based on emailId.
+      *
+      * @return user
+      */
+     public User getUser(String emailId);
 
      /**//**
       * Creates a IssueTracker into the Userrules
@@ -191,12 +195,12 @@ public interface AdminDAO extends BaseDao{
      public List<User> findEmployees(String companyShortName, int start, int rows, String sortBy, String sortHow);
 
      /**
-      * Employee Count for a Company Identified by Company Short Name
+      * Affiliates Count for a Company Identified by Company Short Name
       *
       * @param companyShortName
-      * @return No of Employees of Company
+      * @return No of Affiliates of Company
       */
-     public long employeesCount(String companyShortName);
+     public long affiliatesCount(String companyShortName);
 
      /**
       * Gets a Plan form DB with planName
@@ -231,3 +235,4 @@ public interface AdminDAO extends BaseDao{
 
 
 }
+

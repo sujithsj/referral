@@ -6,6 +6,7 @@ package com.ds.constants;
 public enum FeatureType {
   PRODUCT_COUNT("ProductCount"),
   EMPLOYEE_COUNT("EmployeeCount"),
+  AFFILIATE_COUNT("AffiliateCount"),
   DASHBOARD_SUPPORT("DashboardSupport"),
   MODERATION("Moderation"),
   REDMINE("Redmine"),

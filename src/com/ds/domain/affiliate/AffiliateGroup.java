@@ -20,8 +20,8 @@ public class AffiliateGroup extends BaseDataObject {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "COMPANY_ID", nullable = false)
-	private Company company;
+	@Column(name = "COMPANY_SHORT_NAME", nullable = false)
+	private String companyShortName;
 
 	@Column(name = "NAME", nullable = false, length = 45)
 	private String name;
@@ -49,7 +49,8 @@ public class AffiliateGroup extends BaseDataObject {
 	@JoinTable(name = "affiliate_group_affiliate",  joinColumns = {
 			@JoinColumn(name = "AFFILIATE_GROUP_ID", nullable = false, updatable = false)}, inverseJoinColumns = {
 			@JoinColumn(name = "AFFILIATE_ID", nullable = false, updatable = false)})
-	private Set<AffiliateCompany> affiliateCompanies = new HashSet<AffiliateCompany>(0);
+	private Set<Affiliate> affiliates = new HashSet<Affiliate>(0);
+
 
 	public Long getId() {
 		return this.id;
@@ -59,12 +60,12 @@ public class AffiliateGroup extends BaseDataObject {
 		this.id = id;
 	}
 
-	public Company getCompanyId() {
-		return this.company;
+	public String getCompanyShortName() {
+		return companyShortName;
 	}
 
-	public void setCompanyId(Company company) {
-		this.company = company;
+	public void setCompanyShortName(String companyShortName) {
+		this.companyShortName = companyShortName;
 	}
 
 	public String getName() {
@@ -99,15 +100,13 @@ public class AffiliateGroup extends BaseDataObject {
 		this.delete = delete;
 	}
 
-	public Set<AffiliateCompany> getAffiliateCompanies() {
-		return this.affiliateCompanies;
+	public Set<Affiliate> getAffiliates() {
+		return affiliates;
 	}
 
-	public void setAffiliateCompanies(Set<AffiliateCompany> affiliateCompanies) {
-		this.affiliateCompanies = affiliateCompanies;
+	public void setAffiliates(Set<Affiliate> affiliates) {
+		this.affiliates = affiliates;
 	}
-
-
 }
 
 

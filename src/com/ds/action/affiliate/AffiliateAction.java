@@ -1,33 +1,36 @@
-package com.ds.action.employee;
+package com.ds.action.affiliate;
 
-import com.ds.api.CacheAPI;
+import com.ds.web.action.BaseAction;
+import com.ds.dto.user.UserDTO;
+import com.ds.pact.service.admin.AdminService;
+import com.ds.pact.service.admin.AffiliateService;
 import com.ds.api.FeatureAPI;
-import com.ds.constants.FeatureType;
+import com.ds.api.CacheAPI;
+import com.ds.security.api.SecurityAPI;
+import com.ds.security.service.UserService;
+import com.ds.security.helper.SecurityHelper;
+import com.ds.domain.user.User;
+import com.ds.domain.user.UserSettings;
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Permission;
 import com.ds.domain.core.Role;
-import com.ds.domain.user.User;
-import com.ds.domain.user.UserSettings;
-import com.ds.dto.user.UserDTO;
-import com.ds.pact.service.admin.AdminService;
-import com.ds.security.api.SecurityAPI;
-import com.ds.security.helper.SecurityHelper;
-import com.ds.security.service.UserService;
-import com.ds.web.action.BaseAction;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.DefaultHandler;
+import com.ds.constants.FeatureType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.ForwardResolution;
 
-import java.util.Date;
 import java.util.Map;
+import java.util.Date;
 
 /**
- * @author adlakha.vaibhav
+ * Created by IntelliJ IDEA.
+ * User: Rahul
+ * Date: Oct 22, 2012
+ * Time: 12:00:04 AM
+ * To change this template use File | Settings | File Templates.
  */
-@Component
-public class UserAction extends BaseAction {
+public class AffiliateAction extends BaseAction {
 
   private String DEFAULT_USER_PWD = "password";
 
@@ -41,6 +44,8 @@ public class UserAction extends BaseAction {
 
   @Autowired
   private AdminService adminService;
+	@Autowired
+  private AffiliateService affiliateService;
   @Autowired
   private FeatureAPI featureAPI;
   @Autowired
@@ -58,22 +63,18 @@ public class UserAction extends BaseAction {
       User user = getUserService().getUser(employeeId);
       UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
       userDTO = new UserDTO();
-      userDTO.bindUser(user, userSettings);                          
+      userDTO.bindUser(user, userSettings);
     }
     return new ForwardResolution("/pages/company/userCrud.jsp");
   }
-  
-  public Resolution createEmployee() {
 
-	  //added by rahul for testing purpose comment this or change as per convienence
-	  companyShortName = "rah";
+  public Resolution createAffiliate() {
+
+	  //need to get the company here already as the user would have already logged in using a company
+	  //added by rahul
+	companyShortName = "rah";
     Company company = getAdminService().getCompany(companyShortName);
-    getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.EMPLOYEE_COUNT, getAdminService().employeesCount(companyShortName) + 1);
-
-	  //below null check added by rahul as userDTO is null for Add new user.
-	  if(userDTO == null){
-		  userDTO = new UserDTO();
-	  }
+    getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getAffiliateService().affiliatesCount(companyShortName) + 1);
     User user = userDTO.extractUser();
     user.setPassword(DEFAULT_USER_PWD);
     user.setCompanyShortName(company.getShortName());
@@ -243,4 +244,13 @@ public class UserAction extends BaseAction {
   public void setEmployeeEmail(String employeeEmail) {
     this.employeeEmail = employeeEmail;
   }
+
+	public AffiliateService getAffiliateService() {
+		return affiliateService;
+	}
+
+	public void setAffiliateService(AffiliateService affiliateService) {
+		this.affiliateService = affiliateService;
+	}
+
 }
