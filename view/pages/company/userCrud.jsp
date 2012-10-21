@@ -40,7 +40,18 @@
 
             <s:label name="Send Email On Goal Conversion"/>
             <s:checkbox name="userDTO.sendEmailOnGoalConversion" class="auto-adjust"/>
-            
+
+            <s:label name="account non expired"/>
+            <s:checkbox name="userDTO.accountNonExpired" class="auto-adjust"/>
+
+            <s:label name="Account non locked"/>
+            <s:checkbox name="userDTO.accountNonLocked" class="auto-adjust"/>
+
+            <s:label name="Enabled"/>
+            <s:checkbox name="userDTO.enabled" class="auto-adjust"/>
+
+            <s:label name="Credintals non expired"/>
+            <s:checkbox name="userDTO.credentialsNonExpired" class="auto-adjust"/>
             
 
           </div>
