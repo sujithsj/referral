@@ -142,15 +142,10 @@ public class User extends BaseDataObject {
     this.email = user.getEmail();
     this.password = user.getPassword() != null && !StringUtils.isEmpty(user.getPassword()) ? user.getPassword() : this.password;
 
-    // if (getUserSettings() == null) {
-    // UserSettings userSettings = new UserSettings();
-    // userSettings.setUsername(getUsername());
-    //
-    // setUserSettings(userSettings);
-    // }
-    //
-    // getUserSettings().setSendEmailOnPost(user.getUserSettings().isSendEmailOnPost());
-    // getUserSettings().setSendEmailOnAssignedPost(user.getUserSettings().isSendEmailOnAssignedPost());
+    this.accountNonExpired = user.isAccountNonExpired();
+    this.accountNonLocked = user.isAccountNonLocked();
+    this.credentialsNonExpired = user.isCredentialsNonExpired();
+    this.enabled = user.isEnabled();
 
     setUserSettingsId(user.getUserSettingsId());
     if (syncRoles) {

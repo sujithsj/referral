@@ -17,19 +17,20 @@
 
     <div class="row">
       <div class="span3 bs-docs-sidebar">
-
+        <!-- empty div required here only for formatting-->
       </div>
       <div class="span9">
 
         <s:form beanclass="com.ds.action.company.RegisterCompanyAction" class="form-horizontal">
-           <fieldset><legend>test</legend>
-          <div class="control-group">
-            <s:label class="control-label" name="Your Name"/>
-            <div class="controls ">
-              <s:text name="companyRegistrationDTO.userName" placeholder="user name"/>
+          <fieldset>
+            <legend>test</legend>
+            <div class="control-group">
+              <s:label class="control-label" name="Your Name"/>
+              <div class="controls ">
+                <s:text name="companyRegistrationDTO.userName" placeholder="user name"/>
+              </div>
             </div>
-          </div>
-             </fieldset>
+          </fieldset>
           <div class="control-group">
             <s:label class="control-label" name="Company Name"/>
             <div class="controls ">

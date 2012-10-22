@@ -24,6 +24,14 @@ public class UserDTO {
 
   private String thumbnailImageUrl;
 
+  private boolean accountNonExpired;
+  private boolean accountNonLocked;
+  private boolean credentialsNonExpired;
+  private boolean enabled;
+
+  /**
+   * fields for user settings
+   */
   private boolean sendEmailOnAddAffiliate;
   private boolean sendEmailOnTerminateAffiliate;
   private boolean sendEmailOnJoinAffiliate;
@@ -40,6 +48,12 @@ public class UserDTO {
     this.email = user.getEmail();
     this.originalImageUrl = user.getOriginalImageUrl();
     this.thumbnailImageUrl = user.getThumbnailImageUrl();
+
+    this.accountNonExpired = user.isAccountNonExpired();
+    this.accountNonLocked = user.isAccountNonLocked();
+    this.credentialsNonExpired = user.isCredentialsNonExpired();
+    this.enabled = user.isEnabled();
+
     for (String roleName : user.getRoleNames()) {
       addRole(roleName);
     }
@@ -101,6 +115,12 @@ public class UserDTO {
     user.setThumbnailImageUrl(this.thumbnailImageUrl);
     user.setOriginalImageUrl(this.originalImageUrl);
 
+    user.setAccountNonExpired(this.accountNonExpired);
+    user.setAccountNonLocked(this.accountNonLocked);
+    user.setCredentialsNonExpired(this.credentialsNonExpired);
+    user.setEnabled(this.enabled);
+
+
     // user.setPassword(this.password);
     return user;
   }
@@ -131,6 +151,11 @@ public class UserDTO {
     this.fullName = user.getFullName();
     this.originalImageUrl = user.getOriginalImageUrl();
     this.thumbnailImageUrl = user.getThumbnailImageUrl();
+
+    this.accountNonExpired = user.isAccountNonExpired();
+    this.accountNonLocked = user.isAccountNonLocked();
+    this.credentialsNonExpired = user.isCredentialsNonExpired();
+    this.enabled = user.isEnabled();
 
     if (bindPassword)
       this.password = user.getPassword();
@@ -269,5 +294,37 @@ public class UserDTO {
 
   public void setSendEmailOnGoalConversion(boolean sendEmailOnGoalConversion) {
     this.sendEmailOnGoalConversion = sendEmailOnGoalConversion;
+  }
+
+  public boolean isAccountNonExpired() {
+    return accountNonExpired;
+  }
+
+  public void setAccountNonExpired(boolean accountNonExpired) {
+    this.accountNonExpired = accountNonExpired;
+  }
+
+  public boolean isAccountNonLocked() {
+    return accountNonLocked;
+  }
+
+  public void setAccountNonLocked(boolean accountNonLocked) {
+    this.accountNonLocked = accountNonLocked;
+  }
+
+  public boolean isCredentialsNonExpired() {
+    return credentialsNonExpired;
+  }
+
+  public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+    this.credentialsNonExpired = credentialsNonExpired;
+  }
+
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
   }
 }
