@@ -164,9 +164,10 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Page searchUser(String userName, String email, int pageNo, int perPage) {
+  public Page searchUser(String userName, String email, String companyShortName, int pageNo, int perPage) {
     UserQuery userQuery = new UserQuery();
     userQuery.setUsername(userName);
+	  userQuery.setCompanyShortName(companyShortName);
 
     //TODO: set the sort field on basis on whether it was email or userName
     userQuery.setEmail(email).setOrderByField("un").setPageNo(pageNo).setRows(perPage);

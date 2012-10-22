@@ -91,5 +91,5 @@ public interface UserService extends UserDetailsService {
   public void saveOrUpdateUserSettings(UserSettings userSettings);
 
 
-  public Page searchUser(String userName, String email, int pageNo, int perPage);
+  public Page searchUser(String userName, String email, String companyShortName, int pageNo, int perPage);
 }

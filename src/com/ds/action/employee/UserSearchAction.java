@@ -2,6 +2,7 @@ package com.ds.action.employee;
 
 import com.ds.domain.user.User;
 import com.ds.security.service.UserService;
+import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -21,6 +22,7 @@ public class UserSearchAction extends BasePaginatedAction {
 
   private String userName;
   private String email;
+	private String companyShortName;
 
   private Page userPage;
   private List<User> users;
@@ -31,7 +33,9 @@ public class UserSearchAction extends BasePaginatedAction {
 
   @SuppressWarnings("unchecked")
   public Resolution searchUsers() {
-    userPage = getUserService().searchUser(userName, email, getPageNo(), getPerPage());
+	  User loggedInUser = SecurityHelper.getLoggedInUser();
+	  companyShortName = loggedInUser.getCompanyShortName();
+    userPage = getUserService().searchUser(userName, email, companyShortName, getPageNo(), getPerPage());
     users = userPage.getList();
 
     return new ForwardResolution("/pages/company/users.jsp");
@@ -92,4 +96,12 @@ public class UserSearchAction extends BasePaginatedAction {
   public void setEmail(String email) {
     this.email = email;
   }
+
+	public String getCompanyShortName() {
+		return companyShortName;
+	}
+
+	public void setCompanyShortName(String companyShortName) {
+		this.companyShortName = companyShortName;
+	}
 }

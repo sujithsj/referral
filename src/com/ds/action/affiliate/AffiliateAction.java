@@ -2,6 +2,7 @@ package com.ds.action.affiliate;
 
 import com.ds.web.action.BaseAction;
 import com.ds.dto.user.UserDTO;
+import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.admin.AffiliateService;
 import com.ds.api.FeatureAPI;
@@ -36,6 +37,7 @@ public class AffiliateAction extends BaseAction {
 
   private String companyShortName;
   private UserDTO userDTO;
+  private AffiliateDTO affiliateDTO;
 
   private String employeeId;
   private String roleName;
@@ -70,12 +72,14 @@ public class AffiliateAction extends BaseAction {
 
   public Resolution createAffiliate() {
 
-	  //need to get the company here already as the user would have already logged in using a company
-	  //added by rahul
-	companyShortName = "rah";
+	  User loggedInUser = SecurityHelper.getLoggedInUser();
+	  companyShortName = loggedInUser.getCompanyShortName();
     Company company = getAdminService().getCompany(companyShortName);
     getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getAffiliateService().affiliatesCount(companyShortName) + 1);
+
+
     User user = userDTO.extractUser();
+    User user1 = affiliateDTO.extractUser();
     user.setPassword(DEFAULT_USER_PWD);
     user.setCompanyShortName(company.getShortName());
 

@@ -32,7 +32,11 @@ public class AffiliateQuery extends AbstractSearchQuery {
     return this;
   }
 
-  @Override
+	public void setCompanyShortName(String companyShortName) {
+		this.companyShortName = companyShortName;
+	}
+
+	@Override
   protected String getBaseQuery() {
    StringBuilder queryStr = new StringBuilder("select aff from Affiliate aff where 1=1 ");
 

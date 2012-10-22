@@ -15,7 +15,7 @@ public class UserQuery extends AbstractSearchQuery {
 
   private String username;
   private String email;
-
+	private String companyShortName;
 
   public UserQuery setUsername(String username) {
     this.username = username;
@@ -27,7 +27,11 @@ public class UserQuery extends AbstractSearchQuery {
     return this;
   }
 
-  @Override
+	public void setCompanyShortName(String companyShortName) {
+		this.companyShortName = companyShortName;
+	}
+
+	@Override
   protected String getBaseQuery() {
    StringBuilder queryStr = new StringBuilder("select u from User u where 1=1 ");
 
@@ -40,6 +44,11 @@ public class UserQuery extends AbstractSearchQuery {
       queryStr.append(" and u.email like  :email ");
       getQueryParams().put("email", "%" + email + "%");
     }
+
+		if (StringUtils.isNotBlank(companyShortName)) {
+		  queryStr.append(" and u.companyShortName =  :companyShortName ");
+		  getQueryParams().put("companyShortName", companyShortName);
+		}
 
     return queryStr.toString(); 
   }

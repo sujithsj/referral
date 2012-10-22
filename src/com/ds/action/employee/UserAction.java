@@ -65,8 +65,8 @@ public class UserAction extends BaseAction {
   
   public Resolution createEmployee() {
 
-	  //added by rahul for testing purpose comment this or change as per convienence
-	  companyShortName = "rah";
+	  User loggedInUser = SecurityHelper.getLoggedInUser();
+	  companyShortName = loggedInUser.getCompanyShortName();
     Company company = getAdminService().getCompany(companyShortName);
     getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.EMPLOYEE_COUNT, getAdminService().employeesCount(companyShortName) + 1);
 

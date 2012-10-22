@@ -3,6 +3,7 @@ package com.ds.action.affiliate;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.user.User;
 import com.ds.security.service.UserService;
+import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
 import com.ds.pact.service.admin.AffiliateService;
@@ -40,6 +41,8 @@ public class AffiliateSearchAction extends BasePaginatedAction {
 
 	@SuppressWarnings("unchecked")
 	public Resolution searchUsers() {
+		User loggedInUser = SecurityHelper.getLoggedInUser();
+	  companyShortName = loggedInUser.getCompanyShortName();
 		userPage = getAffiliateService().searchAffiliate(userName, email, companyShortName, getPageNo(), getPerPage());
 		users = userPage.getList();
 
@@ -49,6 +52,9 @@ public class AffiliateSearchAction extends BasePaginatedAction {
 
 	@SuppressWarnings("unchecked")
 	public Resolution searchAffiliates() {
+
+		User user = SecurityHelper.getLoggedInUser();
+		companyShortName = user.getCompanyShortName();
 		affiliatePage = getAffiliateService().searchAffiliate(userName, email, companyShortName, getPageNo(), getPerPage());
 		affiliates = affiliatePage.getList();
 

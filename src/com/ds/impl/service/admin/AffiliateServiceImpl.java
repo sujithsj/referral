@@ -37,6 +37,7 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +55,7 @@ import java.util.regex.Pattern;
  * Time: 12:42:00 AM
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class AffiliateServiceImpl implements AffiliateService {
 
 

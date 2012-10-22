@@ -7,6 +7,7 @@ import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
 import com.ds.pact.dao.affiliate.AffiliateDAO;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * Time: 12:37:35 AM
  * To change this template use File | Settings | File Templates.
  */
+@Repository
 public class AffiliateDAOImpl extends BaseDaoImpl implements AffiliateDAO {
 
   @Override
