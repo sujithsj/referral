@@ -72,7 +72,7 @@ public class ServiceLocatorFactory implements ApplicationContextAware, ServletCo
             int servicePackageLength = interfaceClass.getPackage().getName().length() + 1;
             StringBuffer serviceName = new StringBuffer(interfaceClass.getName().substring(servicePackageLength));
             serviceName.setCharAt(0, Character.toLowerCase(serviceName.charAt(0)));
-            //serviceName.append(IMPLEMENTATION_SUFFIX);
+            serviceName.append(IMPLEMENTATION_SUFFIX);
             cachedServiceName = serviceName.toString();
             nameMap.put(interfaceClass, cachedServiceName);
         }

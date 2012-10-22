@@ -1,0 +1,22 @@
+<html>
+<body>
+<br>
+Hi ${context.user.fullName},
+<br><br>
+You have successfully reedemed a award.
+<br>
+The steps to claim the reward are : 
+<br>
+${context.reward.howToClaim}
+
+<br>
+Thanks,<br>
+The UserRules.com Team<br>
+<br>
+<br>
+<font size=1><font color=#666666>Copyright © 2010 UserRules.com</font></font><br>
+<br>
+</body>
+
+
+</html>

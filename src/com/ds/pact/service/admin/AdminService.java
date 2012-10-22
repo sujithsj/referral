@@ -160,6 +160,9 @@ public interface AdminService {
    */
   public User getUser(String userId);
 
+
+  public User getUserByEmail(String userEmail);
+
   /* *//**
    * Creates a IssueTracker into the Userrules
    *
