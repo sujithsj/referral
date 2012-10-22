@@ -51,7 +51,6 @@ public class UserAction extends BaseAction {
   private CacheAPI cacheAPI;
 
 
-
   @DefaultHandler
   public Resolution createOrEditUser() {
     if (employeeId != null) {

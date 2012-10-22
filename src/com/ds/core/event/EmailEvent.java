@@ -2,9 +2,12 @@ package com.ds.core.event;
 
 import com.ds.exception.DSException;
 import com.ds.impl.service.ServiceLocatorFactory;
+import com.ds.impl.service.mail.UserContext;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.mail.EmailContext;
 import com.ds.pact.service.mail.EmailTemplateService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 import javax.mail.MessagingException;
@@ -16,6 +19,9 @@ import java.util.Map;
  */
 public class EmailEvent implements AsyncEvent {
 
+  
+  private Logger logger = LoggerFactory.getLogger(EmailEvent.class);
+  
   private EmailTemplateService.EmailEventType eventType;
   private EmailContext context;
   //private PostDAO        postDAO;
@@ -76,8 +82,8 @@ public class EmailEvent implements AsyncEvent {
         mimeMessageHelper.setTo(userThirdPartyAuthEmailContext.getUserEmail());*/
         break;
       case UserPasswordResetConfirmation:
-        /*UserContext userContext = (UserContext) context;
-        mimeMessageHelper.setTo(userContext.getUser().getEmail());*/
+        UserContext userContext = (UserContext) context;
+        mimeMessageHelper.setTo(userContext.getUser().getEmail());
         break;
       case ClaimReward:
         /*ClaimRewardContext claimRewardContext = (ClaimRewardContext) context;
@@ -97,13 +103,16 @@ public class EmailEvent implements AsyncEvent {
 
   @Override
   public void prepareFromWireRepresentation(Map<String, String> data) {
-    this.eventType = EmailTemplateService.EmailEventType.valueOf(data.get("EventType"));
+     this.eventType = EmailTemplateService.EmailEventType.valueOf(data.get("EventType"));
     try {
       Class emailContextClass = Class.forName(data.get("ContextClass"));
       this.context = (EmailContext) emailContextClass.newInstance();
       this.context.prepareFromWireRepresentation(data);
     } catch (Exception e) {
+      logger.error("ERROR_IN_DESERIALIZATION", e);
       throw new DSException("ERROR_IN_DESERIALIZATION", e);
+
+      
     }
   }
 

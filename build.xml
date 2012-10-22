@@ -43,8 +43,14 @@
     <copy todir="${project.dist.dir}/WEB-INF/classes">
       <fileset dir="${project.resources.dir}/${project.env}/i18n"/>
     </copy>
-		<copy todir="${project.dist.dir}/WEB-INF">
+		<copy todir="${project.dist.dir}/WEB-INF/classes">
 			<fileset dir="${project.resources.dir}/${project.env}/logging" />
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/classes/velocity">
+			<fileset dir="${project.resources.dir}/${project.env}/velocity" />
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/classes/">
+			<fileset dir="${project.resources.dir}/${project.env}/properties" />
 		</copy>
 
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
@@ -54,6 +60,11 @@
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.hibernate.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.velocity.root}">
 				<include name="*.jar" />
 			</fileset>
 		</copy>

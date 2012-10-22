@@ -1,11 +1,12 @@
 package com.ds.impl.service.mail;
 
-import com.ds.domain.core.Properties;
 import com.ds.core.event.EmailEvent;
+import com.ds.domain.core.Properties;
 import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.pact.service.admin.LoadPropertyService;
 import com.ds.pact.service.mail.MailService;
 import com.ds.utils.SmartSerializationHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.jms.*;
 import javax.mail.internet.MimeMessage;
+import javax.annotation.PostConstruct;
 
 
 /**
@@ -21,16 +23,19 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class MailServiceImpl implements MailService {
 
-
+  @Autowired
   private LoadPropertyService loadPropertyService;
+  @Autowired
+  private MailSender mailSender;
 
-  private JavaMailSenderImpl mailSender;
-
+  @Autowired
   private JmsTemplate jmsTemplate;
 
+  @Autowired
   private Destination emailQueue;
 
 
+  @PostConstruct
   protected void initMailSender() {
 
     mailSender.setHost(getLoadPropertyService().getProperty(Properties.USERRULES_SMTP_HOST.getPropertyRef()).toString());
@@ -67,7 +72,7 @@ public class MailServiceImpl implements MailService {
   /**
    * @param mailSender the mailSender to set
    */
-  public void setMailSender(JavaMailSenderImpl mailSender) {
+  public void setMailSender(MailSender mailSender) {
     this.mailSender = mailSender;
   }
 

@@ -67,6 +67,11 @@
                     <span class="icon white small" data-icon="7"></span>Edit
                     <s:param name="employeeId" value="${user.username}"/>
                   </s:link>
+                  <s:link beanclass="com.ds.action.employee.UserAction"
+                          event="resetPassword" class="button blue small">
+                    <span class="icon white small" data-icon="7"></span>Reset Password
+                    <s:param name="employeeEmail" value="${user.email}"/>
+                  </s:link>
                     <%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
                             event="entityTags" target="_blank" class="button orange small">Tag
                       <s:param name="entityId" value="${brand.id}"/>

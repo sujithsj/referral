@@ -321,11 +321,23 @@ public class AdminServiceImpl implements AdminService {
     getAdminDAO().update(entity);
   }
 
+  @Override
   public User getUser(String userId) {
     User user = (User) getAdminDAO().load(User.class, userId);
 
     if (user == null) {
       logger.error("No such user found in system: " + userId);
+      throw new InvalidParameterException("INVALID_USER");
+    }
+    return user;
+  }
+
+  @Override
+  public User getUserByEmail(String userEmail) {
+    User user = (User) getAdminDAO().findUnique("select u from User u  where u.email = ?",  new Object[]{userEmail});
+
+    if (user == null) {
+      logger.error("No such user found in system: " + userEmail);
       throw new InvalidParameterException("INVALID_USER");
     }
     return user;
@@ -703,6 +715,7 @@ public class AdminServiceImpl implements AdminService {
   }*/
 
   @Override
+  @Transactional
   public void resetEmployeePassword(final String userEmail) {
     final String generatedPassword = GeneralUtils.getRandomAlphaNumericString(8, 4);
     ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {

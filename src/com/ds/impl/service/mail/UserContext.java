@@ -67,7 +67,7 @@ public class UserContext extends EmailContext {
   @Override
   public void prepareFromWireRepresentation(Map<String, String> data) {
     if (data.containsKey(USER_CONTEXT_USER_EMAIL)) {
-      this.user = ServiceLocatorFactory.getService(AdminService.class).getUser(data.get(USER_CONTEXT_USER_EMAIL));
+      this.user = ServiceLocatorFactory.getService(AdminService.class).getUserByEmail(data.get(USER_CONTEXT_USER_EMAIL));
     }
     this.generatedPassword = data.get(USER_CONTEXT_GENERATED_PASSWORD);
 
