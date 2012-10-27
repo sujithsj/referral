@@ -7,6 +7,7 @@ import com.ds.domain.user.UserSettings;
 import com.ds.impl.dao.BaseDaoImpl;
 import com.ds.security.dao.UserDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
   }
 
   @Override
+  @Transactional(readOnly = false)
   public void saveOrUpdateUserSettings(UserSettings userSettings) {
     saveOrUpdate(userSettings);
   }

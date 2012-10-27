@@ -289,6 +289,7 @@ public class AdminServiceImpl implements AdminService {
 
     user.setPassword(getMessageDigestPasswordEncoder().encodePassword(user.getPassword(), user.getUsername()));
 
+    
     user = (User) getAdminDAO().save(user);
 
     /*ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {

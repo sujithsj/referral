@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Set;
 /**
  * @author adlakha.vaibhav
  */
-public class User extends BaseDataObject {
+public class User extends BaseDataObject implements UserDetails {
 
   private static final long serialVersionUID = 1L;
   private String password;

@@ -55,9 +55,9 @@ public class AcegiUserDetailsServiceImpl implements AcegiUserDetailsService {
 
     user.setAuthorities(authorities);
 
-    //return user;
+    return user;
 
-    return null;
+
 
   }
 

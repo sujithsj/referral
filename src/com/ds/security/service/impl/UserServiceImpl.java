@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -120,6 +121,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Transactional(readOnly = false)
   public void saveOrUpdateUserSettings(UserSettings userSettings) {
     getUserDao().saveOrUpdateUserSettings(userSettings);
     getCacheAPI().remove(CacheAPI.CacheConfig.USER_SETTINGS_CACHE, userSettings.getUsername());
