@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author adlakha.vaibhav
  */
-public interface UserService extends UserDetailsService {
+public interface UserService  {
 
   /**
    * Get all users including admin user

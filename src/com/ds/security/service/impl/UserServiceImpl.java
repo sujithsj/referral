@@ -16,16 +16,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -52,37 +44,7 @@ public class UserServiceImpl implements UserService {
   * (non-Javadoc)
   * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
   */
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-    User user = getUser(username);
-    if (user == null) {
-      // throw new UsernameNotFoundException(username);
-      logger.error("No such user found in system: " + username);
-      throw new InvalidParameterException("INVALID_USER");
-    }
-
-    Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-    authorities.add(new GrantedAuthorityImpl("ROLE_USER"));
-    // Test implementation
-
-    for (String roleName : user.getRoleNames()) {
-      authorities.add(new GrantedAuthorityImpl(roleName));
-    }
-
-    for (String permission : getSecurityAPI().getPermissionsGrantedToUser(user)) {
-      authorities.add(new GrantedAuthorityImpl(permission));
-    }
-
-    if (user.getCompanyShortName() != null) {
-      authorities.add(new GrantedAuthorityImpl("ROLE_EMPLOYEE"));
-    }
-
-    user.setAuthorities(authorities);
-
-    //return user;
-
-    return null;
-
-  }
+  
 
   public UserDao getUserDao() {
     return userDao;
