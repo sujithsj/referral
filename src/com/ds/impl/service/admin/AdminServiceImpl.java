@@ -861,6 +861,11 @@ public class AdminServiceImpl implements AdminService {
     getCacheAPI().remove(CacheAPI.CacheConfig.USER_CACHE, user.getUsername());
   }
 
+  @Override
+  public List<Role> getAllRoles(){
+     return getAdminDAO().getAllRoles();
+  }
+
   /*@Override
   public Badge getBadgeForCompany(String badgeName, String companyShortName) {
     return getAdminDAO().getBadgeForCompany(badgeName, companyShortName);

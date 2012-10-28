@@ -2,6 +2,7 @@ package com.ds.impl.dao;
 
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Plan;
+import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author adlakha.vaibhav
@@ -165,6 +167,12 @@ public class AdminDAOImpl extends BaseDaoImpl implements AdminDAO {
   public Plan getPlan(String planName) {
     return getByQuery("from Plan where name = ?", planName);
   }
+
+  @Override
+  public List<Role> getAllRoles(){
+      return getAll(Role.class);
+  }
+
 
   /*@Override
   public Badge getBadgeForCompany(String badgeName, String companyShortName) {

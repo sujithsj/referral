@@ -5,9 +5,7 @@ import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserSettings;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author adlakha.vaibhav
@@ -17,8 +15,10 @@ public class UserDTO {
   private String fullName;
   private String email;
   private String password;
-  private Set<String> roles = new HashSet<String>();
+  //private Set<String> roles = new HashSet<String>();
   private Set<String> actions = new HashSet<String>();
+
+  private List<RoleDTO> roles = new ArrayList<RoleDTO>();
 
   private String originalImageUrl;
 
@@ -79,16 +79,17 @@ public class UserDTO {
     this.email = email;
   }
 
-  public Set<String> getRoles() {
+  /*public Set<String> getRoles() {
     return roles;
   }
 
   public void setRoles(Set<String> roles) {
     this.roles = roles;
-  }
+  }*/
 
   public void addRole(String role) {
-    roles.add(role);
+    RoleDTO roleDTO = new RoleDTO(role, true);
+    roles.add(roleDTO);
   }
 
   public Set<String> getActions() {
@@ -163,6 +164,7 @@ public class UserDTO {
     for (String roleName : user.getRoleNames()) {
       addRole(roleName);
     }
+
     if (userSettings != null) {
       this.sendEmailOnAddAffiliate = userSettings.isSendEmailOnAddAffiliate();
       this.sendEmailOnGoalConversion = userSettings.isSendEmailOnGoalConversion();
@@ -192,11 +194,19 @@ public class UserDTO {
   public Role.RoleType[] getRoleTypes() {
     Role.RoleType[] types = new Role.RoleType[getRoles().size()];
     int i = 0;
-    for (String role : getRoles()) {
-      types[i] = Role.RoleType.valueOf(role);
+    for (RoleDTO role : getRoles()) {
+      types[i] = Role.RoleType.valueOf(role.getName());
       i++;
     }
     return types;
+  }
+
+  public List<RoleDTO> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(List<RoleDTO> roles) {
+    this.roles = roles;
   }
 
   /**
@@ -327,4 +337,6 @@ public class UserDTO {
   public void setEnabled(boolean enabled) {
     this.enabled = enabled;
   }
+
+  
 }

@@ -25,7 +25,7 @@
 
             <s:label name="Email"/>
             <s:text name="userDTO.email" class="check-empty auto-adjust"/>
-            
+
             <s:label name="Password"/>
             <s:text name="userDTO.newPassword" class="check-empty auto-adjust"/>
 
@@ -52,7 +52,12 @@
 
             <s:label name="Credintals non expired"/>
             <s:checkbox name="userDTO.credentialsNonExpired" class="auto-adjust"/>
-            
+
+            <h2>Roles:</h2>
+            <c:forEach items="${userAction.userRoles}" var="role" varStatus="roleCount">
+              <s:hidden name="userDTO.roles[${roleCount.index}].name" value="${role.name}"/>
+              <s:checkbox name="userDTO.roles[${roleCount.index}].selected"/> ${role.name}<br/>
+            </c:forEach>
 
           </div>
 

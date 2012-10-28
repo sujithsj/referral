@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -407,4 +408,6 @@ public interface AdminService {
    *//*
       public Badge getBadgeForCompany(String badgeName, String companyShortName);*/
 
+
+  public List<Role> getAllRoles();
 }

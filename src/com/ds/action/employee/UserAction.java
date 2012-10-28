@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +39,8 @@ public class UserAction extends BaseAction {
   private String roleName;
   private String employeeEmail;
 
+  private List<Role> userRoles;
+
 
   @Autowired
   private AdminService adminService;
@@ -53,6 +56,7 @@ public class UserAction extends BaseAction {
 
   @DefaultHandler
   public Resolution createOrEditUser() {
+    userRoles = getAdminService().getAllRoles();
     if (employeeId != null) {
       User user = getUserService().getUser(employeeId);
       UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
@@ -249,5 +253,13 @@ public class UserAction extends BaseAction {
 
   public void setEmployeeEmail(String employeeEmail) {
     this.employeeEmail = employeeEmail;
+  }
+
+  public List<Role> getUserRoles() {
+    return userRoles;
+  }
+
+  public void setUserRoles(List<Role> userRoles) {
+    this.userRoles = userRoles;
   }
 }

@@ -2,6 +2,7 @@ package com.ds.pact.dao;
 
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Plan;
+import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
@@ -229,5 +230,5 @@ public interface AdminDAO extends BaseDao{
       *//*
      public int getNoOfVendors();*/
 
-
+    public List<Role> getAllRoles();
 }
