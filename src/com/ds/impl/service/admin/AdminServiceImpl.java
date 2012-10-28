@@ -681,7 +681,7 @@ public class AdminServiceImpl implements AdminService {
    */
   public EventDispatcher getEventDispatcher() {
     if (this.eventDispatcher == null) {
-      this.eventDispatcher = ServiceLocatorFactory.getService(EventDispatcher.class);
+      this.eventDispatcher = (EventDispatcher)ServiceLocatorFactory.getService("EventDispatcher");
     }
     return eventDispatcher;
   }
