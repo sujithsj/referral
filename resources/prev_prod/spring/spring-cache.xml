@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- This xml will contain the common bean configurations -->
+<beans>
+
+
+
+	<bean id="cacheAPI"
+		class="com.ds.api.impl.CacheAPIImpl">
+		<property name="cacheManager">
+			<ref bean="cacheManager" />
+		</property>
+	</bean>
+
+	<bean id="cacheManager"
+		class="org.infinispan.manager.DefaultCacheManager">
+		<constructor-arg>
+				<value>cache-config.xml</value>
+		</constructor-arg>
+	</bean>
+
+
+</beans>  

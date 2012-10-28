@@ -1,0 +1,18 @@
+<html>
+<body>
+<br>
+The feedback titled <a href="${context.postLink}" title='${context.postTitleTrimmed}'>"${context.postTitleTrimmed}"</a> is now marked as "${context.post.status}".<br>
+<br>
+<a href="${context.postLink}" title="view this feedback">view this feedback</a> | <a href="${context.postLink}" title="reply to this feedback">reply to this feedback</a> | <a href="${context.postLink}" title="stop following">stop following</a><br>
+<br>
+Thanks,<br>
+The "${context.company.name}" Team<br>
+<br>
+<br>
+<font size=1>You have received this email because you chose to follow the updates for <a href="${context.postLink}" title='${context.postTitleTrimmed}'>"${context.postTitleTrimmed}"</a>.<br>
+If you do not wish to be notified further, you can <a href="${context.postLink}" title="stop following">stop following</a> this feedback post.</font><br>
+<font size=1><font color=#666666>Copyright © 2010 UserRules.com</font></font><br>
+<br>
+</body>
+
+</html>

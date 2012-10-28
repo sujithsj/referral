@@ -1,0 +1,8 @@
+user
+
+1) on search screen show ACCOUNT_NON_EXPIRED,ACCOUNT_NON_LOCKED,CREDENTIALS_NON_EXPIRED,ENABLED
+2) allow to edit ACCOUNT_NON_EXPIRED,ACCOUNT_NON_LOCKED,CREDENTIALS_NON_EXPIRED,ENABLED role based
+3) allow user to upload image.
+4) allow admin user to reset password.
+5) add/delete roles for user.
+5) add/delete actions(permissions) for user.

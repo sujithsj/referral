@@ -11,7 +11,7 @@
 	</session-config>
 
 	<welcome-file-list>
-		<welcome-file>/pages/login.jsp</welcome-file>
+		<welcome-file>/pages/signup.jsp</welcome-file>
 	</welcome-file-list>
 
 
@@ -38,7 +38,6 @@
 	<!--  Listeners End -->
 
 
-  
 	<filter>
 		<filter-name>StripesFilter</filter-name>
 		<filter-class>
@@ -147,7 +146,10 @@
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
-
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
 
 	<!--  Stripes end -->
 
@@ -221,19 +223,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-   <filter>
-      <filter-name>springSecurityFilterChain</filter-name>
-      <filter-class>
-        com.ds.web.filter.WebScaleFilterToBeanProxy
-      </filter-class>
-    </filter>
-    <filter-mapping>
-      <filter-name>springSecurityFilterChain</filter-name>
-      <url-pattern>/*</url-pattern>
-      <dispatcher>FORWARD</dispatcher>
-      <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
-  
 	<!--<filter>
 		<filter-name>ShiroFilter</filter-name>
 		<filter-class>

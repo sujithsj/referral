@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+	<class dynamic-update="true" table="COMPANY_SETTINGS" lazy="true"
+		name="com.ds.domain.company.CompanySettings" dynamic-insert="true">
+		<id name="id" type="long" column="ID" unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<version type="long" column="LOCK_VERSION" unsaved-value="undefined"
+			name="lockVersion" />
+
+		<property name="gaCustomVarNumber" not-null="false" type="java.lang.Long"
+			column="GA_CUSTOM_VAR_NO" />
+		<property name="defaultPublish" not-null="false" type="boolean"
+			column="DEFAULT_PUBLISH" />
+		<many-to-one name="company" class="com.ds.domain.company.Company"
+			column="COMPANY_SHORT_NAME" cascade="none" lazy="proxy" />
+
+		<property name="apiKey" type="string" column="API_KEY"
+			not-null="false" />
+		<property name="domainAliasUrl" type="string" column="DOMAIN_ALIAS_URL"
+			not-null="false" />
+
+	</class>
+</hibernate-mapping>
