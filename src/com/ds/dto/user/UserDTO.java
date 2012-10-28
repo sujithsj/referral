@@ -5,7 +5,10 @@ import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserSettings;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author adlakha.vaibhav
@@ -15,10 +18,13 @@ public class UserDTO {
   private String fullName;
   private String email;
   private String password;
-  //private Set<String> roles = new HashSet<String>();
+  private Set<String> roles = new HashSet<String>();
   private Set<String> actions = new HashSet<String>();
 
-  private List<RoleDTO> roles = new ArrayList<RoleDTO>();
+
+  private List<String> rolesToSync;
+
+  //private List<RoleDTO> roles = new ArrayList<RoleDTO>();
 
   private String originalImageUrl;
 
@@ -88,8 +94,8 @@ public class UserDTO {
   }*/
 
   public void addRole(String role) {
-    RoleDTO roleDTO = new RoleDTO(role, true);
-    roles.add(roleDTO);
+    //RoleDTO roleDTO = new RoleDTO(role, true);
+    roles.add(role);
   }
 
   public Set<String> getActions() {
@@ -194,18 +200,18 @@ public class UserDTO {
   public Role.RoleType[] getRoleTypes() {
     Role.RoleType[] types = new Role.RoleType[getRoles().size()];
     int i = 0;
-    for (RoleDTO role : getRoles()) {
-      types[i] = Role.RoleType.valueOf(role.getName());
+    for (String role : getRoles()) {
+      types[i] = Role.RoleType.valueOf(role);
       i++;
     }
     return types;
   }
 
-  public List<RoleDTO> getRoles() {
+  public Set<String> getRoles() {
     return roles;
   }
 
-  public void setRoles(List<RoleDTO> roles) {
+  public void setRoles(Set<String> roles) {
     this.roles = roles;
   }
 
@@ -338,5 +344,11 @@ public class UserDTO {
     this.enabled = enabled;
   }
 
-  
+  public List<String> getRolesToSync() {
+    return rolesToSync;
+  }
+
+  public void setRolesToSync(List<String> rolesToSync) {
+    this.rolesToSync = rolesToSync;
+  }
 }

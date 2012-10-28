@@ -55,8 +55,9 @@
 
             <h2>Roles:</h2>
             <c:forEach items="${userAction.userRoles}" var="role" varStatus="roleCount">
-              <s:hidden name="userDTO.roles[${roleCount.index}].name" value="${role.name}"/>
-              <s:checkbox name="userDTO.roles[${roleCount.index}].selected"/> ${role.name}<br/>
+              
+              <s:hidden name="userDTO.rolesToSync[${roleCount.index}]" value="${role.name}"/>
+              <s:checkbox name="userDTO.rolesToSync[${roleCount.index}]"/> ${role.name}<br/>
             </c:forEach>
 
           </div>

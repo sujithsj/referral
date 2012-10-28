@@ -41,6 +41,8 @@ public class UserAction extends BaseAction {
 
   private List<Role> userRoles;
 
+  
+
 
   @Autowired
   private AdminService adminService;
@@ -262,4 +264,6 @@ public class UserAction extends BaseAction {
   public void setUserRoles(List<Role> userRoles) {
     this.userRoles = userRoles;
   }
+
+
 }
