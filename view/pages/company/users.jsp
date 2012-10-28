@@ -22,7 +22,7 @@
               </div>
               <div class="span3 offset2">
                 <s:link beanclass="com.ds.action.employee.UserAction"
-                        event="createEmployee" class="btn btn-primary">Add new user
+                        event="createOrEditUser" class="btn btn-primary">Add new user
                 </s:link>
               </div>
             </div>

@@ -14,9 +14,9 @@ import com.ds.security.api.SecurityAPI;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.security.service.UserService;
 import com.ds.web.action.BaseAction;
+import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.DefaultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -57,22 +57,30 @@ public class UserAction extends BaseAction {
       User user = getUserService().getUser(employeeId);
       UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
       userDTO = new UserDTO();
-      userDTO.bindUser(user, userSettings);                          
+      userDTO.bindUser(user, userSettings);
     }
     return new ForwardResolution("/pages/company/userCrud.jsp");
   }
-  
+
+  public Resolution saveUser() {
+    if (employeeId != null) {
+      return updateEmployee();
+    } else {
+      return createEmployee();
+    }
+  }
+
   public Resolution createEmployee() {
 
-	  User loggedInUser = SecurityHelper.getLoggedInUser();
-	  companyShortName = loggedInUser.getCompanyShortName();
+    User loggedInUser = SecurityHelper.getLoggedInUser();
+    companyShortName = loggedInUser.getCompanyShortName();
     Company company = getAdminService().getCompany(companyShortName);
     getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.EMPLOYEE_COUNT, getAdminService().employeesCount(companyShortName) + 1);
 
-	  //below null check added by rahul as userDTO is null for Add new user.
-	  if(userDTO == null){
-		  userDTO = new UserDTO();
-	  }
+    /*//below null check added by rahul as userDTO is null for Add new user.
+      if(userDTO == null){
+        userDTO = new UserDTO();
+      }*/
     User user = userDTO.extractUser();
     user.setPassword(DEFAULT_USER_PWD);
     user.setCompanyShortName(company.getShortName());

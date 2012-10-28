@@ -60,7 +60,7 @@
 
           <div class="col_2">
             <s:hidden name="employeeId"/>
-            <s:submit name="updateEmployee" value="Save Changes" class="button blue small"/>
+            <s:submit name="saveUser" value="Save Changes" class="button blue small"/>
           </div>
 
           <div class="col_2">
