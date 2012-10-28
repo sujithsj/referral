@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- This xml will contain the common bean configurations -->
+<beans>
+
+
+
+	<!--<bean id="feedbackListener" class="com.userrules.event.listener.FeedbackListener">
+	</bean>
+
+	<bean id="deletePostFromSearchIndexListener" class="com.userrules.event.listener.DeletePostFromSearchIndexListener">
+		<property name="searchService">
+			<ref bean="searchService" />
+		</property>
+	</bean>-->
+
+	<!--<bean id="postHistoryListener" class="com.userrules.event.listener.PostHistoryListener">
+		<property name="postService">
+			<ref bean="postService" />
+		</property>
+	</bean>-->
+
+
+	<!--<bean id="logRolloverEventListener" class="com.userrules.event.listener.LogRolloverEventListener">
+
+		--><!-- Please keep request_time as last param in query and do not add anything after it  --><!--
+
+		<property name="insertQuery" value = "insert into USER_ACTIVITY_DETAILS (VISITOR_ID,USER_NAME,COMPANY_SHORT_NAME,OPERATION,ENTITY,ENTITY_ID,IP_ADDRESS,
+		HOST_NAME,BROWSER_NAME,BROWSER_VERSION,OS_NAME,OS_VERSION,CITY,COUNTRY,ISP,HTTP_METHOD_TYPE,SEARCH_QUERY,LATITUDE,LONGITUDE,DOMAIN,REFERER_URL,REQUEST_TIME)
+			values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)" />
+		<property name="maxBackUpIndex" value = "10" />
+		<property name="ipLookUpService">
+			<ref bean="ipLookUpService" />
+		</property>
+	</bean>-->
+
+	<!--<bean id="associateGADataListener" class="com.userrules.event.listener.AssociateGADataListener">
+		<property name="adminService">
+			<ref bean="adminService" />
+		</property>
+	</bean>-->
+
+	<!--<bean id="assignKarmaPointsListener" class="com.userrules.event.listener.AssignKarmaPointsListener">
+		<property name="baseDao">
+			<ref bean="baseDao" />
+		</property>
+		<property name="adminService">
+			<ref bean="adminService" />
+		</property>
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>-->
+
+	<!--<bean id="followerListener" class="com.userrules.event.listener.FollowerListener">
+		<property name="mailService">
+			<ref bean="mailService" />
+		</property>
+		<property name="postDAO">
+			<ref bean="postDAO" />
+		</property>
+	</bean>-->
+
+	<!--<bean id="profanityListener" class="com.userrules.event.listener.ProfanityListener">
+		<property name="profanityFilePath" value="badwords.txt"/>
+		<property name="postService">
+			<ref bean="postService" />
+		</property>
+	</bean>-->
+
+	<!--<bean id="gravatarConfigureImageListener" class="com.userrules.event.listener.GravatarConfigureImageListener">
+		<property name="gravatarService">
+			<ref bean="gravatarService" />
+		</property>
+		<property name="securityDao">
+			<ref bean="securityDao" />
+		</property>
+	</bean>
+-->
+	<!--<bean id="associateUserImageListener" class="com.userrules.event.listener.AssociateUserImageListener">
+		<property name="fileAttachmentService">
+			<ref bean="fileAttachmentService" />
+		</property>
+		<property name="securityDao">
+			<ref bean="securityDao" />
+		</property>
+	</bean>
+
+
+	<bean id="claimRewardEventListener" class="com.userrules.event.listener.ClaimRewardEventListener">
+		<property name="mailService">
+			<ref bean="mailService" />
+		</property>
+	</bean>-->
+
+	<!--<bean id="gravatarService" class="com.userrules.service.impl.GravatarServiceImpl">
+		<property name="url" value="http://www.gravatar.com/avatar/"/>
+	</bean>
+
+	<bean id="userLoginEmailConfirmationRequestListener" class="com.userrules.event.listener.UserLoginEmailConfirmationRequestListener">
+		<property name="mailService">
+			<ref bean="mailService" />
+		</property>
+	</bean>-->
+
+
+	<!--<bean id="postEmailNotificationListener" class="com.userrules.event.listener.PostEmailNotificationListener">
+		<property name="mailService">
+			<ref bean="mailService" />
+		</property>
+		<property name="adminService">
+			<ref bean="adminService" />
+		</property>
+	</bean>-->
+
+	<!--<bean id="postCommentEmailNotificationListener" class="com.userrules.event.listener.PostCommentEmailNotificationListener">
+		<property name="mailService">
+			<ref bean="mailService" />
+		</property>
+		<property name="adminService">
+			<ref bean="adminService" />
+		</property>
+	</bean>-->
+
+</beans>

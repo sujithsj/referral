@@ -14,65 +14,27 @@
     </header>--%>
     <div class="container">
 
-
+        <h1>Login page</h1>
     <div class="row">
       <div class="span3 bs-docs-sidebar">
 
       </div>
       <div class="span9">
 
-        <s:form beanclass="com.ds.action.company.RegisterCompanyAction" class="form-horizontal">
+         <s:form beanclass="com.ds.action.LoginAction" class="vertical">
+            <fieldset>
+              <legend><em>Login using an existing account</em></legend>
+              <s:label name="Email"/>
+              <s:text name="email" class="auto-adjust check-empty"/>
 
-          <div class="control-group">
-            <s:label class="control-label" name="Your Name"/>
-            <div class="controls ">
-              <s:text name="companyRegistrationDTO.userName" placeholder="user name"/>
-            </div>
-          </div>
-          <div class="control-group">
-            <s:label class="control-label" name="Company Name"/>
-            <div class="controls ">
-              <s:text name="companyRegistrationDTO.name" placeholder="company name"/>
-            </div>
-          </div>
-          <div class="control-group">
-            <s:label class="control-label" name="Description"/>
-            <div class="controls ">
-              <s:textarea name="companyRegistrationDTO.description" placeholder="company description"/>
-            </div>
-          </div>
-          <div class="control-group">
-            <s:label class="control-label" name="Short Name"/>
-            <div class="controls">
-              <s:text name="companyRegistrationDTO.shortName"/>
-              <div class="input-append"><span class="add-on" style="margin-left:-5px;">.ds.com</span></div>
-            </div>
-          </div>
-          <div class="control-group">
-            <s:label class="control-label" name="Company Website"/>
-            <div class="controls ">
-              <s:text name="companyRegistrationDTO.url" value="http://"/>
-            </div>
-          </div>
-          <div class="control-group">
-            <s:label class="control-label" name="Email"/>
-            <div class="controls ">
-              <s:text name="companyRegistrationDTO.email"/>
-            </div>
-          </div>
-          <div class="control-group">
-            <s:label class="control-label" name="Password"/>
-            <div class="controls ">
-              <s:text name="companyRegistrationDTO.password"/>
-            </div>
-          </div>
-          <div class="control-group">
-            <div class="controls ">
-              <s:submit name="registerCompany" value="Create Account" class="btn-large btn-primary"/>
-            </div>
-          </div>
-        </s:form>
+              <s:label name="Password"/>
+              <s:password name="password" class="auto-adjust check-empty"/>
+            </fieldset>
 
+            <div class="col_3">
+              <s:submit name="loginUser" class="button blue small" value="Login"/>
+            </div>
+          </s:form>
 
       </div>
     </div>

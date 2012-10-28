@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-update="true" table="PRODUCT" lazy="true" name="com.userrules.dataobject.Product" dynamic-insert="true">
+    <id name="id" type="long" column="ID" unsaved-value="0">
+ 		<generator class="native" />
+ 	</id>
+ 	
+    <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>
+ 	
+    <property name="name" not-null="true" length="255" type="java.lang.String" column="NAME"/>
+    <property name="description" not-null="false" length="1000" type="java.lang.String" column="DESCRIPTION"/>
+    <many-to-one name="logo" class="com.userrules.dataobject.FileAttachment" cascade="all" column="LOGO_FILE_ID" lazy="false" />
+	<many-to-one name="company" class="com.userrules.dataobject.Company" cascade="none" column="COMPANY_SHORT_NAME" unique="true"  />
+	<set lazy="true" inverse="true" cascade="all-delete-orphan" name="links">
+      <key column="PRODUCT_ID"/>
+      <one-to-many class="com.userrules.dataobject.ProductLink"/>
+    </set> 
+  </class>
+</hibernate-mapping>

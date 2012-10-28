@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-update="true" table="PARAMETER_VALUE" lazy="true" name="com.userrules.dataobject.ParameterValue" dynamic-insert="true">
+    <id name="id" type="long" column="ID" >
+     	<generator class="native" />
+    </id>
+    <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>
+    <property name="name" not-null="true" length="255" type="java.lang.String" column="NAME"/>
+    <property name="value" not-null="false" length="255" type="java.lang.String" column="VALUE"/>
+    <any name="parent" cascade="save-update"
+		meta-type="string" id-type="long">
+	<meta-value value="RPTA"
+		class="com.userrules.dataobject.ReportAlias" />
+	<meta-value value="SCHD"
+		class="com.userrules.dataobject.Schedule" />		
+	<column name="DATAOBJECT_SHORT_NAME" not-null="true"
+		length="4" />
+	<column name="DATAOBJECT_ID" not-null="true" />
+     </any>    
+    <property name="createdBy" not-null="false" length="30" type="java.lang.String" column="CREATED_BY"/>
+    <property name="createdDate" not-null="false" type="timestamp" column="CREATED_DATE"/>
+    <property name="updatedBy" not-null="false" length="30" type="java.lang.String" column="UPDATED_BY"/>
+    <property name="updatedDate" not-null="false" type="timestamp" column="UPDATED_DATE"/>
+  </class>
+</hibernate-mapping>

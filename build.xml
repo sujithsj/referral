@@ -114,6 +114,11 @@
 			</fileset>
 		</copy>
     <copy todir="${project.dist.dir}/WEB-INF/lib">
+			<fileset dir="${lib.velocity.root}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+    <copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.stripes.root}">
 				<include name="*.jar" />
 			</fileset>

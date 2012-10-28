@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-update="true" table="SCHEDULE_EXECUTION" lazy="true" name="com.userrules.dataobject.ScheduleExecution" dynamic-insert="true">
+    <id name="id" type="long" column="ID" unsaved-value="0">
+     	<generator class="native" />
+    </id>
+    <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>        
+    <property name="runDate" not-null="false" type="timestamp" column="RUN_DATE"/>
+    <property name="nextSchDate" not-null="false" type="timestamp" column="NEXT_SCH_DATE"/>
+    <property name="status" not-null="false" type="java.lang.String" column="STATUS"/>
+    <many-to-one not-null="true" unique="true" column="SCHEDULE_ID" cascade="save-update" name="schedule" class="com.userrules.dataobject.Schedule"/>     
+    <property name="createdBy" not-null="false" length="30" type="java.lang.String" column="CREATED_BY"/>
+    <property name="createdDate" not-null="false" type="timestamp" column="CREATED_DATE"/>
+    <property name="updatedBy" not-null="false" length="30" type="java.lang.String" column="UPDATED_BY"/>
+    <property name="updatedDate" not-null="false" type="timestamp" column="UPDATED_DATE"/>
+  </class>
+</hibernate-mapping>

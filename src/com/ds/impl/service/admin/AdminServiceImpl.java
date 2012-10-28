@@ -289,6 +289,7 @@ public class AdminServiceImpl implements AdminService {
 
     user.setPassword(getMessageDigestPasswordEncoder().encodePassword(user.getPassword(), user.getUsername()));
 
+    
     user = (User) getAdminDAO().save(user);
 
     /*ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
@@ -692,7 +693,7 @@ public class AdminServiceImpl implements AdminService {
    */
   public EventDispatcher getEventDispatcher() {
     if (this.eventDispatcher == null) {
-      this.eventDispatcher = ServiceLocatorFactory.getService(EventDispatcher.class);
+      this.eventDispatcher = (EventDispatcher)ServiceLocatorFactory.getService("EventDispatcher");
     }
     return eventDispatcher;
   }

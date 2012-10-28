@@ -22,7 +22,7 @@ public class TransactionInterceptorFilter implements Filter {
   }
 
   public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
-    TransactionTemplate transactionTemplate = (TransactionTemplate) ServiceLocatorFactory.getService(TransactionTemplate.class);
+    TransactionTemplate transactionTemplate = (TransactionTemplate) ServiceLocatorFactory.getService("TransactionTemplate");
 
     try {
       transactionTemplate.execute(new TransactionCallback() {

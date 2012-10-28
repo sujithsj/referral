@@ -8,6 +8,7 @@ import com.ds.domain.user.UserSettings;
 import com.ds.pact.dao.AdminDAO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class AdminDAOImpl extends BaseDaoImpl implements AdminDAO {
 
   @Override
+  @Transactional(readOnly = false)
   public Company saveCompany(Company company) {
     return (Company)save(company);
   }
