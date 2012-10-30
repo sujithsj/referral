@@ -5,6 +5,7 @@ import com.ds.domain.core.Plan;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
+import com.ds.domain.affiliate.Affiliate;
 import com.ds.pact.dao.affiliate.AffiliateDAO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -24,6 +25,11 @@ public class AffiliateDAOImpl extends BaseDaoImpl implements AffiliateDAO {
   @Override
   public Company saveCompany(Company company) {
     return (Company)save(company);
+  }
+
+	@Override
+  public Affiliate saveAffiliate(Affiliate affiliate) {
+    return (Affiliate)save(affiliate);
   }
 
   @SuppressWarnings("unchecked")

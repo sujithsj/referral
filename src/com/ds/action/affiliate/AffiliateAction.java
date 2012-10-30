@@ -1,28 +1,30 @@
 package com.ds.action.affiliate;
 
-import com.ds.web.action.BaseAction;
-import com.ds.dto.user.UserDTO;
-import com.ds.dto.affiliate.AffiliateDTO;
-import com.ds.pact.service.admin.AdminService;
-import com.ds.pact.service.admin.AffiliateService;
-import com.ds.api.FeatureAPI;
 import com.ds.api.CacheAPI;
-import com.ds.security.api.SecurityAPI;
-import com.ds.security.service.UserService;
-import com.ds.security.helper.SecurityHelper;
-import com.ds.domain.user.User;
-import com.ds.domain.user.UserSettings;
+import com.ds.api.FeatureAPI;
+import com.ds.constants.FeatureType;
+import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Permission;
 import com.ds.domain.core.Role;
-import com.ds.constants.FeatureType;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ds.domain.user.User;
+import com.ds.domain.user.UserSettings;
+import com.ds.dto.affiliate.AffiliateDTO;
+import com.ds.dto.user.UserDTO;
+import com.ds.pact.service.admin.AdminService;
+import com.ds.pact.service.admin.AffiliateService;
+import com.ds.pact.dao.BaseDao;
+import com.ds.security.api.SecurityAPI;
+import com.ds.security.helper.SecurityHelper;
+import com.ds.security.service.UserService;
+import com.ds.web.action.BaseAction;
 import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Map;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,221 +35,163 @@ import java.util.Date;
  */
 public class AffiliateAction extends BaseAction {
 
-  private String DEFAULT_USER_PWD = "password";
+	private String DEFAULT_USER_PWD = "password";
 
-  private String companyShortName;
-  private UserDTO userDTO;
-  private AffiliateDTO affiliateDTO;
+	private String companyShortName;
+	private UserDTO userDTO;
+	private AffiliateDTO affiliateDTO;
 
-  private String employeeId;
-  private String roleName;
-  private String employeeEmail;
+	private String employeeId;
+	private Long affiliateId;
+	private String roleName;
+	private String employeeEmail;
 
+	private Set<Affiliate> companyAffiliates;
+	private Long parentAffiliateId;
 
-  @Autowired
-  private AdminService adminService;
 	@Autowired
-  private AffiliateService affiliateService;
-  @Autowired
-  private FeatureAPI featureAPI;
-  @Autowired
-  private SecurityAPI securityAPI;
-  @Autowired
-  private UserService userService;
-  @Autowired
-  private CacheAPI cacheAPI;
+	private AdminService adminService;
+	@Autowired
+	private AffiliateService affiliateService;
+	@Autowired
+	private BaseDao baseDao;
+	@Autowired
+	private FeatureAPI featureAPI;
+	@Autowired
+	private SecurityAPI securityAPI;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private CacheAPI cacheAPI;
 
 
+	@DefaultHandler
+	public Resolution createOrEditUser() {
+		if (affiliateId != null) {
+			Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
+			//UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
+			affiliateDTO = new AffiliateDTO();
+			affiliateDTO.bindAffiliate(affiliate);
+		} else {
+			affiliateDTO = createNewAffiliate();
+		}
+		return setParamsForView(affiliateDTO);
+		//return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
+	}
 
-  @DefaultHandler
-  public Resolution createOrEditUser() {
-    if (employeeId != null) {
-      User user = getUserService().getUser(employeeId);
-      UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
-      userDTO = new UserDTO();
-      userDTO.bindUser(user, userSettings);
-    }
-    return new ForwardResolution("/pages/company/userCrud.jsp");
-  }
+	@SuppressWarnings("unchecked")
+	private Resolution setParamsForView(AffiliateDTO affiliateDTO) {
 
-  public Resolution createAffiliate() {
+		Company company = getAdminService().getCompany(affiliateDTO.getCompanyShortName());
+		companyAffiliates = company.getAffiliates();
+		return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
+	}
 
-	  User loggedInUser = SecurityHelper.getLoggedInUser();
-	  companyShortName = loggedInUser.getCompanyShortName();
-    Company company = getAdminService().getCompany(companyShortName);
-    getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getAffiliateService().affiliatesCount(companyShortName) + 1);
+	public AffiliateDTO createNewAffiliate() {
 
+		User loggedInUser = SecurityHelper.getLoggedInUser();
+		companyShortName = loggedInUser.getCompanyShortName();
+		Company company = getAdminService().getCompany(companyShortName);
+		getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getAffiliateService().affiliatesCount(companyShortName) + 1);
 
-    User user = userDTO.extractUser();
-    User user1 = affiliateDTO.extractUser();
-    user.setPassword(DEFAULT_USER_PWD);
-    user.setCompanyShortName(company.getShortName());
-
-    getAdminService().addUser(user, userDTO.getRoleTypes());
-
-    return new ForwardResolution("/pages/setup.jsp");
-  }
-
-
-  public Resolution updateEmployee() {
-
-    return updateEmployeeDetails(userDTO, employeeId);
-  }
-
-  private Resolution updateEmployeeDetails(UserDTO userDTOForUpdate, String employeeId) {
-    User user = userDTOForUpdate.extractUser();
-    UserSettings userSettings = userDTOForUpdate.extactUserSettings();
-
-    User userToUpdate = getAdminService().getUser(employeeId);
-    UserSettings userSettingsToUpdate = getAdminService().getUserSettings(userToUpdate.getUsername());
-
-    Map<Permission.Type, Boolean> permisisons = getSecurityAPI().checkHasPermissions(SecurityHelper.getLoggedInUser(), Permission.Type.ADD_EMPLOYEE,
-        Permission.Type.UPDATE_EMPLOYEE, Permission.Type.DELETE_EMPLOYEE);
-
-    if (userToUpdate != null) {
-      if (userSettingsToUpdate == null) {
-        userSettingsToUpdate = new UserSettings();
-        userSettingsToUpdate.setCreatedDate(new Date());
-        userSettingsToUpdate.setCreatedBy(userToUpdate.getUsername());
-        userSettingsToUpdate.setUsername(userToUpdate.getUsername());
-        userSettingsToUpdate.setSendEmailOnPayout(true);
-        userSettingsToUpdate.setSendEmailOnTerminateAffiliate(true);
-        userSettingsToUpdate.setSendEmailOnAddAffiliate(true);
-        userSettingsToUpdate.setSendEmailOnGoalConversion(true);
-        userSettingsToUpdate.setSendEmailOnJoinAffiliate(true);
-      } else {
-        userSettingsToUpdate.syncWith(userSettings);
-      }
-      getUserService().saveOrUpdateUserSettings(userSettingsToUpdate);
-
-      userToUpdate.syncWith(user, userDTOForUpdate.isSyncRoles());
-      userToUpdate.setUserSettingsId(userSettingsToUpdate.getId());
-
-      getAdminService().updateUser(userToUpdate);
-
-      // TODO Bug of Update
-      if (userDTOForUpdate.isSyncRoles()) {
-        getSecurityAPI().grantRolesToUser(userToUpdate, userDTOForUpdate.getRoleTypes());
-      }
-
-      UserDTO updatedUserDTO = new UserDTO();
-      updatedUserDTO.bindUser(userToUpdate, userSettingsToUpdate);
-      updatedUserDTO.setAllowedActions(permisisons);
-
-      userDTO = updatedUserDTO;
-    }
-    return new ForwardResolution("/pages/setup.jsp");
-  }
+		affiliateDTO = new AffiliateDTO();
+		affiliateDTO.setCompanyShortName(companyShortName);
+		return affiliateDTO;
+	}
 
 
-  public Resolution updateSelfDetails() {
-    return updateEmployeeDetails(userDTO, SecurityHelper.getLoggedInUser().getUsername());
-  }
+	public Resolution updateAffiliate() {
+
+		return updateAffiliateDetails(affiliateDTO, affiliateId);
+	}
+
+	private Resolution updateAffiliateDetails(AffiliateDTO affiliateDTO, Long affiliateId) {
+		Affiliate affiliate = null;
+		if(affiliateId != null){
+			affiliate = getAffiliateService().getAffiliate(affiliateId);
+		}
+		affiliate = affiliateDTO.extractAffiliate(affiliate);
+		System.out.println("affiliate about to be saved -> " + affiliate.getLogin());
+		affiliate = getAffiliateService().saveAffiliate(affiliate);
+
+		//UserSettings userSettings = userDTOForUpdate.extactUserSettings();
+		return new ForwardResolution("/pages/affiliate/affiliates.jsp");
+	}
+
+	public Resolution resetPassword() {
+		getAdminService().resetEmployeePassword(employeeEmail);
+		return new ForwardResolution("/pages/setup.jsp");
+	}
 
 
-  public Resolution resetPassword() {
-    getAdminService().resetEmployeePassword(employeeEmail);
-    return new ForwardResolution("/pages/setup.jsp");
-  }
+	public Resolution deleteEmployee() {
+		getAdminService().deleteEmployee(employeeId);
+		return new ForwardResolution("/pages/setup.jsp");
+	}
 
 
-  public Resolution deleteEmployee() {
-    getAdminService().deleteEmployee(employeeId);
-    return new ForwardResolution("/pages/setup.jsp");
-  }
+	public Resolution deleteEmployeeRole() {
+		User user = getAdminService().getUser(employeeId);
+		if (user != null) {
+			getSecurityAPI().revokeRolesFromUser(user, "admin".equals(roleName) ? Role.RoleType.admin : Role.RoleType.moderator);
+			getCacheAPI().remove(CacheAPI.CacheConfig.USER_CACHE, employeeId);
 
+		}
 
-  public Resolution deleteEmployeeRole() {
-    User user = getAdminService().getUser(employeeId);
-    if (user != null) {
-      getSecurityAPI().revokeRolesFromUser(user, "admin".equals(roleName) ? Role.RoleType.admin : Role.RoleType.moderator);
-      getCacheAPI().remove(CacheAPI.CacheConfig.USER_CACHE, employeeId);
+		return new ForwardResolution("/pages/setup.jsp");
+	}
 
-    }
+	public AdminService getAdminService() {
+		return adminService;
+	}
 
-    return new ForwardResolution("/pages/setup.jsp");
-  }
+	public FeatureAPI getFeatureAPI() {
+		return featureAPI;
+	}
 
+	public UserService getUserService() {
+		return userService;
+	}
 
-  public Resolution getEmployees() {
-    /*List<UserDTO> usersList = new ArrayList<UserDTO>();
+	public String getCompanyShortName() {
+		return companyShortName;
+	}
 
-    List<User> users = getAdminService().findEmployees(companyShortName, start, rows, sortBy, sortHow);
+	public void setCompanyShortName(String companyShortName) {
+		this.companyShortName = companyShortName;
+	}
 
-    User loggedInUser = SecurityHelper.getLoggedInUser();
+	public SecurityAPI getSecurityAPI() {
+		return securityAPI;
+	}
 
-    Map<Permission.Type, Boolean> permisisons = getSecurityAPI().checkHasPermissions(loggedInUser, Permission.Type.ADD_EMPLOYEE, Permission.Type.UPDATE_EMPLOYEE,
-        Permission.Type.DELETE_EMPLOYEE);
+	public String getEmployeeId() {
+		return employeeId;
+	}
 
-    for (User user : users) {
-      UserDTO userDTO = new UserDTO();
-      userDTO.bindUser(user);
-      userDTO.setAllowedActions(permisisons);
-      usersList.add(userDTO);
-    }*/
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
 
-    return new ForwardResolution("/pages/setup.jsp");
-  }
+	public String getRoleName() {
+		return roleName;
+	}
 
-  public UserDTO getUserDTO() {
-    return userDTO;
-  }
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 
-  public void setUserDTO(UserDTO userDTO) {
-    this.userDTO = userDTO;
-  }
+	public CacheAPI getCacheAPI() {
+		return cacheAPI;
+	}
 
-  public AdminService getAdminService() {
-    return adminService;
-  }
+	public String getEmployeeEmail() {
+		return employeeEmail;
+	}
 
-  public FeatureAPI getFeatureAPI() {
-    return featureAPI;
-  }
-
-  public UserService getUserService() {
-    return userService;
-  }
-
-  public String getCompanyShortName() {
-    return companyShortName;
-  }
-
-  public void setCompanyShortName(String companyShortName) {
-    this.companyShortName = companyShortName;
-  }
-
-  public SecurityAPI getSecurityAPI() {
-    return securityAPI;
-  }
-
-  public String getEmployeeId() {
-    return employeeId;
-  }
-
-  public void setEmployeeId(String employeeId) {
-    this.employeeId = employeeId;
-  }
-
-  public String getRoleName() {
-    return roleName;
-  }
-
-  public void setRoleName(String roleName) {
-    this.roleName = roleName;
-  }
-
-  public CacheAPI getCacheAPI() {
-    return cacheAPI;
-  }
-
-  public String getEmployeeEmail() {
-    return employeeEmail;
-  }
-
-  public void setEmployeeEmail(String employeeEmail) {
-    this.employeeEmail = employeeEmail;
-  }
+	public void setEmployeeEmail(String employeeEmail) {
+		this.employeeEmail = employeeEmail;
+	}
 
 	public AffiliateService getAffiliateService() {
 		return affiliateService;
@@ -257,4 +201,35 @@ public class AffiliateAction extends BaseAction {
 		this.affiliateService = affiliateService;
 	}
 
+	public AffiliateDTO getAffiliateDTO() {
+		return affiliateDTO;
+	}
+
+	public void setAffiliateDTO(AffiliateDTO affiliateDTO) {
+		this.affiliateDTO = affiliateDTO;
+	}
+
+	public Long getAffiliateId() {
+		return affiliateId;
+	}
+
+	public void setAffiliateId(Long affiliateId) {
+		this.affiliateId = affiliateId;
+	}
+
+	public Set<Affiliate> getCompanyAffiliates() {
+		return companyAffiliates;
+	}
+
+	public void setCompanyAffiliates(Set<Affiliate> companyAffiliates) {
+		this.companyAffiliates = companyAffiliates;
+	}
+
+	public Long getParentAffiliateId() {
+		return parentAffiliateId;
+	}
+
+	public void setParentAffiliateId(Long parentAffiliateId) {
+		this.parentAffiliateId = parentAffiliateId;
+	}
 }

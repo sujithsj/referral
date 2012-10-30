@@ -2,6 +2,8 @@ package com.ds.domain.company;
 
 
 import com.ds.domain.BaseDataObject;
+import com.ds.domain.affiliate.AffiliateCompany;
+import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.core.Feature;
 import com.ds.domain.core.FileAttachment;
 import com.ds.domain.core.GAAuthInfo;
@@ -41,6 +43,7 @@ public class Company extends BaseDataObject {
   private boolean vendor;
 
   private CompanySettings companySettings;
+	private Set<Affiliate> affiliates;
 
   // we can cache it its not big data, at max lets say 10 features
   private Set<Feature> features = new HashSet<Feature>();
@@ -251,6 +254,14 @@ public class Company extends BaseDataObject {
   public void setVendor(boolean vendor) {
     this.vendor = vendor;
   }
+
+	public Set<Affiliate> getAffiliates() {
+		return affiliates;
+	}
+
+	public void setAffiliates(Set<Affiliate> affiliates) {
+		this.affiliates = affiliates;
+	}
 }
 
 
