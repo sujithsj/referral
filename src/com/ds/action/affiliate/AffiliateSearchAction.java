@@ -24,7 +24,7 @@ import java.util.Set;
  */
 public class AffiliateSearchAction extends BasePaginatedAction {
 
-	private String userName;
+	private String login;
 	private String email;
 	private String companyShortName;
 
@@ -43,10 +43,10 @@ public class AffiliateSearchAction extends BasePaginatedAction {
 	public Resolution searchUsers() {
 		User loggedInUser = SecurityHelper.getLoggedInUser();
 	  companyShortName = loggedInUser.getCompanyShortName();
-		userPage = getAffiliateService().searchAffiliate(userName, email, companyShortName, getPageNo(), getPerPage());
-		users = userPage.getList();
+		affiliatePage = getAffiliateService().searchAffiliate(login, email, companyShortName, getPageNo(), getPerPage());
+		affiliates = affiliatePage.getList();
 
-		return new ForwardResolution("/pages/company/affiliates.jsp");
+		return new ForwardResolution("/pages/affiliate/affiliates.jsp");
 
 	}
 
@@ -55,7 +55,7 @@ public class AffiliateSearchAction extends BasePaginatedAction {
 
 		User user = SecurityHelper.getLoggedInUser();
 		companyShortName = user.getCompanyShortName();
-		affiliatePage = getAffiliateService().searchAffiliate(userName, email, companyShortName, getPageNo(), getPerPage());
+		affiliatePage = getAffiliateService().searchAffiliate(login, email, companyShortName, getPageNo(), getPerPage());
 		affiliates = affiliatePage.getList();
 
 		return new ForwardResolution("/pages/affiliate/affiliates.jsp");
@@ -75,7 +75,7 @@ public class AffiliateSearchAction extends BasePaginatedAction {
 	@Override
 	public Set<String> getParamSet() {
 		HashSet<String> params = new HashSet<String>();
-		params.add("userName");
+		params.add("login");
 		params.add("email");
 
 		return params;
@@ -101,12 +101,12 @@ public class AffiliateSearchAction extends BasePaginatedAction {
 		this.users = users;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public String getEmail() {

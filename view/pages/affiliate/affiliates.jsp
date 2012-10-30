@@ -22,7 +22,7 @@
 							</div>
 							<div class="span3 offset2">
 								<s:link beanclass="com.ds.action.affiliate.AffiliateAction"
-								        event="createAffiliate" class="btn btn-primary">Add New Affiliate
+								        event="createOrEditAffiliate" class="btn btn-primary">Add New Affiliate
 								</s:link>
 							</div>
 						</div>
@@ -38,7 +38,7 @@
 						<s:form beanclass="com.ds.action.affiliate.AffiliateSearchAction" class="form-inline"
 						        style="margin-bottom:10px;">
 							<s:label name="Affiliate name"/>
-							<s:text name="userName" placeholder="user name"/>
+							<s:text name="login" placeholder="user name"/>
 							<s:label name="Email"/>
 							<s:text name="email"/>
               <s:submit name="searchAffiliates" class="btn btn-warning">Search</s:submit>
@@ -57,16 +57,16 @@
 						</tr>
 
 						<tbody>
-						<c:forEach items="${affiliateSearchAction.users}" var="user">
+						<c:forEach items="${affiliateSearchAction.affiliates}" var="affiliate">
 							<tr>
-								<td>${user.username}</td>
-								<td>${user.fullName}</td>
-								<td>${user.email}</td>
+								<td>${affiliate.login}</td>
+								<td>${affiliate.firstName}</td>
+								<td>${affiliate.email}</td>
 								<td>
-									<s:link beanclass="com.ds.action.employee.UserAction"
-									        event="createOrEditUser" class="button blue small">
+									<s:link beanclass="com.ds.action.affiliate.AffiliateAction"
+									        event="createOrEditAffiliate" class="button blue small">
 										<span class="icon white small" data-icon="7"></span>Edit
-										<s:param name="employeeId" value="${user.username}"/>
+										<s:param name="affiliateId" value="${affiliate.id}"/>
 									</s:link>
 										<%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
 																						event="entityTags" target="_blank" class="button orange small">Tag

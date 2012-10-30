@@ -288,7 +288,7 @@ public interface AffiliateService {
    */
   public String getEncryptedPassword(String username, String password);
 
-	public Page searchAffiliate(String userName, String email, String companyShortName, int pageNo, int perPage);
+	public Page searchAffiliate(String login, String email, String companyShortName, int pageNo, int perPage);
 
 
 }

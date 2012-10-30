@@ -22,6 +22,7 @@ import com.ds.impl.service.mail.UserContext;
 import com.ds.pact.dao.AdminDAO;
 import com.ds.pact.dao.affiliate.AffiliateDAO;
 import com.ds.pact.service.HttpService;
+import com.ds.pact.service.core.SearchService;
 import com.ds.pact.service.admin.AffiliateService;
 import com.ds.pact.service.admin.LoadPropertyService;
 import com.ds.pact.service.mail.EmailTemplateService;
@@ -29,6 +30,7 @@ import com.ds.pact.service.mail.MailService;
 import com.ds.security.api.SecurityAPI;
 import com.ds.utils.GeneralUtils;
 import com.ds.web.action.Page;
+import com.ds.search.impl.AffiliateQuery;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
@@ -75,6 +77,8 @@ public class AffiliateServiceImpl implements AffiliateService {
 	//private String activationLink;                                   // TODO : to be removed.
 	@Autowired
 	private SecurityAPI securityAPI;
+	@Autowired
+	private SearchService searchService;
 
 	//      private PostService                  postService;
 	// private ScheduleService scheduleService;
@@ -262,7 +266,7 @@ public class AffiliateServiceImpl implements AffiliateService {
 		}
 
 		/*UserKarmaProfile karmaProfile = new UserKarmaProfile();
-				karmaProfile.setUserName(user.getUsername());
+				karmaProfile.setLogin(user.getUsername());
 				karmaProfile.setKarmaPoints(new Long(0));
 				getAdminDAO().save(karmaProfile);*/
 
@@ -643,7 +647,7 @@ public class AffiliateServiceImpl implements AffiliateService {
 
 	/**
 	 *
-	 * @param userName
+	 * @param login
 	 * @param email
 	 * @param companyShortName
 	 * @param pageNo
@@ -651,9 +655,15 @@ public class AffiliateServiceImpl implements AffiliateService {
 	 * @return
 	 */
 	@Override
-	public Page searchAffiliate(String userName, String email, String companyShortName, int pageNo, int perPage) {
+	public Page searchAffiliate(String login, String email, String companyShortName, int pageNo, int perPage) {
 
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+		AffiliateQuery affiliateQuery = new AffiliateQuery();
+		affiliateQuery.setCompanyShortName(companyShortName);
+		affiliateQuery.setEmail(email);
+		affiliateQuery.setLogin(login).setOrderByField("login").setPageNo(pageNo).setRows(perPage);
+		return getSearchService().list(affiliateQuery);
+
+		//return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
 	/**
@@ -717,5 +727,13 @@ public class AffiliateServiceImpl implements AffiliateService {
 
 	public void setAffiliateDAO(AffiliateDAO affiliateDAO) {
 		this.affiliateDAO = affiliateDAO;
+	}
+
+	public SearchService getSearchService() {
+		return searchService;
+	}
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
 	}
 }

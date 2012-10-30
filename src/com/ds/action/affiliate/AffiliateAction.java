@@ -5,15 +5,12 @@ import com.ds.api.FeatureAPI;
 import com.ds.constants.FeatureType;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.company.Company;
-import com.ds.domain.core.Permission;
-import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
-import com.ds.domain.user.UserSettings;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.user.UserDTO;
+import com.ds.pact.dao.BaseDao;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.admin.AffiliateService;
-import com.ds.pact.dao.BaseDao;
 import com.ds.security.api.SecurityAPI;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.security.service.UserService;
@@ -21,10 +18,9 @@ import com.ds.web.action.BaseAction;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,7 +37,7 @@ public class AffiliateAction extends BaseAction {
 	private UserDTO userDTO;
 	private AffiliateDTO affiliateDTO;
 
-	private String employeeId;
+	//private String employeeId;
 	private Long affiliateId;
 	private String roleName;
 	private String employeeEmail;
@@ -66,7 +62,7 @@ public class AffiliateAction extends BaseAction {
 
 
 	@DefaultHandler
-	public Resolution createOrEditUser() {
+	public Resolution createOrEditAffiliate() {
 		if (affiliateId != null) {
 			Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
 			//UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
@@ -124,13 +120,13 @@ public class AffiliateAction extends BaseAction {
 	}
 
 
-	public Resolution deleteEmployee() {
+	/*public Resolution deleteEmployee() {
 		getAdminService().deleteEmployee(employeeId);
 		return new ForwardResolution("/pages/setup.jsp");
-	}
+	}*/
 
 
-	public Resolution deleteEmployeeRole() {
+	/*public Resolution deleteEmployeeRole() {
 		User user = getAdminService().getUser(employeeId);
 		if (user != null) {
 			getSecurityAPI().revokeRolesFromUser(user, "admin".equals(roleName) ? Role.RoleType.admin : Role.RoleType.moderator);
@@ -139,7 +135,7 @@ public class AffiliateAction extends BaseAction {
 		}
 
 		return new ForwardResolution("/pages/setup.jsp");
-	}
+	}*/
 
 	public AdminService getAdminService() {
 		return adminService;
@@ -165,6 +161,7 @@ public class AffiliateAction extends BaseAction {
 		return securityAPI;
 	}
 
+/*
 	public String getEmployeeId() {
 		return employeeId;
 	}
@@ -172,6 +169,7 @@ public class AffiliateAction extends BaseAction {
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
+*/
 
 	public String getRoleName() {
 		return roleName;
