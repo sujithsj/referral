@@ -13,6 +13,7 @@ import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
 import com.ds.domain.visitor.VisitorInfo;
+import com.ds.domain.affiliate.Affiliate;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.DSException;
 import com.ds.exception.ValidationException;
@@ -93,6 +94,12 @@ public class AffiliateServiceImpl implements AffiliateService {
 	private Map<String, Integer> defaultBadges;
 	private EventDispatcher eventDispatcher;
 
+
+	@Override
+	@Transactional
+	public Affiliate saveAffiliate(Affiliate affiliate){
+		return affiliateDAO.saveAffiliate(affiliate);
+	}
 	@Override
 	@Transactional
 	public void registerCompany(Company company) {
@@ -305,6 +312,16 @@ public class AffiliateServiceImpl implements AffiliateService {
 			throw new InvalidParameterException("INVALID_USER");
 		}
 		return user;
+	}
+
+		public Affiliate getAffiliate(Long affiliateId) {
+		Affiliate affiliate = (Affiliate) getAffiliateDAO().load(Affiliate.class, affiliateId);
+
+		if (affiliate == null) {
+			logger.error("No such affiliate found in system: " + affiliateId);
+			throw new InvalidParameterException("INVALID_AFFILIATE");
+		}
+		return affiliate;
 	}
 
 	@Override
@@ -635,6 +652,7 @@ public class AffiliateServiceImpl implements AffiliateService {
 	 */
 	@Override
 	public Page searchAffiliate(String userName, String email, String companyShortName, int pageNo, int perPage) {
+
 		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 

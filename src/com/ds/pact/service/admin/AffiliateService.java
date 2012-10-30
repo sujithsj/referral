@@ -6,6 +6,7 @@ import com.ds.domain.user.UserSettings;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.core.Role;
 import com.ds.domain.visitor.VisitorInfo;
+import com.ds.domain.affiliate.Affiliate;
 import com.ds.exception.DSException;
 import com.ds.web.action.Page;
 
@@ -22,6 +23,14 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface AffiliateService {
+
+
+	/**
+	    * Saves a new Affiliate Record
+	    *
+	    * @param affiliate
+	    */
+	   public Affiliate saveAffiliate(Affiliate affiliate);
 
   /**
    * Register a new company in the system only if it passes all business validations
@@ -141,12 +150,12 @@ public interface AffiliateService {
   public void updateEntity(Object entity);
 
   /**
-   * Returns a user corresponding to the specified userId
+   * Returns a affiliate corresponding to the specified affiliateId
    *
-   * @param userId
+   * @param affiliateId                            
    * @return
    */
-  public User getUser(String userId);
+  public Affiliate getAffiliate(Long affiliateId);
 
 
   /**

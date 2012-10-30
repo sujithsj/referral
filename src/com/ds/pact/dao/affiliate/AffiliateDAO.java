@@ -6,6 +6,7 @@ import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
 import com.ds.domain.core.Plan;
+import com.ds.domain.affiliate.Affiliate;
 
 import java.util.List;
 
@@ -24,6 +25,13 @@ public interface AffiliateDAO extends BaseDao {
       * @param company
       */
      public Company saveCompany(Company company);
+
+	/**
+	    * Saves a new Affiliate
+	    *
+	    * @param affiliate
+	    */
+	   public Affiliate saveAffiliate(Affiliate affiliate);
 
      /**
       * Checks whether shortName is already taken by some company
@@ -232,7 +240,5 @@ public interface AffiliateDAO extends BaseDao {
       * @return the No of Vendors
       *//*
      public int getNoOfVendors();*/
-
-
 }
 

@@ -666,7 +666,8 @@ public class AdminServiceImpl implements AdminService {
     if (isThirdPartyConfirmation) {
       getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserLoggedInThirdPartyEmailConfirmation));
     } else {
-      getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserRegistrationConfirmation));
+	    //Todo: uncomment the below line: was giving exception while adding new company
+      //getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserRegistrationConfirmation));
     }
 
     return userLoginConfirmationRequest;

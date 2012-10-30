@@ -53,6 +53,8 @@ public class UserAction extends BaseAction {
 
   @DefaultHandler
   public Resolution createOrEditUser() {
+
+
     if (employeeId != null) {
       User user = getUserService().getUser(employeeId);
       UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
