@@ -15,6 +15,7 @@ public class AffiliateCompany extends BaseDataObject {
 
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
@@ -22,7 +23,7 @@ public class AffiliateCompany extends BaseDataObject {
 	@JoinColumn(name = "AFFILIATE_ID", nullable = false)
 	private Affiliate affiliate;
 
-	@Column(name = "COMPANY_SHORT_NAME", nullable = false)
+	@Column(name = "COMPANY_SHORTNAME", nullable = false)
 	private String companyShortName;
 
 /*

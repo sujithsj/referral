@@ -3,7 +3,6 @@ package com.ds.domain.affiliate;
 
 
 import com.ds.domain.BaseDataObject;
-import com.ds.domain.company.Company;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -20,7 +19,7 @@ public class AffiliateGroup extends BaseDataObject {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "COMPANY_SHORT_NAME", nullable = false)
+	@Column(name = "COMPANY_SHORTNAME", nullable = false)
 	private String companyShortName;
 
 	@Column(name = "NAME", nullable = false, length = 45)

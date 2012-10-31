@@ -1,14 +1,6 @@
 package com.ds.dto.affiliate;
 
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.core.Permission;
-import com.ds.domain.core.Role;
-import com.ds.domain.user.User;
-import com.ds.domain.user.UserSettings;
-
-import java.util.Map;
-import java.util.Set;
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,7 +25,7 @@ public class AffiliateDTO {
 	private String passwordChecksum;
 	private Boolean deleted;
 
-	private String companyShortName;
+	//private String companyShortName;
 	private AffiliateDTO parentAffiliateDTO;
 	private Long parentAffiliateId;
 
@@ -73,7 +65,7 @@ public class AffiliateDTO {
 		this.address = affiliate.getAddress();
 		this.city = affiliate.getCity();
 
-		this.companyShortName = affiliate.getCompanyShortName();
+		//this.companyShortName = affiliate.getCompanyShortName();
 		if (affiliate.getParentAffiliate() != null) {
 			this.parentAffiliateId = affiliate.getParentAffiliate().getId();
 		}
@@ -99,9 +91,10 @@ public class AffiliateDTO {
 		affiliate.setAddress(this.address);
 		affiliate.setCity(this.city);
 
-		affiliate.setCompanyShortName(this.companyShortName);
+		//affiliate.setCompanyShortName(this.companyShortName);
 		affiliate.setPasswordChecksum(this.passwordChecksum);
 		affiliate.setDeleted(Boolean.valueOf(false));
+		//affiliate.getAffiliateCompanies()
 
 
 		return affiliate;
@@ -120,7 +113,7 @@ public class AffiliateDTO {
 		this.address = affiliate.getAddress();
 		this.city = affiliate.getCity();
 
-		this.companyShortName = affiliate.getCompanyShortName();
+		//this.companyShortName = affiliate.getCompanyShortName();
 		this.passwordChecksum = affiliate.getPasswordChecksum();
 
 		
@@ -214,13 +207,13 @@ public class AffiliateDTO {
 		this.deleted = deleted;
 	}
 
-	public String getCompanyShortName() {
+	/*public String getCompanyShortName() {
 		return companyShortName;
 	}
 
 	public void setCompanyShortName(String companyShortName) {
 		this.companyShortName = companyShortName;
-	}
+	}*/
 
 	public Long getParentAffiliateId() {
 		return parentAffiliateId;

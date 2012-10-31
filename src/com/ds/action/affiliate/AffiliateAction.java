@@ -78,7 +78,7 @@ public class AffiliateAction extends BaseAction {
 	@SuppressWarnings("unchecked")
 	private Resolution setParamsForView(AffiliateDTO affiliateDTO) {
 
-		Company company = getAdminService().getCompany(affiliateDTO.getCompanyShortName());
+		Company company = getAdminService().getCompany(companyShortName);
 		companyAffiliates = company.getAffiliates();
 		return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
 	}
@@ -91,7 +91,7 @@ public class AffiliateAction extends BaseAction {
 		getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getAffiliateService().affiliatesCount(companyShortName) + 1);
 
 		affiliateDTO = new AffiliateDTO();
-		affiliateDTO.setCompanyShortName(companyShortName);
+		//affiliateDTO.setCompanyShortName(companyShortName);
 		return affiliateDTO;
 	}
 
@@ -103,12 +103,19 @@ public class AffiliateAction extends BaseAction {
 
 	private Resolution updateAffiliateDetails(AffiliateDTO affiliateDTO, Long affiliateId) {
 		Affiliate affiliate = null;
+		boolean existingAffiliate = true;
 		if(affiliateId != null){
 			affiliate = getAffiliateService().getAffiliate(affiliateId);
+		}
+		if(affiliate == null){
+			existingAffiliate = false;
 		}
 		affiliate = affiliateDTO.extractAffiliate(affiliate);
 		System.out.println("affiliate about to be saved -> " + affiliate.getLogin());
 		affiliate = getAffiliateService().saveAffiliate(affiliate);
+		if(!existingAffiliate){
+			getAffiliateService().saveAffiliateCompany(affiliate, companyShortName);
+		}
 
 		//UserSettings userSettings = userDTOForUpdate.extactUserSettings();
 		return new ForwardResolution("/pages/affiliate/affiliates.jsp");

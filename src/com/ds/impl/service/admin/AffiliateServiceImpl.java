@@ -14,6 +14,7 @@ import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
 import com.ds.domain.visitor.VisitorInfo;
 import com.ds.domain.affiliate.Affiliate;
+import com.ds.domain.affiliate.AffiliateCompany;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.DSException;
 import com.ds.exception.ValidationException;
@@ -664,6 +665,21 @@ public class AffiliateServiceImpl implements AffiliateService {
 		return getSearchService().list(affiliateQuery);
 
 		//return null;  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	/**
+	 *
+	 * @param affiliate
+	 * @param companyShortName
+	 */
+	@Override
+	@Transactional
+	public AffiliateCompany saveAffiliateCompany(Affiliate affiliate, String companyShortName) {
+		AffiliateCompany affiliateCompany = new AffiliateCompany();
+		affiliateCompany.setAffiliate(affiliate);
+		affiliateCompany.setCompanyShortName(companyShortName);
+		return affiliateDAO.saveAffiliateCompany(affiliateCompany);
+
 	}
 
 	/**

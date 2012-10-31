@@ -45,14 +45,14 @@
             <s:text name="affiliateDTO.passwordChecksum" class="check-empty auto-adjust"/>
 
 
-	        company short name is :: ${affiliateAction.affiliateDTO.companyShortName}
+	        company short name is :: ${affiliateAction.companyShortName}
           </div>
 
           <div class="clear"></div>
 
           <div class="col_2">
             <s:hidden name="affiliateId"/>
-            <s:hidden name="affiliateDTO.companyShortName" value="${affiliateAction.affiliateDTO.companyShortName}"/>
+            <s:hidden name="companyShortName" value="${affiliateAction.companyShortName}"/>
             <s:submit name="updateAffiliate" value="Save Changes" class="button blue small"/>
           </div>
 

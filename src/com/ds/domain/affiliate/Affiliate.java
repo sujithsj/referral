@@ -25,8 +25,8 @@ public class Affiliate extends BaseDataObject {
 	@JoinColumn(name = "PARENT_AFFILIATE_ID")
 	private Affiliate parentAffiliate;
 
-	@Column(name = "COMPANY_SHORTNAME", nullable = false)
-	private String companyShortName;
+	/*@Column(name = "COMPANY_SHORTNAME", nullable = false)
+	private String companyShortName;*/
 
 	@Column(name = "LOGIN", nullable = false, length = 45)
 	private String login;
@@ -88,13 +88,13 @@ public class Affiliate extends BaseDataObject {
 		this.parentAffiliate = parentAffiliate;
 	}
 
-	public String getCompanyShortName() {
+	/*public String getCompanyShortName() {
 		return companyShortName;
 	}
 
 	public void setCompanyShortName(String companyShortName) {
 		this.companyShortName = companyShortName;
-	}
+	}*/
 
 	public String getLogin() {
 		return login;

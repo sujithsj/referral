@@ -7,6 +7,7 @@ import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.core.Role;
 import com.ds.domain.visitor.VisitorInfo;
 import com.ds.domain.affiliate.Affiliate;
+import com.ds.domain.affiliate.AffiliateCompany;
 import com.ds.exception.DSException;
 import com.ds.web.action.Page;
 
@@ -291,4 +292,5 @@ public interface AffiliateService {
 	public Page searchAffiliate(String login, String email, String companyShortName, int pageNo, int perPage);
 
 
+	public AffiliateCompany saveAffiliateCompany(Affiliate affiliate, String companyShortName);
 }
