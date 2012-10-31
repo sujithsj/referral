@@ -1,12 +1,10 @@
 package com.ds.action.company;
 
-import com.ds.domain.company.Company;
-import com.ds.pact.dao.BaseDao;
+import com.ds.dto.company.CompanyRegistrationDTO;
 import com.ds.web.action.BasePaginatedAction;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.Resolution;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -17,15 +15,14 @@ import java.util.Set;
 @Component
 public class CompanyAction extends BasePaginatedAction {
 
-  @Autowired
-  private BaseDao baseDao;
+  private CompanyRegistrationDTO companyDTO;
 
   @DontValidate
   @DefaultHandler
   public Resolution pre() {
     System.out.println("in pre for action");
 
-    baseDao.get(Company.class,"abc");
+
     return null;
   }
 
