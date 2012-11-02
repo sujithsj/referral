@@ -60,22 +60,22 @@
 			<param-name>Stripes.EncryptionKey</param-name>
 			<param-value>szsdvfmulwl#@$jfdhm38nszfn</param-value>
 		</init-param>
-		<init-param>
+		<!--<init-param>
 			<param-name>Extension.Packages</param-name>
 			<param-value>com.hk.admin.convertor</param-value>
-		</init-param>
+		</init-param>-->
 		<init-param>
 			<param-name>ActionBeanPropertyBinder.Class</param-name>
 			<param-value>
 				net.sourceforge.stripes.controller.SafeActionBeanPropertyBinder
 			</param-value>
 		</init-param>
-		<init-param>
+		<!--<init-param>
 			<param-name>TypeConverterFactory.Class</param-name>
 			<param-value>
         com.hk.admin.factory.SpringTypeConverterFactory
       </param-value>
-		</init-param>
+		</init-param>-->
 		<!--<init-param>
 			<param-name>CoreInterceptor.Classes</param-name>
 			<param-value>
@@ -221,7 +221,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-   <filter>
+   <!--<filter>
       <filter-name>springSecurityFilterChain</filter-name>
       <filter-class>
         com.ds.web.filter.WebScaleFilterToBeanProxy
@@ -232,7 +232,7 @@
       <url-pattern>/*</url-pattern>
       <dispatcher>FORWARD</dispatcher>
       <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
+    </filter-mapping>-->
   
 	<!--<filter>
 		<filter-name>ShiroFilter</filter-name>
