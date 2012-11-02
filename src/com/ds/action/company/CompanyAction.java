@@ -30,12 +30,12 @@ public class CompanyAction extends BaseAction {
   public Resolution pre() {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     companyShortName = loggedInUser.getCompanyShortName();
-    CompanyRegistrationDTO companyDTO = new CompanyRegistrationDTO();
+    companyDTO = new CompanyRegistrationDTO();
     Company company = getAdminService().getCompany(companyShortName);
 
     companyDTO.bindCompany(company);
 
-    return new ForwardResolution("/pages//company/companyDetails.jsp");
+    return new ForwardResolution("/pages/company/companyDetails.jsp");
   }
 
 
