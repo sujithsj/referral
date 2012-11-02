@@ -33,16 +33,16 @@
 	          <s:text name="affiliateDTO.lastName" class="check-empty auto-adjust"/>
 
 
-	          <%--<c:set var="companyAffiliates" value="companyAffiliates"/>
+	          <c:set var="companyAffiliates" value="${affiliateAction.companyAffiliates}"/>
 	          <s:select name="parentAffiliateId" style="height:30px;font-size:1.2em;padding:1px;">
 		          <s:option value="0">-None-</s:option>
 		          <c:forEach items="${companyAffiliates}" var="comAff">
-			          <s:option value="${comAff.id}">${comAff.name}</s:option>
+			          <s:option value="${comAff.id}">${comAff.firstName}</s:option>
 		          </c:forEach>
-	          </s:select>--%>
+	          </s:select>
 
             <s:label name="Password"/>
-            <s:text name="affiliateDTO.passwordChecksum" class="check-empty auto-adjust"/>
+            <s:password name="affiliateDTO.passwordChecksum" class="check-empty auto-adjust"/>
 
 
 	        company short name is :: ${affiliateAction.companyShortName}

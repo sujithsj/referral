@@ -20,6 +20,7 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -44,6 +45,8 @@ public class AffiliateAction extends BaseAction {
 
 	private Set<Affiliate> companyAffiliates;
 	private Long parentAffiliateId;
+	private User loggedInUser;
+	private Company company;
 
 	@Autowired
 	private AdminService adminService;
@@ -63,8 +66,14 @@ public class AffiliateAction extends BaseAction {
 
 	@DefaultHandler
 	public Resolution createOrEditAffiliate() {
+		loggedInUser = SecurityHelper.getLoggedInUser();
+		companyShortName = loggedInUser.getCompanyShortName();
+		company = getAdminService().getCompany(companyShortName);
+		companyAffiliates = new HashSet<Affiliate>(company.getAffiliates());
+
 		if (affiliateId != null) {
 			Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
+			companyAffiliates.remove(affiliate);
 			//UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
 			affiliateDTO = new AffiliateDTO();
 			affiliateDTO.bindAffiliate(affiliate);
@@ -78,16 +87,16 @@ public class AffiliateAction extends BaseAction {
 	@SuppressWarnings("unchecked")
 	private Resolution setParamsForView(AffiliateDTO affiliateDTO) {
 
-		Company company = getAdminService().getCompany(companyShortName);
-		companyAffiliates = company.getAffiliates();
+		/*Set<Affiliate> affiliateSet = new HashSet<Affiliate>();
+		affiliateSet = company.getAffiliates();
+		Set<AffiliateCompany> afiAffiliateCompanies = new HashSet<AffiliateCompany>();
+		afiAffiliateCompanies = company.getAffiliateCompanies();*/
 		return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
 	}
 
 	public AffiliateDTO createNewAffiliate() {
 
-		User loggedInUser = SecurityHelper.getLoggedInUser();
-		companyShortName = loggedInUser.getCompanyShortName();
-		Company company = getAdminService().getCompany(companyShortName);
+		//Company company = getAdminService().getCompany(companyShortName);
 		getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getAffiliateService().affiliatesCount(companyShortName) + 1);
 
 		affiliateDTO = new AffiliateDTO();

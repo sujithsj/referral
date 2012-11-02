@@ -44,6 +44,7 @@ public class Company extends BaseDataObject {
 
   private CompanySettings companySettings;
 	private Set<Affiliate> affiliates;
+	private Set<AffiliateCompany> affiliateCompanies;
 
   // we can cache it its not big data, at max lets say 10 features
   private Set<Feature> features = new HashSet<Feature>();
@@ -261,6 +262,14 @@ public class Company extends BaseDataObject {
 
 	public void setAffiliates(Set<Affiliate> affiliates) {
 		this.affiliates = affiliates;
+	}
+
+	public Set<AffiliateCompany> getAffiliateCompanies() {
+		return affiliateCompanies;
+	}
+
+	public void setAffiliateCompanies(Set<AffiliateCompany> affiliateCompanies) {
+		this.affiliateCompanies = affiliateCompanies;
 	}
 }
 
