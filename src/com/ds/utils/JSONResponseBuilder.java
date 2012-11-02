@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.hk.domain.core.JSONObject;
+
 
 public class JSONResponseBuilder {
 
@@ -32,7 +32,7 @@ public class JSONResponseBuilder {
 
     public String build() {
         StringBuilder sb = new StringBuilder();
-        JSONObject.appendJSONMap(params, sb);
+        com.ds.domain.core.JSONObject.appendJSONMap(params, sb);
         return sb.toString();
     }
 
