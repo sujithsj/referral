@@ -17,6 +17,8 @@ public class CompanyRegistrationDTO {
   private String email;
   private String userName;
 
+  private String fromEmail;
+
 
   /**
    * @return the name
@@ -135,4 +137,6 @@ public class CompanyRegistrationDTO {
     this.description = company.getDescription();
     this.shortName = company.getShortName();
   }
+
+  
 }
