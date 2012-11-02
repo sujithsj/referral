@@ -4,7 +4,7 @@
 
   <%--<ul class="nav nav-list bs-docs-sidenav">--%>
   <ul class="nav nav-list bs-docs-sidenav">
-    <li><a href="#dropdowns"><i class="icon-chevron-right"></i>Company Setup</a></li>
+    <li><a href="${pageContext.request.contextPath}/company/Company.action"><i class="icon-chevron-right"></i>Company Setup</a></li>
     <li><a href="#buttonGroups"><i class="icon-chevron-right"></i>General settings</a></li>
     <li><a href="#buttonDropdowns"><i class="icon-chevron-right"></i>Email Settings</a></li>
     <li><a href="#navs"><i class="icon-chevron-right"></i>Invoice Settings</a></li>
