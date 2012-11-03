@@ -26,6 +26,7 @@ public class FileManageServiceImpl implements FileManageService {
   private DefaultEventDispatcher eventDispatcher;
 
   @Override
+  @Transactional
   public Company deleteCompanyLogo(String companyShortName) {
     Company company = getAdminService().getCompany(companyShortName);
 
@@ -51,6 +52,7 @@ public class FileManageServiceImpl implements FileManageService {
 
 
   @Override
+  @Transactional
   public void associateUserImage(String companyShortName, Long fileAttachmentId, String userId) {
 
     User user = getAdminService().getUser(userId);
@@ -63,6 +65,7 @@ public class FileManageServiceImpl implements FileManageService {
 
 
   @Override
+  @Transactional
   public User deleteUserImage(String companyShortName, String userId) {
 
     User user = getAdminService().getUser(userId);
