@@ -18,6 +18,7 @@ public class CompanyRegistrationDTO {
   private String userName;
 
   private String fromEmail;
+  private long imageId;
 
 
   /**
@@ -136,7 +137,17 @@ public class CompanyRegistrationDTO {
     this.url = company.getUrl();
     this.description = company.getDescription();
     this.shortName = company.getShortName();
+
+    if (company.getLogo() != null) {
+      this.imageId = company.getLogo().getId();
+    }
   }
 
-  
+  public long getImageId() {
+    return imageId;
+  }
+
+  public void setImageId(long imageId) {
+    this.imageId = imageId;
+  }
 }

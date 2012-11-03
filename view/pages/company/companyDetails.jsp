@@ -44,5 +44,18 @@
         </s:form>
       </div>
     </div>
+
+    <h1>Upload Logo</h1>
+    <img src="/getImage?imageId=${companyAction.companyDTO.imageId}" alt="CompanyLogo">
+     <s:link beanclass="com.ds.action.core.FileManageAction" event="deleteCompanyLogo"
+                  class="button blue small"><span class="icon white small" data-icon=":"></span>Delete Logo
+     <s:param name="companyShortName" value="${companyAction.companyShortName}"/>
+     </s:link>
+    <form action="/fileUpload" multipart="1" method="post" enctype="multipart/form-data" id="companyLogoUploadForm">
+      <input type="file" name="file" class="formelement" style="width: 312px;" id="marketing_tool_banner">
+      <input type="hidden"  name="fileManageType" value="10" >
+      <input type="hidden"  name="identifier" value="${companyAction.companyShortName}" >
+      <input type="submit" value="upload" class="button blue big">
+    </form>
   </s:layout-component>
 </s:layout-render>

@@ -54,7 +54,7 @@ public class CompanyAction extends BaseAction {
 
     //return new JSONResponse().addField("message", "Company Does not Exist").build();
 
-    return new ForwardResolution("/pages//company/companyDetails.jsp");
+    return new ForwardResolution("/pages/company/companyDetails.jsp");
   }
 
   public CompanyRegistrationDTO getCompanyDTO() {

@@ -1,19 +1,11 @@
-package com.hk.domain.core;
+package com.ds.domain.core;
+
+import org.json.simple.JSONValue;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
-import org.json.simple.JSONValue;
+import java.util.*;
 
 /**
  * @author vaibhav

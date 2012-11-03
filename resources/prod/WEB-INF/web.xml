@@ -60,22 +60,22 @@
 			<param-name>Stripes.EncryptionKey</param-name>
 			<param-value>szsdvfmulwl#@$jfdhm38nszfn</param-value>
 		</init-param>
-		<init-param>
+		<!--<init-param>
 			<param-name>Extension.Packages</param-name>
 			<param-value>com.hk.admin.convertor</param-value>
-		</init-param>
+		</init-param>-->
 		<init-param>
 			<param-name>ActionBeanPropertyBinder.Class</param-name>
 			<param-value>
 				net.sourceforge.stripes.controller.SafeActionBeanPropertyBinder
 			</param-value>
 		</init-param>
-		<init-param>
+		<!--<init-param>
 			<param-name>TypeConverterFactory.Class</param-name>
 			<param-value>
         com.hk.admin.factory.SpringTypeConverterFactory
       </param-value>
-		</init-param>
+		</init-param>-->
 		<!--<init-param>
 			<param-name>CoreInterceptor.Classes</param-name>
 			<param-value>
@@ -194,6 +194,27 @@
 		<url-pattern>/action/*</url-pattern>
 	</servlet-mapping>
 
+  <servlet id="FileUploadServlet">
+		<servlet-name>FileUploadServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.FileUploadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<url-pattern>/fileUpload/*</url-pattern>
+	</servlet-mapping>
+
+  <servlet id="GetImageServlet">
+		<servlet-name>GetImageServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.GetImageServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetImageServlet</servlet-name>
+		<url-pattern>/getImage/*</url-pattern>
+	</servlet-mapping>
 
 	<!--  Servlet End -->
 
