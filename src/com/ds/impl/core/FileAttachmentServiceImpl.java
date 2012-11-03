@@ -6,6 +6,7 @@ import com.ds.pact.service.core.FileAttachmentService;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,6 +24,7 @@ public class FileAttachmentServiceImpl implements FileAttachmentService {
   @Autowired
   private BaseDao baseDAO;
 
+  @Transactional
   public FileAttachment uploadFile(String fileName, String contentType, long fileSize, InputStream inputStream) throws IOException {
     FileAttachment fileAttachment = new FileAttachment();
     fileAttachment.setFileName(fileName);

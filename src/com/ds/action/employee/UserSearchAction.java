@@ -7,6 +7,7 @@ import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.DefaultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,10 @@ public class UserSearchAction extends BasePaginatedAction {
   @Autowired
   private UserService userService;
 
+   @DefaultHandler
+   public Resolution pre() {
+    return new ForwardResolution("/pages/company/users.jsp");
+   }
 
   @SuppressWarnings("unchecked")
   public Resolution searchUsers() {

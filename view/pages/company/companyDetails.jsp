@@ -44,5 +44,11 @@
         </s:form>
       </div>
     </div>
+
+    <h1>Upload Logo</h1>
+    <form action="/fileUpload" multipart="1" method="post" enctype="multipart/form-data" id="companyLogoUploadForm">
+      <input type="file" name="marketing_tool[banner]" class="formelement" style="width: 312px;" id="marketing_tool_banner">
+      <input type="submit" value="upload" class="button blue big">
+    </form>
   </s:layout-component>
 </s:layout-render>
