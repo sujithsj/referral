@@ -38,7 +38,7 @@ public class FileAttachmentServiceImpl implements FileAttachmentService {
       fileAttachment.setHeight(image.getHeight());
     }
 
-    getBaseDAO().save(fileAttachment);
+   fileAttachment=(FileAttachment) getBaseDAO().save(fileAttachment);
     return fileAttachment;
   }
 

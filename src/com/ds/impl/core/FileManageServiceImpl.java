@@ -10,6 +10,7 @@ import com.ds.pact.service.core.FileAttachmentService;
 import com.ds.pact.service.core.FileManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author adlakha.vaibhav
@@ -39,6 +40,7 @@ public class FileManageServiceImpl implements FileManageService {
 
 
   @Override
+  @Transactional
   public Company associateCompanyLogo(String companyShortName, Long fileAttachmentId) {
     Company company = getAdminService().getCompany(companyShortName);
     FileAttachment logo = getFileAttachmentService().loadFileAttachment(fileAttachmentId);

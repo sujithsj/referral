@@ -46,6 +46,7 @@
     </div>
 
     <h1>Upload Logo</h1>
+    <img src="/getImage?imageId=${companyAction.companyDTO.imageId}" alt="CompanyLogo">
     <form action="/fileUpload" multipart="1" method="post" enctype="multipart/form-data" id="companyLogoUploadForm">
       <input type="file" name="file" class="formelement" style="width: 312px;" id="marketing_tool_banner">
       <input type="hidden"  name="fileManageType" value="10" >
