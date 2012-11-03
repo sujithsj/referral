@@ -6,8 +6,8 @@ import com.ds.domain.core.FileAttachment;
 import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.pact.service.core.FileAttachmentService;
 import com.ds.pact.service.core.FileManageService;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.RedirectResolution;
+import net.sourceforge.stripes.util.ssl.SslUtil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author adlakha.vaibhav
@@ -30,7 +31,6 @@ public class FileUploadServlet extends HttpServlet {
 
   private FileAttachmentService fileAttachmentService;
   private FileManageService fileManageService;
-
 
 
   protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,24 +58,38 @@ public class FileUploadServlet extends HttpServlet {
           handleFileUpload(fileManageType, identifier, fileAttachment);
         }
       }
-
+      handleFileUploadSuccess(request, resp, fileManageType, identifier);
     } catch (Throwable e) {
       logger.error("Error while  uploading file", e);
       resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "File Upload Failed");
     }
+
   }
 
-  private Resolution handleFileUploadSuccess(int fileManageType, String identifier) {
+  private void handleFileUploadSuccess(HttpServletRequest request, HttpServletResponse response, int fileManageType, String identifier) {
+    try {
+      switch (fileManageType) {
+        case FileManageType.COMPANY_LOGO:
 
-    switch (fileManageType) {
-      case FileManageType.COMPANY_LOGO:
-        
-        return new ForwardResolution(CompanyAction.class).addParameter("companyShortName", identifier);
+          RedirectResolution redirectResolution = new RedirectResolution(CompanyAction.class).addParameter("companyShortName", identifier);
+          response.sendRedirect(getUrlFromResolution(request,response, redirectResolution));
+          //request.getRequestDispatcher(getUrlFromResolution(request,response, redirectResolution)).forward(request, response);
+          //return;
+          break;
+          
+      }
+    } catch (Throwable e) {
+      logger.error("Error while  uploading file", e);
 
-      default:
-        return null;
     }
   }
+
+  private String getUrlFromResolution(HttpServletRequest request, HttpServletResponse response, RedirectResolution redirectResolution) {
+        String url = redirectResolution.getUrl(Locale.getDefault());
+
+        String contextPath = request.getContextPath();
+        return SslUtil.encodeUrlFullForced(request, response, url, contextPath);
+    }
 
 
   private void handleFileUpload(int fileManageType, String identifier, FileAttachment fileAttachment) {
@@ -101,7 +115,7 @@ public class FileUploadServlet extends HttpServlet {
       this.fileManageService = ServiceLocatorFactory.getService(FileManageService.class);
     }
     return fileManageService;
-    
+
   }
 
   public void setFileAttachmentService(FileAttachmentService fileAttachmentService) {
