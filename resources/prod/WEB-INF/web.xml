@@ -194,6 +194,27 @@
 		<url-pattern>/action/*</url-pattern>
 	</servlet-mapping>
 
+  <servlet id="FileUploadServlet">
+		<servlet-name>FileUploadServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.FileUploadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<url-pattern>/fileUpload/*</url-pattern>
+	</servlet-mapping>
+
+  <servlet id="GetImageServlet">
+		<servlet-name>GetImageServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.GetImageServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetImageServlet</servlet-name>
+		<url-pattern>/getImage/*</url-pattern>
+	</servlet-mapping>
 
 	<!--  Servlet End -->
 
@@ -221,7 +242,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-   <!--<filter>
+   <filter>
       <filter-name>springSecurityFilterChain</filter-name>
       <filter-class>
         com.ds.web.filter.WebScaleFilterToBeanProxy
@@ -232,7 +253,7 @@
       <url-pattern>/*</url-pattern>
       <dispatcher>FORWARD</dispatcher>
       <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>-->
+    </filter-mapping>
   
 	<!--<filter>
 		<filter-name>ShiroFilter</filter-name>
