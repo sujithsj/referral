@@ -1,6 +1,5 @@
 package com.ds.action.core;
 
-import com.ds.constants.FileManageType;
 import com.ds.domain.core.FileAttachment;
 import com.ds.pact.service.core.FileAttachmentService;
 import com.ds.pact.service.core.FileManageService;
@@ -51,7 +50,7 @@ public class FileUploadAction extends BaseAction {
         if (!fileItem.isFormField()) {
           FileAttachment fileAttachment = getFileAttachmentService().uploadFile(fileItem.getName(), fileItem.getContentType(), fileItem.getSize(),
               fileItem.getInputStream());
-          handleFileUpload(fileAttachment);
+          //handleFileUpload(fileAttachment);
         }
       }
 
@@ -63,16 +62,6 @@ public class FileUploadAction extends BaseAction {
   }
 
 
-  private void handleFileUpload(FileAttachment fileAttachment) {
-
-    switch (fileManageType) {
-
-      case FileManageType.COMPANY_LOGO:
-        getFileManageService().associateCompanyLogo(companyShortName, fileAttachment.getId());
-        break;
-
-    }
-  }
 
   public FileAttachmentService getFileAttachmentService() {
     return fileAttachmentService;
