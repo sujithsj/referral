@@ -8,6 +8,7 @@ import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.user.UserDTO;
+import com.ds.exception.CompositeValidationException;
 import com.ds.pact.dao.BaseDao;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.admin.AffiliateService;
@@ -113,17 +114,22 @@ public class AffiliateAction extends BaseAction {
 	private Resolution updateAffiliateDetails(AffiliateDTO affiliateDTO, Long affiliateId) {
 		Affiliate affiliate = null;
 		boolean existingAffiliate = true;
-		if(affiliateId != null){
+		if (affiliateId != null) {
 			affiliate = getAffiliateService().getAffiliate(affiliateId);
 		}
-		if(affiliate == null){
+		if (affiliate == null) {
 			existingAffiliate = false;
 		}
 		affiliate = affiliateDTO.extractAffiliate(affiliate);
 		System.out.println("affiliate about to be saved -> " + affiliate.getLogin());
-		affiliate = getAffiliateService().saveAffiliate(affiliate);
-		if(!existingAffiliate){
+		try {
+			affiliate = getAffiliateService().saveAffiliate(affiliate);
+		} catch (CompositeValidationException cve) {
+			cve.printStackTrace();
+		}
+		if (!existingAffiliate) {
 			getAffiliateService().saveAffiliateCompany(affiliate, companyShortName);
+			getAffiliateService().sendWelcomeEmail(affiliate);
 		}
 
 		//UserSettings userSettings = userDTOForUpdate.extactUserSettings();

@@ -9,6 +9,7 @@ import com.ds.web.action.Page;
 import com.ds.pact.service.admin.AffiliateService;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.DefaultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -50,6 +51,7 @@ public class AffiliateSearchAction extends BasePaginatedAction {
 
 	}
 
+	@DefaultHandler
 	@SuppressWarnings("unchecked")
 	public Resolution searchAffiliates() {
 
@@ -64,12 +66,12 @@ public class AffiliateSearchAction extends BasePaginatedAction {
 
 	@Override
 	public int getPageCount() {
-		return userPage != null ? userPage.getTotalPages() : 0;
+		return affiliatePage != null ? affiliatePage.getTotalPages() : 0;
 	}
 
 	@Override
 	public int getResultCount() {
-		return userPage != null ? userPage.getTotalResults() : 0;
+		return affiliatePage != null ? affiliatePage.getTotalResults() : 0;
 	}
 
 	@Override

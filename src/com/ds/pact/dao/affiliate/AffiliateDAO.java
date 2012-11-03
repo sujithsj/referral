@@ -247,5 +247,20 @@ public interface AffiliateDAO extends BaseDao {
       * @return the No of Vendors
       *//*
      public int getNoOfVendors();*/
+
+
+	/**
+	 *
+	 * @param login
+	 * @return
+	 */
+	public boolean isAffiliateLoginTaken(String login);
+
+	/**
+	 *
+	 * @param login
+	 * @return
+	 */
+	public Affiliate getAffiliateByLogin(String login);
 }
 
