@@ -197,11 +197,11 @@
 	<target name="hibernateGeneration">
 		<hibernatetool destdir="${project.root.dir}/out" templatepath="${lib.dependencies.dir}/hibernate-tools">
 			<jdbcconfiguration
-					configurationfile="${project.resources.dir}/dev/hbm/hibernate.master.cfg.xml"
-					revengfile="${project.resources.dir}/dev/hbm//hibernate.reveng.xml"
+					configurationfile="${project.resources.dir}/dev/hibernate.cfg.xml"
+					revengfile="${project.resources.dir}/dev/hibernate.reveng.xml"
 					packagename="com.ds.domain"
 					/>
-			<hbm2java jdk5="true" ejb3="true" destdir="${project.root.dir}/out/generated"/>
+			<hbm2java jdk5="true" ejb3="true" destdir="${project.root.dir}/test-output/generated"/>
 		</hibernatetool>
 	</target>
 
