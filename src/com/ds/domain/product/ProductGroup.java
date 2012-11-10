@@ -25,7 +25,7 @@ public class ProductGroup implements java.io.Serializable {
   @Column(name = "NAME", nullable = false, length = 200)
   private String name;
 
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(
       name = "PRODUCT_GROUP_HAS_PRODUCT",
       joinColumns = {@JoinColumn(name = "PRODUCT_GROUP_ID", nullable = false, updatable = false)},
