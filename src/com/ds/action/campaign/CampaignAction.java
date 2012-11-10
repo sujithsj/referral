@@ -1,24 +1,26 @@
-package com.ds.action.marketing;
+package com.ds.action.campaign;
 
-import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.web.action.BaseAction;
+import com.ds.domain.marketing.MarketingMaterial;
+
+import java.util.Date;
+
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.Resolution;
-import org.springframework.stereotype.Component;
 
 /**
  * @author adlakha.vaibhav
  */
-@Component
-public class MarketingMaterialAction extends BaseAction {
+public class CampaignAction extends BaseAction {
 
-  private String title;
+  private String name;
+  private Date startDate, endDate;
+
+  private boolean visibleToAll;
   private int type;
-  private String body;
 
-  private Long marketingMaterialId;
+  private Long campaignId;
 
-  private String landingPageURL;
 
 
   @DefaultHandler
@@ -27,5 +29,5 @@ public class MarketingMaterialAction extends BaseAction {
          MarketingMaterial marketingMaterial =
        }
   }
-  
+
 }

@@ -1,5 +1,8 @@
 package com.ds.impl.service.marketing;
 
+import com.ds.domain.marketing.MarketingMaterial;
+import com.ds.exception.InvalidParameterException;
+import com.ds.pact.dao.BaseDao;
 import com.ds.pact.service.core.SearchService;
 import com.ds.pact.service.marketing.MarketingService;
 import com.ds.search.impl.MarketingMaterialQuery;
@@ -16,13 +19,24 @@ public class MarketingServiceImpl implements MarketingService{
   @Autowired
   private SearchService searchService;
 
+  @Autowired
+  private BaseDao baseDao;
+
+  @Override
+  public MarketingMaterial getMarektingMaterialById(Long mmId) {
+    if (mmId == null) {
+      throw new InvalidParameterException("MM_ID_CANNOT_BE_BLANK");
+    }
+    return (MarketingMaterial) getBaseDao().findUniqueByNamedQueryAndNamedParam("getMarketingMaterialById", new String[]{"mmId"}, new Object[]{mmId});
+  }
+  
   @Override
   public Page searchMarketingMaterial(String title, int type, String companyShortName, String landingPage, int pageNo, int perPage) {
     MarketingMaterialQuery marketingMaterialQuery = new MarketingMaterialQuery();
     marketingMaterialQuery.setCompanyShortName(companyShortName);
     marketingMaterialQuery.setLandingPage(landingPage).setTitle(title);
     marketingMaterialQuery.setType(type);
-    
+
     marketingMaterialQuery.setOrderByField("title").setPageNo(pageNo).setRows(perPage);
 
     return getSearchService().list(marketingMaterialQuery);
@@ -30,5 +44,9 @@ public class MarketingServiceImpl implements MarketingService{
 
   public SearchService getSearchService() {
     return searchService;
+  }
+
+  public BaseDao getBaseDao() {
+    return baseDao;
   }
 }

@@ -1,5 +1,5 @@
 package com.ds.domain.marketing;
-// Generated Nov 9, 2012 10:54:29 PM by Hibernate Tools 3.2.4.CR1
+
 
 
 import javax.persistence.*;
@@ -8,6 +8,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "marketing_material")
+@NamedQueries({
+    @NamedQuery(name = "getMarketingMaterialById", query = "select mm from MarketingMaterial mm where mm.id = :mmId")
+})
 public class MarketingMaterial implements java.io.Serializable {
 
 

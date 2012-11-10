@@ -1,15 +1,16 @@
 package com.ds.domain.product;
 
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "product_group")
+@NamedQueries({
+    @NamedQuery(name = "getProductGroupById", query = "select pg from ProductGroup pp where pp.id = :productGroupId")
+})
 public class ProductGroup implements java.io.Serializable {
 
   @Id
@@ -23,6 +24,16 @@ public class ProductGroup implements java.io.Serializable {
 
   @Column(name = "NAME", nullable = false, length = 200)
   private String name;
+
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinTable(
+      name = "PRODUCT_GROUP_HAS_PRODUCT",
+      joinColumns = {@JoinColumn(name = "PRODUCT_GROUP_ID", nullable = false, updatable = false)},
+      inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false)}
+  )
+  
+  private Set<Product> products = new HashSet<Product>();
+
 
   public Long getId() {
     return this.id;
@@ -48,7 +59,13 @@ public class ProductGroup implements java.io.Serializable {
     this.name = name;
   }
 
+  public Set<Product> getProducts() {
+    return products;
+  }
 
+  public void setProducts(Set<Product> products) {
+    this.products = products;
+  }
 }
 
 
