@@ -1,5 +1,5 @@
 package com.ds.domain.campaign;
-// Generated Nov 9, 2012 10:22:42 PM by Hibernate Tools 3.2.4.CR1
+
 
 
 import javax.persistence.*;
