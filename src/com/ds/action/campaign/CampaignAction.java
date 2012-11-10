@@ -1,12 +1,8 @@
 package com.ds.action.campaign;
 
 import com.ds.web.action.BaseAction;
-import com.ds.domain.marketing.MarketingMaterial;
 
 import java.util.Date;
-
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.Resolution;
 
 /**
  * @author adlakha.vaibhav
@@ -23,11 +19,11 @@ public class CampaignAction extends BaseAction {
 
 
 
-  @DefaultHandler
+  /*@DefaultHandler
   public Resolution createOrEditMarketingMaterial(){
-       if(marketingMaterialId !=null){
+       if(campaignId !=null){
          MarketingMaterial marketingMaterial =
        }
-  }
+  }*/
 
 }

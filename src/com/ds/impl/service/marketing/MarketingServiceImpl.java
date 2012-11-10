@@ -9,6 +9,7 @@ import com.ds.search.impl.MarketingMaterialQuery;
 import com.ds.web.action.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author adlakha.vaibhav
@@ -40,6 +41,11 @@ public class MarketingServiceImpl implements MarketingService{
     marketingMaterialQuery.setOrderByField("title").setPageNo(pageNo).setRows(perPage);
 
     return getSearchService().list(marketingMaterialQuery);
+  }
+
+  @Transactional
+  public MarketingMaterial saveMarketingMaterial(MarketingMaterial marketingMaterial) {
+    return (MarketingMaterial) getBaseDao().save(marketingMaterial);
   }
 
   public SearchService getSearchService() {
