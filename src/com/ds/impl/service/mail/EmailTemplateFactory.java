@@ -18,6 +18,12 @@ public class EmailTemplateFactory {
       emailTemplate.setHtml(true);
       emailTemplate.setBodyTemplateName("velocity/UserPasswordResetConfirmation.vm");
       return emailTemplate;
+    } else if("WelcomeAffiliate".equals(templateKey)){
+      EmailTemplate emailTemplate = new EmailTemplate();
+      emailTemplate.setSubject("Welcome to affiliate Program!!");
+      emailTemplate.setHtml(true);
+      emailTemplate.setBodyTemplateName("velocity/WelcomeAffiliate.vm");
+      return emailTemplate;
     }
 
     return null;

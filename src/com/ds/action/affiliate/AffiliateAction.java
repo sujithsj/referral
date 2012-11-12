@@ -125,6 +125,7 @@ public class AffiliateAction extends BaseAction {
 		try {
 			affiliate = getAffiliateService().saveAffiliate(affiliate);
 		} catch (CompositeValidationException cve) {
+			//return 
 			cve.printStackTrace();
 		}
 		if (!existingAffiliate) {
@@ -138,6 +139,12 @@ public class AffiliateAction extends BaseAction {
 
 	public Resolution resetPassword() {
 		getAdminService().resetEmployeePassword(employeeEmail);
+		return new ForwardResolution("/pages/setup.jsp");
+	}
+
+	public Resolution resendWelcomeEmail() {
+		Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
+		getAffiliateService().sendWelcomeEmail(affiliate);
 		return new ForwardResolution("/pages/setup.jsp");
 	}
 
