@@ -41,8 +41,6 @@ public class UserAction extends BaseAction {
 
   private List<Role> userRoles;
 
-  
-
 
   @Autowired
   private AdminService adminService;
