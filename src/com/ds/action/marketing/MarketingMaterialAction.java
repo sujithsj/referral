@@ -70,7 +70,7 @@ public class MarketingMaterialAction extends BaseAction {
       addRedirectAlertMessage(new SimpleMessage("Changes saved successfully.Please upload a banner"));
       return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial").addParameter("marketingMaterialId", marketingMaterial.getId());
     } else {
-      addRedirectAlertMessage(new SimpleMessage("Could not find/create supplier"));
+      addRedirectAlertMessage(new SimpleMessage("Could not find/create marketing material"));
       return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial");
     }
   }
