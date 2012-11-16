@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "product_group")
 @NamedQueries({
-    @NamedQuery(name = "getProductGroupById", query = "select pg from ProductGroup pp where pp.id = :productGroupId")
+    @NamedQuery(name = "getProductGroupById", query = "select pg from ProductGroup pg where pg.id = :productGroupId")
 })
 public class ProductGroup implements java.io.Serializable {
 
