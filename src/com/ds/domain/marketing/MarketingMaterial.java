@@ -1,6 +1,7 @@
 package com.ds.domain.marketing;
 
 
+import com.ds.domain.core.FileAttachment;
 
 import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -32,8 +33,9 @@ public class MarketingMaterial implements java.io.Serializable {
   private String body;
 
 
-  @Column(name = "FILE_ATTACHMENT_ID")
-  private Long fileAttachmentId;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "FILE_ATTACHMENT_ID")
+  private FileAttachment image;
 
 
   @Column(name = "COMPANY_SHORTNAME", nullable = false, length = 50)
@@ -75,13 +77,7 @@ public class MarketingMaterial implements java.io.Serializable {
     this.body = body;
   }
 
-  public Long getFileAttachmentId() {
-    return this.fileAttachmentId;
-  }
-
-  public void setFileAttachmentId(Long fileAttachmentId) {
-    this.fileAttachmentId = fileAttachmentId;
-  }
+  
 
   public String getCompanyShortname() {
     return this.companyShortname;
@@ -99,7 +95,13 @@ public class MarketingMaterial implements java.io.Serializable {
     this.landingPageUrl = landingPageUrl;
   }
 
+  public FileAttachment getImage() {
+    return image;
+  }
 
+  public void setImage(FileAttachment image) {
+    this.image = image;
+  }
 }
 
 

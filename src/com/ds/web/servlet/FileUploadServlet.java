@@ -1,6 +1,7 @@
 package com.ds.web.servlet;
 
 import com.ds.action.company.CompanyAction;
+import com.ds.action.marketing.MarketingMaterialAction;
 import com.ds.constants.FileManageType;
 import com.ds.domain.core.FileAttachment;
 import com.ds.impl.service.ServiceLocatorFactory;
@@ -68,13 +69,18 @@ public class FileUploadServlet extends HttpServlet {
 
   private void handleFileUploadSuccess(HttpServletRequest request, HttpServletResponse response, int fileManageType, String identifier) {
     try {
+      RedirectResolution redirectResolution ;
       switch (fileManageType) {
         case FileManageType.COMPANY_LOGO:
 
-          RedirectResolution redirectResolution = new RedirectResolution(CompanyAction.class).addParameter("companyShortName", identifier);
+          redirectResolution = new RedirectResolution(CompanyAction.class).addParameter("companyShortName", identifier);
           response.sendRedirect(getUrlFromResolution(request,response, redirectResolution));
           //request.getRequestDispatcher(getUrlFromResolution(request,response, redirectResolution)).forward(request, response);
           //return;
+          break;
+        case FileManageType.MARKETING_MATERIAL:
+          redirectResolution = new RedirectResolution(MarketingMaterialAction.class).addParameter("marketingMaterialId", Long.parseLong(identifier));
+          response.sendRedirect(getUrlFromResolution(request,response, redirectResolution));
           break;
           
       }
@@ -98,6 +104,9 @@ public class FileUploadServlet extends HttpServlet {
 
       case FileManageType.COMPANY_LOGO:
         getFileManageService().associateCompanyLogo(identifier, fileAttachment.getId());
+        break;
+      case FileManageType.MARKETING_MATERIAL:
+        getFileManageService().associateMaketingMaterialImage(Long.parseLong(identifier), fileAttachment.getId());
         break;
 
     }

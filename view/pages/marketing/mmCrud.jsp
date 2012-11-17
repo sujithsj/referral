@@ -52,6 +52,21 @@
                     class="button blue small"><span class="icon white small" data-icon=":"></span>Back</s:link>
           </div>
         </s:form>
+
+        <h1>Upload Image for Ad</h1>
+    <img src="/getImage?imageId=${mmAction.imageId}" alt="CompanyLogo">
+     <s:link beanclass="com.ds.action.core.FileManageAction" event="deleteMarketingMaterialImage"
+                  class="button blue small"><span class="icon white small" data-icon=":"></span>Delete Logo
+     <s:param name="companyShortName" value="${mmAction.marketingMaterialId}"/>
+     </s:link>
+    <form action="/fileUpload" multipart="1" method="post" enctype="multipart/form-data" id="mmImageUploadForm">
+      <input type="file" name="file" class="formelement" style="width: 312px;" id="marketing_tool_banner">
+      <input type="hidden"  name="fileManageType" value="20" >
+      <input type="hidden"  name="identifier" value="${mmAction.marketingMaterialId}" >
+      <input type="submit" value="upload" class="button blue big">
+    </form>
+                                                                      
+        
       </div>
     </div>
   </s:layout-component>
