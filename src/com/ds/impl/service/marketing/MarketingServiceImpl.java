@@ -32,7 +32,7 @@ public class MarketingServiceImpl implements MarketingService{
   }
   
   @Override
-  public Page searchMarketingMaterial(String title, int type, String companyShortName, String landingPage, int pageNo, int perPage) {
+  public Page searchMarketingMaterial(String title, Long type, String companyShortName, String landingPage, int pageNo, int perPage) {
     MarketingMaterialQuery marketingMaterialQuery = new MarketingMaterialQuery();
     marketingMaterialQuery.setCompanyShortName(companyShortName);
     marketingMaterialQuery.setLandingPage(landingPage).setTitle(title);

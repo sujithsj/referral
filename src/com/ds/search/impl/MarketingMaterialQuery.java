@@ -13,7 +13,7 @@ import java.util.List;
 public class MarketingMaterialQuery extends AbstractSearchQuery {
 
   private String title;
-  private Integer type;
+  private Long type;
   private String landingPage;
   private String companyShortName;
 
@@ -22,7 +22,7 @@ public class MarketingMaterialQuery extends AbstractSearchQuery {
     return this;
   }
 
-  public MarketingMaterialQuery setType(Integer type) {
+  public MarketingMaterialQuery setType(Long type) {
     this.type = type;
     return this;
   }

@@ -16,7 +16,7 @@ public class SecurityHelper {
           user = (User)userService.getUser("abc");*/
           //TODO: remove this hardcoding  
           user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        } catch (ClassCastException cce) {
+        } catch (ClassCastException cce) {      
             return null;
         } catch (NullPointerException npe) {
             return null;

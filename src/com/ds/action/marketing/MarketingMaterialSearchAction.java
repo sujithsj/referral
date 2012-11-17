@@ -23,7 +23,7 @@ import java.util.Set;
 public class MarketingMaterialSearchAction extends BasePaginatedAction {
 
   private String title;
-  private int type;
+  private Long type;
   private String landingPage;
   private String companyShortName;
 
@@ -47,7 +47,7 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
     marketingMaterialPage = getMarketingService().searchMarketingMaterial(title, type, companyShortName, landingPage, getPageNo(), getPerPage());
     marketingMaterials = marketingMaterialPage.getList();
 
-    return new ForwardResolution("/pages/company/marketingMaterial.jsp");
+    return new ForwardResolution("/pages/marketing/marketingMaterial.jsp");
 
   }
 
@@ -85,11 +85,11 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
     this.title = title;
   }
 
-  public int getType() {
+  public Long getType() {
     return type;
   }
 
-  public void setType(int type) {
+  public void setType(Long type) {
     this.type = type;
   }
 

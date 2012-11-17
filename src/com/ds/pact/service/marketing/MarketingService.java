@@ -8,7 +8,7 @@ import com.ds.web.action.Page;
  */
 public interface MarketingService {
 
-  public Page searchMarketingMaterial(String title, int type, String companyShortName, String landingPage, int pageNo, int perPage);
+  public Page searchMarketingMaterial(String title, Long type, String companyShortName, String landingPage, int pageNo, int perPage);
 
   public MarketingMaterial getMarektingMaterialById(Long mmId);
 
