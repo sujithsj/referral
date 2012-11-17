@@ -1,3 +1,4 @@
+<%@ page import="com.ds.constants.FileManageType" %>
 <%@include file="/includes/taglibInclude.jsp" %>
 
 <s:layout-render name="/templates/general.jsp">
@@ -53,7 +54,7 @@
      </s:link>
     <form action="/fileUpload" multipart="1" method="post" enctype="multipart/form-data" id="companyLogoUploadForm">
       <input type="file" name="file" class="formelement" style="width: 312px;" id="marketing_tool_banner">
-      <input type="hidden"  name="fileManageType" value="10" >
+      <input type="hidden"  name="fileManageType" value="<%=FileManageType.COMPANY_LOGO%>" >
       <input type="hidden"  name="identifier" value="${companyAction.companyShortName}" >
       <input type="submit" value="upload" class="button blue big">
     </form>

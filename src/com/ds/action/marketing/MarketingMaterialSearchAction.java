@@ -1,5 +1,6 @@
 package com.ds.action.marketing;
 
+import com.ds.constants.EnumMarketingMaterialType;
 import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.domain.user.User;
 import com.ds.pact.service.marketing.MarketingService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -27,6 +29,10 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
   private String landingPage;
   private String companyShortName;
 
+  private Long totalAdCount;
+  private Long totalBannerAds;
+  private Long totalTextAds;
+
 
   private Page marketingMaterialPage;
   private List<MarketingMaterial> marketingMaterials;
@@ -37,18 +43,39 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
 
   @DefaultHandler
   public Resolution pre() {
-    return new ForwardResolution("/pages/marketing/marketingMaterial.jsp");
+
+    type = EnumMarketingMaterialType.ALL.getId();
+    return searchMarketingMaterial();
   }
 
   @SuppressWarnings("unchecked")
   public Resolution searchMarketingMaterial() {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     companyShortName = loggedInUser.getCompanyShortName();
+
+    populateAdCount();
+
+    //get all marketing materials
+    if (EnumMarketingMaterialType.ALL.getId().equals(type)) {
+      type = null;
+    }
+
     marketingMaterialPage = getMarketingService().searchMarketingMaterial(title, type, companyShortName, landingPage, getPageNo(), getPerPage());
     marketingMaterials = marketingMaterialPage.getList();
 
     return new ForwardResolution("/pages/marketing/marketingMaterial.jsp");
 
+  }
+
+  private void populateAdCount() {
+    Map<Long, Long> counts = getMarketingService().getCountForMarketingMaterialByType(companyShortName);
+    totalBannerAds = counts.get(EnumMarketingMaterialType.Banner.getId());
+    totalTextAds = counts.get(EnumMarketingMaterialType.TextLink.getId());
+
+    totalBannerAds = totalBannerAds == null ? 0 : totalBannerAds;
+    totalTextAds = totalTextAds == null ? 0 : totalTextAds;
+
+    totalAdCount = totalBannerAds + totalTextAds;
   }
 
   @Override
@@ -123,5 +150,29 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
 
   public void setMarketingMaterials(List<MarketingMaterial> marketingMaterials) {
     this.marketingMaterials = marketingMaterials;
+  }
+
+  public Long getTotalAdCount() {
+    return totalAdCount;
+  }
+
+  public void setTotalAdCount(Long totalAdCount) {
+    this.totalAdCount = totalAdCount;
+  }
+
+  public Long getTotalBannerAds() {
+    return totalBannerAds;
+  }
+
+  public void setTotalBannerAds(Long totalBannerAds) {
+    this.totalBannerAds = totalBannerAds;
+  }
+
+  public Long getTotalTextAds() {
+    return totalTextAds;
+  }
+
+  public void setTotalTextAds(Long totalTextAds) {
+    this.totalTextAds = totalTextAds;
   }
 }

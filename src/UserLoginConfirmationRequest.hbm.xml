@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-lazy="false">
+ <class name="com.ds.domain.user.UserLoginConfirmationRequest" table="USER_LOGIN_CONFIRMATION_REQUEST">
+ 	<id name="id" type="long" column="ID" >
+     	<generator class="native" />
+    </id>
+            <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>        
+
+ 	<property name="providerName" type="string" column="PROVIDER_NAME" not-null="true"/>
+ 	<property name="verifiedEmail" type="string" column="VERIFIED_EMAIL" not-null="false"/>
+ 	<property name="name" type="string" column="NAME" not-null="true"/>
+ 	<property name="preferredUsername" type="string" column="PREFERRED_USER_NAME" not-null="false"/>
+ 	<property name="identifier" type="string" column="IDENTIFIER" not-null="true"/>
+	<property name="confirmationKey" type="string" column="CONFIRMATION_KEY" not-null="false"/>
+	<property name="confirmed" type="boolean" column="CONFIRMED" not-null="false"/>
+	<property name="authInfoJson" type="string" column="AUTH_INFO" not-null="false"/>
+  </class>
+</hibernate-mapping>

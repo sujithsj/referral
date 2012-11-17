@@ -54,7 +54,7 @@ public class MarketingMaterialQuery extends AbstractSearchQuery {
     }
 
     if (StringUtils.isNotBlank(landingPage)) {
-      queryStr.append(" and mm.landingPage like  :landingPage ");
+      queryStr.append(" and mm.landingPageUrl like  :landingPage ");
       getQueryParams().put("landingPage", "%" + landingPage + "%");
     }
 

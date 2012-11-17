@@ -1,3 +1,4 @@
+<%@ page import="com.ds.constants.EnumMarketingMaterialType" %>
 <%@include file="/includes/taglibInclude.jsp" %>
 
 <s:layout-render name="/templates/general.jsp">
@@ -33,22 +34,28 @@
           <fieldset>
             <legend><em>Search Marketing Material</em></legend>
             <s:form beanclass="com.ds.action.marketing.MarketingMaterialSearchAction" class="form-inline"
+                    id="mmSearchForm"
                     style="margin-bottom:10px;">
               <s:label name="Title"/>
               <s:text name="title" placeholder="title"/>
               <s:label name="Landing Page"/>
               <s:text name="landingPage"/>
+              <s:hidden name="type" id="mmType"/>
 
               <div class="btn-toolbar">
                 <div class="btn-group">
 
-                  <a class="btn" href="#">All</a>
-                  <a class="btn" href="#">Banner</a>
-                  <a class="btn" href="#">Text Ads</a>
+                  <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.ALL.getId()%>">All</a>
+                  <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.Banner.getId()%>">Banner</a>
+                  <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.TextLink.getId()%>">Text Ads</a>
                 </div>
               </div>
 
               <s:submit name="searchMarketingMaterial" class="btn btn-warning">Search</s:submit>
+
+              Total Ads: ${mmSearchAction.totalAdCount}
+                <span class="badge badge-info">Banner : ${mmSearchAction.totalBannerAds}</span>
+                <span class="badge badge-info">Text ads : ${mmSearchAction.totalTextAds}</span>
             </s:form>
           </fieldset>
 
@@ -69,16 +76,12 @@
                 <td>${marketingMaterail.marketingMaterialType.type}</td>
                 <td>${marketingMaterail.landingPageUrl}</td>
                 <td>
-                  <s:link beanclass="com.ds.action.employee.UserAction"
-                          event="createOrEditUser" class="button blue small">
+                  <s:link beanclass="com.ds.action.marketing.MarketingMaterialAction"
+                          event="createOrEditMarketingMaterial" class="button blue small">
                     <span class="icon white small" data-icon="7"></span>Edit
-                    <s:param name="employeeId" value="${user.username}"/>
+                    <s:param name="marketingMaterialId" value="${marketingMaterail.id}"/>
                   </s:link>
-                  <s:link beanclass="com.ds.action.employee.UserAction"
-                          event="resetPassword" class="button blue small">
-                    <span class="icon white small" data-icon="7"></span>Reset Password
-                    <s:param name="employeeEmail" value="${user.email}"/>
-                  </s:link>
+
                     <%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
                             event="entityTags" target="_blank" class="button orange small">Tag
                       <s:param name="entityId" value="${brand.id}"/>
@@ -101,13 +104,24 @@
     <script type="text/javascript">
 
       $(document).ready(function() {
-        /*alert('aaa');
-         $('.bs-docs-sidenav').affix({
-         offset: {
-         top: 155
-         , bottom: 170
-         }
-         });*/
+
+        $('.mmType').click(function(event) {
+          var type = $(this).attr('type');
+          $("#mmType").val(type);
+          var searchForm = $("#mmSearchForm")[0];
+          var actionUrl = searchForm.action;
+          actionUrl += '?searchMarketingMaterial';
+          searchForm.action = actionUrl;
+          searchForm.submit();
+        });
+
+        $.each($(".mmType"), function(index, value) {
+          var type = $(this).attr('type');
+          var selType = $("#mmType").val();
+          if(selType === type){
+            $(this).addClass('disabled');
+          }
+        });
       });
 
     </script>
