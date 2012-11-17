@@ -37,7 +37,7 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
 
   @DefaultHandler
   public Resolution pre() {
-    return new ForwardResolution("/pages/company/marketingMaterial.jsp");
+    return new ForwardResolution("/pages/marketing/marketingMaterial.jsp");
   }
 
   @SuppressWarnings("unchecked")

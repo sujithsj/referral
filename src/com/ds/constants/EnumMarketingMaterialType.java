@@ -2,6 +2,9 @@ package com.ds.constants;
 
 import com.ds.domain.marketing.MarketingMaterialType;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author adlakha.vaibhav
  */
@@ -26,6 +29,15 @@ public enum EnumMarketingMaterialType {
   public java.lang.Long getId() {
     return id;
   }
+
+
+  public static List<EnumMarketingMaterialType> getAllMMTypes() {
+		return Arrays.asList(
+				EnumMarketingMaterialType.Banner,
+				EnumMarketingMaterialType.TextLink
+				);
+
+	}
 
 
   public MarketingMaterialType asMarketingMaterialType() {

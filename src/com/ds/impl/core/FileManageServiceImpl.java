@@ -4,10 +4,12 @@ import com.ds.core.event.ConfigureImageEvent;
 import com.ds.core.event.DefaultEventDispatcher;
 import com.ds.domain.company.Company;
 import com.ds.domain.core.FileAttachment;
+import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.domain.user.User;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.core.FileAttachmentService;
 import com.ds.pact.service.core.FileManageService;
+import com.ds.pact.service.marketing.MarketingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,8 @@ public class FileManageServiceImpl implements FileManageService {
   private AdminService adminService;
   @Autowired
   private DefaultEventDispatcher eventDispatcher;
+  @Autowired
+  private MarketingService marketingService;
 
   @Override
   @Transactional
@@ -39,6 +43,20 @@ public class FileManageServiceImpl implements FileManageService {
     return company;
   }
 
+  @Override
+  @Transactional
+  public MarketingMaterial deleteMarketingMaterialImage(Long marketingMaterialId) {
+    MarketingMaterial marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
+
+    if (marketingMaterial.getImage() != null) {
+      getFileAttachmentService().deleteFile(marketingMaterial.getImage().getId());
+      marketingMaterial.setImage(null);
+      getAdminService().updateEntity(marketingMaterial);
+
+    }
+    return marketingMaterial;
+  }
+
 
   @Override
   @Transactional
@@ -48,6 +66,17 @@ public class FileManageServiceImpl implements FileManageService {
     company.setLogo(logo);
     getAdminService().updateEntity(company);
     return company;
+  }
+
+  @Override
+  @Transactional
+  public MarketingMaterial associateMaketingMaterialImage(Long marketingMaterialId, Long fileAttachmentId) {
+    MarketingMaterial marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
+    FileAttachment logo = getFileAttachmentService().loadFileAttachment(fileAttachmentId);
+    marketingMaterial.setImage(logo);
+    getAdminService().updateEntity(marketingMaterial);
+    return marketingMaterial;
+
   }
 
 
@@ -143,5 +172,9 @@ public class FileManageServiceImpl implements FileManageService {
    */
   public void setEventDispatcher(DefaultEventDispatcher eventDispatcher) {
     this.eventDispatcher = eventDispatcher;
+  }
+
+  public MarketingService getMarketingService() {
+    return marketingService;
   }
 }

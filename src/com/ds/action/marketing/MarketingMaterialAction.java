@@ -21,7 +21,7 @@ public class MarketingMaterialAction extends BaseAction {
   private Long type;
   private String body;
   private String landingPageURL;
-
+  private Long imageId;
 
   private Long marketingMaterialId;
 
@@ -36,6 +36,10 @@ public class MarketingMaterialAction extends BaseAction {
       type = marketingMaterial.getMarketingMaterialType().getId();
       body = marketingMaterial.getBody();
       landingPageURL = marketingMaterial.getLandingPageUrl();
+
+      if(marketingMaterial.getImage() !=null){
+        imageId = marketingMaterial.getImage().getId();
+      }
     }
 
 
@@ -70,7 +74,7 @@ public class MarketingMaterialAction extends BaseAction {
       addRedirectAlertMessage(new SimpleMessage("Changes saved successfully.Please upload a banner"));
       return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial").addParameter("marketingMaterialId", marketingMaterial.getId());
     } else {
-      addRedirectAlertMessage(new SimpleMessage("Could not find/create supplier"));
+      addRedirectAlertMessage(new SimpleMessage("Could not find/create marketing material"));
       return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial");
     }
   }
@@ -118,5 +122,13 @@ public class MarketingMaterialAction extends BaseAction {
 
   public MarketingService getMarketingService() {
     return marketingService;
+  }
+
+  public Long getImageId() {
+    return imageId;
+  }
+
+  public void setImageId(Long imageId) {
+    this.imageId = imageId;
   }
 }

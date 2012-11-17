@@ -16,12 +16,19 @@ public class FileManageAction extends BaseAction {
 
   private String companyShortName;
 
+  private Long marketingMarketingId;
+
   @Autowired
   private FileManageService fileManageService;
 
 
   public Resolution deleteCompanyLogo() {
     getFileManageService().deleteCompanyLogo(companyShortName);
+    return new RedirectResolution(CompanyAction.class).addParameter("companyShortName", companyShortName);
+  }
+
+  public Resolution deleteMarketingMaterialImage() {
+    getFileManageService().deleteMarketingMaterialImage(marketingMarketingId);
     return new RedirectResolution(CompanyAction.class).addParameter("companyShortName", companyShortName);
   }
 
@@ -35,5 +42,13 @@ public class FileManageAction extends BaseAction {
 
   public void setCompanyShortName(String companyShortName) {
     this.companyShortName = companyShortName;
+  }
+
+  public Long getMarketingMarketingId() {
+    return marketingMarketingId;
+  }
+
+  public void setMarketingMarketingId(Long marketingMarketingId) {
+    this.marketingMarketingId = marketingMarketingId;
   }
 }

@@ -1,6 +1,6 @@
 package com.ds.action;
 
-import com.ds.action.employee.UserAction;
+import com.ds.action.employee.UserSearchAction;
 import com.ds.pact.service.core.LoginService;
 import com.ds.security.service.UserService;
 import com.ds.web.action.BaseAction;
@@ -35,7 +35,7 @@ public class LoginAction extends BaseAction {
     System.out.println("login:->" + loginSuccess);
     
     if (loginSuccess) {
-      return new RedirectResolution(UserAction.class);
+      return new RedirectResolution(UserSearchAction.class);
 
     } else {
       return new RedirectResolution(LoginAction.class, "pre");
