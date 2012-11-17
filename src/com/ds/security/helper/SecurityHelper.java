@@ -2,8 +2,6 @@ package com.ds.security.helper;
 
 import com.ds.domain.core.Role;
 import com.ds.domain.user.User;
-import com.ds.impl.service.ServiceLocatorFactory;
-import com.ds.security.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -14,10 +12,10 @@ public class SecurityHelper {
   public static User getLoggedInUser() {
         User user = null;
         try {
-          UserService userService = (UserService) ServiceLocatorFactory.getService(UserService.class);
-          user = (User)userService.getUser("abc");
+          /*UserService userService = (UserService) ServiceLocatorFactory.getService(UserService.class);
+          user = (User)userService.getUser("abc");*/
           //TODO: remove this hardcoding  
-          //user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+          user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (ClassCastException cce) {
             return null;
         } catch (NullPointerException npe) {
