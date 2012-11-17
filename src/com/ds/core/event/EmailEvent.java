@@ -3,6 +3,7 @@ package com.ds.core.event;
 import com.ds.exception.DSException;
 import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.impl.service.mail.UserContext;
+import com.ds.impl.service.mail.AffiliateContext;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.mail.EmailContext;
 import com.ds.pact.service.mail.EmailTemplateService;
@@ -84,6 +85,10 @@ public class EmailEvent implements AsyncEvent {
       case UserPasswordResetConfirmation:
         UserContext userContext = (UserContext) context;
         mimeMessageHelper.setTo(userContext.getUser().getEmail());
+        break;
+      case WelcomeAffiliate:
+        AffiliateContext affiliateContext = (AffiliateContext) context;
+        mimeMessageHelper.setTo(affiliateContext.getAffiliate().getEmail());
         break;
       case ClaimReward:
         /*ClaimRewardContext claimRewardContext = (ClaimRewardContext) context;

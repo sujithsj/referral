@@ -14,10 +14,10 @@ public class SecurityHelper {
   public static User getLoggedInUser() {
         User user = null;
         try {
-          //UserService userService = (UserService) ServiceLocatorFactory.getService(UserService.class);
-          //user = (User)userService.getUser("abc");
+          UserService userService = (UserService) ServiceLocatorFactory.getService(UserService.class);
+          user = (User)userService.getUser("abc");
           //TODO: remove this hardcoding  
-          user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+          //user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (ClassCastException cce) {
             return null;
         } catch (NullPointerException npe) {

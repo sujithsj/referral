@@ -68,6 +68,11 @@
 										<span class="icon white small" data-icon="7"></span>Edit
 										<s:param name="affiliateId" value="${affiliate.id}"/>
 									</s:link>
+									<s:link beanclass="com.ds.action.affiliate.AffiliateAction"
+									        event="resendWelcomeEmail" class="button blue small">
+										<span class="icon white small" data-icon="7"></span>REsend Welcome mail
+										<s:param name="affiliateId" value="${affiliate.id}"/>
+									</s:link>
 										<%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
 																						event="entityTags" target="_blank" class="button orange small">Tag
 																			<s:param name="entityId" value="${brand.id}"/>
