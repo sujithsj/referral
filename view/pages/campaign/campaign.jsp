@@ -1,11 +1,10 @@
-<%@ page import="com.ds.constants.EnumMarketingMaterialType" %>
 <%@include file="/includes/taglibInclude.jsp" %>
 
 <s:layout-render name="/templates/general.jsp">
 
   <%--<s:layout-component name="heading">Split Base Order Manually</s:layout-component>--%>
   <s:layout-component name="content">
-    <s:useActionBean beanclass="com.ds.action.marketing.MarketingMaterialSearchAction" var="mmSearchAction"/>
+    <s:useActionBean beanclass="com.ds.action.campaign.CampaignAction" var="campaignAction"/>
     <div class="container">
       <div class="row">
         <div class="span3 bs-docs-sidebar">

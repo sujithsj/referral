@@ -6,6 +6,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * this is only a logical grouping of campaigns may be to be used only in reporting and no effect on commisions.
+ */
 @Entity
 @Table(name = "campaign_type")
 public class CampaignType implements java.io.Serializable {
