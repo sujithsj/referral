@@ -2,6 +2,7 @@ package com.ds.domain.marketing;
 
 
 import com.ds.domain.core.FileAttachment;
+import com.ds.domain.BaseDataObject;
 
 import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -12,7 +13,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NamedQueries({
     @NamedQuery(name = "getMarketingMaterialById", query = "select mm from MarketingMaterial mm where mm.id = :mmId")
 })
-public class MarketingMaterial implements java.io.Serializable {
+public class MarketingMaterial extends BaseDataObject {
 
 
   @Id
