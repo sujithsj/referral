@@ -39,7 +39,7 @@ public class MarketingMaterial implements java.io.Serializable {
 
 
   @Column(name = "COMPANY_SHORTNAME", nullable = false, length = 50)
-  private String companyShortname;
+  private String companyShortName;
 
 
   @Column(name = "LANDING_PAGE_URL", length = 1000)
@@ -77,14 +77,13 @@ public class MarketingMaterial implements java.io.Serializable {
     this.body = body;
   }
 
-  
 
-  public String getCompanyShortname() {
-    return this.companyShortname;
+  public String getCompanyShortName() {
+    return companyShortName;
   }
 
-  public void setCompanyShortname(String companyShortname) {
-    this.companyShortname = companyShortname;
+  public void setCompanyShortName(String companyShortName) {
+    this.companyShortName = companyShortName;
   }
 
   public String getLandingPageUrl() {

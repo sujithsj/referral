@@ -63,7 +63,7 @@ public class MarketingMaterialAction extends BaseAction {
       User loggedInUser = SecurityHelper.getLoggedInUser();
       String companyShortName = loggedInUser.getCompanyShortName();
       marketingMaterial.setBody(body);
-      marketingMaterial.setCompanyShortname(companyShortName);
+      marketingMaterial.setCompanyShortName(companyShortName);
       marketingMaterial.setLandingPageUrl(landingPageURL);
       marketingMaterial.setTitle(title);
       MarketingMaterialType marketingMaterialType = EnumMarketingMaterialType.getById(type).asMarketingMaterialType();

@@ -59,7 +59,7 @@ public class MarketingMaterialQuery extends AbstractSearchQuery {
     }
 
     if (type != null) {
-      queryStr.append(" and mm.type  =  :type ");
+      queryStr.append(" and mm.marketingMaterialType.id  =  :type ");
       getQueryParams().put("type", type);
     }
 

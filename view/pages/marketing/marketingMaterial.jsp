@@ -56,18 +56,18 @@
           <table class="striped table-condensed table-hover table-striped">
 
             <tr>
-              <th>User Id</th>
-              <th>Name</th>
-              <th>Email</th>
+              <th>Title</th>
+              <th>Type</th>
+              <th>Landing Page</th>
               <th>Actions</th>
             </tr>
 
             <tbody>
-            <c:forEach items="${userSearchAction.users}" var="user">
+            <c:forEach items="${mmSearchAction.marketingMaterials}" var="marketingMaterail">
               <tr>
-                <td>${user.username}</td>
-                <td>${user.fullName}</td>
-                <td>${user.email}</td>
+                <td>${marketingMaterail.title}</td>
+                <td>${marketingMaterail.marketingMaterialType.type}</td>
+                <td>${marketingMaterail.landingPageUrl}</td>
                 <td>
                   <s:link beanclass="com.ds.action.employee.UserAction"
                           event="createOrEditUser" class="button blue small">
