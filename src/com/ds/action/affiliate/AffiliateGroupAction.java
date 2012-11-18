@@ -31,7 +31,7 @@ import java.util.Set;
  * Time: 12:00:04 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AffiliateAction extends BaseAction {
+public class AffiliateGroupAction extends BaseAction {
 
 	private String DEFAULT_USER_PWD = "password";
 
@@ -41,10 +41,11 @@ public class AffiliateAction extends BaseAction {
 
 	//private String employeeId;
 	private Long affiliateId;
+	private Long affiliateGroupId;
 	private String roleName;
 	private String employeeEmail;
 
-	//private Set<Affiliate> companyAffiliates;
+	private Set<Affiliate> companyAffiliates;
 	private Long parentAffiliateId;
 	private User loggedInUser;
 	private Company company;
@@ -66,15 +67,16 @@ public class AffiliateAction extends BaseAction {
 
 
 	@DefaultHandler
-	public Resolution createOrEditAffiliate() {
+	public Resolution createOrEditAffiliateGroup() {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
 		company = getAdminService().getCompany(companyShortName);
+		//companyAffiliates = company.getAffiliates();
 		//companyAffiliates = new HashSet<Affiliate>(company.getAffiliates());
 
 		if (affiliateId != null) {
 			Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
-			//companyAffiliates.remove(affiliate);
+			companyAffiliates.remove(affiliate);
 			//UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
 			affiliateDTO = new AffiliateDTO();
 			affiliateDTO.bindAffiliate(affiliate);
@@ -91,8 +93,7 @@ public class AffiliateAction extends BaseAction {
 		/*Set<Affiliate> affiliateSet = new HashSet<Affiliate>();
 		affiliateSet = company.getAffiliates();
 		Set<CompanyAffiliate> afiAffiliateCompanies = new HashSet<CompanyAffiliate>();
-		affiliateCompanies = company.getAffiliateCompanies();*/
-
+		afiAffiliateCompanies = company.getAffiliateCompanies();*/
 		return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
 	}
 
@@ -126,7 +127,7 @@ public class AffiliateAction extends BaseAction {
 		try {
 			affiliate = getAffiliateService().saveAffiliate(affiliate);
 		} catch (CompositeValidationException cve) {
-			//return 
+			//return
 			cve.printStackTrace();
 		}
 		if (!existingAffiliate) {
@@ -245,13 +246,13 @@ public class AffiliateAction extends BaseAction {
 		this.affiliateId = affiliateId;
 	}
 
-	/*public Set<Affiliate> getCompanyAffiliates() {
+	public Set<Affiliate> getCompanyAffiliates() {
 		return companyAffiliates;
 	}
 
 	public void setCompanyAffiliates(Set<Affiliate> companyAffiliates) {
 		this.companyAffiliates = companyAffiliates;
-	}*/
+	}
 
 	public Long getParentAffiliateId() {
 		return parentAffiliateId;

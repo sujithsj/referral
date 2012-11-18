@@ -19,7 +19,7 @@ public class AffiliateSetting extends BaseDataObject {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "AFFILIATE_COMPANY_ID", nullable = false)
-	private AffiliateCompany affiliateCompany;
+	private CompanyAffiliate companyAffiliate;
 
 	@Column(name = "AFFILIATE_PANEL_ACCESS", nullable = false)
 	private Boolean affiliatePanelAccess;
@@ -35,12 +35,12 @@ public class AffiliateSetting extends BaseDataObject {
 		this.id = id;
 	}
 
-	public AffiliateCompany getAffiliateCompany() {
-		return this.affiliateCompany;
+	public CompanyAffiliate getAffiliateCompany() {
+		return this.companyAffiliate;
 	}
 
-	public void setAffiliateCompany(AffiliateCompany affiliateCompany) {
-		this.affiliateCompany = affiliateCompany;
+	public void setAffiliateCompany(CompanyAffiliate companyAffiliate) {
+		this.companyAffiliate = companyAffiliate;
 	}
 
 	public Boolean getAffiliatePanelAccess() {

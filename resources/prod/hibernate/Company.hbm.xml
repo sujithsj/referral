@@ -43,7 +43,7 @@
 		</set>
 		<set name="affiliateCompanies" table="AFFILIATE_COMPANY" lazy="false">
 			<key column="COMPANY_SHORTNAME"/>
-			<one-to-many class="com.ds.domain.affiliate.AffiliateCompany"/>
+			<one-to-many class="com.ds.domain.affiliate.CompanyAffiliate"/>
 		</set>
 	</class>
 </hibernate-mapping>

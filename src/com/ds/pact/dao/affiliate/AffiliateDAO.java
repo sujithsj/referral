@@ -7,7 +7,7 @@ import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
 import com.ds.domain.core.Plan;
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.AffiliateCompany;
+import com.ds.domain.affiliate.CompanyAffiliate;
 
 import java.util.List;
 
@@ -36,9 +36,9 @@ public interface AffiliateDAO extends BaseDao {
 
 	/**
 	 *
-	 * @param affiliateCompany
+	 * @param companyAffiliate
 	 */
-	public AffiliateCompany saveAffiliateCompany(AffiliateCompany affiliateCompany);
+	public CompanyAffiliate saveAffiliateCompany(CompanyAffiliate companyAffiliate);
 
      /**
       * Checks whether shortName is already taken by some company

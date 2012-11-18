@@ -16,6 +16,7 @@ import java.util.Set;
 public class AffiliateGroup extends BaseDataObject {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
@@ -32,7 +33,7 @@ public class AffiliateGroup extends BaseDataObject {
 	private Boolean defaultGroup;
 
 	@Column(name = "DELETE", nullable = false)
-	private byte delete;
+	private Boolean delete;
 
 	/*
 	@JsonSkip
@@ -91,11 +92,11 @@ public class AffiliateGroup extends BaseDataObject {
 		this.defaultGroup = defaultGroup;
 	}
 
-	public byte getDelete() {
+	public Boolean getDelete() {
 		return this.delete;
 	}
 
-	public void setDelete(byte delete) {
+	public void setDelete(Boolean delete) {
 		this.delete = delete;
 	}
 

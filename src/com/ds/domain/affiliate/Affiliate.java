@@ -21,9 +21,11 @@ public class Affiliate extends BaseDataObject {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
+/*
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PARENT_AFFILIATE_ID")
 	private Affiliate parentAffiliate;
+*/
 
 	/*@Column(name = "COMPANY_SHORTNAME", nullable = false)
 	private String companyShortName;*/
@@ -65,7 +67,7 @@ public class Affiliate extends BaseDataObject {
 	private Boolean deleted;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "affiliate")
-	private Set<AffiliateCompany> affiliateCompanies = new HashSet<AffiliateCompany>(0);
+	private Set<CompanyAffiliate> companyAffiliates = new HashSet<CompanyAffiliate>(0);
 
 /*
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "affiliate")
@@ -80,6 +82,7 @@ public class Affiliate extends BaseDataObject {
 		this.id = id;
 	}
 
+/*
 	public Affiliate getParentAffiliate() {
 		return this.parentAffiliate;
 	}
@@ -87,6 +90,7 @@ public class Affiliate extends BaseDataObject {
 	public void setParentAffiliate(Affiliate parentAffiliate) {
 		this.parentAffiliate = parentAffiliate;
 	}
+*/
 
 	/*public String getCompanyShortName() {
 		return companyShortName;
@@ -192,12 +196,12 @@ public class Affiliate extends BaseDataObject {
 		this.deleted = deleted;
 	}
 
-	public Set<AffiliateCompany> getAffiliateCompanies() {
-		return this.affiliateCompanies;
+	public Set<CompanyAffiliate> getAffiliateCompanies() {
+		return this.companyAffiliates;
 	}
 
-	public void setAffiliateCompanies(Set<AffiliateCompany> affiliateCompanies) {
-		this.affiliateCompanies = affiliateCompanies;
+	public void setAffiliateCompanies(Set<CompanyAffiliate> companyAffiliates) {
+		this.companyAffiliates = companyAffiliates;
 	}
 
 /*

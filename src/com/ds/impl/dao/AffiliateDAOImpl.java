@@ -1,7 +1,7 @@
 package com.ds.impl.dao;
 
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.AffiliateCompany;
+import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.company.Company;
 import com.ds.domain.core.Plan;
 import com.ds.domain.user.User;
@@ -35,8 +35,8 @@ public class AffiliateDAOImpl extends BaseDaoImpl implements AffiliateDAO {
 	}
 
 	@Override
-	public AffiliateCompany saveAffiliateCompany(AffiliateCompany affiliateCompany) {
-		return (AffiliateCompany) save(affiliateCompany);
+	public CompanyAffiliate saveAffiliateCompany(CompanyAffiliate companyAffiliate) {
+		return (CompanyAffiliate) save(companyAffiliate);
 	}
 
 	@SuppressWarnings("unchecked")

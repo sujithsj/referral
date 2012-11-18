@@ -26,8 +26,8 @@ public class AffiliateDTO {
 	private Boolean deleted;
 
 	//private String companyShortName;
-	private AffiliateDTO parentAffiliateDTO;
-	private Long parentAffiliateId;
+	//private AffiliateDTO parentAffiliateDTO;
+	//private Long parentAffiliateId;
 
 	private String originalImageUrl;
 
@@ -66,9 +66,9 @@ public class AffiliateDTO {
 		this.city = affiliate.getCity();
 
 		//this.companyShortName = affiliate.getCompanyShortName();
-		if (affiliate.getParentAffiliate() != null) {
+		/*if (affiliate.getParentAffiliate() != null) {
 			this.parentAffiliateId = affiliate.getParentAffiliate().getId();
-		}
+		}*/
 
 	}
 
@@ -215,13 +215,13 @@ public class AffiliateDTO {
 		this.companyShortName = companyShortName;
 	}*/
 
-	public Long getParentAffiliateId() {
+	/*public Long getParentAffiliateId() {
 		return parentAffiliateId;
 	}
 
 	public void setParentAffiliateId(Long parentAffiliateId) {
 		this.parentAffiliateId = parentAffiliateId;
-	}
+	}*/
 
 
 

@@ -6,7 +6,7 @@ import com.ds.api.FeatureAPI;
 import com.ds.core.event.EmailEvent;
 import com.ds.core.event.EventDispatcher;
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.AffiliateCompany;
+import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserSettings;
@@ -24,6 +24,7 @@ import com.ds.pact.service.core.SearchService;
 import com.ds.pact.service.mail.EmailTemplateService;
 import com.ds.pact.service.mail.MailService;
 import com.ds.search.impl.AffiliateQuery;
+import com.ds.search.impl.AffiliateGroupQuery;
 import com.ds.security.api.SecurityAPI;
 import com.ds.web.action.Page;
 import org.apache.commons.lang.StringUtils;
@@ -310,17 +311,26 @@ public class AffiliateServiceImpl implements AffiliateService {
 		//return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
+
+	@Override
+	public Page searchAffiliateGroup(String name, String companyShortName, int pageNo, int perPage) {
+
+		AffiliateGroupQuery affiliateGroupQuery = new AffiliateGroupQuery();
+		affiliateGroupQuery.setCompanyShortName(companyShortName).setName(name).setOrderByField("name").setPageNo(pageNo).setRows(perPage);
+		return getSearchService().list(affiliateGroupQuery);
+	}
+
 	/**
 	 * @param affiliate
 	 * @param companyShortName
 	 */
 	@Override
 	@Transactional
-	public AffiliateCompany saveAffiliateCompany(Affiliate affiliate, String companyShortName) {
-		AffiliateCompany affiliateCompany = new AffiliateCompany();
-		affiliateCompany.setAffiliate(affiliate);
-		affiliateCompany.setCompanyShortName(companyShortName);
-		return affiliateDAO.saveAffiliateCompany(affiliateCompany);
+	public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName) {
+		CompanyAffiliate companyAffiliate = new CompanyAffiliate();
+		companyAffiliate.setAffiliate(affiliate);
+		companyAffiliate.setCompanyShortName(companyShortName);
+		return affiliateDAO.saveAffiliateCompany(companyAffiliate);
 
 	}
 

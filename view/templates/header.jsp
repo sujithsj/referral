@@ -16,7 +16,8 @@
           <ul class="nav" style="float:right;font-size:18px;">
             <li class="active"><a href="/pages/signup.jsp">SignUp</a></li>
             <li><a href="${pageContext.request.contextPath}/employee/UserSearch.action">Setup</a></li>
-            <li><a href="/pages/affiliate/affiliates.jsp">Affiliate</a></li>
+            <li><s:link beanclass="com.ds.action.affiliate.AffiliateSearchAction">Affiliate</s:link></li>
+            <%--<li><a href="/pages/affiliate/affiliates.jsp">Affiliate</a></li>--%>
               <%--<li><a href="#feedbackModal" data-toggle="modal">Feedback</a></li>--%>
             <!--<li><a href="#contact">Contact</a></li>-->
           </ul>

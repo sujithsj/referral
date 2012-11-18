@@ -1,7 +1,7 @@
 package com.ds.pact.service.admin;
 
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.AffiliateCompany;
+import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.company.Company;
 import com.ds.domain.user.UserSettings;
 import com.ds.exception.DSException;
@@ -95,7 +95,7 @@ public interface AffiliateService {
 	public Page searchAffiliate(String login, String email, String companyShortName, int pageNo, int perPage);
 
 
-	public AffiliateCompany saveAffiliateCompany(Affiliate affiliate, String companyShortName);
+	public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName);
 
 	public void sendWelcomeEmail(Affiliate affiliate);
 
@@ -104,4 +104,6 @@ public interface AffiliateService {
 	public boolean isAffiliateLoginTaken(String login);
 
 	public Affiliate getAffiliateByLogin(String login);
+
+    public Page searchAffiliateGroup(String name, String companyShortName, int pageNo, int perPage);
 }

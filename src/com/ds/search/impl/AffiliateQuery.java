@@ -38,7 +38,7 @@ public class AffiliateQuery extends AbstractSearchQuery {
 
 	@Override
   protected String getBaseQuery() {
-   StringBuilder queryStr = new StringBuilder("select aff from Affiliate aff join aff.affiliateCompanies ac where 1=1 ");
+   StringBuilder queryStr = new StringBuilder("select aff from Affiliate aff join aff.companyAffiliates ca where 1=1 ");
 
     if (StringUtils.isNotBlank(login)) {
       queryStr.append(" and aff.login like  :login ");
@@ -51,7 +51,7 @@ public class AffiliateQuery extends AbstractSearchQuery {
     }
 
 	  if (StringUtils.isNotBlank(companyShortName)) {
-      queryStr.append(" and ac.companyShortName  =  :companyShortName ");
+      queryStr.append(" and ca.companyShortName  =  :companyShortName ");
       getQueryParams().put("companyShortName", companyShortName);
     }
 
