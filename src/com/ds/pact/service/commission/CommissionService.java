@@ -12,5 +12,5 @@ public interface CommissionService {
 
   public CommissionPlan createCommissionPlan(CommissionPlanDTO commissionPlanDTO, String companyShortName);
 
-  public void updateCommissionPlan(CommissionPlan commissionPlan, CommissionPlanDTO commissionPlanDTO);
+  public CommissionPlan updateCommissionPlan(Long commissionPlanId, CommissionPlanDTO commissionPlanDTO);
 }

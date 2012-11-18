@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "commission_currency")
 @NamedQueries({
-    @NamedQuery(name = "getCommissionPlanById", query = "select cp from CommissionPlan cp where cp.id = :commissionPlanId")
+    @NamedQuery(name = "getCommissionCurrencyById", query = "select cc from CommissionCurrency cc where cc.id = :commissionCurrencyId")
 })
 public class CommissionCurrency implements java.io.Serializable {
 
