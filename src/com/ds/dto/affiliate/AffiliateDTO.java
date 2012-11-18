@@ -1,12 +1,15 @@
 package com.ds.dto.affiliate;
 
+import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.affiliate.Affiliate;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Rahul
- * Date: Oct 23, 2012
- * Time: 2:37:07 AM
+ * Date: Nov 18, 2012
+ * Time: 1:52:42 PM
  * To change this template use File | Settings | File Templates.
  */
 public class AffiliateDTO {
@@ -26,7 +29,7 @@ public class AffiliateDTO {
 	private Boolean deleted;
 
 	//private String companyShortName;
-	//private AffiliateDTO parentAffiliateDTO;
+	//private CompanyAffiliateDTO parentAffiliateDTO;
 	//private Long parentAffiliateId;
 
 	private String originalImageUrl;
@@ -37,7 +40,7 @@ public class AffiliateDTO {
 	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
 	private boolean enabled;
-	//private List<Affiliate> allCompanyAffiliates;
+
 
 	/**
 	 * fields for user settings
@@ -75,9 +78,14 @@ public class AffiliateDTO {
 	public AffiliateDTO() {
 	}
 
+	/**
+	 * Accepts null as an affiliate and returns affiliate object accordingly
+	 * @param affiliate
+	 * @return
+	 */
 	public Affiliate extractAffiliate(Affiliate affiliate) {
 
-		if(affiliate == null){
+		if (affiliate == null) {
 			affiliate = new Affiliate();
 		}
 		affiliate.setLogin(this.login);
@@ -116,7 +124,7 @@ public class AffiliateDTO {
 		//this.companyShortName = affiliate.getCompanyShortName();
 		this.passwordChecksum = affiliate.getPasswordChecksum();
 
-		
+
 	}
 
 	public String getLogin() {
@@ -222,7 +230,6 @@ public class AffiliateDTO {
 	public void setParentAffiliateId(Long parentAffiliateId) {
 		this.parentAffiliateId = parentAffiliateId;
 	}*/
-
 
 
 }

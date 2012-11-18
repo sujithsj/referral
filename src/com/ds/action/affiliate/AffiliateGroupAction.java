@@ -4,14 +4,14 @@ import com.ds.api.CacheAPI;
 import com.ds.api.FeatureAPI;
 import com.ds.constants.FeatureType;
 import com.ds.domain.affiliate.Affiliate;
+import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
-import com.ds.dto.affiliate.AffiliateDTO;
+import com.ds.dto.affiliate.CompanyAffiliateDTO;
 import com.ds.dto.user.UserDTO;
 import com.ds.exception.CompositeValidationException;
 import com.ds.pact.dao.BaseDao;
 import com.ds.pact.service.admin.AdminService;
-import com.ds.pact.service.admin.AffiliateService;
 import com.ds.security.api.SecurityAPI;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.security.service.UserService;
@@ -21,7 +21,6 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -37,7 +36,7 @@ public class AffiliateGroupAction extends BaseAction {
 
 	private String companyShortName;
 	private UserDTO userDTO;
-	private AffiliateDTO affiliateDTO;
+	private CompanyAffiliateDTO companyAffiliateDTO;
 
 	//private String employeeId;
 	private Long affiliateId;
@@ -78,17 +77,17 @@ public class AffiliateGroupAction extends BaseAction {
 			Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
 			companyAffiliates.remove(affiliate);
 			//UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
-			affiliateDTO = new AffiliateDTO();
-			affiliateDTO.bindAffiliate(affiliate);
+			companyAffiliateDTO = new CompanyAffiliateDTO();
+			companyAffiliateDTO.bindCompanyAffiliate(affiliate);
 		} else {
-			affiliateDTO = createNewAffiliate();
+			companyAffiliateDTO = createNewAffiliate();
 		}
-		return setParamsForView(affiliateDTO);
+		return setParamsForView(companyAffiliateDTO);
 		//return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
 	}
 
 	@SuppressWarnings("unchecked")
-	private Resolution setParamsForView(AffiliateDTO affiliateDTO) {
+	private Resolution setParamsForView(CompanyAffiliateDTO companyAffiliateDTO) {
 
 		/*Set<Affiliate> affiliateSet = new HashSet<Affiliate>();
 		affiliateSet = company.getAffiliates();
@@ -97,23 +96,23 @@ public class AffiliateGroupAction extends BaseAction {
 		return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
 	}
 
-	public AffiliateDTO createNewAffiliate() {
+	public CompanyAffiliateDTO createNewAffiliate() {
 
 		//Company company = getAdminService().getCompany(companyShortName);
 		getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getAffiliateService().affiliatesCount(companyShortName) + 1);
 
-		affiliateDTO = new AffiliateDTO();
-		//affiliateDTO.setCompanyShortName(companyShortName);
-		return affiliateDTO;
+		companyAffiliateDTO = new CompanyAffiliateDTO();
+		//companyAffiliateDTO.setCompanyShortName(companyShortName);
+		return companyAffiliateDTO;
 	}
 
 
 	public Resolution updateAffiliate() {
 
-		return updateAffiliateDetails(affiliateDTO, affiliateId);
+		return updateAffiliateDetails(companyAffiliateDTO, affiliateId);
 	}
 
-	private Resolution updateAffiliateDetails(AffiliateDTO affiliateDTO, Long affiliateId) {
+	private Resolution updateAffiliateDetails(CompanyAffiliateDTO companyAffiliateDTO, Long affiliateId) {
 		Affiliate affiliate = null;
 		boolean existingAffiliate = true;
 		if (affiliateId != null) {
@@ -122,7 +121,7 @@ public class AffiliateGroupAction extends BaseAction {
 		if (affiliate == null) {
 			existingAffiliate = false;
 		}
-		affiliate = affiliateDTO.extractAffiliate(affiliate);
+		affiliate = companyAffiliateDTO.extractCompanyAffiliate(affiliate);
 		System.out.println("affiliate about to be saved -> " + affiliate.getLogin());
 		try {
 			affiliate = getAffiliateService().saveAffiliate(affiliate);
@@ -230,12 +229,12 @@ public class AffiliateGroupAction extends BaseAction {
 		this.affiliateService = affiliateService;
 	}
 
-	public AffiliateDTO getAffiliateDTO() {
-		return affiliateDTO;
+	public CompanyAffiliateDTO getAffiliateDTO() {
+		return companyAffiliateDTO;
 	}
 
-	public void setAffiliateDTO(AffiliateDTO affiliateDTO) {
-		this.affiliateDTO = affiliateDTO;
+	public void setAffiliateDTO(CompanyAffiliateDTO companyAffiliateDTO) {
+		this.companyAffiliateDTO = companyAffiliateDTO;
 	}
 
 	public Long getAffiliateId() {

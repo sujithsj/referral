@@ -1,4 +1,4 @@
-package com.ds.pact.service.admin;
+package com.ds.pact.service.affiliate;
 
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
@@ -13,11 +13,11 @@ import java.util.List;
 /**
  * Created by IntelliJ IDEA.
  * User: Rahul
- * Date: Oct 22, 2012
- * Time: 12:40:30 AM
+ * Date: Nov 18, 2012
+ * Time: 3:55:09 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface AffiliateService {
+public interface CompanyAffiliateService {
 
 
 	/**
@@ -65,6 +65,15 @@ public interface AffiliateService {
 	public Affiliate getAffiliate(Long affiliateId);
 
 	/**
+	 * Returns a affiliate corresponding to the specified affiliateId
+	 *
+	 * @param companyAffiliateId
+	 * @return
+	 */
+	public CompanyAffiliate getCompanyAffiliate(Long companyAffiliateId);
+
+
+	/**
 	 * Changes the password of user specified by userid to newPassword from oldPassword
 	 *
 	 * @param emailId
@@ -105,5 +114,5 @@ public interface AffiliateService {
 
 	public Affiliate getAffiliateByLogin(String login);
 
-    public Page searchAffiliateGroup(String name, String companyShortName, int pageNo, int perPage);
+	public Page searchAffiliateGroup(String name, String companyShortName, int pageNo, int perPage);
 }

@@ -22,7 +22,7 @@
 							</div>
 							<div class="span3 offset2">
 								<s:link beanclass="com.ds.action.affiliate.AffiliateAction"
-								        event="createOrEditAffiliate" class="btn btn-primary">Add New Affiliate
+								        event="createOrEditCompanyAffiliate" class="btn btn-primary">Add New Affiliate
 								</s:link>
 								<s:link beanclass="com.ds.action.affiliate.AffiliateGroupSearchAction" class="btn btn-primary">Groups
 								</s:link>
@@ -66,7 +66,7 @@
 								<td>${affiliateGroup.email}</td>
 								<td>
 									<s:link beanclass="com.ds.action.affiliate.AffiliateAction"
-									        event="createOrEditAffiliate" class="button blue small">
+									        event="createOrEditCompanyAffiliate" class="button blue small">
 										<span class="icon white small" data-icon="7"></span>Edit
 										<s:param name="affiliateId" value="${affiliateGroup.id}"/>
 									</s:link>

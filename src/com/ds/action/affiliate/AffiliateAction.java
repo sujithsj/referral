@@ -4,14 +4,16 @@ import com.ds.api.CacheAPI;
 import com.ds.api.FeatureAPI;
 import com.ds.constants.FeatureType;
 import com.ds.domain.affiliate.Affiliate;
+import com.ds.domain.affiliate.CompanyAffiliate;
+import com.ds.pact.service.affiliate.AffiliateService;
+import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
-import com.ds.dto.affiliate.AffiliateDTO;
+import com.ds.dto.affiliate.CompanyAffiliateDTO;
 import com.ds.dto.user.UserDTO;
 import com.ds.exception.CompositeValidationException;
 import com.ds.pact.dao.BaseDao;
 import com.ds.pact.service.admin.AdminService;
-import com.ds.pact.service.admin.AffiliateService;
 import com.ds.security.api.SecurityAPI;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.security.service.UserService;
@@ -20,9 +22,6 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,10 +36,11 @@ public class AffiliateAction extends BaseAction {
 
 	private String companyShortName;
 	private UserDTO userDTO;
-	private AffiliateDTO affiliateDTO;
+	private CompanyAffiliateDTO companyAffiliateDTO;
 
 	//private String employeeId;
 	private Long affiliateId;
+	private Long companyAffiliateId;
 	private String roleName;
 	private String employeeEmail;
 
@@ -54,6 +54,8 @@ public class AffiliateAction extends BaseAction {
 	@Autowired
 	private AffiliateService affiliateService;
 	@Autowired
+	private CompanyAffiliateService companyAffiliateService;
+	@Autowired
 	private BaseDao baseDao;
 	@Autowired
 	private FeatureAPI featureAPI;
@@ -66,62 +68,85 @@ public class AffiliateAction extends BaseAction {
 
 
 	@DefaultHandler
-	public Resolution createOrEditAffiliate() {
+	public Resolution createOrEditCompanyAffiliate() {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
 		company = getAdminService().getCompany(companyShortName);
 		//companyAffiliates = new HashSet<Affiliate>(company.getAffiliates());
 
-		if (affiliateId != null) {
-			Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
-			//companyAffiliates.remove(affiliate);
-			//UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
-			affiliateDTO = new AffiliateDTO();
-			affiliateDTO.bindAffiliate(affiliate);
+		if (companyAffiliateId != null) {
+			CompanyAffiliate companyAffiliate = getCompanyAffiliateService().getCompanyAffiliate(companyAffiliateId);
+			//Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
+			companyAffiliateDTO = new CompanyAffiliateDTO();
+			companyAffiliateDTO.bindCompanyAffiliate(companyAffiliate);
 		} else {
-			affiliateDTO = createNewAffiliate();
+			companyAffiliateDTO = createNewCompanyAffiliate();
 		}
-		return setParamsForView(affiliateDTO);
+		return setParamsForView(companyAffiliateDTO);
 		//return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
 	}
 
 	@SuppressWarnings("unchecked")
-	private Resolution setParamsForView(AffiliateDTO affiliateDTO) {
+	private Resolution setParamsForView(CompanyAffiliateDTO companyAffiliateDTO) {
 
 		/*Set<Affiliate> affiliateSet = new HashSet<Affiliate>();
 		affiliateSet = company.getAffiliates();
 		Set<CompanyAffiliate> afiAffiliateCompanies = new HashSet<CompanyAffiliate>();
 		affiliateCompanies = company.getAffiliateCompanies();*/
 
-		return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
+
+		return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("companyAffiliateId", companyAffiliateId);
 	}
 
-	public AffiliateDTO createNewAffiliate() {
+	public CompanyAffiliateDTO createNewCompanyAffiliate() {
 
 		//Company company = getAdminService().getCompany(companyShortName);
 		getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getAffiliateService().affiliatesCount(companyShortName) + 1);
 
-		affiliateDTO = new AffiliateDTO();
-		//affiliateDTO.setCompanyShortName(companyShortName);
-		return affiliateDTO;
+		companyAffiliateDTO = new CompanyAffiliateDTO();
+		//companyAffiliateDTO.setCompanyShortName(companyShortName);
+		return companyAffiliateDTO;
 	}
 
 
 	public Resolution updateAffiliate() {
 
-		return updateAffiliateDetails(affiliateDTO, affiliateId);
+		return updateAffiliateDetails(companyAffiliateDTO, companyAffiliateId);
 	}
 
-	private Resolution updateAffiliateDetails(AffiliateDTO affiliateDTO, Long affiliateId) {
+	private Resolution updateAffiliateDetails(CompanyAffiliateDTO companyAffiliateDTO, Long companyAffiliateId) {
 		Affiliate affiliate = null;
-		boolean existingAffiliate = true;
-		if (affiliateId != null) {
-			affiliate = getAffiliateService().getAffiliate(affiliateId);
+		CompanyAffiliate companyAffiliate = null;
+		boolean existingCompanyAffiliate = true;
+		boolean existingAffiliate = false;
+
+		if (companyAffiliateId != null) {
+
+			companyAffiliate = getCompanyAffiliateService().getCompanyAffiliate(companyAffiliateId);
+			affiliate = companyAffiliate.getAffiliate();
 		}
+
+		//Check if the affiliate already exists with this login (ie he is signing up for another Company)
+		if (companyAffiliate == null && companyAffiliateDTO != null && companyAffiliateDTO.getAffiliateDTO() != null) {
+			affiliate = getAffiliateService().getAffiliateByLogin(companyAffiliateDTO.getAffiliateDTO().getLogin());
+			affiliate = companyAffiliateDTO.getAffiliateDTO().extractAffiliate(affiliate);
+		}
+
+		try {
+			affiliate = affiliateService.saveAffiliate(affiliate);
+		} catch (CompositeValidationException cve) {
+			cve.printStackTrace();
+			return new ForwardResolution("/pages/error.jsp");
+		}
+//		companyAffiliateDTO.s
+		companyAffiliate = companyAffiliateDTO.extractCompanyAffiliate(companyAffiliate);
+		companyAffiliate.setAffiliate(affiliate);
+		companyAffiliate.setCompanyShortName(companyShortName);
+
 		if (affiliate == null) {
-			existingAffiliate = false;
+			existingCompanyAffiliate = false;
 		}
-		affiliate = affiliateDTO.extractAffiliate(affiliate);
+		affiliate = companyAffiliateDTO.getAffiliateDTO().extractAffiliate(affiliate);
 		System.out.println("affiliate about to be saved -> " + affiliate.getLogin());
 		try {
 			affiliate = getAffiliateService().saveAffiliate(affiliate);
@@ -129,7 +154,7 @@ public class AffiliateAction extends BaseAction {
 			//return 
 			cve.printStackTrace();
 		}
-		if (!existingAffiliate) {
+		if (!existingCompanyAffiliate) {
 			getAffiliateService().saveAffiliateCompany(affiliate, companyShortName);
 			getAffiliateService().sendWelcomeEmail(affiliate);
 		}
@@ -229,12 +254,12 @@ public class AffiliateAction extends BaseAction {
 		this.affiliateService = affiliateService;
 	}
 
-	public AffiliateDTO getAffiliateDTO() {
-		return affiliateDTO;
+	public CompanyAffiliateDTO getAffiliateDTO() {
+		return companyAffiliateDTO;
 	}
 
-	public void setAffiliateDTO(AffiliateDTO affiliateDTO) {
-		this.affiliateDTO = affiliateDTO;
+	public void setAffiliateDTO(CompanyAffiliateDTO companyAffiliateDTO) {
+		this.companyAffiliateDTO = companyAffiliateDTO;
 	}
 
 	public Long getAffiliateId() {
@@ -259,5 +284,13 @@ public class AffiliateAction extends BaseAction {
 
 	public void setParentAffiliateId(Long parentAffiliateId) {
 		this.parentAffiliateId = parentAffiliateId;
+	}
+
+	public CompanyAffiliateService getCompanyAffiliateService() {
+		return companyAffiliateService;
+	}
+
+	public void setCompanyAffiliateService(CompanyAffiliateService companyAffiliateService) {
+		this.companyAffiliateService = companyAffiliateService;
 	}
 }

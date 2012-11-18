@@ -1,12 +1,12 @@
 package com.ds.action.affiliate;
 
 import com.ds.domain.affiliate.Affiliate;
+import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.domain.user.User;
 import com.ds.security.service.UserService;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
-import com.ds.pact.service.admin.AffiliateService;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.DefaultHandler;

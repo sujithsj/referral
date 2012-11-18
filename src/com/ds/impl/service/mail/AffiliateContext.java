@@ -1,8 +1,8 @@
 package com.ds.impl.service.mail;
 
 import com.ds.domain.affiliate.Affiliate;
+import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.impl.service.ServiceLocatorFactory;
-import com.ds.pact.service.admin.AffiliateService;
 import com.ds.pact.service.mail.EmailContext;
 
 import java.util.HashMap;

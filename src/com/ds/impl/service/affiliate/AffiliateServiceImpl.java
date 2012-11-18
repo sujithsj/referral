@@ -1,4 +1,4 @@
-package com.ds.impl.service.admin;
+package com.ds.impl.service.affiliate;
 
 import com.ds.api.AdminAPI;
 import com.ds.api.CacheAPI;
@@ -14,11 +14,12 @@ import com.ds.exception.CompositeValidationException;
 import com.ds.exception.DSException;
 import com.ds.exception.ValidationException;
 import com.ds.impl.service.ServiceLocatorFactory;
+import com.ds.impl.service.admin.AdminServiceImpl;
 import com.ds.impl.service.mail.AffiliateContext;
 import com.ds.pact.dao.AdminDAO;
 import com.ds.pact.dao.affiliate.AffiliateDAO;
 import com.ds.pact.service.HttpService;
-import com.ds.pact.service.admin.AffiliateService;
+import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.admin.LoadPropertyService;
 import com.ds.pact.service.core.SearchService;
 import com.ds.pact.service.mail.EmailTemplateService;
