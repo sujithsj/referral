@@ -44,13 +44,13 @@ public class Campaign implements java.io.Serializable {
 
 
   @Column(name = "PRIVATE", length = 1, nullable = false)
-  private boolean isPrivate =false;
+  private Boolean isPrivate = false;
 
   @Column(name = "ACTIVE", length = 1, nullable = false)
-  private boolean active = true;
+  private Boolean active = true;
 
   @Column(name = "DELETED", length = 1, nullable = false)
-  private boolean deleted = false;
+  private Boolean deleted = false;
 
   public Long getId() {
     return this.id;
@@ -92,13 +92,6 @@ public class Campaign implements java.io.Serializable {
     this.endDate = endDate;
   }
 
-  public boolean isPrivate() {
-    return isPrivate;
-  }
-
-  public void setPrivate(boolean aPrivate) {
-    isPrivate = aPrivate;
-  }
 
   public CommissionPlan getCommissionPlan() {
     return commissionPlan;
@@ -108,19 +101,27 @@ public class Campaign implements java.io.Serializable {
     this.commissionPlan = commissionPlan;
   }
 
-  public boolean isActive() {
+  public Boolean isPrivate() {
+    return isPrivate;
+  }
+
+  public void setPrivate(Boolean aPrivate) {
+    isPrivate = aPrivate;
+  }
+
+  public Boolean isActive() {
     return active;
   }
 
-  public void setActive(boolean active) {
+  public void setActive(Boolean active) {
     this.active = active;
   }
 
-  public boolean isDeleted() {
+  public Boolean isDeleted() {
     return deleted;
   }
 
-  public void setDeleted(boolean deleted) {
+  public void setDeleted(Boolean deleted) {
     this.deleted = deleted;
   }
 

@@ -1,13 +1,13 @@
 package com.ds.action.campaign;
 
 import com.ds.domain.campaign.Campaign;
+import com.ds.domain.user.User;
 import com.ds.dto.campaign.CampaignDTO;
 import com.ds.dto.commission.CommissionPlanDTO;
 import com.ds.pact.service.campaign.CampaignService;
+import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BaseAction;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +30,7 @@ public class CampaignAction extends BaseAction {
 
 
   @DefaultHandler
-  public Resolution createOrEditMarketingMaterial() {
+  public Resolution createOrEditCampaign() {
     if (campaignId != null) {
       Campaign campaign = getCampaignService().getCampaignById(campaignId);
       this.campaignDTO = new CampaignDTO(campaign);
@@ -45,34 +45,20 @@ public class CampaignAction extends BaseAction {
     Campaign campaign;
 
     if (campaignId != null) {
-      campaign = getCampaignService().getCampaignById(campaignId);
+      campaign = getCampaignService().updateCampaign(campaignId, commissionPlanDTO, campaignDTO);
     } else {
-      campaign = new Campaign();
-    }
-
-    /*if (campaign != null) {
-
       User loggedInUser = SecurityHelper.getLoggedInUser();
       String companyShortName = loggedInUser.getCompanyShortName();
+      campaign = getCampaignService().createCampaign(campaignDTO, commissionPlanDTO, companyShortName);
+    }
 
-      
-      marketingMaterial.setBody(body);
-      marketingMaterial.setCompanyShortName(companyShortName);
-      marketingMaterial.setLandingPageUrl(landingPageURL);
-      marketingMaterial.setTitle(title);
-      MarketingMaterialType marketingMaterialType = EnumMarketingMaterialType.getById(type).asMarketingMaterialType();
-      marketingMaterial.setMarketingMaterialType(marketingMaterialType);
-
-      marketingMaterial = getMarketingService().saveMarketingMaterial(marketingMaterial);
-
-      addRedirectAlertMessage(new SimpleMessage("Changes saved successfully.Please upload a banner"));
-      return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial").addParameter("marketingMaterialId", marketingMaterial.getId());
+    if (campaign != null) {
+      addRedirectAlertMessage(new SimpleMessage("Campaign updated successfully.Please upload a banner"));
+      return new RedirectResolution(CampaignAction.class, "createOrEditCampaign").addParameter("campaignId", campaign.getId());
     } else {
-      addRedirectAlertMessage(new SimpleMessage("Could not find/create marketing material"));
-      return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial");
-    }*/
-
-    return null;
+      addRedirectAlertMessage(new SimpleMessage("Could not find/create campaign"));
+      return new RedirectResolution(CampaignAction.class, "createOrEditCampaign");
+    }
   }
 
   public CampaignService getCampaignService() {

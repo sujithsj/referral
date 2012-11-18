@@ -1,6 +1,7 @@
 package com.ds.pact.service.campaign;
 
 import com.ds.domain.campaign.Campaign;
+import com.ds.dto.campaign.CampaignDTO;
 import com.ds.dto.commission.CommissionPlanDTO;
 import com.ds.web.action.Page;
 
@@ -16,8 +17,8 @@ public interface CampaignService {
 
   public Campaign getCampaignById(Long campaignId);
 
-  public Campaign createCampaign(CommissionPlanDTO commissionPlanDTO, String companyShortName);
+  public Campaign createCampaign(CampaignDTO campaignDTO, CommissionPlanDTO commissionPlanDTO, String companyShortName);
 
-  public Campaign updateCampaign(Long campaignId, CommissionPlanDTO commissionPlanDTO);
+  public Campaign updateCampaign(Long campaignId, CommissionPlanDTO commissionPlanDTO, CampaignDTO campaignDTO);
 
 }
