@@ -2,7 +2,9 @@ package com.ds.impl.service.campaign;
 
 import com.ds.constants.EnumCampaignType;
 import com.ds.domain.campaign.Campaign;
+import com.ds.domain.campaign.CampaignType;
 import com.ds.exception.InvalidParameterException;
+import com.ds.exception.ValidationException;
 import com.ds.pact.dao.BaseDao;
 import com.ds.pact.service.campaign.CampaignService;
 import com.ds.pact.service.core.SearchService;
@@ -46,6 +48,22 @@ public class CampaignServiceImpl implements CampaignService {
     return getSearchService().list(campaignQuery);
   }
 
+  @Override
+  public Campaign saveCampaign(Campaign campaign) {
+    if (campaign.getEndDate().compareTo(campaign.getStartDate()) == -1) {
+      throw new ValidationException("endDate", "End Date cannot be less than start date");
+    }
+
+
+  }
+
+
+  private CampaignType getCampaignTypeById(Long campaignTypeId) {
+    if (campaignTypeId == null) {
+      throw new InvalidParameterException("CAMPAIGN_TYPE_ID_CANNOT_BE_BLANK");
+    }
+    return (CampaignType) getBaseDao().findUniqueByNamedQueryAndNamedParam("getCampaignTypeById", new String[]{"campaignTypeId"}, new Object[]{campaignTypeId});
+  }
 
   public SearchService getSearchService() {
     return searchService;

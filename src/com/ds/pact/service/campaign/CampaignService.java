@@ -1,7 +1,8 @@
 package com.ds.pact.service.campaign;
 
-import com.ds.web.action.Page;
 import com.ds.domain.campaign.Campaign;
+import com.ds.dto.commission.CommissionPlanDTO;
+import com.ds.web.action.Page;
 
 import java.util.Date;
 
@@ -15,5 +16,8 @@ public interface CampaignService {
 
   public Campaign getCampaignById(Long campaignId);
 
-  //public Campaign saveCampaign(CampaignDTO campaignDTO);
+  public Campaign createCampaign(CommissionPlanDTO commissionPlanDTO, String companyShortName);
+
+  public Campaign updateCampaign(Long campaignId, CommissionPlanDTO commissionPlanDTO);
+
 }

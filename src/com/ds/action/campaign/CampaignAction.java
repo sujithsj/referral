@@ -1,6 +1,7 @@
 package com.ds.action.campaign;
 
 import com.ds.domain.campaign.Campaign;
+import com.ds.dto.campaign.CampaignDTO;
 import com.ds.dto.commission.CommissionPlanDTO;
 import com.ds.pact.service.campaign.CampaignService;
 import com.ds.web.action.BaseAction;
@@ -10,21 +11,16 @@ import net.sourceforge.stripes.action.Resolution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 /**
  * @author adlakha.vaibhav
  */
 @Component
 public class CampaignAction extends BaseAction {
 
-  private String name;
-  private Date startDate, endDate;
-  private boolean visibleToAll;
 
   private Long campaignId;
-  private Long campaignTypeId;
 
+  private CampaignDTO campaignDTO;
   private CommissionPlanDTO commissionPlanDTO;
 
   @Autowired
@@ -37,11 +33,7 @@ public class CampaignAction extends BaseAction {
   public Resolution createOrEditMarketingMaterial() {
     if (campaignId != null) {
       Campaign campaign = getCampaignService().getCampaignById(campaignId);
-      this.name = campaign.getName();
-      this.startDate = campaign.getStartDate();
-      this.endDate = campaign.getEndDate();
-      this.visibleToAll = campaign.isPrivate();
-      this.campaignTypeId = campaign.getCampaignType().getId();
+      this.campaignDTO = new CampaignDTO(campaign);
       this.commissionPlanDTO = new CommissionPlanDTO(campaign.getCommissionPlan());
     }
 
@@ -87,38 +79,13 @@ public class CampaignAction extends BaseAction {
     return campaignService;
   }
 
-  public String getName() {
-    return name;
+  public CampaignDTO getCampaignDTO() {
+    return campaignDTO;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setCampaignDTO(CampaignDTO campaignDTO) {
+    this.campaignDTO = campaignDTO;
   }
-
-  public Date getStartDate() {
-    return startDate;
-  }
-
-  public void setStartDate(Date startDate) {
-    this.startDate = startDate;
-  }
-
-  public Date getEndDate() {
-    return endDate;
-  }
-
-  public void setEndDate(Date endDate) {
-    this.endDate = endDate;
-  }
-
-  public boolean isVisibleToAll() {
-    return visibleToAll;
-  }
-
-  public void setVisibleToAll(boolean visibleToAll) {
-    this.visibleToAll = visibleToAll;
-  }
-
 
   public Long getCampaignId() {
     return campaignId;
@@ -128,13 +95,6 @@ public class CampaignAction extends BaseAction {
     this.campaignId = campaignId;
   }
 
-  public Long getCampaignTypeId() {
-    return campaignTypeId;
-  }
-
-  public void setCampaignTypeId(Long campaignTypeId) {
-    this.campaignTypeId = campaignTypeId;
-  }
 
   public CommissionPlanDTO getCommissionPlanDTO() {
     return commissionPlanDTO;

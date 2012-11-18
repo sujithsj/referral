@@ -54,11 +54,11 @@ public class CommissionPlanDTO {
 
   }
 
-  public CommissionPlan extractCommissionPlan(){
+  /*public CommissionPlan extractCommissionPlan(){
     CommissionPlan commissionPlan = new CommissionPlan();
     syncToCommissionPlan(commissionPlan);
     return commissionPlan;
-  }
+  }*/
 
   public void syncToCommissionPlan(CommissionPlan commissionPlan){
     commissionPlan.setTiered(this.tiered);

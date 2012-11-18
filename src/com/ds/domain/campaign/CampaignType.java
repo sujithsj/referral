@@ -11,6 +11,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "campaign_type")
+@NamedQueries({
+    @NamedQuery(name = "getCampaignTypeById", query = "select ct from CampaignType ct where ct.id = :campaignTypeId")
+})
 public class CampaignType implements java.io.Serializable {
 
 
