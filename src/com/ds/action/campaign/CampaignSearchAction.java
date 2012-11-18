@@ -9,9 +9,10 @@ import com.ds.web.action.Page;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
-import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,9 +23,13 @@ import java.util.Set;
 @Component
 public class CampaignSearchAction extends BasePaginatedAction {
 
-
   private String name;
   private String companyShortName;
+
+  private boolean active = true;
+  private Date startDate;
+  private Date endDate;
+  private Long campaignTypeId;
 
   private Page campaignPage;
   private List<Campaign> campaigns;
@@ -38,10 +43,10 @@ public class CampaignSearchAction extends BasePaginatedAction {
   }
 
   @SuppressWarnings("unchecked")
-  public Resolution searchMarketingMaterial() {
+  public Resolution searchCampaign() {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     companyShortName = loggedInUser.getCompanyShortName();
-    campaignPage = getCampaignService().searchCampaign(name, companyShortName, getPageNo(), getPerPage());
+    campaignPage = getCampaignService().searchCampaign(name, companyShortName,startDate, endDate, campaignTypeId, active, getPageNo(), getPerPage());
     campaigns = campaignPage.getList();
 
     return new ForwardResolution("/pages/company/campaign.jsp");
@@ -63,6 +68,10 @@ public class CampaignSearchAction extends BasePaginatedAction {
     HashSet<String> params = new HashSet<String>();
     params.add("name");
     params.add("companyShortName");
+    params.add("active");
+    params.add("startDate");
+    params.add("endDate");
+    params.add("campaignTypeId");
 
     return params;
   }
@@ -101,5 +110,37 @@ public class CampaignSearchAction extends BasePaginatedAction {
 
   public void setCampaigns(List<Campaign> campaigns) {
     this.campaigns = campaigns;
+  }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
+  }
+
+  public Date getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(Date startDate) {
+    this.startDate = startDate;
+  }
+
+  public Date getEndDate() {
+    return endDate;
+  }
+
+  public void setEndDate(Date endDate) {
+    this.endDate = endDate;
+  }
+
+  public Long getCampaignTypeId() {
+    return campaignTypeId;
+  }
+
+  public void setCampaignTypeId(Long campaignTypeId) {
+    this.campaignTypeId = campaignTypeId;
   }
 }

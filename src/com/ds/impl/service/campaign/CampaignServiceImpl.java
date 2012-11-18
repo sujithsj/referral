@@ -1,5 +1,6 @@
 package com.ds.impl.service.campaign;
 
+import com.ds.constants.EnumCampaignType;
 import com.ds.domain.campaign.Campaign;
 import com.ds.exception.InvalidParameterException;
 import com.ds.pact.dao.BaseDao;
@@ -9,6 +10,8 @@ import com.ds.search.impl.CampaignQuery;
 import com.ds.web.action.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @author adlakha.vaibhav
@@ -33,10 +36,10 @@ public class CampaignServiceImpl implements CampaignService {
 
 
   @Override
-  public Page searchCampaign(String name, String companyShortName, int pageNo, int perPage) {
+  public Page searchCampaign(String name, String companyShortName, Date startDate, Date endDate, Long campaignTypeId, boolean active, int pageNo, int perPage) {
     CampaignQuery campaignQuery = new CampaignQuery();
     campaignQuery.setCompanyShortName(companyShortName);
-    campaignQuery.setName(name);
+    campaignQuery.setName(name).setStartDate(startDate).setEndDate(endDate).setCampaignType(EnumCampaignType.getById(campaignTypeId));
 
     campaignQuery.setOrderByField("nm").setPageNo(pageNo).setRows(perPage);
 

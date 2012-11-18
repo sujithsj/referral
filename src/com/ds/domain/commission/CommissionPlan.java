@@ -6,6 +6,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "commission_plan")
+@NamedQueries({
+    @NamedQuery(name = "getCommissionPlanById", query = "select cp from CommissionPlan cp where cp.id = :commissionPlanId")
+})
 public class CommissionPlan implements java.io.Serializable {
 
 
@@ -18,12 +21,15 @@ public class CommissionPlan implements java.io.Serializable {
   @JoinColumn(name = "COMMISSION_CURRENCY_ID", nullable = false)
   private CommissionCurrency commissionCurrency;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "COMMISSION_STRATEGY_ID", nullable = false)
+  private CommissionStrategy commissionStrategy;
 
   @Column(name = "TIERED", nullable = false, length = 1)
-  private boolean tiered;
+  private Boolean tiered = false;
 
   @Column(name = "AUTO_APPROVE_COMM", nullable = false, length = 1)
-  private boolean autoApproveComm = true;
+  private Boolean autoApproveComm = true;
 
   @Column(name = "COMPANY_SHORT_NAME", nullable = false, length = 50)
   private String companyShortName;
@@ -177,19 +183,19 @@ public class CommissionPlan implements java.io.Serializable {
     this.recurCommGrade = recurCommGrade;
   }
 
-  public boolean isTiered() {
+  public Boolean isTiered() {
     return tiered;
   }
 
-  public void setTiered(boolean tiered) {
+  public void setTiered(Boolean tiered) {
     this.tiered = tiered;
   }
 
-  public boolean isAutoApproveComm() {
+  public Boolean isAutoApproveComm() {
     return autoApproveComm;
   }
 
-  public void setAutoApproveComm(boolean autoApproveComm) {
+  public void setAutoApproveComm(Boolean autoApproveComm) {
     this.autoApproveComm = autoApproveComm;
   }
 
@@ -199,6 +205,14 @@ public class CommissionPlan implements java.io.Serializable {
 
   public void setCompanyShortName(String companyShortName) {
     this.companyShortName = companyShortName;
+  }
+
+  public CommissionStrategy getCommissionStrategy() {
+    return commissionStrategy;
+  }
+
+  public void setCommissionStrategy(CommissionStrategy commissionStrategy) {
+    this.commissionStrategy = commissionStrategy;
   }
 }
 
