@@ -10,6 +10,7 @@ import java.util.List;
  */
 public enum EnumMarketingMaterialType {
 
+  ALL(-999L,"All"),     //to be used only on UI 
   Banner(10L, "Banner"),
   TextLink(20L, "Text Link");
 
@@ -49,7 +50,7 @@ public enum EnumMarketingMaterialType {
 
   public static EnumMarketingMaterialType getById(Long typeId){
     for(EnumMarketingMaterialType enumMarketingMaterialType : EnumMarketingMaterialType.values()){
-      if(typeId.equals(enumMarketingMaterialType.getId())){
+      if(enumMarketingMaterialType.getId().equals(typeId)){
         return enumMarketingMaterialType;
       }
     }

@@ -1,4 +1,5 @@
 <%@ page import="com.ds.constants.EnumMarketingMaterialType" %>
+<%@ page import="com.ds.constants.FileManageType" %>
 <%@include file="/includes/taglibInclude.jsp" %>
 
 <s:layout-render name="/templates/general.jsp">
@@ -61,7 +62,7 @@
      </s:link>
     <form action="/fileUpload" multipart="1" method="post" enctype="multipart/form-data" id="mmImageUploadForm">
       <input type="file" name="file" class="formelement" style="width: 312px;" id="marketing_tool_banner">
-      <input type="hidden"  name="fileManageType" value="20" >
+      <input type="hidden"  name="fileManageType" value="<%=FileManageType.MARKETING_MATERIAL%>" >
       <input type="hidden"  name="identifier" value="${mmAction.marketingMaterialId}" >
       <input type="submit" value="upload" class="button blue big">
     </form>

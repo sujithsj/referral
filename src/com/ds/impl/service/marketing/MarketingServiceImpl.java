@@ -11,11 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author adlakha.vaibhav
  */
 @Service
-public class MarketingServiceImpl implements MarketingService{
+public class MarketingServiceImpl implements MarketingService {
 
   @Autowired
   private SearchService searchService;
@@ -30,9 +34,28 @@ public class MarketingServiceImpl implements MarketingService{
     }
     return (MarketingMaterial) getBaseDao().findUniqueByNamedQueryAndNamedParam("getMarketingMaterialById", new String[]{"mmId"}, new Object[]{mmId});
   }
-  
+
   @Override
-  public Page searchMarketingMaterial(String title, int type, String companyShortName, String landingPage, int pageNo, int perPage) {
+  public Map<Long, Long> getCountForMarketingMaterialByType(String companyShortName) {
+    Map<Long, Long> resultsCount = new HashMap<Long, Long>();
+    String query = "select mm.marketingMaterialType.id , count(*) from MarketingMaterial mm where mm.companyShortName = '"+ companyShortName + "' group by mm.marketingMaterialType.id";
+
+    List<Object[]> results = (List<Object[]>) getBaseDao().findByQuery(query);
+
+    for (Object[] objectArr : results) {
+
+      Long count = (Long) objectArr[1];
+      if (count == null) {
+        count = 0L;
+      }
+      resultsCount.put((Long) objectArr[0], count);
+    }
+
+    return resultsCount;
+  }
+
+  @Override
+  public Page searchMarketingMaterial(String title, Long type, String companyShortName, String landingPage, int pageNo, int perPage) {
     MarketingMaterialQuery marketingMaterialQuery = new MarketingMaterialQuery();
     marketingMaterialQuery.setCompanyShortName(companyShortName);
     marketingMaterialQuery.setLandingPage(landingPage).setTitle(title);

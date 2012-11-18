@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+  <class dynamic-update="true" table="USER_ACTIVITY_DETAILS" lazy="true" name="com.ds.domain.visitor.VisitorInfo" dynamic-insert="true">
+    <id name="visitorId" type="string" column="VISITOR_ID" >
+ 		<generator class="assigned" />
+ 	</id>
+    <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>
+    <property name="ipAddress"  length="20" type="java.lang.String" column="IP_ADDRESS"/>
+    <property name="userName"  length="200" type="java.lang.String" column="USER_NAME"/>
+    <property name="companyShortName"  length="50" type="java.lang.String" column="COMPANY_SHORT_NAME"/>
+    <property name="operation"  length="50" type="java.lang.String" column="OPERATION"/>
+    <property name="entity"  length="50" type="java.lang.String" column="ENTITY"/>
+    <property name="entityId"  length="20" type="java.lang.String" column="ENTITY_ID"/>
+    <property name="hostName"  length="500" type="java.lang.String" column="HOST_NAME"/>
+    <property name="browserName"  length="200" type="java.lang.String" column="BROWSER_NAME"/>
+    <property name="browserVersion"  length="100" type="java.lang.String" column="BROWSER_VERSION"/>
+    <property name="osName"  length="200" type="java.lang.String" column="OS_NAME"/>
+    <property name="osVersion"  length="50" type="java.lang.String" column="OS_VERSION"/>
+    <property name="city"  length="200" type="java.lang.String" column="CITY"/>
+    <property name="country"  length="200" type="java.lang.String" column="COUNTRY"/>
+    <property name="isp"  length="200" type="java.lang.String" column="ISP"/>
+    <property name="httpMethodType"  length="50" type="java.lang.String" column="HTTP_METHOD_TYPE"/>
+    <property name="searchQuery"  length="1000" type="java.lang.String" column="SEARCH_QUERY"/>
+    <property name="latitude"  length="100" type="java.lang.String" column="LATITUDE"/>
+    <property name="longitude"  length="100" type="java.lang.String" column="LONGITUDE"/>
+    <property name="domain"  length="100" type="java.lang.String" column="DOMAIN"/>
+    <property name="refererURL"  length="1000" type="java.lang.String" column="REFERER_URL"/>
+    
+  </class>
+</hibernate-mapping>

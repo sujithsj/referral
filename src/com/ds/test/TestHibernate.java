@@ -1,0 +1,64 @@
+package com.ds.test;
+
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author adlakha.vaibhav
+ */
+public class TestHibernate {
+  static SessionFactory sessionFactory = null;
+
+  public static Session getHibernateSession() {
+    if (sessionFactory == null) {
+      sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+    }
+    return sessionFactory.openSession();
+  }
+
+  public static void main(String[] args) {
+    Session session = getHibernateSession();
+
+    try {
+      String str = "select c from City c left join fetch c.locationNames lm where c.id = :cityId";
+      String st1 = "select bsc from BusStationConflict bsc join fetch bsc.state where bsc.provider.id = :providerId";
+
+      Query query = session.createQuery("select mm.marketingMaterialType.id , count(*) from MarketingMaterial mm group by mm.marketingMaterialType.id");
+
+      //query.setParameter("cityName", "%delhi%");
+      //query.setParameter("endDate", new Date());
+      // query.setParameter("languageCode", "en");
+
+      //query.setParameter("allowedPos", "IN");
+      //query.setParameter("destination", "BOM");
+
+      //query.setMaxResults(100);
+      List result = query.list();
+
+      Map<Long, Long> resultsCount = new HashMap<Long, Long>();
+
+      List<Object[]> temp  = (List<Object[]> )result;
+      for (Object[] objectArr : temp) {
+        resultsCount.put((Long) objectArr[0], (Long) objectArr[1]);
+      }
+
+      System.out.println(result);
+
+      // Hotel hotel = (Hotel) result.get(0);
+
+      // String propertyTypeName = hotel.getPropertyType().getPropertyTypeNames()
+
+      System.out.println("tets");
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+}

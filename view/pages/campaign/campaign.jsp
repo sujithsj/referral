@@ -1,11 +1,10 @@
-<%@ page import="com.ds.constants.EnumMarketingMaterialType" %>
 <%@include file="/includes/taglibInclude.jsp" %>
 
 <s:layout-render name="/templates/general.jsp">
 
   <%--<s:layout-component name="heading">Split Base Order Manually</s:layout-component>--%>
   <s:layout-component name="content">
-    <s:useActionBean beanclass="com.ds.action.marketing.MarketingMaterialSearchAction" var="mmSearchAction"/>
+    <s:useActionBean beanclass="com.ds.action.campaign.CampaignAction" var="campaignAction"/>
     <div class="container">
       <div class="row">
         <div class="span3 bs-docs-sidebar">
@@ -19,8 +18,8 @@
                 <p class="lead">Marketing Material</p>
               </div>
               <div class="span3 offset2">
-                <s:link beanclass="com.ds.action.marketing.MarketingMaterialAction"
-                        event="createOrEditMarketingMaterial" class="btn btn-primary">Create Ad
+                <s:link beanclass="com.ds.action.campaign.CampaignAction"
+                        event="createOrEditCampaign" class="btn btn-primary">Create Campaign
                 </s:link>
               </div>
             </div>
@@ -32,31 +31,31 @@
             </ul>--%>
 
           <fieldset>
-            <legend><em>Search Marketing Material</em></legend>
-            <s:form beanclass="com.ds.action.marketing.MarketingMaterialSearchAction" class="form-inline"
-                    id="mmSearchForm"
-                    style="margin-bottom:10px;">
-              <s:label name="Title"/>
+            <legend><em>Search Campaign</em></legend>
+           <%-- <s:form beanclass="com.ds.action.campaign.CampaignAction" class="form-inline"
+                    id="campaignSearchForm"
+                    style="margin-bottom:10px;">--%>
+              <%--<s:label name="Title"/>
               <s:text name="title" placeholder="title"/>
               <s:label name="Landing Page"/>
               <s:text name="landingPage"/>
-              <s:hidden name="type" id="mmType"/>
+              <s:hidden name="type" id="mmType"/>--%>
 
-              <div class="btn-toolbar">
+              <%--<div class="btn-toolbar">
                 <div class="btn-group">
 
                   <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.ALL.getId()%>">All</a>
                   <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.Banner.getId()%>">Banner</a>
                   <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.TextLink.getId()%>">Text Ads</a>
                 </div>
-              </div>
+              </div>--%>
 
-              <s:submit name="searchMarketingMaterial" class="btn btn-warning">Search</s:submit>
+              <%--<s:submit name="searchMarketingMaterial" class="btn btn-warning">Search</s:submit>
 
               Total Ads: ${mmSearchAction.totalAdCount}
                 <span class="badge badge-info">Banner : ${mmSearchAction.totalBannerAds}</span>
                 <span class="badge badge-info">Text ads : ${mmSearchAction.totalTextAds}</span>
-            </s:form>
+            </s:form>--%>
           </fieldset>
 
 
@@ -104,24 +103,7 @@
     <script type="text/javascript">
 
       $(document).ready(function() {
-
-        $('.mmType').click(function(event) {
-          var type = $(this).attr('type');
-          $("#mmType").val(type);
-          var searchForm = $("#mmSearchForm")[0];
-          var actionUrl = searchForm.action;
-          actionUrl += '?searchMarketingMaterial';
-          searchForm.action = actionUrl;
-          searchForm.submit();
-        });
-
-        $.each($(".mmType"), function(index, value) {
-          var type = $(this).attr('type');
-          var selType = $("#mmType").val();
-          if(selType === type){
-            $(this).addClass('disabled');
-          }
-        });
+       
       });
 
     </script>
