@@ -38,7 +38,7 @@ public class CompanyAffiliateDTO {
 			companyAffiliate = new CompanyAffiliate();
 		}
 		if(parentCompanyAffiliateId != null){
-			companyAffiliate.setParentCompanyAffiliate(get);
+			//companyAffiliate.setParentCompanyAffiliate(get);
 		}
 		//companyAffiliate
 

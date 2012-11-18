@@ -78,7 +78,7 @@ public class AffiliateGroupAction extends BaseAction {
 			companyAffiliates.remove(affiliate);
 			//UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
 			companyAffiliateDTO = new CompanyAffiliateDTO();
-			companyAffiliateDTO.bindCompanyAffiliate(affiliate);
+			//companyAffiliateDTO.bindCompanyAffiliate(affiliate);
 		} else {
 			companyAffiliateDTO = createNewAffiliate();
 		}
@@ -121,7 +121,7 @@ public class AffiliateGroupAction extends BaseAction {
 		if (affiliate == null) {
 			existingAffiliate = false;
 		}
-		affiliate = companyAffiliateDTO.extractCompanyAffiliate(affiliate);
+		//affiliate = companyAffiliateDTO.extractCompanyAffiliate(affiliate);
 		System.out.println("affiliate about to be saved -> " + affiliate.getLogin());
 		try {
 			affiliate = getAffiliateService().saveAffiliate(affiliate);
