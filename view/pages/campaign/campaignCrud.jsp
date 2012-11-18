@@ -6,8 +6,9 @@
 
   <s:layout-component name="content">
     <s:useActionBean beanclass="com.ds.action.campaign.CampaignAction" var="campaignAction"/>
-    <div class="content-outer wrap">
-    <div class="col_12">
+    <div class="container content-outer wrap">
+    <%--<div class="row">--%>
+    <div class="span12">
       <div id="page-heading">
         <c:choose>
           <c:when test="${campaignAction.campaignId != null}">
@@ -18,14 +19,23 @@
           </c:otherwise>
         </c:choose>
       </div>
+    </div>
 
-      <s:form beanclass="com.ds.action.campaign.CampaignAction" class="vertical">
-      <div class="col_6">
+    <%--<div class="row">--%>
+    <s:form beanclass="com.ds.action.campaign.CampaignAction" class="form-horizontal">
+      <div class="span12">
 
         <div class="control-group">
           <s:label class="control-label" name="Campaign Name"/>
           <div class="controls ">
             <s:text name="campaignDTO.name" placeholder="campaign name"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <s:label class="control-label" name="Description"/>
+          <div class="controls ">
+            <s:textarea name="campaignDTO.description" placeholder="campaign description"/>
           </div>
         </div>
 
@@ -38,59 +48,125 @@
               </c:forEach>
             </s:select>
           </div>
-
-          <div class="control-group">
-            <s:label class="control-label" name="How do you want to reward your affiliates?"/>
-            <div class="controls ">
-              <s:select name="commissionPlanDTO.commissionStrategyId">
-                <c:forEach items="<%=EnumCommisionStrategy.getAllCommissionStategies()%>" var="stType">
-                  <s:option value="${stType.id}">${stType.name}</s:option>
-                </c:forEach>
-              </s:select>
-            </div>
-
-
-            <div class="control-group" id="">
-            <s:label class="control-label" name="How do you want to reward your affiliates?"/>
-            <div class="controls ">
-              <s:select name="commissionPlanDTO.commissionStrategyId">
-                <c:forEach items="<%=EnumCommisionStrategy.getAllCommissionStategies()%>" var="stType">
-                  <s:option value="${stType.id}">${stType.name}</s:option>
-                </c:forEach>
-              </s:select>
-            </div>
-
-
-          </div>
-
-
-            <%--<s:label name="Title"/>
-                        <s:text name="title" class="check-empty auto-adjust"/>
-
-                        <s:label name="Body"/>
-                        <s:text name="body" class="auto-adjust"/>
-
-                        <s:label name="Landing Page Url"/>
-                        <s:text name="landingPageURL" class="check-empty auto-adjust"/>
-            --%>
-
         </div>
+
+        <div class="control-group">
+          <s:label class="control-label" name="How do you want to reward your affiliates?"/>
+          <div class="controls ">
+            <s:select name="commissionPlanDTO.commissionStrategyId">
+              <c:forEach items="<%=EnumCommisionStrategy.getAllCommissionStategies()%>" var="stType">
+                <s:option value="${stType.id}">${stType.name}</s:option>
+              </c:forEach>
+            </s:select>
+          </div>
+        </div>
+
+        <div class="control-group" id="recurRevShareDiv">
+          <s:label class="control-label" name="Initial Revenue share"/>
+          <div class="controls ">
+            <s:text name="commissionPlanDTO.initCom"/>
+            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+          </div>
+          <s:label class="control-label" name="Recurring Revenue share"/>
+          <div class="controls ">
+            <s:text name="commissionPlanDTO.recurCom"/>
+            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+          </div>
+        </div>
+
+        <div class="control-group" id="recurCommDiv">
+          <s:label class="control-label" name="Initial Commission"/>
+          <div class="controls">
+            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+            <s:text name="commissionPlanDTO.initCom"/>
+          </div>
+          <s:label class="control-label" name="Recurring Commission"/>
+          <div class="controls">
+            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+            <s:text name="commissionPlanDTO.recurCom"/>
+          </div>
+        </div>
+
+        <div class="control-group" id="oneTimeRevShareDiv">
+          <s:label class="control-label" name="Revenue Share"/>
+          <div class="controls">
+            <s:text name="commissionPlanDTO.oneTimeCom"/>
+            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+          </div>
+        </div>
+
+        <div class="control-group" id="oneTimeCommDiv">
+          <s:label class="control-label" name="Commission"/>
+          <div class="controls">
+            <s:text name="commissionPlanDTO.oneTimeCom"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <s:label class="control-label" name="Start Date"/>
+          <div class="controls">
+            <s:text name="campaignDTO.startDate"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <s:label class="control-label" name="End Date"/>
+          <div class="controls">
+            <s:text name="campaignDTO.endDate"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <s:label class="control-label" name="Is this a private campaign ?"/>
+          <div class="controls">
+            <s:checkbox name="campaignDTO.visibleToAll"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <s:label class="control-label" name="Limit recurring commissions by period: (optional)"/>
+          <div class="controls">
+            <s:text name="commissionPlanDTO.limitRecurCommDays"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <s:label class="control-label" name="Limit recurring commissions by number of renewals: (optional)"/>
+          <div class="controls">
+            <s:text name="commissionPlanDTO.limitRecurCommTxn"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <s:label class="control-label" name="Automatically approve commissions"/>
+          <div class="controls">
+            <s:checkbox name="commissionPlanDTO.autoApproveComm"/>
+          </div>
+        </div>
+
+      </div>
+      </div>
 
         <div class="clear"></div>
 
-          <%-- <div class="col_2">
-            <s:hidden name="marketingMaterialId"/>
-            <s:submit name="saveMarketingMaterial" value="Save Changes" class="button blue small"/>
-          </div>--%>
+       <div class="col_2">
+<%--        <s:hidden name="marketingMaterialId"/>--%>
+        <s:submit name="saveCampaign" value="Save Changes" class="button blue small"/>
+      </div>
 
-        <div class="col_2">
-          <s:link beanclass="com.ds.action.marketing.MarketingMaterialSearchAction"
-                  class="button blue small"><span class="icon white small" data-icon=":"></span>Back</s:link>
-        </div>
-        </s:form>
-
+      <div class="col_2">
+        <s:link beanclass="com.ds.action.campaign.CampaignSearchAction"
+                class="button blue small"><span class="icon white small" data-icon=":"></span>Back</s:link>
+      </div>
 
       </div>
+
+
+    </s:form>
+
+
     </div>
+    </div>
+    <%--</div>--%>
   </s:layout-component>
 </s:layout-render>

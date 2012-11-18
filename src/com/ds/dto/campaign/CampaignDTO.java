@@ -74,4 +74,12 @@ public class CampaignDTO {
   public void setCampaignTypeId(Long campaignTypeId) {
     this.campaignTypeId = campaignTypeId;
   }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
 }
