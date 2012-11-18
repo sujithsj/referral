@@ -50,7 +50,7 @@ public enum EnumMarketingMaterialType {
 
   public static EnumMarketingMaterialType getById(Long typeId){
     for(EnumMarketingMaterialType enumMarketingMaterialType : EnumMarketingMaterialType.values()){
-      if(typeId.equals(enumMarketingMaterialType.getId())){
+      if(enumMarketingMaterialType.getId().equals(typeId)){
         return enumMarketingMaterialType;
       }
     }

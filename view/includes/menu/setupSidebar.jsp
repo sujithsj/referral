@@ -6,7 +6,7 @@
   <ul class="nav nav-list bs-docs-sidenav">
     <li><a href="${pageContext.request.contextPath}/company/Company.action"><i class="icon-chevron-right"></i>Company Setup</a></li>
     <li><a href="${pageContext.request.contextPath}/marketing/MarketingMaterialSearch.action"><i class="icon-chevron-right"></i>Ads</a></li>
-    <li><a href="${pageContext.request.contextPath}/campaign/Campaign.action"><i class="icon-chevron-right"></i>Campaign</a></li>
+    <li><a href="${pageContext.request.contextPath}/campaign/CampaignSearch.action"><i class="icon-chevron-right"></i>Campaign</a></li>
     <li><a href="#buttonGroups"><i class="icon-chevron-right"></i>General settings</a></li>
     <li><a href="#buttonDropdowns"><i class="icon-chevron-right"></i>Email Settings</a></li>
     <li><a href="#navs"><i class="icon-chevron-right"></i>Invoice Settings</a></li>

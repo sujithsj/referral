@@ -34,6 +34,10 @@ public class Campaign implements java.io.Serializable {
   @Column(name = "NAME", nullable = false, length = 500)
   private String name;
 
+
+  @Column(name = "DESCRIPTION", nullable = false, length = 1000)
+  private String description;
+
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "START_DATE", length = 19)
   private Date startDate;
@@ -131,6 +135,14 @@ public class Campaign implements java.io.Serializable {
 
   public void setCompanyShortName(String companyShortName) {
     this.companyShortName = companyShortName;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
 

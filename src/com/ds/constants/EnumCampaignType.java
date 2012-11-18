@@ -37,7 +37,7 @@ public enum EnumCampaignType {
   }
 
 
-  public static List<EnumCampaignType> getAllMMTypes() {
+  public static List<EnumCampaignType> getAllCampaignTypes() {
     return Arrays.asList(
         EnumCampaignType.SALE,
         EnumCampaignType.AFFILIATE_SIGN_UP,
@@ -59,7 +59,7 @@ public enum EnumCampaignType {
 
   public static EnumCampaignType getById(Long typeId) {
     for (EnumCampaignType enumCampaignType : EnumCampaignType.values()) {
-      if (typeId.equals(enumCampaignType.getId())) {
+      if (enumCampaignType.getId().equals(typeId)) {
         return enumCampaignType;
       }
     }

@@ -34,6 +34,8 @@ public class CommissionPlan implements java.io.Serializable {
   @Column(name = "COMPANY_SHORT_NAME", nullable = false, length = 50)
   private String companyShortName;
 
+  @Column(name = "ONE_TIME_COM", precision = 22, scale = 0)
+  private Double oneTimeCom;
 
   @Column(name = "INIT_COM", precision = 22, scale = 0)
   private Double initCom;
@@ -213,6 +215,14 @@ public class CommissionPlan implements java.io.Serializable {
 
   public void setCommissionStrategy(CommissionStrategy commissionStrategy) {
     this.commissionStrategy = commissionStrategy;
+  }
+
+  public Double getOneTimeCom() {
+    return oneTimeCom;
+  }
+
+  public void setOneTimeCom(Double oneTimeCom) {
+    this.oneTimeCom = oneTimeCom;
   }
 }
 

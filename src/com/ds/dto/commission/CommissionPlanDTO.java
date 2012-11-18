@@ -15,6 +15,7 @@ public class CommissionPlanDTO {
   private Boolean tiered;
   private Boolean autoApproveComm ;
   private String companyShortName;
+  private Double oneTimeCom;
   private Double initCom;
   private Double recurCom;
   private Double tier1InitCom;
@@ -40,6 +41,7 @@ public class CommissionPlanDTO {
     this.tiered = commissionPlan.isTiered();
     this.autoApproveComm = commissionPlan.isAutoApproveComm();
     this.companyShortName = commissionPlan.getCompanyShortName();
+    this.oneTimeCom = commissionPlan.getOneTimeCom();
     this.initCom = commissionPlan.getInitCom();
     this.recurCom = commissionPlan.getRecurCom();
     this.tier1InitCom = commissionPlan.getTier1InitCom();
@@ -52,6 +54,7 @@ public class CommissionPlanDTO {
     this.limitRecurCommTxn = commissionPlan.getLimitRecurCommTxn();
     this.recurCommGrade = commissionPlan.getRecurCommGrade();
 
+
   }
 
   /*public CommissionPlan extractCommissionPlan(){
@@ -63,6 +66,7 @@ public class CommissionPlanDTO {
   public void syncToCommissionPlan(CommissionPlan commissionPlan){
     commissionPlan.setTiered(this.tiered);
     commissionPlan.setAutoApproveComm(this.autoApproveComm);
+    commissionPlan.setOneTimeCom(this.oneTimeCom);
     commissionPlan.setInitCom(this.initCom);
     commissionPlan.setRecurCom(this.recurCom);
     commissionPlan.setTier1InitCom(this.tier1InitCom);
@@ -211,5 +215,13 @@ public class CommissionPlanDTO {
 
   public void setRecurCommGrade(Double recurCommGrade) {
     this.recurCommGrade = recurCommGrade;
+  }
+
+  public Double getOneTimeCom() {
+    return oneTimeCom;
+  }
+
+  public void setOneTimeCom(Double oneTimeCom) {
+    this.oneTimeCom = oneTimeCom;
   }
 }

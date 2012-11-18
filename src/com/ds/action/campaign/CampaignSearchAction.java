@@ -39,7 +39,7 @@ public class CampaignSearchAction extends BasePaginatedAction {
 
   @DefaultHandler
   public Resolution pre() {
-    return new ForwardResolution("/pages/company/campaign.jsp");
+    return new ForwardResolution("/pages/campaign/campaign.jsp");
   }
 
   @SuppressWarnings("unchecked")
@@ -49,7 +49,7 @@ public class CampaignSearchAction extends BasePaginatedAction {
     campaignPage = getCampaignService().searchCampaign(name, companyShortName,startDate, endDate, campaignTypeId, active, getPageNo(), getPerPage());
     campaigns = campaignPage.getList();
 
-    return new ForwardResolution("/pages/company/campaign.jsp");
+    return new ForwardResolution("/pages/campaign/campaign.jsp");
 
   }
 

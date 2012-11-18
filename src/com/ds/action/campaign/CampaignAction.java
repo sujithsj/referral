@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class CampaignAction extends BaseAction {
 
-
   private Long campaignId;
 
   private CampaignDTO campaignDTO;

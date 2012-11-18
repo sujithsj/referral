@@ -10,6 +10,7 @@ import java.util.Date;
 public class CampaignDTO {
 
   private String name;
+  private String description;
   private Date startDate, endDate;
   private Boolean visibleToAll;
   private Long campaignTypeId;
@@ -17,6 +18,7 @@ public class CampaignDTO {
 
   public CampaignDTO(Campaign campaign) {
     this.name = campaign.getName();
+    this.description = campaign.getDescription();
     this.startDate = campaign.getStartDate();
     this.endDate = campaign.getEndDate();
     this.visibleToAll = campaign.isPrivate();
@@ -26,6 +28,7 @@ public class CampaignDTO {
 
   public void syncToCampaign(Campaign campaign) {
     campaign.setName(this.name);
+    campaign.setDescription(this.description);
     campaign.setStartDate(this.startDate);
     campaign.setEndDate(this.endDate);
     campaign.setPrivate(this.visibleToAll);

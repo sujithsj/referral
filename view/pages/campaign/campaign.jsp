@@ -18,8 +18,8 @@
                 <p class="lead">Marketing Material</p>
               </div>
               <div class="span3 offset2">
-                <s:link beanclass="com.ds.action.marketing.MarketingMaterialAction"
-                        event="createOrEditMarketingMaterial" class="btn btn-primary">Create Ad
+                <s:link beanclass="com.ds.action.campaign.CampaignAction"
+                        event="createOrEditCampaign" class="btn btn-primary">Create Campaign
                 </s:link>
               </div>
             </div>
@@ -31,31 +31,31 @@
             </ul>--%>
 
           <fieldset>
-            <legend><em>Search Marketing Material</em></legend>
-            <s:form beanclass="com.ds.action.marketing.MarketingMaterialSearchAction" class="form-inline"
-                    id="mmSearchForm"
-                    style="margin-bottom:10px;">
-              <s:label name="Title"/>
+            <legend><em>Search Campaign</em></legend>
+           <%-- <s:form beanclass="com.ds.action.campaign.CampaignAction" class="form-inline"
+                    id="campaignSearchForm"
+                    style="margin-bottom:10px;">--%>
+              <%--<s:label name="Title"/>
               <s:text name="title" placeholder="title"/>
               <s:label name="Landing Page"/>
               <s:text name="landingPage"/>
-              <s:hidden name="type" id="mmType"/>
+              <s:hidden name="type" id="mmType"/>--%>
 
-              <div class="btn-toolbar">
+              <%--<div class="btn-toolbar">
                 <div class="btn-group">
 
                   <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.ALL.getId()%>">All</a>
                   <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.Banner.getId()%>">Banner</a>
                   <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.TextLink.getId()%>">Text Ads</a>
                 </div>
-              </div>
+              </div>--%>
 
-              <s:submit name="searchMarketingMaterial" class="btn btn-warning">Search</s:submit>
+              <%--<s:submit name="searchMarketingMaterial" class="btn btn-warning">Search</s:submit>
 
               Total Ads: ${mmSearchAction.totalAdCount}
                 <span class="badge badge-info">Banner : ${mmSearchAction.totalBannerAds}</span>
                 <span class="badge badge-info">Text ads : ${mmSearchAction.totalTextAds}</span>
-            </s:form>
+            </s:form>--%>
           </fieldset>
 
 
