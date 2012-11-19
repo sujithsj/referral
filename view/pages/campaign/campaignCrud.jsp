@@ -42,7 +42,7 @@
         <div class="control-group">
           <s:label class="control-label" name="Campaign Type"/>
           <div class="controls ">
-            <s:select name="campaignDTO.campaignTypeId">
+            <s:select name="campaignDTO.campaignTypeId" >
               <c:forEach items="<%=EnumCampaignType.getAllCampaignTypes()%>" var="pType">
                 <s:option value="${pType.id}">${pType.type}</s:option>
               </c:forEach>
@@ -53,7 +53,7 @@
         <div class="control-group">
           <s:label class="control-label" name="How do you want to reward your affiliates?"/>
           <div class="controls ">
-            <s:select name="commissionPlanDTO.commissionStrategyId">
+            <s:select name="commissionPlanDTO.commissionStrategyId" id="commStSel">
               <c:forEach items="<%=EnumCommisionStrategy.getAllCommissionStategies()%>" var="stType">
                 <s:option value="${stType.id}">${stType.name}</s:option>
               </c:forEach>
@@ -145,12 +145,10 @@
         </div>
 
       </div>
-      </div>
+      <div class="clear"></div>
 
-        <div class="clear"></div>
-
-       <div class="col_2">
-<%--        <s:hidden name="marketingMaterialId"/>--%>
+      <div class="col_2">
+          <%--        <s:hidden name="marketingMaterialId"/>--%>
         <s:submit name="saveCampaign" value="Save Changes" class="button blue small"/>
       </div>
 
@@ -158,15 +156,14 @@
         <s:link beanclass="com.ds.action.campaign.CampaignSearchAction"
                 class="button blue small"><span class="icon white small" data-icon=":"></span>Back</s:link>
       </div>
-
       </div>
-
-
+      </div>
     </s:form>
-
-
     </div>
     </div>
     <%--</div>--%>
+  </s:layout-component>
+  <s:layout-component name="scriptComponent">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/campaign/campaignCrud.js"></script>
   </s:layout-component>
 </s:layout-render>

@@ -51,7 +51,10 @@ public enum EnumCommisionStrategy {
 
   public static List<EnumCommisionStrategy> getAllCommissionStategies() {
     return Arrays.asList(
-        EnumCommisionStrategy.RECUR_REV_SHARE
+        EnumCommisionStrategy.RECUR_REV_SHARE,
+        EnumCommisionStrategy.RECUR_COMMISSION,
+        EnumCommisionStrategy.ONE_TIME_FLAT_COMM,
+        EnumCommisionStrategy.ONE_TIME_REV_SHARE
 
     );
 
