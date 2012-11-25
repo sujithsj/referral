@@ -83,7 +83,7 @@ public class AffiliateGroupAction extends BaseAction {
 			companyAffiliateDTO = createNewAffiliate();
 		}
 		return setParamsForView(companyAffiliateDTO);
-		//return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
+		//return new ForwardResolution("/pages/affiliate/companyAffiliateCrud.jsp").addParameter("affiliateId", affiliateId);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -93,7 +93,7 @@ public class AffiliateGroupAction extends BaseAction {
 		affiliateSet = company.getAffiliates();
 		Set<CompanyAffiliate> afiAffiliateCompanies = new HashSet<CompanyAffiliate>();
 		afiAffiliateCompanies = company.getAffiliateCompanies();*/
-		return new ForwardResolution("/pages/affiliate/affiliateCrud.jsp").addParameter("affiliateId", affiliateId);
+		return new ForwardResolution("/pages/affiliate/companyAffiliateCrud.jsp").addParameter("affiliateId", affiliateId);
 	}
 
 	public CompanyAffiliateDTO createNewAffiliate() {
@@ -124,7 +124,7 @@ public class AffiliateGroupAction extends BaseAction {
 		//affiliate = companyAffiliateDTO.extractCompanyAffiliate(affiliate);
 		System.out.println("affiliate about to be saved -> " + affiliate.getLogin());
 		try {
-			affiliate = getAffiliateService().saveAffiliate(affiliate);
+			affiliate = getAffiliateService().saveNewAffiliate(affiliate);
 		} catch (CompositeValidationException cve) {
 			//return
 			cve.printStackTrace();
@@ -135,7 +135,7 @@ public class AffiliateGroupAction extends BaseAction {
 		}
 
 		//UserSettings userSettings = userDTOForUpdate.extactUserSettings();
-		return new ForwardResolution("/pages/affiliate/affiliates.jsp");
+		return new ForwardResolution("/pages/affiliate/companyAffiliates.jsp");
 	}
 
 	public Resolution resetPassword() {

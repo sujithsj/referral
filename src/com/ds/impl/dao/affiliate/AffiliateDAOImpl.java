@@ -7,7 +7,7 @@ import com.ds.domain.core.Plan;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
-import com.ds.pact.dao.affiliate.AffiliateDAO;
+import com.ds.pact.dao.affiliate.AffiliateDao;
 import com.ds.impl.dao.BaseDaoImpl;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -23,7 +23,7 @@ import java.security.InvalidParameterException;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class AffiliateDAOImpl extends BaseDaoImpl implements AffiliateDAO {
+public class AffiliateDaoImpl extends BaseDaoImpl implements AffiliateDao {
 
 	@Override
 	public Company saveCompany(Company company) {
@@ -128,7 +128,7 @@ public class AffiliateDAOImpl extends BaseDaoImpl implements AffiliateDAO {
 
 		if (affiliate == null) {
 			logger.error("No such affiliate found in system: " + login);
-			throw new InvalidParameterException("INVALID_AFFILIATE");
+			//throw new InvalidParameterException("INVALID_AFFILIATE");
 		}
 		return affiliate;
 	}

@@ -25,8 +25,14 @@ public interface AffiliateService {
 	 *
 	 * @param affiliate
 	 */
-	public Affiliate saveAffiliate(Affiliate affiliate);
+	public Affiliate saveNewAffiliate(Affiliate affiliate);
 
+	/**
+	 *
+	 * @param affiliate
+	 * @return
+	 */
+	public Affiliate updateAffiliate(Affiliate affiliate);
 
 	/**
 	 * Finds the company corresponding to the companyShortName
@@ -34,20 +40,6 @@ public interface AffiliateService {
 	 * @return company
 	 */
 	public Company getCompany(String companyShortName) throws InvalidParameterException;
-
-	/**
-	 * Gets the UserSettings corresponding to the username
-	 *
-	 * @return UserSettings
-	 */
-	public UserSettings getUserSettings(String username);
-
-	/**
-	 * Get a list of all the companies in the system.
-	 *
-	 * @return
-	 */
-	public List<Company> getAllCompanies();
 
 	/**
 	 * Update any entity, possibly a company or user in context of this service.

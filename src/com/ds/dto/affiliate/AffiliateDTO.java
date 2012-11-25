@@ -1,9 +1,6 @@
 package com.ds.dto.affiliate;
 
-import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.affiliate.Affiliate;
-
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,6 +11,7 @@ import java.util.List;
  */
 public class AffiliateDTO {
 
+	private Long affiliateId;
 	private String login;
 	private String firstName;
 	private String lastName;
@@ -29,57 +27,13 @@ public class AffiliateDTO {
 	private Boolean deleted;
 
 	//private String companyShortName;
-	//private CompanyAffiliateDTO parentAffiliateDTO;
-	//private Long parentAffiliateId;
 
-	private String originalImageUrl;
-
-	private String thumbnailImageUrl;
-
-	private boolean accountNonExpired;
-	private boolean accountNonLocked;
-	private boolean credentialsNonExpired;
-	private boolean enabled;
-
-
-	/**
-	 * fields for user settings
-	 */
-	private boolean sendEmailOnAddAffiliate;
-	private boolean sendEmailOnTerminateAffiliate;
-	private boolean sendEmailOnJoinAffiliate;
-	private boolean sendEmailOnPayout;
-	private boolean sendEmailOnGoalConversion;
-
-
-	private boolean syncRoles = true;
 
 	private String newPassword;      //to be used only for change passwor requests
 
-	public AffiliateDTO(Affiliate affiliate) {
-		this.login = affiliate.getLogin();
-		this.firstName = affiliate.getFirstName();
-		this.lastName = affiliate.getLastName();
-		this.email = affiliate.getEmail();
-
-		this.state = affiliate.getState();
-		this.zip = affiliate.getZip();
-		this.mobile = affiliate.getMobile();
-		this.address = affiliate.getAddress();
-		this.city = affiliate.getCity();
-
-		//this.companyShortName = affiliate.getCompanyShortName();
-		/*if (affiliate.getParentAffiliate() != null) {
-			this.parentAffiliateId = affiliate.getParentAffiliate().getId();
-		}*/
-
-	}
-
-	public AffiliateDTO() {
-	}
-
 	/**
 	 * Accepts null as an affiliate and returns affiliate object accordingly
+	 *
 	 * @param affiliate
 	 * @return
 	 */
@@ -88,6 +42,7 @@ public class AffiliateDTO {
 		if (affiliate == null) {
 			affiliate = new Affiliate();
 		}
+		affiliate.setId(this.affiliateId);
 		affiliate.setLogin(this.login);
 		affiliate.setFirstName(this.firstName);
 		affiliate.setLastName(this.lastName);
@@ -110,6 +65,7 @@ public class AffiliateDTO {
 
 	public void bindAffiliate(Affiliate affiliate) {
 
+		this.affiliateId = affiliate.getId();
 		this.login = affiliate.getLogin();
 		this.firstName = affiliate.getFirstName();
 		this.lastName = affiliate.getLastName();
@@ -215,21 +171,11 @@ public class AffiliateDTO {
 		this.deleted = deleted;
 	}
 
-	/*public String getCompanyShortName() {
-		return companyShortName;
+	public Long getAffiliateId() {
+		return affiliateId;
 	}
 
-	public void setCompanyShortName(String companyShortName) {
-		this.companyShortName = companyShortName;
-	}*/
-
-	/*public Long getParentAffiliateId() {
-		return parentAffiliateId;
+	public void setAffiliateId(Long affiliateId) {
+		this.affiliateId = affiliateId;
 	}
-
-	public void setParentAffiliateId(Long parentAffiliateId) {
-		this.parentAffiliateId = parentAffiliateId;
-	}*/
-
-
 }

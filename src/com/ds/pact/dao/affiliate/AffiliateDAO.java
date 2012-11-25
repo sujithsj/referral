@@ -18,7 +18,7 @@ import java.util.List;
  * Time: 12:37:54 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface AffiliateDAO extends BaseDao {
+public interface AffiliateDao extends BaseDao {
 
   /**
       * Saves a new Company Record

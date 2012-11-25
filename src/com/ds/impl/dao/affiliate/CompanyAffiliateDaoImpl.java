@@ -1,7 +1,7 @@
 package com.ds.impl.dao.affiliate;
 
 import com.ds.impl.dao.BaseDaoImpl;
-import com.ds.pact.dao.affiliate.AffiliateDAO;
+import com.ds.pact.dao.affiliate.CompanyAffiliateDao;
 import com.ds.domain.company.Company;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
@@ -14,6 +14,7 @@ import java.util.List;
 import java.security.InvalidParameterException;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,7 +23,8 @@ import org.apache.commons.lang.StringUtils;
  * Time: 4:12:05 PM
  * To change this template use File | Settings | File Templates.
  */
-public class CompanyAffiliateDaoImpl extends BaseDaoImpl implements AffiliateDAO {
+@Repository
+public class CompanyAffiliateDaoImpl extends BaseDaoImpl implements CompanyAffiliateDao {
 
 	@Override
 	public Company saveCompany(Company company) {
@@ -35,7 +37,7 @@ public class CompanyAffiliateDaoImpl extends BaseDaoImpl implements AffiliateDAO
 	}
 
 	@Override
-	public CompanyAffiliate saveAffiliateCompany(CompanyAffiliate companyAffiliate) {
+	public CompanyAffiliate saveCompanyAffiliate(CompanyAffiliate companyAffiliate) {
 		return (CompanyAffiliate) save(companyAffiliate);
 	}
 
@@ -131,6 +133,5 @@ public class CompanyAffiliateDaoImpl extends BaseDaoImpl implements AffiliateDAO
 		}
 		return affiliate;
 	}
-
 
 }

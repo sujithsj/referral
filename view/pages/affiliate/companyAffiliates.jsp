@@ -4,7 +4,7 @@
 
 	<%--<s:layout-component name="heading">Split Base Order Manually</s:layout-component>--%>
 	<s:layout-component name="content">
-		<s:useActionBean beanclass="com.ds.action.affiliate.AffiliateSearchAction" var="affiliateSearchAction"/>
+		<s:useActionBean beanclass="com.ds.action.affiliate.CompanyAffiliateSearchAction" var="companyAffiliateSearchAction"/>
 		<div class="container">
 
 				<%--<s:layout-render name="${pageContext.request.contextPath}/includes/menu/setupSidebar.jsp"/>--%>
@@ -21,7 +21,7 @@
 								<p class="lead">Affiliate Accounts</p>
 							</div>
 							<div class="span3 offset2">
-								<s:link beanclass="com.ds.action.affiliate.AffiliateAction"
+								<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateAction"
 								        event="createOrEditCompanyAffiliate" class="btn btn-primary">Add New Affiliate
 								</s:link>
 								<s:link beanclass="com.ds.action.affiliate.AffiliateGroupSearchAction" class="btn btn-primary">Groups
@@ -37,13 +37,13 @@
 
 					<fieldset>
 						<legend><em>Filter Affiliates</em></legend>
-						<s:form beanclass="com.ds.action.affiliate.AffiliateSearchAction" class="form-inline"
+						<s:form beanclass="com.ds.action.affiliate.CompanyAffiliateSearchAction" class="form-inline"
 						        style="margin-bottom:10px;">
 							<s:label name="Affiliate name"/>
 							<s:text name="login" placeholder="user name"/>
 							<s:label name="Email"/>
 							<s:text name="email"/>
-              <s:submit name="searchAffiliates" class="btn btn-warning">Search</s:submit>
+              <s:submit name="searchCompanyAffiliates" class="btn btn-warning">Search</s:submit>
 						</s:form>
 					</fieldset>
 
@@ -59,21 +59,21 @@
 						</tr>
 
 						<tbody>
-						<c:forEach items="${affiliateSearchAction.affiliates}" var="affiliateGroup">
+						<c:forEach items="${companyAffiliateSearchAction.companyAffiliates}" var="companyAffiliate">
 							<tr>
-								<td>${affiliateGroup.login}</td>
-								<td>${affiliateGroup.firstName}</td>
-								<td>${affiliateGroup.email}</td>
+								<td>${companyAffiliate.affiliate.login}</td>
+								<td>${companyAffiliate.affiliate.firstName} ${companyAffiliate.affiliate.lastName}</td>
+								<td>${companyAffiliate.affiliate.email}</td>
 								<td>
-									<s:link beanclass="com.ds.action.affiliate.AffiliateAction"
+									<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateAction"
 									        event="createOrEditCompanyAffiliate" class="button blue small">
 										<span class="icon white small" data-icon="7"></span>Edit
-										<s:param name="affiliateId" value="${affiliateGroup.id}"/>
+										<s:param name="companyAffiliateId" value="${companyAffiliate.id}"/>
 									</s:link>
-									<s:link beanclass="com.ds.action.affiliate.AffiliateAction"
+									<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateAction"
 									        event="resendWelcomeEmail" class="button blue small">
 										<span class="icon white small" data-icon="7"></span>Resend Welcome mail
-										<s:param name="affiliateId" value="${affiliateGroup.id}"/>
+										<s:param name="companyAffiliateId" value="${companyAffiliate.id}"/>
 									</s:link>
 										<%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
 																						event="entityTags" target="_blank" class="button orange small">Tag
@@ -85,8 +85,8 @@
 						</c:forEach>
 						</tbody>
 					</table>
-          <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${affiliateSearchAction}"/>
-          <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${affiliateSearchAction}"/>
+          <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${companyAffiliateSearchAction}"/>
+          <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${companyAffiliateSearchAction}"/>
 				</div>
 
 			</div>

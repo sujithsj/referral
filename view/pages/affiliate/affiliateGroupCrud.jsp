@@ -17,7 +17,7 @@
 	        </c:choose>
         </div>
 
-        <s:form beanclass="com.ds.action.affiliate.AffiliateAction" class="vertical">
+        <s:form beanclass="com.ds.action.affiliate.CompanyAffiliateAction" class="vertical">
           <div class="col_6">
 
             <s:label name="Login"/>
@@ -53,12 +53,12 @@
           <div class="col_2">
             <s:hidden name="affiliateId"/>
             <s:hidden name="companyShortName" value="${affiliateAction.companyShortName}"/>
-            <s:submit name="updateAffiliate" value="Save Changes" class="button blue small"/>
+            <s:submit name="saveAffiliate" value="Save Changes" class="button blue small"/>
           </div>
 
 
           <div class="col_2">
-            <s:link beanclass="com.ds.action.affiliate.AffiliateSearchAction"
+            <s:link beanclass="com.ds.action.affiliate.CompanyAffiliateSearchAction"
                     class="button blue small"><span class="icon white small" data-icon=":"></span>Back</s:link>
           </div>
         </s:form>

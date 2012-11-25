@@ -57,11 +57,11 @@
 						</tr>
 
 						<tbody>
-						<c:forEach items="${affiliateGroupSearchAction.affiliateGroups}" var="affiliateGroup">
+						<c:forEach items="${affiliateGroupSearchAction.affiliateGroups}" var="companyAffiliate">
 							<tr>
-								<td>${affiliateGroup.id}</td>
-								<td>${affiliateGroup.name}</td>
-								<td>${affiliateGroup.description}</td>
+								<td>${companyAffiliate.id}</td>
+								<td>${companyAffiliate.name}</td>
+								<td>${companyAffiliate.description}</td>
 								<td>4</td>
 								<td>
 									<%--<s:link beanclass="com.ds.action.affiliate.AffiliateGroupAction"
@@ -69,7 +69,7 @@
 										<span class="icon white small" data-icon="7"></span>Edit
 										<s:param name="affiliateGroupId" value="${affiliateGroup.id}"/>
 									</s:link>--%>
-									<%--<s:link beanclass="com.ds.action.affiliate.AffiliateAction"
+									<%--<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateActioneAction"
 									        event="resendWelcomeEmail" class="button blue small">
 										<span class="icon white small" data-icon="7"></span>Delete
 										<s:param name="affiliateId" value="${affiliateGroup.id}"/>

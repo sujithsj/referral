@@ -28,7 +28,7 @@ public class CompanyAffiliate extends BaseDataObject {
 
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PARENT_COMPANY_AFFILIATE_ID")
+	@JoinColumn(name = "PARENT_COMPANY_AFFILIATE_ID",  nullable = true)
 	private CompanyAffiliate parentCompanyAffiliate;
 
 /*

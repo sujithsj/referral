@@ -1,9 +1,6 @@
 package com.ds.dto.affiliate;
 
-import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
-
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,46 +11,39 @@ import java.util.List;
  */
 public class CompanyAffiliateDTO {
 
-	private AffiliateDTO affiliateDTO;
 	private Long parentCompanyAffiliateId;
-
-	public CompanyAffiliateDTO(CompanyAffiliate companyAffiliate) {
-
-		//Affiliate affiliate = companyAffiliate.getAffiliate();
-		//this.affiliateDTO = AffiliateDTO(affiliate);
-
-		//this.companyShortName = affiliate.getCompanyShortName();
-		/*if (affiliate.getParentAffiliate() != null) {
-			this.parentAffiliateId = affiliate.getParentAffiliate().getId();
-		}*/
-
-	}
-
-	public CompanyAffiliateDTO() {
-	}
+	private Long affiliateId;
+	private String companyShortName;
+	private Long companyAffiliateId;
 
 	public CompanyAffiliate extractCompanyAffiliate(CompanyAffiliate companyAffiliate) {
-
-		if(companyAffiliate == null){
+		
+		if (companyAffiliate == null) {
 			companyAffiliate = new CompanyAffiliate();
 		}
-		if(parentCompanyAffiliateId != null){
-			//companyAffiliate.setParentCompanyAffiliate(get);
+		if (companyShortName != null) {
+			companyAffiliate.setCompanyShortName(companyShortName);
 		}
-		//companyAffiliate
+		if (companyAffiliateId != null) {
+			companyAffiliate.setId(companyAffiliateId);
+		}
+		
 
 		return companyAffiliate;
 	}
 
 	public void bindCompanyAffiliate(CompanyAffiliate companyAffiliate) {
 
-		affiliateDTO = new AffiliateDTO();
-		affiliateDTO.bindAffiliate(companyAffiliate.getAffiliate());
-		if(companyAffiliate.getParentCompanyAffiliate() != null){
+		if (companyAffiliate.getId() != null){
+			companyAffiliateId = companyAffiliate.getId();
+		}
+		if (companyAffiliate.getParentCompanyAffiliate() != null) {
 			parentCompanyAffiliateId = companyAffiliate.getParentCompanyAffiliate().getId();
 		}
-
-		
+		if (companyAffiliate.getAffiliate() != null) {
+			affiliateId = companyAffiliate.getAffiliate().getId();
+		}
+		companyShortName = companyAffiliate.getCompanyShortName();
 	}
 
 	public Long getParentCompanyAffiliateId() {
@@ -64,11 +54,27 @@ public class CompanyAffiliateDTO {
 		this.parentCompanyAffiliateId = parentCompanyAffiliateId;
 	}
 
-	public AffiliateDTO getAffiliateDTO() {
-		return affiliateDTO;
+	public Long getAffiliateId() {
+		return affiliateId;
 	}
 
-	public void setAffiliateDTO(AffiliateDTO affiliateDTO) {
-		this.affiliateDTO = affiliateDTO;
+	public void setAffiliateId(Long affiliateId) {
+		this.affiliateId = affiliateId;
+	}
+
+	public String getCompanyShortName() {
+		return companyShortName;
+	}
+
+	public void setCompanyShortName(String companyShortName) {
+		this.companyShortName = companyShortName;
+	}
+
+	public Long getCompanyAffiliateId() {
+		return companyAffiliateId;
+	}
+
+	public void setCompanyAffiliateId(Long companyAffiliateId) {
+		this.companyAffiliateId = companyAffiliateId;
 	}
 }

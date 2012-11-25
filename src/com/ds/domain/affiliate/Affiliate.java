@@ -30,7 +30,7 @@ public class Affiliate extends BaseDataObject {
 	/*@Column(name = "COMPANY_SHORTNAME", nullable = false)
 	private String companyShortName;*/
 
-	@Column(name = "LOGIN", nullable = false, length = 45)
+	@Column(name = "LOGIN", nullable = false, length = 45, unique = true)
 	private String login;
 
 	@Column(name = "FIRST_NAME", nullable = false, length = 45)

@@ -18,7 +18,7 @@ import java.util.List;
  * Time: 4:12:29 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface CompanyAffiliateDAO extends BaseDao {
+public interface CompanyAffiliateDao extends BaseDao {
 
   /**
       * Saves a new Company Record
@@ -38,7 +38,7 @@ public interface CompanyAffiliateDAO extends BaseDao {
 	 *
 	 * @param companyAffiliate
 	 */
-	public CompanyAffiliate saveAffiliateCompany(CompanyAffiliate companyAffiliate);
+	public CompanyAffiliate saveCompanyAffiliate(CompanyAffiliate companyAffiliate);
 
      /**
       * Checks whether shortName is already taken by some company
@@ -262,5 +262,6 @@ public interface CompanyAffiliateDAO extends BaseDao {
 	 * @return
 	 */
 	public Affiliate getAffiliateByLogin(String login);
+
 }
 
