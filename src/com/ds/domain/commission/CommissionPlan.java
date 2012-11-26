@@ -1,6 +1,8 @@
 package com.ds.domain.commission;
 
 
+import com.ds.domain.BaseDataObject;
+
 import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -9,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NamedQueries({
     @NamedQuery(name = "getCommissionPlanById", query = "select cp from CommissionPlan cp where cp.id = :commissionPlanId")
 })
-public class CommissionPlan implements java.io.Serializable {
+public class CommissionPlan extends BaseDataObject {
 
 
   @Id
@@ -18,7 +20,7 @@ public class CommissionPlan implements java.io.Serializable {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "COMMISSION_CURRENCY_ID", nullable = false)
+  @JoinColumn(name = "COMMISSION_CURRENCY_ID")
   private CommissionCurrency commissionCurrency;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -80,6 +82,11 @@ public class CommissionPlan implements java.io.Serializable {
   @Column(name = "RECUR_COMM_GRADE", precision = 22, scale = 0)
   private Double recurCommGrade;
 
+
+  @Version
+  @Column(name = "LOCK_VERSION", nullable = false)
+  private Long version;
+
   public Long getId() {
     return this.id;
   }
@@ -96,7 +103,7 @@ public class CommissionPlan implements java.io.Serializable {
     this.commissionCurrency = commissionCurrency;
   }
 
-  
+
   public Double getInitCom() {
     return this.initCom;
   }
@@ -223,6 +230,14 @@ public class CommissionPlan implements java.io.Serializable {
 
   public void setOneTimeCom(Double oneTimeCom) {
     this.oneTimeCom = oneTimeCom;
+  }
+
+  public Long getVersion() {
+    return version;
+  }
+
+  public void setVersion(Long version) {
+    this.version = version;
   }
 }
 

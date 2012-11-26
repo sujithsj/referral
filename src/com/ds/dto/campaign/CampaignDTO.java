@@ -12,9 +12,11 @@ public class CampaignDTO {
   private String name;
   private String description;
   private Date startDate, endDate;
-  private Boolean visibleToAll;
+  private Boolean visibleToAll = true;
   private Long campaignTypeId;
 
+  public CampaignDTO() {
+  }
 
   public CampaignDTO(Campaign campaign) {
     this.name = campaign.getName();

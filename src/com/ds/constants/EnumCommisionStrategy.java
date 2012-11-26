@@ -11,13 +11,13 @@ import java.util.List;
 public enum EnumCommisionStrategy {
 
   /**
-   * type of strategy 1: percentage 2 : dollars
+   * type of payout 1: percentage 2 : dollars
    */
 
   RECUR_REV_SHARE(10L, "With a recurring share of the revenue", 1L),
   RECUR_COMMISSION(20L, "With a recurring commission", 2L),
   ONE_TIME_REV_SHARE(30L, "With a one-time share of the revenue", 1L),
-  ONE_TIME_FLAT_COMM(30L, "With a one-time flat commission", 2L);
+  ONE_TIME_FLAT_COMM(40L, "With a one-time flat commission", 2L);
 
 /*
 "With a non-monetary reward (revenue share)
