@@ -34,6 +34,9 @@ public class CampaignAction extends BaseAction {
       Campaign campaign = getCampaignService().getCampaignById(campaignId);
       this.campaignDTO = new CampaignDTO(campaign);
       this.commissionPlanDTO = new CommissionPlanDTO(campaign.getCommissionPlan());
+    } else {
+      campaignDTO = new CampaignDTO();
+      commissionPlanDTO = new CommissionPlanDTO();
     }
 
     return new ForwardResolution("/pages/campaign/campaignCrud.jsp");

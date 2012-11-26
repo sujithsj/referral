@@ -12,8 +12,8 @@ public class CommissionPlanDTO {
   private Long commissionCurrencyId;
   private Long commissionStrategyId;
 
-  private Boolean tiered;
-  private Boolean autoApproveComm ;
+  private Boolean tiered = false;
+  private Boolean autoApproveComm = true;
   private String companyShortName;
   private Double oneTimeCom;
   private Double initCom;
@@ -28,6 +28,9 @@ public class CommissionPlanDTO {
   private Long limitRecurCommTxn;
   private Double recurCommGrade;
 
+
+  public CommissionPlanDTO() {
+  }
 
   public CommissionPlanDTO(CommissionPlan commissionPlan) {
 
@@ -63,7 +66,7 @@ public class CommissionPlanDTO {
     return commissionPlan;
   }*/
 
-  public void syncToCommissionPlan(CommissionPlan commissionPlan){
+  public void syncToCommissionPlan(CommissionPlan commissionPlan) {
     commissionPlan.setTiered(this.tiered);
     commissionPlan.setAutoApproveComm(this.autoApproveComm);
     commissionPlan.setOneTimeCom(this.oneTimeCom);
@@ -116,6 +119,11 @@ public class CommissionPlanDTO {
   public Boolean isAutoApproveComm() {
     return autoApproveComm;
   }
+
+  public Boolean getAutoApproveComm() {
+    return autoApproveComm;
+  }
+
 
   public void setAutoApproveComm(Boolean autoApproveComm) {
     this.autoApproveComm = autoApproveComm;

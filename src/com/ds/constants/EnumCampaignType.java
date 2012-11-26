@@ -12,11 +12,11 @@ import java.util.List;
 public enum EnumCampaignType {
 
   SALE(10L,"Sale"),
-  AFFILIATE_SIGN_UP(10L,"Affiliate Sign Up"),
-  USER_SIGN_UP(10L,"User Sign up"),
-  REGISTRATION(10L,"Registration"),
-  EMAIL_OPT_IN(10L,"Email opt in"),
-  SOCIAL_MEDIA(10L,"Sale");
+  AFFILIATE_SIGN_UP(20L,"Affiliate Sign Up"),
+  USER_SIGN_UP(30L,"User Sign up"),
+  REGISTRATION(40L,"Registration"),
+  EMAIL_OPT_IN(50L,"Email opt in"),
+  SOCIAL_MEDIA(60L,"Social Media");
 
 
   private java.lang.String type;

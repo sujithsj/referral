@@ -7,7 +7,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "commission_strategy")
 @NamedQueries({
-    @NamedQuery(name = "getCommissionStrategyById", query = "select cs from CommissionStrategy cs where cs.id = :commissionStrategyId")
+    @NamedQuery(name = "getCommissionStrategyById", query = "select cs from CommissionStrategy cs where cs.id = :commissionStartegyId")
 })
 public class CommissionStrategy implements java.io.Serializable {
 

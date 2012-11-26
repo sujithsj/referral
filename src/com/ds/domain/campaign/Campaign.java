@@ -56,6 +56,10 @@ public class Campaign implements java.io.Serializable {
   @Column(name = "DELETED", length = 1, nullable = false)
   private Boolean deleted = false;
 
+  @Version
+  @Column(name = "LOCK_VERSION", nullable = false)
+  private Long version;
+
   public Long getId() {
     return this.id;
   }
@@ -143,6 +147,14 @@ public class Campaign implements java.io.Serializable {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public Long getVersion() {
+    return version;
+  }
+
+  public void setVersion(Long version) {
+    this.version = version;
   }
 }
 

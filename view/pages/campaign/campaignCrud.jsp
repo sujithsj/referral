@@ -42,7 +42,7 @@
         <div class="control-group">
           <s:label class="control-label" name="Campaign Type"/>
           <div class="controls ">
-            <s:select name="campaignDTO.campaignTypeId" >
+            <s:select name="campaignDTO.campaignTypeId">
               <c:forEach items="<%=EnumCampaignType.getAllCampaignTypes()%>" var="pType">
                 <s:option value="${pType.id}">${pType.type}</s:option>
               </c:forEach>
@@ -98,49 +98,54 @@
         <div class="control-group" id="oneTimeCommDiv">
           <s:label class="control-label" name="Commission"/>
           <div class="controls">
+            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
             <s:text name="commissionPlanDTO.oneTimeCom"/>
           </div>
         </div>
 
-        <div class="control-group">
-          <s:label class="control-label" name="Start Date"/>
-          <div class="controls">
-            <s:text name="campaignDTO.startDate"/>
-          </div>
-        </div>
+        <input type="button" id="advControlBtn" value="Advanced Settings">
 
-        <div class="control-group">
-          <s:label class="control-label" name="End Date"/>
-          <div class="controls">
-            <s:text name="campaignDTO.endDate"/>
+        <div id="advanceControls">
+          <div class="control-group">
+            <s:label class="control-label" name="Start Date"/>
+            <div class="controls">
+              <s:text name="campaignDTO.startDate"/>
+            </div>
           </div>
-        </div>
 
-        <div class="control-group">
-          <s:label class="control-label" name="Is this a private campaign ?"/>
-          <div class="controls">
-            <s:checkbox name="campaignDTO.visibleToAll"/>
+          <div class="control-group">
+            <s:label class="control-label" name="End Date"/>
+            <div class="controls">
+              <s:text name="campaignDTO.endDate"/>
+            </div>
           </div>
-        </div>
 
-        <div class="control-group">
-          <s:label class="control-label" name="Limit recurring commissions by period: (optional)"/>
-          <div class="controls">
-            <s:text name="commissionPlanDTO.limitRecurCommDays"/>
+          <div class="control-group">
+            <s:label class="control-label" name="Is this a private campaign ?"/>
+            <div class="controls">
+              <s:checkbox name="campaignDTO.visibleToAll"/>
+            </div>
           </div>
-        </div>
 
-        <div class="control-group">
-          <s:label class="control-label" name="Limit recurring commissions by number of renewals: (optional)"/>
-          <div class="controls">
-            <s:text name="commissionPlanDTO.limitRecurCommTxn"/>
+          <div class="control-group">
+            <s:label class="control-label" name="Limit recurring commissions by period: (optional)"/>
+            <div class="controls">
+              <s:text name="commissionPlanDTO.limitRecurCommDays"/>
+            </div>
           </div>
-        </div>
 
-        <div class="control-group">
-          <s:label class="control-label" name="Automatically approve commissions"/>
-          <div class="controls">
-            <s:checkbox name="commissionPlanDTO.autoApproveComm"/>
+          <div class="control-group">
+            <s:label class="control-label" name="Limit recurring commissions by number of renewals: (optional)"/>
+            <div class="controls">
+              <s:text name="commissionPlanDTO.limitRecurCommTxn"/>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <s:label class="control-label" name="Automatically approve commissions"/>
+            <div class="controls">
+              <s:checkbox name="commissionPlanDTO.autoApproveComm" />
+            </div>
           </div>
         </div>
 

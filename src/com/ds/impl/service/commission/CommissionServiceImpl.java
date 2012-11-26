@@ -20,6 +20,8 @@ public class CommissionServiceImpl implements CommissionService {
   @Autowired
   private BaseDao baseDao;
 
+  
+
   @Override
   public CommissionPlan getCommissionPlanById(Long commissionPlanId) {
     if (commissionPlanId == null) {
@@ -90,7 +92,7 @@ public class CommissionServiceImpl implements CommissionService {
     if (commissionCurrecnyId == null) {
       throw new InvalidParameterException("COMMISSION_CURRENCY_ID_CANNOT_BE_BLANK");
     }
-    return (CommissionCurrency) getBaseDao().findUniqueByNamedQueryAndNamedParam("getCommissionCurrencyById", new String[]{"commissionCurrecnyId"}, new Object[]{commissionCurrecnyId});
+    return (CommissionCurrency) getBaseDao().findUniqueByNamedQueryAndNamedParam("getCommissionCurrencyById", new String[]{"commissionCurrencyId"}, new Object[]{commissionCurrecnyId});
 
   }
 

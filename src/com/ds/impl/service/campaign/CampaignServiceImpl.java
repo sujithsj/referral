@@ -87,7 +87,7 @@ public class CampaignServiceImpl implements CampaignService {
     }
     campaignDTO.syncToCampaign(campaign);
 
-    if (campaign.getEndDate().compareTo(campaign.getStartDate()) == -1) {
+    if (campaign.getStartDate() !=null && campaign.getEndDate() !=null && campaign.getEndDate().compareTo(campaign.getStartDate()) == -1) {
       throw new ValidationException("endDate", "End Date cannot be less than start date");
     }
     /**
@@ -96,7 +96,7 @@ public class CampaignServiceImpl implements CampaignService {
     if (campaign.isPrivate() == null) {
       campaign.setPrivate(false);
     }
-    if (campaign.isActive() == null || campaign.getStartDate().compareTo(new Date()) == 1) {
+    if (campaign.isActive() == null || (campaign.getStartDate() !=null && campaign.getStartDate().compareTo(new Date()) == 1)) {
       campaign.setActive(true);
     }
     if (campaign.isDeleted() == null) {
