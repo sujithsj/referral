@@ -3,7 +3,7 @@
 <s:layout-render name="/templates/general.jsp">
 
   <s:layout-component name="content">
-    <s:useActionBean beanclass="com.ds.action.affiliate.AffiliateGroupAction" var="affiliateGroupAction"/>
+    <s:useActionBean beanclass="com.ds.action.affiliate.CompanyAffiliateGroupAction" var="affiliateGroupAction"/>
     <div class="content-outer wrap">
       <div class="col_12">
         <div id="page-heading">

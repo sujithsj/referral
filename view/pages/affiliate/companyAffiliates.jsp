@@ -24,7 +24,7 @@
 								<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateAction"
 								        event="createOrEditCompanyAffiliate" class="btn btn-primary">Add New Affiliate
 								</s:link>
-								<s:link beanclass="com.ds.action.affiliate.AffiliateGroupSearchAction" class="btn btn-primary">Groups
+								<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupSearchAction" class="btn btn-primary">Groups
 								</s:link>
 							</div>
 						</div>
