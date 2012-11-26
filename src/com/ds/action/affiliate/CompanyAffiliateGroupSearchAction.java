@@ -24,7 +24,7 @@ import net.sourceforge.stripes.action.DefaultHandler;
  * Time: 6:01:51 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AffiliateGroupSearchAction extends BasePaginatedAction {
+public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 
 	private String login;
 	private String name;

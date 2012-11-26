@@ -4,7 +4,7 @@
 
 	<%--<s:layout-component name="heading">Split Base Order Manually</s:layout-component>--%>
 	<s:layout-component name="content">
-		<s:useActionBean beanclass="com.ds.action.affiliate.AffiliateGroupSearchAction" var="affiliateGroupSearchAction"/>
+		<s:useActionBean beanclass="com.ds.action.affiliate.CompanyAffiliateGroupSearchAction" var="affiliateGroupSearchAction"/>
 		<div class="container">
 
 				<%--<s:layout-render name="${pageContext.request.contextPath}/includes/menu/setupSidebar.jsp"/>--%>
@@ -21,7 +21,7 @@
 								<p class="lead">Affiliate Groups</p>
 							</div>
 							<div class="span3 offset2">
-								<s:link beanclass="com.ds.action.affiliate.AffiliateGroupAction"
+								<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupAction"
 								        event="createOrEditAffiliateGroup" class="btn btn-primary">Add New Group
 								</s:link>
 							</div>
@@ -35,7 +35,7 @@
 
 					<fieldset>
 						<legend><em>Filter Groups</em></legend>
-						<s:form beanclass="com.ds.action.affiliate.AffiliateGroupSearchAction" class="form-inline"
+						<s:form beanclass="com.ds.action.affiliate.CompanyAffiliateGroupSearchAction" class="form-inline"
 						        style="margin-bottom:10px;">
 							<s:label name="Group name"/>
 							<s:text name="name" />
@@ -64,7 +64,7 @@
 								<td>${companyAffiliate.description}</td>
 								<td>4</td>
 								<td>
-									<%--<s:link beanclass="com.ds.action.affiliate.AffiliateGroupAction"
+									<%--<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupActionpAction"
 									        event="createOrEditAffiliateGroup" class="button blue small">
 										<span class="icon white small" data-icon="7"></span>Edit
 										<s:param name="affiliateGroupId" value="${affiliateGroup.id}"/>

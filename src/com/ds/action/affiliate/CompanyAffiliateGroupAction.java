@@ -30,7 +30,7 @@ import java.util.Set;
  * Time: 12:00:04 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AffiliateGroupAction extends BaseAction {
+public class CompanyAffiliateGroupAction extends BaseAction {
 
 	private String DEFAULT_USER_PWD = "password";
 
@@ -98,11 +98,9 @@ public class AffiliateGroupAction extends BaseAction {
 
 	public CompanyAffiliateDTO createNewAffiliate() {
 
-		//Company company = getAdminService().getCompany(companyShortName);
 		getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getAffiliateService().affiliatesCount(companyShortName) + 1);
 
 		companyAffiliateDTO = new CompanyAffiliateDTO();
-		//companyAffiliateDTO.setCompanyShortName(companyShortName);
 		return companyAffiliateDTO;
 	}
 
@@ -121,12 +119,10 @@ public class AffiliateGroupAction extends BaseAction {
 		if (affiliate == null) {
 			existingAffiliate = false;
 		}
-		//affiliate = companyAffiliateDTO.extractCompanyAffiliate(affiliate);
 		System.out.println("affiliate about to be saved -> " + affiliate.getLogin());
 		try {
 			affiliate = getAffiliateService().saveNewAffiliate(affiliate);
 		} catch (CompositeValidationException cve) {
-			//return
 			cve.printStackTrace();
 		}
 		if (!existingAffiliate) {
@@ -134,7 +130,6 @@ public class AffiliateGroupAction extends BaseAction {
 			getAffiliateService().sendWelcomeEmail(affiliate);
 		}
 
-		//UserSettings userSettings = userDTOForUpdate.extactUserSettings();
 		return new ForwardResolution("/pages/affiliate/companyAffiliates.jsp");
 	}
 
@@ -150,22 +145,6 @@ public class AffiliateGroupAction extends BaseAction {
 	}
 
 
-	/*public Resolution deleteEmployee() {
-		getAdminService().deleteEmployee(employeeId);
-		return new ForwardResolution("/pages/setup.jsp");
-	}*/
-
-
-	/*public Resolution deleteEmployeeRole() {
-		User user = getAdminService().getUser(employeeId);
-		if (user != null) {
-			getSecurityAPI().revokeRolesFromUser(user, "admin".equals(roleName) ? Role.RoleType.admin : Role.RoleType.moderator);
-			getCacheAPI().remove(CacheAPI.CacheConfig.USER_CACHE, employeeId);
-
-		}
-
-		return new ForwardResolution("/pages/setup.jsp");
-	}*/
 
 	public AdminService getAdminService() {
 		return adminService;
@@ -190,16 +169,6 @@ public class AffiliateGroupAction extends BaseAction {
 	public SecurityAPI getSecurityAPI() {
 		return securityAPI;
 	}
-
-/*
-	public String getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
-	}
-*/
 
 	public String getRoleName() {
 		return roleName;
