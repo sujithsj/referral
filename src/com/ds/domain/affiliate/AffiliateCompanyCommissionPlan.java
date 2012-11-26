@@ -20,7 +20,7 @@ public class AffiliateCompanyCommissionPlan extends BaseDataObject{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "AFFILIATE_COMPANY_ID", nullable = false)
-	private AffiliateCompany affiliateCompany;
+	private CompanyAffiliate companyAffiliate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COMMISSION_PLAN_ID", nullable = false)
@@ -34,12 +34,12 @@ public class AffiliateCompanyCommissionPlan extends BaseDataObject{
 		this.id = id;
 	}
 
-	public AffiliateCompany getAffiliateCompany() {
-		return this.affiliateCompany;
+	public CompanyAffiliate getAffiliateCompany() {
+		return this.companyAffiliate;
 	}
 
-	public void setAffiliateCompany(AffiliateCompany affiliateCompany) {
-		this.affiliateCompany = affiliateCompany;
+	public void setAffiliateCompany(CompanyAffiliate companyAffiliate) {
+		this.companyAffiliate = companyAffiliate;
 	}
 
 	public CommissionPlan getCommissionPlan() {

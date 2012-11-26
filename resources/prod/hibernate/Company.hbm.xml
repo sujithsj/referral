@@ -36,14 +36,5 @@
 		</set>
 		<one-to-one name="companySettings" class="com.ds.domain.company.CompanySettings" property-ref="company"
 		            cascade="all" lazy="false"/>
-
-		<set name="affiliates" table="AFFILIATE_COMPANY" lazy="false">
-			<key column="COMPANY_SHORTNAME"/>
-			<many-to-many class="com.ds.domain.affiliate.Affiliate" column="AFFILIATE_ID"/>
-		</set>
-		<set name="affiliateCompanies" table="AFFILIATE_COMPANY" lazy="false">
-			<key column="COMPANY_SHORTNAME"/>
-			<one-to-many class="com.ds.domain.affiliate.AffiliateCompany"/>
-		</set>
 	</class>
 </hibernate-mapping>

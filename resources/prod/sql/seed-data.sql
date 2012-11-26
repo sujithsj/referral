@@ -42,7 +42,7 @@ INSERT INTO PERMISSION(ID,NAME) VALUES (26,'UNPUBLISH_ANNOUNCEMENT');
 
 
 
---Data for Role-Permission
+-- Data for Role-Permission
 INSERT INTO ROLE_PERMISSION(ROLE_NAME,PERMISSION_ID) VALUES('admin',1);
 INSERT INTO ROLE_PERMISSION(ROLE_NAME,PERMISSION_ID) VALUES('admin',2);
 INSERT INTO ROLE_PERMISSION(ROLE_NAME,PERMISSION_ID) VALUES('admin',3);
@@ -112,4 +112,6 @@ INSERT INTO
 		(11,'ENTERPRISE-JavascriptVariables','JavascriptVariables',1,2),
 		(12,'ENTERPRISE-EmailNotifications','EmailNotifications',1,2),
 		(13,'ENTERPRISE-DomainAliasing','DomainAliasing',1,2),
-		(14,'ENTERPRISE-AnalyticsSupport','AnalyticsSupport',1,2);		
+		(14,'ENTERPRISE-AnalyticsSupport','AnalyticsSupport',1,2),
+		(15, 'AffiliateCount', 'AffiliateCount',1000, 1),
+		(16, 'AffiliateCount', 'AffiliateCount',1000, 2);

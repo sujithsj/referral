@@ -56,7 +56,7 @@
     <mapping class="com.ds.domain.marketing.MarketingMaterial"/>
     <mapping class="com.ds.domain.marketing.MarketingMaterialType"/>
     <mapping class="com.ds.domain.affiliate.Affiliate"/>
-    <mapping class="com.ds.domain.affiliate.AffiliateCompany"/>
+    <mapping class="com.ds.domain.affiliate.CompanyAffiliate"/>
     <mapping class="com.ds.domain.affiliate.AffiliateCompanyCommissionPlan"/>
     <mapping class="com.ds.domain.affiliate.AffiliateGroup"/>
     <mapping class="com.ds.domain.affiliate.AffiliateSetting"/>

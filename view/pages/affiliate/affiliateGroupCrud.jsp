@@ -3,21 +3,21 @@
 <s:layout-render name="/templates/general.jsp">
 
   <s:layout-component name="content">
-    <s:useActionBean beanclass="com.ds.action.affiliate.AffiliateAction" var="affiliateAction"/>
+    <s:useActionBean beanclass="com.ds.action.affiliate.AffiliateGroupAction" var="affiliateGroupAction"/>
     <div class="content-outer wrap">
       <div class="col_12">
         <div id="page-heading">
 	        <c:choose>
-		        <c:when test="${affiliateAction.affiliateId != null}">
-			        <h4>Edit Affiliate</h4>
+		        <c:when test="${affiliateGroupAction.affiliateId != null}">
+			        <h4>Edit Group</h4>
 		        </c:when>
 		        <c:otherwise>
-			        <h4>Create Affiliate</h4>
+			        <h4>Create Group</h4>
 		        </c:otherwise>
 	        </c:choose>
         </div>
 
-        <s:form beanclass="com.ds.action.affiliate.AffiliateAction" class="vertical">
+        <s:form beanclass="com.ds.action.affiliate.CompanyAffiliateAction" class="vertical">
           <div class="col_6">
 
             <s:label name="Login"/>
@@ -53,12 +53,12 @@
           <div class="col_2">
             <s:hidden name="affiliateId"/>
             <s:hidden name="companyShortName" value="${affiliateAction.companyShortName}"/>
-            <s:submit name="updateAffiliate" value="Save Changes" class="button blue small"/>
+            <s:submit name="saveAffiliate" value="Save Changes" class="button blue small"/>
           </div>
 
 
           <div class="col_2">
-            <s:link beanclass="com.ds.action.affiliate.AffiliateSearchAction" 
+            <s:link beanclass="com.ds.action.affiliate.CompanyAffiliateSearchAction"
                     class="button blue small"><span class="icon white small" data-icon=":"></span>Back</s:link>
           </div>
         </s:form>

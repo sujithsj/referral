@@ -1,4 +1,4 @@
-package com.ds.impl.service.admin;
+package com.ds.impl.service.affiliate;
 
 import com.ds.api.AdminAPI;
 import com.ds.api.CacheAPI;
@@ -6,24 +6,25 @@ import com.ds.api.FeatureAPI;
 import com.ds.core.event.EmailEvent;
 import com.ds.core.event.EventDispatcher;
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.AffiliateCompany;
+import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
-import com.ds.domain.user.UserSettings;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.DSException;
 import com.ds.exception.ValidationException;
 import com.ds.impl.service.ServiceLocatorFactory;
+import com.ds.impl.service.admin.AdminServiceImpl;
 import com.ds.impl.service.mail.AffiliateContext;
 import com.ds.pact.dao.AdminDAO;
-import com.ds.pact.dao.affiliate.AffiliateDAO;
+import com.ds.pact.dao.affiliate.AffiliateDao;
 import com.ds.pact.service.HttpService;
-import com.ds.pact.service.admin.AffiliateService;
+import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.admin.LoadPropertyService;
 import com.ds.pact.service.core.SearchService;
 import com.ds.pact.service.mail.EmailTemplateService;
 import com.ds.pact.service.mail.MailService;
 import com.ds.search.impl.AffiliateQuery;
+import com.ds.search.impl.AffiliateGroupQuery;
 import com.ds.security.api.SecurityAPI;
 import com.ds.web.action.Page;
 import org.apache.commons.lang.StringUtils;
@@ -35,7 +36,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,7 +58,7 @@ public class AffiliateServiceImpl implements AffiliateService {
 	@Autowired
 	private AdminDAO adminDAO;
 	@Autowired
-	private AffiliateDAO affiliateDAO;
+	private AffiliateDao affiliateDao;
 	@Autowired
 	private HttpService httpService;
 	@Autowired
@@ -90,7 +90,7 @@ public class AffiliateServiceImpl implements AffiliateService {
 
 	@Override
 	@Transactional
-	public Affiliate saveAffiliate(Affiliate affiliate) {
+	public Affiliate saveNewAffiliate(Affiliate affiliate) {
 
 		CompositeValidationException compositeValidationException = new CompositeValidationException();
 		validateAffiliate(affiliate, compositeValidationException, null);
@@ -98,7 +98,13 @@ public class AffiliateServiceImpl implements AffiliateService {
 			logger.error("Error while adding affiliate ", compositeValidationException);
 			throw compositeValidationException;
 		}
-		return affiliateDAO.saveAffiliate(affiliate);
+		return affiliateDao.saveAffiliate(affiliate);
+	}
+
+	@Override
+	@Transactional
+	public Affiliate updateAffiliate(Affiliate affiliate) {
+		return affiliateDao.saveAffiliate(affiliate);
 	}
 
 
@@ -175,10 +181,7 @@ public class AffiliateServiceImpl implements AffiliateService {
 	}
 
 
-	@Override
-	public List<Company> getAllCompanies() {
-		return getAdminDAO().getAll(Company.class);
-	}
+
 
 	/**
 	 * @return the securityAPI
@@ -266,10 +269,6 @@ public class AffiliateServiceImpl implements AffiliateService {
 		return Boolean.TRUE;
 	}
 
-	@Override
-	public UserSettings getUserSettings(String username) {
-		return getAdminDAO().getUserSettings(username);
-	}
 
 	/**
 	 * @return the adminAPI
@@ -310,17 +309,26 @@ public class AffiliateServiceImpl implements AffiliateService {
 		//return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 
+
+	@Override
+	public Page searchAffiliateGroup(String name, String companyShortName, int pageNo, int perPage) {
+
+		AffiliateGroupQuery affiliateGroupQuery = new AffiliateGroupQuery();
+		affiliateGroupQuery.setCompanyShortName(companyShortName).setName(name).setOrderByField("name").setPageNo(pageNo).setRows(perPage);
+		return getSearchService().list(affiliateGroupQuery);
+	}
+
 	/**
 	 * @param affiliate
 	 * @param companyShortName
 	 */
 	@Override
 	@Transactional
-	public AffiliateCompany saveAffiliateCompany(Affiliate affiliate, String companyShortName) {
-		AffiliateCompany affiliateCompany = new AffiliateCompany();
-		affiliateCompany.setAffiliate(affiliate);
-		affiliateCompany.setCompanyShortName(companyShortName);
-		return affiliateDAO.saveAffiliateCompany(affiliateCompany);
+	public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName) {
+		CompanyAffiliate companyAffiliate = new CompanyAffiliate();
+		companyAffiliate.setAffiliate(affiliate);
+		companyAffiliate.setCompanyShortName(companyShortName);
+		return affiliateDao.saveAffiliateCompany(companyAffiliate);
 
 	}
 
@@ -460,12 +468,12 @@ public class AffiliateServiceImpl implements AffiliateService {
 		return logger;
 	}
 
-	public AffiliateDAO getAffiliateDAO() {
-		return affiliateDAO;
+	public AffiliateDao getAffiliateDAO() {
+		return affiliateDao;
 	}
 
-	public void setAffiliateDAO(AffiliateDAO affiliateDAO) {
-		this.affiliateDAO = affiliateDAO;
+	public void setAffiliateDAO(AffiliateDao affiliateDao) {
+		this.affiliateDao = affiliateDao;
 	}
 
 	public SearchService getSearchService() {

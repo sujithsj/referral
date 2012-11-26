@@ -1,7 +1,7 @@
-package com.ds.pact.service.admin;
+package com.ds.pact.service.affiliate;
 
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.AffiliateCompany;
+import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.company.Company;
 import com.ds.domain.user.UserSettings;
 import com.ds.exception.DSException;
@@ -25,8 +25,14 @@ public interface AffiliateService {
 	 *
 	 * @param affiliate
 	 */
-	public Affiliate saveAffiliate(Affiliate affiliate);
+	public Affiliate saveNewAffiliate(Affiliate affiliate);
 
+	/**
+	 *
+	 * @param affiliate
+	 * @return
+	 */
+	public Affiliate updateAffiliate(Affiliate affiliate);
 
 	/**
 	 * Finds the company corresponding to the companyShortName
@@ -34,20 +40,6 @@ public interface AffiliateService {
 	 * @return company
 	 */
 	public Company getCompany(String companyShortName) throws InvalidParameterException;
-
-	/**
-	 * Gets the UserSettings corresponding to the username
-	 *
-	 * @return UserSettings
-	 */
-	public UserSettings getUserSettings(String username);
-
-	/**
-	 * Get a list of all the companies in the system.
-	 *
-	 * @return
-	 */
-	public List<Company> getAllCompanies();
 
 	/**
 	 * Update any entity, possibly a company or user in context of this service.
@@ -95,7 +87,7 @@ public interface AffiliateService {
 	public Page searchAffiliate(String login, String email, String companyShortName, int pageNo, int perPage);
 
 
-	public AffiliateCompany saveAffiliateCompany(Affiliate affiliate, String companyShortName);
+	public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName);
 
 	public void sendWelcomeEmail(Affiliate affiliate);
 
@@ -104,4 +96,6 @@ public interface AffiliateService {
 	public boolean isAffiliateLoginTaken(String login);
 
 	public Affiliate getAffiliateByLogin(String login);
+
+    public Page searchAffiliateGroup(String name, String companyShortName, int pageNo, int perPage);
 }

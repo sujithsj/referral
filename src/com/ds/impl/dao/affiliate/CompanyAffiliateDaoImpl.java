@@ -1,28 +1,30 @@
-package com.ds.impl.dao;
+package com.ds.impl.dao.affiliate;
 
-import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.AffiliateCompany;
+import com.ds.impl.dao.BaseDaoImpl;
+import com.ds.pact.dao.affiliate.CompanyAffiliateDao;
 import com.ds.domain.company.Company;
-import com.ds.domain.core.Plan;
+import com.ds.domain.affiliate.Affiliate;
+import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
-import com.ds.pact.dao.affiliate.AffiliateDAO;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Repository;
+import com.ds.domain.core.Plan;
 
 import java.util.List;
 import java.security.InvalidParameterException;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Repository;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Rahul
- * Date: Oct 22, 2012
- * Time: 12:37:35 AM
+ * Date: Nov 18, 2012
+ * Time: 4:12:05 PM
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class AffiliateDAOImpl extends BaseDaoImpl implements AffiliateDAO {
+public class CompanyAffiliateDaoImpl extends BaseDaoImpl implements CompanyAffiliateDao {
 
 	@Override
 	public Company saveCompany(Company company) {
@@ -35,8 +37,8 @@ public class AffiliateDAOImpl extends BaseDaoImpl implements AffiliateDAO {
 	}
 
 	@Override
-	public AffiliateCompany saveAffiliateCompany(AffiliateCompany affiliateCompany) {
-		return (AffiliateCompany) save(affiliateCompany);
+	public CompanyAffiliate saveCompanyAffiliate(CompanyAffiliate companyAffiliate) {
+		return (CompanyAffiliate) save(companyAffiliate);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -118,7 +120,7 @@ public class AffiliateDAOImpl extends BaseDaoImpl implements AffiliateDAO {
 	public boolean isAffiliateLoginTaken(String login){
 		List results = findByQuery("select 1 from Affiliate where login=?", new Object[] {login});
 		return !results.isEmpty();
-		
+
 	}
 
 	@Override
@@ -131,6 +133,5 @@ public class AffiliateDAOImpl extends BaseDaoImpl implements AffiliateDAO {
 		}
 		return affiliate;
 	}
-
 
 }
