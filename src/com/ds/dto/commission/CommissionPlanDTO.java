@@ -18,10 +18,13 @@ public class CommissionPlanDTO {
   private Double oneTimeCom;
   private Double initCom;
   private Double recurCom;
+  private Double tier1OneTimeCom;
   private Double tier1InitCom;
   private Double tier1RecurCom;
+  private Double tier2OneTimeCom;
   private Double tier2InitCom;
   private Double tier2RecurCom;
+  private Double tier3OneTimeCom;
   private Double tier3InitCom;
   private Double tier3RecurCom;
   private Long limitRecurCommDays;
@@ -47,10 +50,13 @@ public class CommissionPlanDTO {
     this.oneTimeCom = commissionPlan.getOneTimeCom();
     this.initCom = commissionPlan.getInitCom();
     this.recurCom = commissionPlan.getRecurCom();
+    this.tier1OneTimeCom = commissionPlan.getTier1OneTimeCom();
     this.tier1InitCom = commissionPlan.getTier1InitCom();
     this.tier1RecurCom = commissionPlan.getTier2RecurCom();
+    this.tier2OneTimeCom = commissionPlan.getTier2OneTimeCom();
     this.tier2InitCom = commissionPlan.getTier2InitCom();
     this.tier2RecurCom = commissionPlan.getTier2RecurCom();
+    this.tier3OneTimeCom = commissionPlan.getTier3OneTimeCom();
     this.tier3InitCom = commissionPlan.getTier3InitCom();
     this.tier3RecurCom = commissionPlan.getTier3RecurCom();
     this.limitRecurCommDays = commissionPlan.getLimitRecurCommDays();
@@ -72,10 +78,13 @@ public class CommissionPlanDTO {
     commissionPlan.setOneTimeCom(this.oneTimeCom);
     commissionPlan.setInitCom(this.initCom);
     commissionPlan.setRecurCom(this.recurCom);
+    commissionPlan.setTier1OneTimeCom(this.tier1OneTimeCom);
     commissionPlan.setTier1InitCom(this.tier1InitCom);
     commissionPlan.setTier1RecurCom(this.tier1RecurCom);
+    commissionPlan.setTier2OneTimeCom(this.tier2OneTimeCom);
     commissionPlan.setTier2InitCom(this.tier2InitCom);
     commissionPlan.setTier2RecurCom(this.tier2RecurCom);
+    commissionPlan.setTier3OneTimeCom(this.tier3OneTimeCom);
     commissionPlan.setTier3InitCom(this.tier3InitCom);
     commissionPlan.setTier3RecurCom(this.tier3RecurCom);
     commissionPlan.setLimitRecurCommDays(this.limitRecurCommDays);
@@ -231,5 +240,29 @@ public class CommissionPlanDTO {
 
   public void setOneTimeCom(Double oneTimeCom) {
     this.oneTimeCom = oneTimeCom;
+  }
+
+  public Double getTier1OneTimeCom() {
+    return tier1OneTimeCom;
+  }
+
+  public void setTier1OneTimeCom(Double tier1OneTimeCom) {
+    this.tier1OneTimeCom = tier1OneTimeCom;
+  }
+
+  public Double getTier2OneTimeCom() {
+    return tier2OneTimeCom;
+  }
+
+  public void setTier2OneTimeCom(Double tier2OneTimeCom) {
+    this.tier2OneTimeCom = tier2OneTimeCom;
+  }
+
+  public Double getTier3OneTimeCom() {
+    return tier3OneTimeCom;
+  }
+
+  public void setTier3OneTimeCom(Double tier3OneTimeCom) {
+    this.tier3OneTimeCom = tier3OneTimeCom;
   }
 }
