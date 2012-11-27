@@ -22,6 +22,18 @@ $(document).ready(function() {
         $("#tier1OneTimeRevShareDiv").hide();
         $("#tier1OneTimeCommDiv").hide();
       }
+      if (tier2Visible) {
+        $("#tier2RecurRevShareDiv").show();
+        $("#tier2RecurCommDiv").hide();
+        $("#tier2OneTimeRevShareDiv").hide();
+        $("#tier2OneTimeCommDiv").hide();
+      }
+      if (tier2Visible) {
+        $("#tier3RecurRevShareDiv").show();
+        $("#tier3RecurCommDiv").hide();
+        $("#tier3OneTimeRevShareDiv").hide();
+        $("#tier3OneTimeCommDiv").hide();
+      }
       $("#recurRevShareDiv").show();
       $("#recurCommDiv").hide();
       $("#oneTimeRevShareDiv").hide();
@@ -33,6 +45,18 @@ $(document).ready(function() {
         $("#tier1RecurCommDiv").show();
         $("#tier1OneTimeRevShareDiv").hide();
         $("#tier1OneTimeCommDiv").hide();
+      }
+      if (tier2Visible) {
+        $("#tier2RecurRevShareDiv").hide();
+        $("#tier2RecurCommDiv").show();
+        $("#tier2OneTimeRevShareDiv").hide();
+        $("#tier2OneTimeCommDiv").hide();
+      }
+      if (tier3Visible) {
+        $("#tier3RecurRevShareDiv").hide();
+        $("#tier3RecurCommDiv").show();
+        $("#tier3OneTimeRevShareDiv").hide();
+        $("#tier3OneTimeCommDiv").hide();
       }
       $("#recurRevShareDiv").hide();
       $("#recurCommDiv").show();
@@ -46,6 +70,18 @@ $(document).ready(function() {
           $("#tier1OneTimeRevShareDiv").show();
           $("#tier1OneTimeCommDiv").hide();
         }
+        if (tier2Visible) {
+          $("#tier2RecurRevShareDiv").hide();
+          $("#tier2RecurCommDiv").hide();
+          $("#tier2OneTimeRevShareDiv").show();
+          $("#tier2OneTimeCommDiv").hide();
+        }
+        if (tier3Visible) {
+          $("#tier3RecurRevShareDiv").hide();
+          $("#tier3RecurCommDiv").hide();
+          $("#tier3OneTimeRevShareDiv").show();
+          $("#tier3OneTimeCommDiv").hide();
+        }
         $("#recurRevShareDiv").hide();
         $("#recurCommDiv").hide();
         $("#oneTimeRevShareDiv").show();
@@ -58,12 +94,38 @@ $(document).ready(function() {
             $("#tier1OneTimeRevShareDiv").hide();
             $("#tier1OneTimeCommDiv").show();
           }
+          if (tier2Visible) {
+            $("#tier2RecurRevShareDiv").hide();
+            $("#tier2RecurCommDiv").hide();
+            $("#tier2OneTimeRevShareDiv").hide();
+            $("#tier2OneTimeCommDiv").show();
+          }
+          if (tier3Visible) {
+            $("#tier3RecurRevShareDiv").hide();
+            $("#tier3RecurCommDiv").hide();
+            $("#tier3OneTimeRevShareDiv").hide();
+            $("#tier3OneTimeCommDiv").show();
+          }
           $("#recurRevShareDiv").hide();
           $("#recurCommDiv").hide();
           $("#oneTimeRevShareDiv").hide();
           $("#oneTimeCommDiv").show();
         }
   }
+
+  $("#addTierBtn").click(function() {
+    var tier2Visible = $("#tier2Comm").is(":visible");
+    var tier3Visible = $("#tier3Comm").is(":visible");
+
+    if (!tier2Visible) {
+      $("#tier2Comm").show();
+    } else {
+      $("#tier3Comm").show();
+      $("#addTierBtn").hide();
+    }
+    var type = $("#commStSel").val();
+    setCommissionViews(type);
+  });
 
   $("#tiered").click(function() {
     var isTiered = $(this).is(':checked');
@@ -76,6 +138,16 @@ $(document).ready(function() {
       $("#nonTierCommision").show();
     }
     setCommissionViews(type);
+  });
+
+
+  $("#hideTier2Btn").click(function() {
+    $("#tier2Comm").hide();
+  });
+  
+  $("#hideTier3Btn").click(function() {
+    $("#tier3Comm").hide();
+    $("#addTierBtn").show();
   });
 
   $("#recurRevShareDiv").show();
@@ -94,4 +166,16 @@ $(document).ready(function() {
   $("#tier1RecurCommDiv").hide();
   $("#tier1OneTimeRevShareDiv").hide();
   $("#tier1OneTimeCommDiv").hide();
+
+
+  $("#tier2RecurRevShareDiv").show();
+  $("#tier2RecurCommDiv").hide();
+  $("#tier2OneTimeRevShareDiv").hide();
+  $("#tier2OneTimeCommDiv").hide();
+
+
+  $("#tier3RecurRevShareDiv").show();
+  $("#tier3RecurCommDiv").hide();
+  $("#tier3OneTimeRevShareDiv").hide();
+  $("#tier3OneTimeCommDiv").hide();
 });

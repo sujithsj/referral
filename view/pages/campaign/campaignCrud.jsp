@@ -69,7 +69,7 @@
 </div>
 
 <div id="tieredCommission">
-  <div id="tier1Comm">
+  <div id="tier1Comm" class="control-group">
     <fieldset>
       <legend>Tier 1</legend>
 
@@ -120,6 +120,8 @@
     <fieldset>
       <legend>Tier 2</legend>
 
+      <input type="button" id="hideTier2Btn" value="Hide Tier">
+
       <div class="control-group" id="tier2RecurRevShareDiv">
         <s:label class="control-label" name="Initial Revenue share"/>
         <div class="controls ">
@@ -167,6 +169,8 @@
     <fieldset>
       <legend>Tier 3</legend>
 
+      <input type="button" id="hideTier3Btn" value="Hide Tier">
+
       <div class="control-group" id="tier3RecurRevShareDiv">
         <s:label class="control-label" name="Initial Revenue share"/>
         <div class="controls ">
@@ -210,7 +214,7 @@
       </div>
     </fieldset>
   </div>
-     <input type="button" id="addTierBtn" value="Add Tier">
+  <input type="button" id="addTierBtn" value="Add Tier">
 </div>
 
 <div id="nonTierCommision">

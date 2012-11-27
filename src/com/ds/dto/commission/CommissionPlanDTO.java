@@ -121,6 +121,10 @@ public class CommissionPlanDTO {
     return tiered;
   }
 
+  public Boolean getTiered(){
+    return tiered;
+  }
+
   public void setTiered(Boolean tiered) {
     this.tiered = tiered;
   }
