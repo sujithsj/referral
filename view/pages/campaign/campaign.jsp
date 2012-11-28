@@ -42,11 +42,13 @@
 
               <div class="btn-toolbar">
                 <div class="btn-group">
-
+                                                                                
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.ALL.getId()%>">All</a>
                   <a class="btn cpType" href="#" type="<%=EnumCampaignType.SALE.getId()%>">Sale</a>
                   <a class="btn cpType" href="#" type="<%=EnumCampaignType.EMAIL_OPT_IN.getId()%>">Email Opt In</a>
-                  <a class="btn cpTyMape" href="#" type="<%=EnumCampaignType.USER_SIGN_UP.getId()%>">User Sign Up</a>
-                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.AFFILIATE_SIGN_UP.getId()%>">Affiliate Sign Up</a>
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.USER_SIGN_UP.getId()%>">User Sign Up</a>
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.AFFILIATE_SIGN_UP.getId()%>">Affiliate Sign
+                    Up</a>
                 </div>
               </div>
 
@@ -78,7 +80,12 @@
               <tr>
                 <td>${campaign.name}</td>
                 <td>${campaign.campaignType.type}</td>
-                <%--<td>${campaign.ac}</td>--%>
+                <td>${campaign.active}</td>
+                <td>${campaign.commissionPlan.commissionStrategy.name}</td>
+                <td>$Approved Commision</td>
+                <td>$Pending Commision</td>
+                <td>${campaign.startDate}</td>
+                <td>${campaign.endDate}</td>
                 <td>
                   <s:link beanclass="com.ds.action.campaign.CampaignAction"
                           event="createOrEditCampaign" class="button blue small">
@@ -108,7 +115,23 @@
     <script type="text/javascript">
 
       $(document).ready(function() {
-       
+        $('.cpType').click(function(event) {
+          var type = $(this).attr('type');
+          $("#campaignType").val(type);
+          var searchForm = $("#campaignSearchForm")[0];
+          var actionUrl = searchForm.action;
+          actionUrl += '?searchCampaign';
+          searchForm.action = actionUrl;
+          searchForm.submit();
+        });
+
+        $.each($(".cpType"), function(index, value) {
+          var type = $(this).attr('type');
+          var selType = $("#campaignType").val();
+          if (selType === type) {
+            $(this).addClass('disabled');
+          }
+        });
       });
 
     </script>

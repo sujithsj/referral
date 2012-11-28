@@ -117,6 +117,11 @@ public class Campaign implements java.io.Serializable {
     isPrivate = aPrivate;
   }
 
+
+  public Boolean getActive() {
+    return active;
+  }
+
   public Boolean isActive() {
     return active;
   }

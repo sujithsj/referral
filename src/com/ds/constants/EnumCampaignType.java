@@ -11,6 +11,7 @@ import java.util.List;
  */
 public enum EnumCampaignType {
 
+  ALL (-999L,"All"), //to be used only on UI 
   SALE(10L,"Sale"),
   AFFILIATE_SIGN_UP(20L,"Affiliate Sign Up"),
   USER_SIGN_UP(30L,"User Sign up"),
