@@ -39,7 +39,7 @@ public class CampaignSearchAction extends BasePaginatedAction {
 
   @DefaultHandler
   public Resolution pre() {
-    return new ForwardResolution("/pages/campaign/campaign.jsp");
+    return searchCampaign();
   }
 
   @SuppressWarnings("unchecked")

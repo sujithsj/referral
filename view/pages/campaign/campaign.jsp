@@ -43,10 +43,10 @@
               <div class="btn-toolbar">
                 <div class="btn-group">
 
-                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.SALE.getId()%>">All</a>
-                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.EMAIL_OPT_IN.getId()%>">Banner</a>
-                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.USER_SIGN_UP.getId()%>">Text Ads</a>
-                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.AFFILIATE_SIGN_UP.getId()%>">Text Ads</a>
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.SALE.getId()%>">Sale</a>
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.EMAIL_OPT_IN.getId()%>">Email Opt In</a>
+                  <a class="btn cpTyMape" href="#" type="<%=EnumCampaignType.USER_SIGN_UP.getId()%>">User Sign Up</a>
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.AFFILIATE_SIGN_UP.getId()%>">Affiliate Sign Up</a>
                 </div>
               </div>
 
