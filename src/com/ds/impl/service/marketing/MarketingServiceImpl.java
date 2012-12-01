@@ -73,28 +73,7 @@ public class MarketingServiceImpl implements MarketingService {
   }
 
 
-  public String getMarketingMaterialSharingCode(Long mmId, Long affiliateId) {
-    if (mmId == null) {
-      throw new InvalidParameterException("MM_ID_CANNOT_BE_BLANK");
-    }
-    if (affiliateId == null) {
-      throw new InvalidParameterException("AFF_ID_CANNOT_BE_BLANK");
-    }
-    MarketingMaterial marketingMaterial = getMarektingMaterialById(mmId);
-
-
-    Long mmTypeId = marketingMaterial.getMarketingMaterialType().getId();
-
-    if (EnumMarketingMaterialType.Banner.getId().equals(mmTypeId)) {
-      if (marketingMaterial.getImage() == null) {
-        return null;
-      }
-      return MarketingMaterialSharingTemplate.getSharingCodeForBanner("dev.healthkart.com", marketingMaterial.getId(), affiliateId, marketingMaterial.getImage().getId());
-    }
-
-    return null;
-
-  }
+  
 
   public SearchService getSearchService() {
     return searchService;

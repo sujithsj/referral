@@ -127,7 +127,7 @@
         $(".shareAd").click(function(event) {
           
             var mmId = $(this).attr('mmId');
-            DS.Ajax.getJson("/api/mm/"+mmId+"/share", function(response){
+            DS.Ajax.getJson("/api/mm/"+mmId+"/share/999", function(response){
                alert(response.sc);
             })
         });
