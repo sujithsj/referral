@@ -10,6 +10,10 @@ import java.util.Map;
  */
 public interface MarketingService {
 
+  public String getMarketingMaterialSharingCode(Long mmId, Long affiliateId);
+
+
+
   public Page searchMarketingMaterial(String title, Long type, String companyShortName, String landingPage, int pageNo, int perPage);
 
   public MarketingMaterial getMarektingMaterialById(Long mmId);
