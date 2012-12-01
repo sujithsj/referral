@@ -8,7 +8,7 @@
       <div class="col_12">
         <div id="page-heading">
 	        <c:choose>
-		        <c:when test="${affiliateGroupAction.affiliateId != null}">
+		        <c:when test="${affiliateGroupAction.companyAffiliateGroupId != null}">
 			        <h4>Edit Group</h4>
 		        </c:when>
 		        <c:otherwise>

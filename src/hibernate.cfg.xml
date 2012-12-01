@@ -58,7 +58,7 @@
     <mapping class="com.ds.domain.affiliate.Affiliate"/>
     <mapping class="com.ds.domain.affiliate.CompanyAffiliate"/>
     <mapping class="com.ds.domain.affiliate.AffiliateCompanyCommissionPlan"/>
-    <mapping class="com.ds.domain.affiliate.AffiliateGroup"/>
+    <mapping class="com.ds.domain.affiliate.CompanyAffiliateGroup"/>
     <mapping class="com.ds.domain.affiliate.AffiliateSetting"/>
     <mapping class="com.ds.domain.commission.CommissionPlan"/>
     <mapping class="com.ds.domain.commission.CommissionCurrency"/>

@@ -3,6 +3,7 @@ package com.ds.impl.service.affiliate;
 import com.ds.core.event.EmailEvent;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
+import com.ds.domain.affiliate.CompanyAffiliateGroup;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
 import com.ds.impl.service.mail.AffiliateContext;
@@ -14,6 +15,7 @@ import com.ds.pact.service.mail.EmailTemplateService;
 import com.ds.pact.service.mail.MailService;
 import com.ds.search.impl.AffiliateGroupQuery;
 import com.ds.search.impl.CompanyAffiliateQuery;
+import com.ds.search.impl.CompanyAffiliateGroupQuery;
 import com.ds.web.action.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,7 +77,7 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	 * @return
 	 */
 	@Override
-	public Page companySearchAffiliate(String login, String email, String companyShortName, int pageNo, int perPage) {
+	public Page searchCompanyAffiliate(String login, String email, String companyShortName, int pageNo, int perPage) {
 
 		CompanyAffiliateQuery companyAffiliateQuery = new CompanyAffiliateQuery();
 		companyAffiliateQuery.setCompanyShortName(companyShortName);
@@ -84,15 +86,6 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		return getSearchService().list(companyAffiliateQuery);
 
 		//return null;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-
-	@Override
-	public Page searchAffiliateGroup(String name, String companyShortName, int pageNo, int perPage) {
-
-		AffiliateGroupQuery affiliateGroupQuery = new AffiliateGroupQuery();
-		affiliateGroupQuery.setCompanyShortName(companyShortName).setName(name).setOrderByField("name").setPageNo(pageNo).setRows(perPage);
-		return getSearchService().list(affiliateGroupQuery);
 	}
 
 	/**
@@ -135,22 +128,6 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 
 	}
 
-
-	/**
-	 * @return the messageDigestPasswordEncoder
-	 */
-	public MessageDigestPasswordEncoder getMessageDigestPasswordEncoder() {
-		return messageDigestPasswordEncoder;
-	}
-
-	/**
-	 * @param messageDigestPasswordEncoder the messageDigestPasswordEncoder to set
-	 */
-	public void setMessageDigestPasswordEncoder(MessageDigestPasswordEncoder messageDigestPasswordEncoder) {
-		this.messageDigestPasswordEncoder = messageDigestPasswordEncoder;
-	}
-
-
 	@Transactional
 	@Override
 	public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName) {
@@ -189,33 +166,12 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		return companyAffiliate;
 	}
 
-/*
-	*/
-/**
-	 * @param companyAffiliateDTO
-	 * @param affiliateDTO
-	 * @param companyShortName
-	 * @param companyAffiliateId
-	 * @return
-	 */
-/*
-	@Transactional
 	@Override
-	public CompanyAffiliate updateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName, Long companyAffiliateId) {
-		Long parentAffiliateId = companyAffiliateDTO.getParentCompanyAffiliateId();
-		CompanyAffiliate parentCompanyAffiliate = null;
-		CompanyAffiliate companyAffiliate = null;
-		companyAffiliate = companyAffiliateDTO.extractCompanyAffiliate(companyAffiliate);
-		parentAffiliateId = companyAffiliateDTO.getParentCompanyAffiliateId();
-		parentCompanyAffiliate = getCompanyAffiliate(parentAffiliateId);
-		if (parentCompanyAffiliate != null) {
-			companyAffiliate.setParentCompanyAffiliate(parentCompanyAffiliate);
-		}
-		Affiliate affiliate = null;
-		affiliate = affiliateDTO.extractAffiliate(affiliate);
-
+	public Page searchCompanyAffiliateGroup(String name, String companyShortName, int pageNo, int perPage) {
+		CompanyAffiliateGroupQuery companyAffiliateGroupQuery = new CompanyAffiliateGroupQuery();
+		companyAffiliateGroupQuery.setName(name).setCompanyShortName(companyShortName);
+		return getSearchService().list(companyAffiliateGroupQuery);
 	}
-*/
 
 	/**
 	 * @return the logger

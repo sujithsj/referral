@@ -39,7 +39,7 @@ public class CompanyAffiliateGroupAction extends BaseAction {
 	private CompanyAffiliateDTO companyAffiliateDTO;
 
 	//private String employeeId;
-	private Long affiliateId;
+	private Long companyAffiliateGroupId;
 	private Long affiliateGroupId;
 	private String roleName;
 	private String employeeEmail;
@@ -66,15 +66,15 @@ public class CompanyAffiliateGroupAction extends BaseAction {
 
 
 	@DefaultHandler
-	public Resolution createOrEditAffiliateGroup() {
+	public Resolution createOrEditCompanyAffiliateGroup() {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
 		company = getAdminService().getCompany(companyShortName);
 		//companyAffiliates = company.getAffiliates();
 		//companyAffiliates = new HashSet<Affiliate>(company.getAffiliates());
 
-		if (affiliateId != null) {
-			Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
+		if (companyAffiliateGroupId != null) {
+			Affiliate affiliate = getAffiliateService().getAffiliate(companyAffiliateGroupId);
 			companyAffiliates.remove(affiliate);
 			//UserSettings userSettings = getUserService().getUserSettings(user.getUsername());
 			companyAffiliateDTO = new CompanyAffiliateDTO();
@@ -83,7 +83,7 @@ public class CompanyAffiliateGroupAction extends BaseAction {
 			companyAffiliateDTO = createNewAffiliate();
 		}
 		return setParamsForView(companyAffiliateDTO);
-		//return new ForwardResolution("/pages/affiliate/companyAffiliateCrud.jsp").addParameter("affiliateId", affiliateId);
+		//return new ForwardResolution("/pages/affiliate/companyAffiliateCrud.jsp").addParameter("companyAffiliateGroupId", companyAffiliateGroupId);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -93,7 +93,7 @@ public class CompanyAffiliateGroupAction extends BaseAction {
 		affiliateSet = company.getAffiliates();
 		Set<CompanyAffiliate> afiAffiliateCompanies = new HashSet<CompanyAffiliate>();
 		afiAffiliateCompanies = company.getAffiliateCompanies();*/
-		return new ForwardResolution("/pages/affiliate/companyAffiliateCrud.jsp").addParameter("affiliateId", affiliateId);
+		return new ForwardResolution("/pages/affiliate/companyAffiliateCrud.jsp").addParameter("companyAffiliateGroupId", companyAffiliateGroupId);
 	}
 
 	public CompanyAffiliateDTO createNewAffiliate() {
@@ -107,7 +107,7 @@ public class CompanyAffiliateGroupAction extends BaseAction {
 
 	public Resolution updateAffiliate() {
 
-		return updateAffiliateDetails(companyAffiliateDTO, affiliateId);
+		return updateAffiliateDetails(companyAffiliateDTO, companyAffiliateGroupId);
 	}
 
 	private Resolution updateAffiliateDetails(CompanyAffiliateDTO companyAffiliateDTO, Long affiliateId) {
@@ -139,7 +139,7 @@ public class CompanyAffiliateGroupAction extends BaseAction {
 	}
 
 	public Resolution resendWelcomeEmail() {
-		Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
+		Affiliate affiliate = getAffiliateService().getAffiliate(companyAffiliateGroupId);
 		getAffiliateService().sendWelcomeEmail(affiliate);
 		return new ForwardResolution("/pages/setup.jsp");
 	}
@@ -206,12 +206,12 @@ public class CompanyAffiliateGroupAction extends BaseAction {
 		this.companyAffiliateDTO = companyAffiliateDTO;
 	}
 
-	public Long getAffiliateId() {
-		return affiliateId;
+	public Long getCompanyAffiliateGroupId() {
+		return companyAffiliateGroupId;
 	}
 
-	public void setAffiliateId(Long affiliateId) {
-		this.affiliateId = affiliateId;
+	public void setCompanyAffiliateGroupId(Long companyAffiliateGroupId) {
+		this.companyAffiliateGroupId = companyAffiliateGroupId;
 	}
 
 	public Set<Affiliate> getCompanyAffiliates() {

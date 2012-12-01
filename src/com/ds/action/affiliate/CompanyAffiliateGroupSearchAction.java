@@ -3,8 +3,8 @@ package com.ds.action.affiliate;
 import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
 import com.ds.domain.user.User;
-import com.ds.domain.affiliate.AffiliateGroup;
-import com.ds.pact.service.affiliate.AffiliateService;
+import com.ds.domain.affiliate.CompanyAffiliateGroup;
+import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.security.service.UserService;
 import com.ds.security.helper.SecurityHelper;
 
@@ -35,25 +35,24 @@ public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 	private Page affiliateGroupPage;
 	private List<User> users;
 	//private List<Affiliate> affiliates;
-	private List<AffiliateGroup> affiliateGroups;
+	private List<CompanyAffiliateGroup> companyAffiliateGroups;
 
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private AffiliateService affiliateService;
-
+	private CompanyAffiliateService companyAffiliateService;
 
 
 	@DefaultHandler
 	@SuppressWarnings("unchecked")
-	public Resolution searchAffiliateGroups() {
+	public Resolution searchCompanyAffiliateGroups() {
 
 		User user = SecurityHelper.getLoggedInUser();
 		companyShortName = user.getCompanyShortName();
-		affiliateGroupPage = getAffiliateService().searchAffiliateGroup(name, companyShortName, getPageNo(), getPerPage());
-		affiliateGroups = affiliateGroupPage.getList();
+		affiliateGroupPage = getCompanyAffiliateService().searchCompanyAffiliateGroup(name, companyShortName, getPageNo(), getPerPage());
+		companyAffiliateGroups = affiliateGroupPage.getList();
 
-		return new ForwardResolution("/pages/affiliate/affiliateGroups.jsp");
+		return new ForwardResolution("/pages/affiliate/companyAffiliateGroups.jsp");
 
 	}
 
@@ -119,20 +118,20 @@ public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 		this.affiliateGroupPage = affiliateGroupPage;
 	}
 
-	public List<AffiliateGroup> getAffiliateGroups() {
-		return affiliateGroups;
+	public List<CompanyAffiliateGroup> getCompanyAffiliateGroups() {
+		return companyAffiliateGroups;
 	}
 
-	public void setAffiliateGroups(List<AffiliateGroup> affiliateGroups) {
-		this.affiliateGroups = affiliateGroups;
+	public void setCompanyAffiliateGroups(List<CompanyAffiliateGroup> companyAffiliateGroups) {
+		this.companyAffiliateGroups = companyAffiliateGroups;
 	}
 
-	public AffiliateService getAffiliateService() {
-		return affiliateService;
+	public CompanyAffiliateService getCompanyAffiliateService() {
+		return companyAffiliateService;
 	}
 
-	public void setAffiliateService(AffiliateService affiliateService) {
-		this.affiliateService = affiliateService;
+	public void setCompanyAffiliateService(CompanyAffiliateService companyAffiliateService) {
+		this.companyAffiliateService = companyAffiliateService;
 	}
 
 	public String getCompanyShortName() {

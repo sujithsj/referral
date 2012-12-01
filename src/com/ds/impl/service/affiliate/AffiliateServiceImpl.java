@@ -310,13 +310,7 @@ public class AffiliateServiceImpl implements AffiliateService {
 	}
 
 
-	@Override
-	public Page searchAffiliateGroup(String name, String companyShortName, int pageNo, int perPage) {
 
-		AffiliateGroupQuery affiliateGroupQuery = new AffiliateGroupQuery();
-		affiliateGroupQuery.setCompanyShortName(companyShortName).setName(name).setOrderByField("name").setPageNo(pageNo).setRows(perPage);
-		return getSearchService().list(affiliateGroupQuery);
-	}
 
 	/**
 	 * @param affiliate

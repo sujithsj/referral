@@ -42,7 +42,7 @@ public class CompanyAffiliateSearchAction extends BasePaginatedAction {
 		User loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
 
-		companyAffiliatePage = getCompanyAffiliateService().companySearchAffiliate(login, email, companyShortName, getPageNo(), getPerPage());
+		companyAffiliatePage = getCompanyAffiliateService().searchCompanyAffiliate(login, email, companyShortName, getPageNo(), getPerPage());
 		companyAffiliates = companyAffiliatePage.getList();
 
 		return new ForwardResolution("/pages/affiliate/companyAffiliates.jsp");

@@ -97,5 +97,4 @@ public interface AffiliateService {
 
 	public Affiliate getAffiliateByLogin(String login);
 
-    public Page searchAffiliateGroup(String name, String companyShortName, int pageNo, int perPage);
 }
