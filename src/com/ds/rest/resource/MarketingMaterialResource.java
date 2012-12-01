@@ -1,9 +1,11 @@
 package com.ds.rest.resource;
 
 import com.ds.constants.EnumMarketingMaterialType;
+import com.ds.domain.company.Company;
 import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.exception.InvalidParameterException;
-import com.ds.impl.service.marketing.MarketingMaterialSharingTemplate;
+import com.ds.impl.service.marketing.MMTemplateBuilder;
+import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.marketing.MarketingService;
 import com.ds.utils.JSONResponseBuilder;
 import org.apache.commons.lang.StringUtils;
@@ -24,9 +26,14 @@ import javax.ws.rs.Produces;
 @Component
 public class MarketingMaterialResource {
 
+  //TODO: neeed to build this from company like pricemia.zferal.com  
+  private static final String BASE_URL = "dev.healthkart.com";
 
   @Autowired
   private MarketingService marketingService;
+  @Autowired
+  private AdminService adminService;
+
 
   @GET
   @Path("/{mmId}/share/{affiliateId}")
@@ -34,18 +41,24 @@ public class MarketingMaterialResource {
   public String getSharingCode(@PathParam("mmId")
   Long marketingMaterialId, @PathParam("affiliateId")
   Long affiliateId) {
+
+    //TODO: can log here which all affiliates looked at sharing code for an ad for a company.
     validateAdParams(marketingMaterialId, affiliateId);
     String sharingCode = null;
 
     MarketingMaterial marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
 
+    //TODO: handle null marketing material
     Long mmTypeId = marketingMaterial.getMarketingMaterialType().getId();
 
     if (EnumMarketingMaterialType.Banner.getId().equals(mmTypeId)) {
       if (marketingMaterial.getImage() != null) {
-        sharingCode = MarketingMaterialSharingTemplate.getSharingCodeForBanner("dev.healthkart.com", marketingMaterial.getId(), affiliateId, marketingMaterial.getImage().getId());
+        sharingCode = MMTemplateBuilder.getSharingCodeForBanner(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getImage().getId());
       }
-
+    }
+    if (EnumMarketingMaterialType.TextAd.getId().equals(mmTypeId)) {
+      Company company = getAdminService().getCompany(marketingMaterial.getCompanyShortName());
+      sharingCode = MMTemplateBuilder.getSharingCodeForTextAd(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getBody(), company.getName());
     }
 
 
@@ -71,6 +84,7 @@ public class MarketingMaterialResource {
   Long marketingMaterialId, @PathParam("affiliateId")
   Long affiliateId) {
 
+    //TODO: count ad impressions here 
     validateAdParams(marketingMaterialId, affiliateId);
 
     String jsContent = "";
@@ -82,15 +96,24 @@ public class MarketingMaterialResource {
 
     if (EnumMarketingMaterialType.Banner.getId().equals(mmTypeId)) {
       if (marketingMaterial.getImage() != null) {
-        jsContent = MarketingMaterialSharingTemplate.getBannerByJS("dev.healthkart.com", marketingMaterial.getId(), affiliateId, marketingMaterial.getImage().getId());
+        jsContent = MMTemplateBuilder.getBannerByJS(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getImage().getId());
       }
-
     }
+
+    if (EnumMarketingMaterialType.TextAd.getId().equals(mmTypeId)) {
+      Company company = getAdminService().getCompany(marketingMaterial.getCompanyShortName());
+      jsContent = MMTemplateBuilder.getTextAdByJS(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getBody(), company.getName());
+    }
+
     return jsContent;
 
   }
 
   public MarketingService getMarketingService() {
     return marketingService;
+  }
+
+  public AdminService getAdminService() {
+    return adminService;
   }
 }
