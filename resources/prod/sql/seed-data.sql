@@ -115,3 +115,9 @@ INSERT INTO
 		(14,'ENTERPRISE-AnalyticsSupport','AnalyticsSupport',1,2),
 		(15, 'AffiliateCount', 'AffiliateCount',1000, 1),
 		(16, 'AffiliateCount', 'AffiliateCount',1000, 2);
+
+
+insert into `commission_strategy` (`ID`,`NAME`) values (10,'With a recurring share of the revenue'),(20,'With a recurring commission'),(30,'With a one-time share of the revenue'),(40,'With a one-time flat commission');
+insert into `campaign_type` (`ID`,`TYPE`) values (10,'Sale'),(20,'Affiliate Sign Up'),(30,'User Sign up'),(40,'Registration'),(50,'Email opt in'),(60,'Social Media');
+insert into `marketing_material_type` (`ID`,`TYPE`) values (10,'Banner'),(20,'Text Link');
+

@@ -46,14 +46,18 @@ public class CommissionPlan extends BaseDataObject {
   @Column(name = "RECUR_COM", precision = 22, scale = 0)
   private Double recurCom;
 
+  @Column(name = "TIER_1_ONE_TIME_COM", precision = 22, scale = 0)
+  private Double tier1OneTimeCom;
 
   @Column(name = "TIER_1_INIT_COM", precision = 22, scale = 0)
   private Double tier1InitCom;
 
-
   @Column(name = "TIER_1_RECUR_COM", precision = 22, scale = 0)
   private Double tier1RecurCom;
 
+
+  @Column(name = "TIER_2_ONE_TIME_COM", precision = 22, scale = 0)
+  private Double tier2OneTimeCom;
 
   @Column(name = "TIER_2_INIT_COM", precision = 22, scale = 0)
   private Double tier2InitCom;
@@ -62,7 +66,9 @@ public class CommissionPlan extends BaseDataObject {
   @Column(name = "TIER_2_RECUR_COM", precision = 22, scale = 0)
   private Double tier2RecurCom;
 
-
+  @Column(name = "TIER_3_ONE_TIME_COM", precision = 22, scale = 0)
+  private Double tier3OneTimeCom;
+  
   @Column(name = "TIER_3_INIT_COM", precision = 22, scale = 0)
   private Double tier3InitCom;
 
@@ -238,6 +244,30 @@ public class CommissionPlan extends BaseDataObject {
 
   public void setVersion(Long version) {
     this.version = version;
+  }
+
+  public Double getTier1OneTimeCom() {
+    return tier1OneTimeCom;
+  }
+
+  public void setTier1OneTimeCom(Double tier1OneTimeCom) {
+    this.tier1OneTimeCom = tier1OneTimeCom;
+  }
+
+  public Double getTier2OneTimeCom() {
+    return tier2OneTimeCom;
+  }
+
+  public void setTier2OneTimeCom(Double tier2OneTimeCom) {
+    this.tier2OneTimeCom = tier2OneTimeCom;
+  }
+
+  public Double getTier3OneTimeCom() {
+    return tier3OneTimeCom;
+  }
+
+  public void setTier3OneTimeCom(Double tier3OneTimeCom) {
+    this.tier3OneTimeCom = tier3OneTimeCom;
   }
 }
 

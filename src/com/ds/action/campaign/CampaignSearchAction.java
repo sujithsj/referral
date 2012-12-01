@@ -1,5 +1,6 @@
 package com.ds.action.campaign;
 
+import com.ds.constants.EnumCampaignType;
 import com.ds.domain.campaign.Campaign;
 import com.ds.domain.user.User;
 import com.ds.pact.service.campaign.CampaignService;
@@ -39,13 +40,19 @@ public class CampaignSearchAction extends BasePaginatedAction {
 
   @DefaultHandler
   public Resolution pre() {
-    return new ForwardResolution("/pages/campaign/campaign.jsp");
+    campaignTypeId = EnumCampaignType.ALL.getId();
+    return searchCampaign();
   }
 
   @SuppressWarnings("unchecked")
   public Resolution searchCampaign() {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     companyShortName = loggedInUser.getCompanyShortName();
+    //get all marketing materials
+    if (EnumCampaignType.ALL.getId().equals(campaignTypeId)) {
+      campaignTypeId = null;
+    }
+
     campaignPage = getCampaignService().searchCampaign(name, companyShortName,startDate, endDate, campaignTypeId, active, getPageNo(), getPerPage());
     campaigns = campaignPage.getList();
 

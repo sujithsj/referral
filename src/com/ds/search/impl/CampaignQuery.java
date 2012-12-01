@@ -88,7 +88,7 @@ public class CampaignQuery extends AbstractSearchQuery {
   @Override
   protected List<SortField> getSortFields() {
     List<SortField> sortFields = new ArrayList<SortField>();
-    sortFields.add(new SortField("name", "nm"));
+    sortFields.add(new SortField("nm", "name"));
 
     return sortFields;
   }

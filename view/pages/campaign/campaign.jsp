@@ -1,10 +1,11 @@
+<%@ page import="com.ds.constants.EnumCampaignType" %>
 <%@include file="/includes/taglibInclude.jsp" %>
 
 <s:layout-render name="/templates/general.jsp">
 
   <%--<s:layout-component name="heading">Split Base Order Manually</s:layout-component>--%>
   <s:layout-component name="content">
-    <s:useActionBean beanclass="com.ds.action.campaign.CampaignAction" var="campaignAction"/>
+    <s:useActionBean beanclass="com.ds.action.campaign.CampaignSearchAction" var="campaignSearchAction"/>
     <div class="container">
       <div class="row">
         <div class="span3 bs-docs-sidebar">
@@ -15,7 +16,7 @@
           <div class="container ">
             <div class="row">
               <div class="span4">
-                <p class="lead">Marketing Material</p>
+                <p class="lead">Campaign</p>
               </div>
               <div class="span3 offset2">
                 <s:link beanclass="com.ds.action.campaign.CampaignAction"
@@ -32,53 +33,64 @@
 
           <fieldset>
             <legend><em>Search Campaign</em></legend>
-           <%-- <s:form beanclass="com.ds.action.campaign.CampaignAction" class="form-inline"
+            <s:form beanclass="com.ds.action.campaign.CampaignSearchAction" class="form-inline"
                     id="campaignSearchForm"
-                    style="margin-bottom:10px;">--%>
-              <%--<s:label name="Title"/>
-              <s:text name="title" placeholder="title"/>
-              <s:label name="Landing Page"/>
-              <s:text name="landingPage"/>
-              <s:hidden name="type" id="mmType"/>--%>
+                    style="margin-bottom:10px;">
+              <s:label name="Name"/>
+              <s:text name="name" placeholder="title"/>
+              <s:hidden name="campaignTypeId" id="campaignType"/>
 
-              <%--<div class="btn-toolbar">
+              <div class="btn-toolbar">
                 <div class="btn-group">
-
-                  <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.ALL.getId()%>">All</a>
-                  <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.Banner.getId()%>">Banner</a>
-                  <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.TextLink.getId()%>">Text Ads</a>
+                                                                                
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.ALL.getId()%>">All</a>
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.SALE.getId()%>">Sale</a>
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.EMAIL_OPT_IN.getId()%>">Email Opt In</a>
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.USER_SIGN_UP.getId()%>">User Sign Up</a>
+                  <a class="btn cpType" href="#" type="<%=EnumCampaignType.AFFILIATE_SIGN_UP.getId()%>">Affiliate Sign
+                    Up</a>
                 </div>
-              </div>--%>
+              </div>
 
-              <%--<s:submit name="searchMarketingMaterial" class="btn btn-warning">Search</s:submit>
+              <s:submit name="searchCampaign" class="btn btn-warning">Search</s:submit>
 
-              Total Ads: ${mmSearchAction.totalAdCount}
+              <%--Total Ads: ${mmSearchAction.totalAdCount}
                 <span class="badge badge-info">Banner : ${mmSearchAction.totalBannerAds}</span>
-                <span class="badge badge-info">Text ads : ${mmSearchAction.totalTextAds}</span>
-            </s:form>--%>
+                <span class="badge badge-info">Text ads : ${mmSearchAction.totalTextAds}</span>--%>
+            </s:form>
           </fieldset>
 
 
           <table class="striped table-condensed table-hover table-striped">
 
             <tr>
-              <th>Title</th>
+              <th>Name</th>
               <th>Type</th>
-              <th>Landing Page</th>
+              <th>Status</th>
+              <th>Reward Type</th>
+              <th>Approved</th>
+              <th>Pending</th>
+              <th>Start Date</th>
+              <th>End Date</th>
               <th>Actions</th>
             </tr>
 
             <tbody>
-            <c:forEach items="${mmSearchAction.marketingMaterials}" var="marketingMaterail">
+            <c:forEach items="${campaignSearchAction.campaigns}" var="campaign">
               <tr>
-                <td>${marketingMaterail.title}</td>
-                <td>${marketingMaterail.marketingMaterialType.type}</td>
-                <td>${marketingMaterail.landingPageUrl}</td>
+                <td>${campaign.name}</td>
+                <td>${campaign.campaignType.type}</td>
+                <td>${campaign.active}</td>
+                <td>${campaign.commissionPlan.commissionStrategy.name}</td>
+                <td>$Approved Commision</td>
+                <td>$Pending Commision</td>
+                <td>${campaign.startDate}</td>
+                <td>${campaign.endDate}</td>
                 <td>
-                  <s:link beanclass="com.ds.action.marketing.MarketingMaterialAction"
-                          event="createOrEditMarketingMaterial" class="button blue small">
+                  <s:link beanclass="com.ds.action.campaign.CampaignAction"
+                          event="createOrEditCampaign" class="button blue small">
                     <span class="icon white small" data-icon="7"></span>Edit
-                    <s:param name="marketingMaterialId" value="${marketingMaterail.id}"/>
+                    <s:param name="campaignId" value="${campaign.id}"/>
                   </s:link>
 
                     <%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
@@ -91,8 +103,8 @@
             </c:forEach>
             </tbody>
           </table>
-          <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${mmSearchAction}"/>
-          <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${mmSearchAction}"/>
+          <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${campaignSearchAction}"/>
+          <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${campaignSearchAction}"/>
         </div>
 
       </div>
@@ -103,7 +115,23 @@
     <script type="text/javascript">
 
       $(document).ready(function() {
-       
+        $('.cpType').click(function(event) {
+          var type = $(this).attr('type');
+          $("#campaignType").val(type);
+          var searchForm = $("#campaignSearchForm")[0];
+          var actionUrl = searchForm.action;
+          actionUrl += '?searchCampaign';
+          searchForm.action = actionUrl;
+          searchForm.submit();
+        });
+
+        $.each($(".cpType"), function(index, value) {
+          var type = $(this).attr('type');
+          var selType = $("#campaignType").val();
+          if (selType === type) {
+            $(this).addClass('disabled');
+          }
+        });
       });
 
     </script>

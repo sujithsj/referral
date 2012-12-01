@@ -1,8 +1,8 @@
 package com.ds.domain.marketing;
 
 
-import com.ds.domain.core.FileAttachment;
 import com.ds.domain.BaseDataObject;
+import com.ds.domain.core.FileAttachment;
 
 import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -45,6 +45,11 @@ public class MarketingMaterial extends BaseDataObject {
 
   @Column(name = "LANDING_PAGE_URL", length = 1000)
   private String landingPageUrl;
+
+  @Version
+  @Column(name = "LOCK_VERSION", nullable = false)
+  private Long version;
+
 
   public Long getId() {
     return this.id;
@@ -101,6 +106,14 @@ public class MarketingMaterial extends BaseDataObject {
 
   public void setImage(FileAttachment image) {
     this.image = image;
+  }
+
+  public Long getVersion() {
+    return version;
+  }
+
+  public void setVersion(Long version) {
+    this.version = version;
   }
 }
 
