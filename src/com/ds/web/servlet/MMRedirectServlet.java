@@ -35,11 +35,17 @@ public class MMRedirectServlet extends HttpServlet {
 
     String redirectUrl = marketingMaterial.getLandingPageUrl();
 
-    try {
-      resp.sendRedirect(redirectUrl);
-    } catch (IOException ioe) {
+    //try {
+      resp.setStatus(301);
+      resp.setHeader("Location", redirectUrl);
+      resp.setHeader("Connection", "close");
+
+
+      //resp.sendRedirect(redirectUrl);
+   // }
+    /*catch (IOException ioe) {
       ioe.printStackTrace();
-    }
+    }*/
 
   }
 
