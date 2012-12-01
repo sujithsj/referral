@@ -11,7 +11,7 @@ public class MMSharingTemplates {
    * banner related tepmlates and constants.
    */
 
-  private static final String BANNER_HTML_CONTENT = "<a href=\"http://#baseUrl/mm/#bannerId/#affiliateId\" title=\"\">" +
+  private static final String BANNER_HTML_CONTENT = "<a href=\"http://#baseUrl/mmr/#bannerId/#affiliateId\" title=\"\">" +
                    "<img src=\"http://" + IMG_HOST + "/getImage/#imageId\" alt=\"\" title=\"\" style=\"border: none\"   /></a>";
 
 private static final String strVar="<style type=\"text\\/css\" media=\"screen\">"+
@@ -63,9 +63,9 @@ private static final String strVar="<style type=\"text\\/css\" media=\"screen\">
 "            }"+
 "          <\\/style>"+
 "          <div class=\"ad\">"+
-"            <a target=\"_top\" href=\"http://dev.healthkart.com/mm/2/999\" class=\"adt\"><span>test</span></a>"+
-"            <div class=\"adb\">test banner</div>"+
-"            <div class=\"add\"><a target=\"_top\" href=\"http://dev.healthkart.com/mm/2/999\" class=\"adt\">healthkart.com</a></div>"+
+"            <a target=\"_top\" href=\"http://#baseUrl/mm/#bannerId/#affiliateId\" class=\"adt\"><span>#mmTitle</span></a>"+
+"            <div class=\"adb\">#mmBody</div>"+
+"            <div class=\"add\"><a target=\"_top\" href=\"http://#baseUrl/mmr/#bannerId/#affiliateId\" class=\"adt\">#companyName</a></div>"+
 "          </div>";
 
 
