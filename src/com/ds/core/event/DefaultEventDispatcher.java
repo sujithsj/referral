@@ -1,7 +1,5 @@
 package com.ds.core.event;
 
-import com.ds.core.event.listener.MarketingMaterialServeEventListener;
-import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.utils.SmartSerializationHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,12 +7,10 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.jms.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.PostConstruct;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author adlakha.vaibhav
@@ -24,35 +20,36 @@ public class DefaultEventDispatcher implements EventDispatcher {
 
   private Logger logger = LoggerFactory.getLogger(DefaultEventDispatcher.class);
 
-  private Map<String, List<EventListener>> syncEventListenerRegistry = new LinkedHashMap<String, List<EventListener>>();
+  //private Map<String, List<EventListener>> syncEventListenerRegistry = new LinkedHashMap<String, List<EventListener>>();
 
-  private Map<String, List<EventListener>> asyncEventListenerRegistry = new LinkedHashMap<String, List<EventListener>>();
+  //private Map<String, List<EventListener>> asyncEventListenerRegistry = new LinkedHashMap<String, List<EventListener>>();
+
+  private Set<String> syncEvents = new HashSet<String>();
+  private Set<String> asyncEvents = new HashSet<String>();
 
   private JmsTemplate jmsTemplate;
 
   private Destination eventQueue;
 
-
   @PostConstruct
-  public void initEventListenerRegistries() {
-    List<EventListener> mmServeEventListeners = new ArrayList<EventListener>();
-    MarketingMaterialServeEventListener marketingMaterialServeEventListener = (MarketingMaterialServeEventListener) ServiceLocatorFactory.getService("MarketingMaterialServeEventListener");
-    mmServeEventListeners.add(marketingMaterialServeEventListener);
-
-    asyncEventListenerRegistry.put(MarketingMaterialServeEvent.class.getSimpleName(), mmServeEventListeners);
+  public void initEvents(){
+    asyncEvents.add(MarketingMaterialServeEvent.class.getSimpleName());
   }
-
 
   @Override
   public void dispatchEvent(Event event) {
 
-    if (syncEventListenerRegistry.containsKey(event.getClass().getSimpleName())) {
-      for (EventListener eventListener : syncEventListenerRegistry.get(event.getClass().getSimpleName())) {
+    if (syncEvents.contains(event.getClass().getSimpleName())) {
+      /*for (EventListener eventListener : syncEventListenerRegistry.get(event.getClass().getSimpleName())) {
         eventListener.handleEvent(event);
-      }
+      }*/
+
+      /**
+       * TODO: need to handle this
+       */
     }
     if (event instanceof AsyncEvent) {
-      if (asyncEventListenerRegistry.containsKey(event.getClass().getSimpleName())) {
+      if (asyncEvents.contains(event.getClass().getSimpleName())) {
         dispatchEventForAsycnProcessing((AsyncEvent) event);
       }
     }
@@ -61,8 +58,8 @@ public class DefaultEventDispatcher implements EventDispatcher {
   @Override
   public void invokeAsyncEventListeners(AsyncEvent event) {
 
-    if (asyncEventListenerRegistry.containsKey(event.getClass().getSimpleName())) {
-      for (EventListener eventListener : asyncEventListenerRegistry.get(event.getClass().getSimpleName())) {
+    if (asyncEvents.contains(event.getClass().getSimpleName())) {
+      for (EventListener eventListener : AsyncEventListenerRegistry.getEventListeners(event.getClass().getSimpleName())) {
         eventListener.handleEvent(event);
       }
     }
@@ -79,35 +76,7 @@ public class DefaultEventDispatcher implements EventDispatcher {
     });
   }
 
-  /**
-   * @return the syncEventListenerRegistry
-   */
-  public Map<String, List<EventListener>> getSyncEventListenerRegistry() {
-    return syncEventListenerRegistry;
-  }
-
-  /**
-   * @param syncEventListenerRegistry the syncEventListenerRegistry to set
-   */
-  public void setSyncEventListenerRegistry(Map<String, List<EventListener>> syncEventListenerRegistry) {
-
-    this.syncEventListenerRegistry = syncEventListenerRegistry;
-  }
-
-  /**
-   * @return the asyncEventListenerRegistry
-   */
-  public Map<String, List<EventListener>> getAsyncEventListenerRegistry() {
-    return asyncEventListenerRegistry;
-  }
-
-  /**
-   * @param asyncEventListenerRegistry the asyncEventListenerRegistry to set
-   */
-  public void setAsyncEventListenerRegistry(Map<String, List<EventListener>> asyncEventListenerRegistry) {
-    this.asyncEventListenerRegistry = asyncEventListenerRegistry;
-  }
-
+  
   /**
    * @return the jmsTemplate
    */
