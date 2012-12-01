@@ -25,11 +25,12 @@ public class MarketingMaterialResource {
   private MarketingService marketingService;
 
   @GET
-  @Path("/{mmId}/share/{affiliateId}")
+  @Path("/{mmId}/share/")
   @Produces("application/json")
   public String getSharingCode(@PathParam("mmId")
-  Long marketingMaterialId, @PathParam("affiliateId")
-  Long affiliateId){
+  Long marketingMaterialId){
+
+    Long affiliateId = 9999L;
 
     String sharingCode = getMarketingService().getMarketingMaterialSharingCode(marketingMaterialId, affiliateId);
     if(StringUtils.isBlank(sharingCode)){
