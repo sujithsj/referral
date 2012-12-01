@@ -289,7 +289,7 @@ public class AdminServiceImpl implements AdminService {
 
     user.setPassword(getMessageDigestPasswordEncoder().encodePassword(user.getPassword(), user.getUsername()));
 
-    
+
     user = (User) getAdminDAO().save(user);
 
     /*ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
@@ -322,6 +322,11 @@ public class AdminServiceImpl implements AdminService {
     getAdminDAO().update(entity);
   }
 
+  @Transactional
+  public void saveOrUpdateEntity(Object entity) {
+    getAdminDAO().saveOrUpdate(entity);
+  }
+
   @Override
   public User getUser(String userId) {
     User user = (User) getAdminDAO().load(User.class, userId);
@@ -335,7 +340,7 @@ public class AdminServiceImpl implements AdminService {
 
   @Override
   public User getUserByEmail(String userEmail) {
-    User user = (User) getAdminDAO().findUnique("select u from User u  where u.email = ?",  new Object[]{userEmail});
+    User user = (User) getAdminDAO().findUnique("select u from User u  where u.email = ?", new Object[]{userEmail});
 
     if (user == null) {
       logger.error("No such user found in system: " + userEmail);
@@ -667,7 +672,7 @@ public class AdminServiceImpl implements AdminService {
     if (isThirdPartyConfirmation) {
       getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserLoggedInThirdPartyEmailConfirmation));
     } else {
-	    //Todo: uncomment the below line: was giving exception while adding new company
+      //Todo: uncomment the below line: was giving exception while adding new company
       //getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserRegistrationConfirmation));
     }
 
@@ -694,7 +699,7 @@ public class AdminServiceImpl implements AdminService {
    */
   public EventDispatcher getEventDispatcher() {
     if (this.eventDispatcher == null) {
-      this.eventDispatcher = (EventDispatcher)ServiceLocatorFactory.getService("EventDispatcher");
+      this.eventDispatcher = (EventDispatcher) ServiceLocatorFactory.getService("EventDispatcher");
     }
     return eventDispatcher;
   }
@@ -863,8 +868,8 @@ public class AdminServiceImpl implements AdminService {
   }
 
   @Override
-  public List<Role> getAllRoles(){
-     return getAdminDAO().getAllRoles();
+  public List<Role> getAllRoles() {
+    return getAdminDAO().getAllRoles();
   }
 
   /*@Override

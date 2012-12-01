@@ -1,5 +1,7 @@
 package com.ds.core.event;
 
+import com.ds.core.event.listener.MarketingMaterialServeEventListener;
+import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.utils.SmartSerializationHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +9,9 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.jms.*;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +31,17 @@ public class DefaultEventDispatcher implements EventDispatcher {
   private JmsTemplate jmsTemplate;
 
   private Destination eventQueue;
+
+
+  @PostConstruct
+  public void initEventListenerRegistries() {
+    List<EventListener> mmServeEventListeners = new ArrayList<EventListener>();
+    MarketingMaterialServeEventListener marketingMaterialServeEventListener = (MarketingMaterialServeEventListener) ServiceLocatorFactory.getService("MarketingMaterialServeEventListener");
+    mmServeEventListeners.add(marketingMaterialServeEventListener);
+
+    asyncEventListenerRegistry.put(MarketingMaterialServeEvent.class.getSimpleName(), mmServeEventListeners);
+  }
+
 
   @Override
   public void dispatchEvent(Event event) {
