@@ -30,7 +30,9 @@ public class EventTrackingServlet extends HttpServlet {
   private AdminService adminService;
 
   protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-
+    /**
+     * http://healthkart.dolusmia.com/ets?rev=$100&cid=123&uid=abc
+     */
 
     Cookie[] allCookies = request.getCookies();
     Cookie trackCookie = null;
@@ -65,7 +67,7 @@ public class EventTrackingServlet extends HttpServlet {
           String uniqueId = request.getParameter("uid");
           String coustomerId = request.getParameter("cid");
 
-          getEventDispatcher().dispatchEvent(new MarketingMaterialSaleEvent(marketingMaterial.getMarketingMaterialType().getId(), marketingMaterialContext, revenue, campaignId, coustomerId,uniqueId));
+          getEventDispatcher().dispatchEvent(new MarketingMaterialSaleEvent(marketingMaterial.getMarketingMaterialType().getId(), marketingMaterialContext, revenue, campaignId, coustomerId, uniqueId));
 
 
         }
