@@ -15,7 +15,7 @@ public class CompanyAffiliate extends BaseDataObject {
 
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
@@ -28,15 +28,8 @@ public class CompanyAffiliate extends BaseDataObject {
 
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PARENT_COMPANY_AFFILIATE_ID",  nullable = true)
+	@JoinColumn(name = "PARENT_COMPANY_AFFILIATE_ID", nullable = true)
 	private CompanyAffiliate parentCompanyAffiliate;
-
-/*
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COMPANY_ID", nullable = false)
-	private Company company;
-*/
-
 
 	public Long getId() {
 		return this.id;

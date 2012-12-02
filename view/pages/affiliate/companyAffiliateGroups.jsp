@@ -52,7 +52,7 @@
 							<th>Id</th>
 							<th>Name</th>
 							<th>Description</th>
-							<th>Affiliates</th>
+							<th>No. of Affiliates</th>
 							<th>Actions</th>
 						</tr>
 
@@ -63,7 +63,7 @@
 								<td>${companyAffiliateGroup.id}</td>
 								<td>${companyAffiliateGroup.name}</td>
 								<td>${companyAffiliateGroup.description}</td>
-								<td>4</td>
+								<td>${fn:length(companyAffiliateGroup.companyAffiliates)}</td>
 								<td>
 									<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupAction"
 									        event="createOrEditCompanyAffiliateGroup" class="button blue small">
@@ -85,8 +85,7 @@
 						</c:forEach>
 						</tbody>
 					</table>
-					<s:layout-render name="/layouts/paginationResultCount.jsp"
-					                 paginatedBean="${companyAffiliateGroupSearchAction}"/>
+					<s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${companyAffiliateGroupSearchAction}"/>
 					<s:layout-render name="/layouts/pagination.jsp" paginatedBean="${companyAffiliateGroupSearchAction}"/>
 				</div>
 

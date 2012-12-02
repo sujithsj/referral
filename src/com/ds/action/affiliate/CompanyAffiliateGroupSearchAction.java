@@ -5,6 +5,7 @@ import com.ds.web.action.Page;
 import com.ds.domain.user.User;
 import com.ds.domain.affiliate.CompanyAffiliateGroup;
 import com.ds.pact.service.affiliate.CompanyAffiliateService;
+import com.ds.pact.service.affiliate.CompanyAffiliateGroupService;
 import com.ds.security.service.UserService;
 import com.ds.security.helper.SecurityHelper;
 
@@ -30,17 +31,13 @@ public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 	private String name;
 	private String companyShortName;
 
-	private Page userPage;
-	//private Page affiliatePage;
-	private Page affiliateGroupPage;
-	private List<User> users;
-	//private List<Affiliate> affiliates;
+	private Page companyAffiliateGroupPage;
 	private List<CompanyAffiliateGroup> companyAffiliateGroups;
-
+	private int numberOfAffiliatesInGroup;
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private CompanyAffiliateService companyAffiliateService;
+	private CompanyAffiliateGroupService companyAffiliateGroupService;
 
 
 	@DefaultHandler
@@ -49,8 +46,8 @@ public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 
 		User user = SecurityHelper.getLoggedInUser();
 		companyShortName = user.getCompanyShortName();
-		affiliateGroupPage = getCompanyAffiliateService().searchCompanyAffiliateGroup(name, companyShortName, getPageNo(), getPerPage());
-		companyAffiliateGroups = affiliateGroupPage.getList();
+		companyAffiliateGroupPage = getCompanyAffiliateGroupService().searchCompanyAffiliateGroup(name, companyShortName, getPageNo(), getPerPage());
+		companyAffiliateGroups = companyAffiliateGroupPage.getList();
 
 		return new ForwardResolution("/pages/affiliate/companyAffiliateGroups.jsp");
 
@@ -58,12 +55,12 @@ public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 
 	@Override
 	public int getPageCount() {
-		return affiliateGroupPage != null ? affiliateGroupPage.getTotalPages() : 0;
+		return companyAffiliateGroupPage != null ? companyAffiliateGroupPage.getTotalPages() : 0;
 	}
 
 	@Override
 	public int getResultCount() {
-		return affiliateGroupPage != null ? affiliateGroupPage.getTotalResults() : 0;
+		return companyAffiliateGroupPage != null ? companyAffiliateGroupPage.getTotalResults() : 0;
 	}
 
 	@Override
@@ -76,22 +73,6 @@ public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 
 	public UserService getUserService() {
 		return userService;
-	}
-
-	public Page getUserPage() {
-		return userPage;
-	}
-
-	public void setUserPage(Page userPage) {
-		this.userPage = userPage;
-	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
 	}
 
 	public String getLogin() {
@@ -110,12 +91,12 @@ public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 		this.name = name;
 	}
 
-	public Page getAffiliateGroupPage() {
-		return affiliateGroupPage;
+	public Page getCompanyAffiliateGroupPage() {
+		return companyAffiliateGroupPage;
 	}
 
-	public void setAffiliateGroupPage(Page affiliateGroupPage) {
-		this.affiliateGroupPage = affiliateGroupPage;
+	public void setCompanyAffiliateGroupPage(Page companyAffiliateGroupPage) {
+		this.companyAffiliateGroupPage = companyAffiliateGroupPage;
 	}
 
 	public List<CompanyAffiliateGroup> getCompanyAffiliateGroups() {
@@ -126,12 +107,12 @@ public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 		this.companyAffiliateGroups = companyAffiliateGroups;
 	}
 
-	public CompanyAffiliateService getCompanyAffiliateService() {
-		return companyAffiliateService;
+	public CompanyAffiliateGroupService getCompanyAffiliateGroupService() {
+		return companyAffiliateGroupService;
 	}
 
-	public void setCompanyAffiliateService(CompanyAffiliateService companyAffiliateService) {
-		this.companyAffiliateService = companyAffiliateService;
+	public void setCompanyAffiliateGroupService(CompanyAffiliateGroupService companyAffiliateGroupService) {
+		this.companyAffiliateGroupService = companyAffiliateGroupService;
 	}
 
 	public String getCompanyShortName() {
@@ -140,5 +121,13 @@ public class CompanyAffiliateGroupSearchAction extends BasePaginatedAction {
 
 	public void setCompanyShortName(String companyShortName) {
 		this.companyShortName = companyShortName;
+	}
+
+	public int getNumberOfAffiliatesInGroup() {
+		return numberOfAffiliatesInGroup;
+	}
+
+	public void setNumberOfAffiliatesInGroup(int numberOfAffiliatesInGroup) {
+		this.numberOfAffiliatesInGroup = numberOfAffiliatesInGroup;
 	}
 }

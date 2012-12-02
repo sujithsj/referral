@@ -1,5 +1,7 @@
 package com.ds.dto.affiliate;
 
+import com.ds.domain.affiliate.CompanyAffiliateGroup;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Rahul
@@ -10,26 +12,57 @@ package com.ds.dto.affiliate;
 public class CompanyAffiliateGroupDTO {
 
 	private String companyShortName;
-	private Long companyAffiliateId;
+	private Long companyAffiliateGroupId;
 	private String description;
 	private String name;
 	private boolean defaultGroup;
 	private boolean deleted;
 
+	public CompanyAffiliateGroup extractCompanyAffiliateGroup(CompanyAffiliateGroup companyAffiliateGroup) {
+
+		if (companyAffiliateGroup == null) {
+			companyAffiliateGroup = new CompanyAffiliateGroup();
+		}
+
+		if (companyShortName != null) {
+			companyAffiliateGroup.setCompanyShortName(companyShortName);
+		}
+
+		if (companyAffiliateGroupId != null) {
+			companyAffiliateGroup.setId(companyAffiliateGroupId);
+		}
+
+		if (description != null) {
+			companyAffiliateGroup.setDescription(description);
+		}
+
+		if (name != null) {
+			companyAffiliateGroup.setName(name);
+		}
+
+		companyAffiliateGroup.setDeleted(deleted);
+		companyAffiliateGroup.setDefaultGroup(defaultGroup);
+		return companyAffiliateGroup;
+
+	}
+
+
+	public void bindCompanyAffiliateGroup(CompanyAffiliateGroup companyAffiliateGroup) {
+		if (companyAffiliateGroup != null){
+			companyAffiliateGroupId = companyAffiliateGroup.getId();
+			companyShortName = companyAffiliateGroup.getCompanyShortName();
+			description = companyAffiliateGroup.getDescription();
+			name = companyAffiliateGroup.getName();
+			defaultGroup = companyAffiliateGroup.getDefaultGroup();
+			deleted = companyAffiliateGroup.getDeleted();
+		}
+	}
 	public String getCompanyShortName() {
 		return companyShortName;
 	}
 
 	public void setCompanyShortName(String companyShortName) {
 		this.companyShortName = companyShortName;
-	}
-
-	public Long getCompanyAffiliateId() {
-		return companyAffiliateId;
-	}
-
-	public void setCompanyAffiliateId(Long companyAffiliateId) {
-		this.companyAffiliateId = companyAffiliateId;
 	}
 
 	public String getDescription() {
@@ -71,5 +104,13 @@ public class CompanyAffiliateGroupDTO {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public Long getCompanyAffiliateGroupId() {
+		return companyAffiliateGroupId;
+	}
+
+	public void setCompanyAffiliateGroupId(Long companyAffiliateGroupId) {
+		this.companyAffiliateGroupId = companyAffiliateGroupId;
 	}
 }

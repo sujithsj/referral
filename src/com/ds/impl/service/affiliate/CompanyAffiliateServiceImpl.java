@@ -128,6 +128,14 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 
 	}
 
+	@Override
+	public List<CompanyAffiliate> getAllCompanyAffiliates(String companyShortName) {
+		CompanyAffiliateQuery companyAffiliateQuery = new CompanyAffiliateQuery();
+		companyAffiliateQuery.setCompanyShortName(companyShortName);
+		return getSearchService().executeSearch(companyAffiliateQuery);
+
+	}
+
 	@Transactional
 	@Override
 	public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName) {
@@ -162,15 +170,8 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		if (affiliate != null) {
 			companyAffiliate.setAffiliate(affiliate);
 		}
-		saveCompanyAffiliate(companyAffiliate);
+		companyAffiliate = saveCompanyAffiliate(companyAffiliate);
 		return companyAffiliate;
-	}
-
-	@Override
-	public Page searchCompanyAffiliateGroup(String name, String companyShortName, int pageNo, int perPage) {
-		CompanyAffiliateGroupQuery companyAffiliateGroupQuery = new CompanyAffiliateGroupQuery();
-		companyAffiliateGroupQuery.setName(name).setCompanyShortName(companyShortName);
-		return getSearchService().list(companyAffiliateGroupQuery);
 	}
 
 	/**

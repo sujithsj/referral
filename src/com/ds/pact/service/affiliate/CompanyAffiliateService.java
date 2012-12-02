@@ -36,6 +36,6 @@ public interface CompanyAffiliateService {
 
 	public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName);
 
-	public Page searchCompanyAffiliateGroup(String name, String companyShortName, int pageNo, int perPage);
+	public List<CompanyAffiliate> getAllCompanyAffiliates(String companyShortName);
 
 }

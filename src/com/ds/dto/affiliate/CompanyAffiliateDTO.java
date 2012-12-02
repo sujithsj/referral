@@ -27,23 +27,24 @@ public class CompanyAffiliateDTO {
 		if (companyAffiliateId != null) {
 			companyAffiliate.setId(companyAffiliateId);
 		}
-		
 
 		return companyAffiliate;
 	}
 
 	public void bindCompanyAffiliate(CompanyAffiliate companyAffiliate) {
 
-		if (companyAffiliate.getId() != null){
+		if (companyAffiliate != null){
 			companyAffiliateId = companyAffiliate.getId();
 		}
-		if (companyAffiliate.getParentCompanyAffiliate() != null) {
+		if (companyAffiliate != null && companyAffiliate.getParentCompanyAffiliate() != null) {
 			parentCompanyAffiliateId = companyAffiliate.getParentCompanyAffiliate().getId();
 		}
-		if (companyAffiliate.getAffiliate() != null) {
+		if (companyAffiliate != null && companyAffiliate.getAffiliate() != null) {
 			affiliateId = companyAffiliate.getAffiliate().getId();
 		}
-		companyShortName = companyAffiliate.getCompanyShortName();
+		if (companyAffiliate != null) {
+			companyShortName = companyAffiliate.getCompanyShortName();
+		}
 	}
 
 	public Long getParentCompanyAffiliateId() {
