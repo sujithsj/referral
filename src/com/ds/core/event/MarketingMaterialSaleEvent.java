@@ -58,6 +58,14 @@ public class MarketingMaterialSaleEvent extends MarketingMaterialServeEvent {
     this.uniqueId = uniqueId;
   }
 
+  public String getCustomerId() {
+    return customerId;
+  }
+
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
+  }
+
   @Override
   public Map<String, String> getWireRepresentation() {
     Map<String, String> data = new HashMap<String, String>();

@@ -32,6 +32,8 @@ public class EventTrackingServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
     /**
      * http://healthkart.dolusmia.com/ets?rev=$100&cid=123&uid=abc
+     *
+     * http://healthkart.dolusmia.com/ets?rev=100&cid=123&uid=abc
      */
 
     Cookie[] allCookies = request.getCookies();
