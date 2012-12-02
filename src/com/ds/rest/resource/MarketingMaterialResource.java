@@ -13,14 +13,10 @@ import org.jboss.resteasy.annotations.cache.NoCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import java.io.IOException;
 
 /**
  * @author adlakha.vaibhav
@@ -31,7 +27,7 @@ import java.io.IOException;
 public class MarketingMaterialResource {
 
   //TODO: neeed to build this from company like pricemia.zferal.com  
-  private static final String BASE_URL = "dev.healthkart.com";
+  private static final String BASE_URL = "healthkart.dolusmia.com";
 
   @Autowired
   private MarketingService marketingService;

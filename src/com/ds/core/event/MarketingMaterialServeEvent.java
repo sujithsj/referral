@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class MarketingMaterialServeEvent implements AsyncEvent {
 
-  private Logger logger = LoggerFactory.getLogger(EmailEvent.class);
+  private Logger logger = LoggerFactory.getLogger(MarketingMaterialServeEvent.class);
 
   private Long marketingMaterialTypeId;
   private MarketingMaterialContext marketingMaterialContext;

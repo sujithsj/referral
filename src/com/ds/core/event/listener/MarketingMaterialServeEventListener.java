@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 public class MarketingMaterialServeEventListener implements EventListener {
 
   private Logger logger = LoggerFactory.getLogger(MarketingMaterialServeEventListener.class);
+  
   @Autowired
   private BaseDao baseDao;
 

@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.util.List;
 
@@ -53,6 +54,17 @@ public class MMRedirectServlet extends HttpServlet {
     MarketingMaterialContext marketingMaterialContext = new MarketingMaterialContext(marketingMaterial.getId(), visitorInfo.getId(), affiliate.getId());
 
     getEventDispatcher().dispatchEvent(new MarketingMaterialServeEvent(marketingMaterial.getMarketingMaterialType().getId(), marketingMaterialContext));
+
+
+    //TODO: replace this  campign id hard coding
+    String valueInCoookie = "2" + "#" + marketingMaterial.getId() + "#" + affiliate.getId();
+    //TODO: remove this hard coding of cookie name and separator in cookie
+    Cookie cookie1 = new Cookie("_track", valueInCoookie);
+
+    cookie1.setPath("/");
+    //TODO: remove hard coding of domain name
+    cookie1.setDomain("healthkart.dolusmia.com");
+    resp.addCookie(cookie1);
 
     String redirectUrl = marketingMaterial.getLandingPageUrl();
 

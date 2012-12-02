@@ -34,6 +34,7 @@ public class DefaultEventDispatcher implements EventDispatcher {
   @PostConstruct
   public void initEvents(){
     asyncEvents.add(MarketingMaterialServeEvent.class.getSimpleName());
+    asyncEvents.add(MarketingMaterialSaleEvent.class.getSimpleName());
   }
 
   @Override

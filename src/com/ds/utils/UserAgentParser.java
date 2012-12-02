@@ -1,6 +1,5 @@
 package com.ds.utils;
 
-import com.ds.exception.DSException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,7 +119,7 @@ public class UserAgentParser {
       }
     } catch (Exception e) {
       logger.error("Could not parse user agent", e);
-      throw new DSException("EXCEPTION_PARSING_USER_AGENT", e);
+      
     }
 
 

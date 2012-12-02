@@ -5,7 +5,7 @@ package com.ds.impl.service.marketing;
  */
 public class MMSharingTemplates {
 
-  private static final String IMG_HOST = "dev.healthkart.com";
+  private static final String IMG_HOST = "dolusmia.com";
 
   /***
    * banner related tepmlates and constants.
