@@ -6,9 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author adlakha.vaibhav
@@ -30,11 +29,14 @@ public class TestHibernate {
       String str = "select c from City c left join fetch c.locationNames lm where c.id = :cityId";
       String st1 = "select bsc from BusStationConflict bsc join fetch bsc.state where bsc.provider.id = :providerId";
 
-      Query query = session.createQuery("select mm.marketingMaterialType.id , count(*) from MarketingMaterial mm group by mm.marketingMaterialType.id");
+      Query query = session.createQuery("select it from ImpressionTracking it " +
+          "where it.marketingMaterial.id = :mmId and it.affiliate.id = :affId " +
+          "and it.companyShortName =:companyShortName and date(it.impressionDate) =:impressionDate");
 
-      //query.setParameter("cityName", "%delhi%");
-      //query.setParameter("endDate", new Date());
-      // query.setParameter("languageCode", "en");
+      query.setParameter("mmId", 2L);
+      query.setParameter("impressionDate", new Date());
+      query.setParameter("affId", 999L);
+      query.setParameter("companyShortName", "hk");
 
       //query.setParameter("allowedPos", "IN");
       //query.setParameter("destination", "BOM");
@@ -42,12 +44,12 @@ public class TestHibernate {
       //query.setMaxResults(100);
       List result = query.list();
 
-      Map<Long, Long> resultsCount = new HashMap<Long, Long>();
+      /*Map<Long, Long> resultsCount = new HashMap<Long, Long>();
 
       List<Object[]> temp  = (List<Object[]> )result;
       for (Object[] objectArr : temp) {
         resultsCount.put((Long) objectArr[0], (Long) objectArr[1]);
-      }
+      }*/
 
       System.out.println(result);
 

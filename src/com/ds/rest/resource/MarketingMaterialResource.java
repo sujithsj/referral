@@ -1,10 +1,13 @@
 package com.ds.rest.resource;
 
 import com.ds.constants.EnumMarketingMaterialType;
+import com.ds.core.event.EventDispatcher;
+import com.ds.core.event.MarketingMaterialImpressionEvent;
 import com.ds.domain.company.Company;
 import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.exception.InvalidParameterException;
 import com.ds.impl.service.marketing.MMTemplateBuilder;
+import com.ds.impl.service.marketing.MarketingMaterialContext;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.marketing.MarketingService;
 import com.ds.utils.JSONResponseBuilder;
@@ -33,9 +36,9 @@ public class MarketingMaterialResource {
   private MarketingService marketingService;
   @Autowired
   private AdminService adminService;
+  @Autowired
+  private EventDispatcher eventDispatcher;
 
-
-  
 
   @GET
   @Path("/{mmId}/share/{affiliateId}")
@@ -107,6 +110,15 @@ public class MarketingMaterialResource {
       jsContent = MMTemplateBuilder.getTextAdByJS(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getBody(), company.getName());
     }
 
+     try{
+    MarketingMaterialContext marketingMaterialContext = new MarketingMaterialContext(marketingMaterial.getId(), null, affiliateId);
+
+    getEventDispatcher().dispatchEvent(new MarketingMaterialImpressionEvent(marketingMaterial.getMarketingMaterialType().getId(), marketingMaterialContext));
+     }catch(Exception e){
+       //TODO: logger for failure of impression event wherever we are using event dispatcher use in try catch
+     }
+
+
     return jsContent;
 
   }
@@ -117,5 +129,10 @@ public class MarketingMaterialResource {
 
   public AdminService getAdminService() {
     return adminService;
+  }
+
+
+  public EventDispatcher getEventDispatcher() {
+    return eventDispatcher;
   }
 }

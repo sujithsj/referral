@@ -1,6 +1,7 @@
 package com.ds.impl.service.marketing;
 
 import com.ds.core.event.SmartSerializable;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +54,10 @@ public class MarketingMaterialContext implements SmartSerializable {
 
     data.put("marketingMaterialId", marketingMaterialId.toString());
     data.put("affiliateId", affiliateId.toString());
-    data.put("visitorInfoId", visitorInfoId.toString());
+    //TODO: fix this check when we refactor code for better structe of mm events
+    if (visitorInfoId != null) {
+      data.put("visitorInfoId", visitorInfoId.toString());
+    }
 
     return data;
   }
@@ -62,6 +66,11 @@ public class MarketingMaterialContext implements SmartSerializable {
   public void prepareFromWireRepresentation(Map<String, String> values) {
     this.marketingMaterialId = Long.parseLong(values.get("marketingMaterialId"));
     this.affiliateId = Long.parseLong(values.get("affiliateId"));
-    this.visitorInfoId = Long.parseLong(values.get("visitorInfoId"));
+
+    //TODO: put this null check upar bhi
+    String visitorInfoString = values.get("visitorInfoId");
+    if (StringUtils.isNotBlank(visitorInfoString)) {
+      this.visitorInfoId = Long.parseLong(visitorInfoString);
+    }
   }
 }

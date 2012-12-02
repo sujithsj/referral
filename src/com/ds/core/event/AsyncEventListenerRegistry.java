@@ -2,6 +2,7 @@ package com.ds.core.event;
 
 import com.ds.core.event.listener.MarketingMaterialServeEventListener;
 import com.ds.core.event.listener.MarketingMaterialSaleEventListener;
+import com.ds.core.event.listener.MarketingMaterialImpressionEventListener;
 import com.ds.impl.service.ServiceLocatorFactory;
 
 import java.util.ArrayList;
@@ -38,6 +39,16 @@ public class AsyncEventListenerRegistry {
         String key = MarketingMaterialSaleEvent.class.getSimpleName();
         asyncEventListenerRegistry.put(key, mmSaleEventListeners);
       }
+
+      if (MarketingMaterialImpressionEvent.class.getSimpleName().equalsIgnoreCase(eventName)) {
+        List<EventListener> mmImpressionEventListeners = new ArrayList<EventListener>();
+        MarketingMaterialImpressionEventListener impressionEventListener = (MarketingMaterialImpressionEventListener) ServiceLocatorFactory.getService("MarketingMaterialImpressionEventListener");
+        mmImpressionEventListeners.add(impressionEventListener);
+
+        String key = MarketingMaterialImpressionEvent.class.getSimpleName();
+        asyncEventListenerRegistry.put(key, mmImpressionEventListeners);
+      }
+      
     }
 
     return asyncEventListenerRegistry.get(eventName);

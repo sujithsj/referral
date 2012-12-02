@@ -13,6 +13,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "impression_tracking")
+@NamedQueries({
+    @NamedQuery(name = "getAdImpressionForCompanyAffiliateOnDate", query = "select it from ImpressionTracking it where it.marketingMaterial.id = :mmId and it.affiliate.id = :affId and it.companyShortName =:companyShortName and date(it.impressionDate) =:impressionDate")
+})
 public class ImpressionTracking {
 
 
@@ -46,6 +49,10 @@ public class ImpressionTracking {
   private Date impressionDate;
 
 
+  @Version
+  @Column(name = "LOCK_VERSION", nullable = false)
+  private Long version;
+  
   public Long getId() {
     return id;
   }
