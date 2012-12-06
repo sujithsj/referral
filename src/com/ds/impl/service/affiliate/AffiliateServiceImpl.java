@@ -113,15 +113,6 @@ public class AffiliateServiceImpl implements AffiliateService {
 		getAdminDAO().update(entity);
 	}
 
-	public User getUser(String userId) {
-		User user = (User) getAdminDAO().load(User.class, userId);
-
-		if (user == null) {
-			logger.error("No such user found in system: " + userId);
-			throw new InvalidParameterException("INVALID_USER");
-		}
-		return user;
-	}
 
 	public Affiliate getAffiliate(Long affiliateId) {
 		Affiliate affiliate = (Affiliate) getAffiliateDAO().load(Affiliate.class, affiliateId);
@@ -247,26 +238,6 @@ public class AffiliateServiceImpl implements AffiliateService {
 	 */
 	public void setEventDispatcher(EventDispatcher eventDispatcher) {
 		this.eventDispatcher = eventDispatcher;
-	}
-
-
-	@Override
-	public boolean changePassword(String emailId, String oldPassword, String newPassword) throws DSException {
-		User user = getUser(emailId);
-
-		// we need to encrypt and then company
-		if (!user.getPassword().equals(getMessageDigestPasswordEncoder().encodePassword(oldPassword, user.getUsername())))
-
-		{
-			throw new DSException("INVALID_OLD_PASSWORD");
-		}
-
-		user.setPassword(newPassword);
-		user.setPassword(getMessageDigestPasswordEncoder().encodePassword(user.getPassword(), user.getUsername()));
-
-		updateEntity(user);
-
-		return Boolean.TRUE;
 	}
 
 

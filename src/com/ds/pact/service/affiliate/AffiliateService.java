@@ -56,16 +56,6 @@ public interface AffiliateService {
 	 */
 	public Affiliate getAffiliate(Long affiliateId);
 
-	/**
-	 * Changes the password of user specified by userid to newPassword from oldPassword
-	 *
-	 * @param emailId
-	 * @param oldPassword
-	 * @param newPassword
-	 * @return boolean true if updated sucessfully
-	 */
-	public boolean changePassword(String emailId, String oldPassword, String newPassword) throws DSException;
-
 
 	/**
 	 * Employee Count for a Company Identified by Company Short Name
