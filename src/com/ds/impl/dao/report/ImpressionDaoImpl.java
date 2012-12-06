@@ -16,7 +16,7 @@ public class ImpressionDaoImpl extends BaseDaoImpl implements ImpressionDao {
   public List<Object[]> getImpressionTrendForCompany(String companyShortName, Date startDate, Date endDate){
     String sql = "select sum(it.COUNT),cast(it.IMPRESSION_DATE as date) as impressionDate from IMPRESSION_TRACKING" +
         " it where it.COMPANY_SHORT_NAME = ? and it.IMPRESSION_DATE between ? and ? " +
-        " group by impressionDate order by impressionDate desc";
+        " group by impressionDate order by impressionDate asc";
 
     return findByNativeSql(sql, 0, 0, companyShortName, startDate, endDate);
     
