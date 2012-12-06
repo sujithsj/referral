@@ -32,17 +32,6 @@ public abstract class AffAbstractAuthenticationToken implements AffAuthenticatio
       return false;
     }
 
-    if (this.getApiKey() != null && test.getApiKey() == null) {
-      return false;
-    }
-
-    if (this.getApiKey() == null && test.getApiKey() != null) {
-      return false;
-    }
-
-    if (this.getApiKey() != null && !this.getApiKey().equals(test.getApiKey())) {
-      return false;
-    }
 
     return this.isAuthenticated() == test.isAuthenticated();
   }
