@@ -1,15 +1,18 @@
 package com.ds.visualization.datasource;
 
 import com.ds.exception.DSException;
+import com.ds.pact.dao.report.ClickDao;
 import com.ds.pact.dao.report.ImpressionDao;
+import com.ds.pact.dao.report.SaleDao;
+import com.ds.visualization.dto.CompanyTrendDTO;
 import com.google.visualization.datasource.Capabilities;
 import com.google.visualization.datasource.base.DataSourceException;
 import com.google.visualization.datasource.base.TypeMismatchException;
 import com.google.visualization.datasource.datatable.ColumnDescription;
 import com.google.visualization.datasource.datatable.DataTable;
 import com.google.visualization.datasource.datatable.TableRow;
-import com.google.visualization.datasource.datatable.value.ValueType;
 import com.google.visualization.datasource.datatable.value.DateValue;
+import com.google.visualization.datasource.datatable.value.ValueType;
 import com.google.visualization.datasource.query.Query;
 import com.ibm.icu.util.GregorianCalendar;
 import com.ibm.icu.util.TimeZone;
@@ -19,9 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.math.BigInteger;
+import java.util.*;
 
 /**
  * @author adlakha.vaibhav
@@ -33,6 +35,10 @@ public class CompanyImpressionTrendChart extends AbstractDataTableGenerator {
 
   @Autowired
   private ImpressionDao impressionDao;
+  @Autowired
+  private SaleDao saleDao;
+  @Autowired
+  private ClickDao clickDao;
 
   @Override
   public DataTable generateDataTable(Query query, HttpServletRequest request) throws DataSourceException {
@@ -41,8 +47,41 @@ public class CompanyImpressionTrendChart extends AbstractDataTableGenerator {
 
     Date startDate = getStartDateFromRequest(request);
     Date endDate = getEndDateFromRequest(request);
-    List<Object[]> feedbackTrends = null;
-    feedbackTrends = getImpressionDao().getImpressionTrendForCompany(companyShortName, startDate, endDate);
+    List<Object[]> impressionTrends = getImpressionDao().getImpressionTrendForCompany(companyShortName, startDate, endDate);
+    List<Object[]> clickTrends = getClickDao().getClickTrendForCompany(companyShortName, startDate, endDate);
+    List<Object[]> saleTrends = getSaleDao().getSaleTrendForCompany(companyShortName, startDate, endDate);
+
+    Map<Date, CompanyTrendDTO> companyTrendDTOMap = new HashMap<Date, CompanyTrendDTO>();
+
+    for (Object[] row : impressionTrends) {
+      CompanyTrendDTO companyTrendDTO = new CompanyTrendDTO();
+      companyTrendDTO.setImpressionCount((Double) row[0]);
+
+      companyTrendDTOMap.put((Date) row[1], companyTrendDTO);
+    }
+
+
+    for (Object[] row : clickTrends) {
+     Date date =  (Date) row[1];
+      CompanyTrendDTO companyTrendDTO = companyTrendDTOMap.get(date);
+      if(companyTrendDTO == null){
+        companyTrendDTO = new CompanyTrendDTO();
+      }
+      companyTrendDTO.setClickCount((BigInteger) row[0]);
+
+      companyTrendDTOMap.put((Date) row[1], companyTrendDTO);
+    }
+
+    for (Object[] row : saleTrends) {
+     Date date =  (Date) row[1];
+      CompanyTrendDTO companyTrendDTO = companyTrendDTOMap.get(date);
+      if(companyTrendDTO == null){
+        companyTrendDTO = new CompanyTrendDTO();
+      }
+      companyTrendDTO.setSaleCount((BigInteger) row[0]);
+
+      companyTrendDTOMap.put((Date) row[1], companyTrendDTO);
+    }
 
     // Create a data table.
     DataTable data = new DataTable();
@@ -56,20 +95,24 @@ public class CompanyImpressionTrendChart extends AbstractDataTableGenerator {
 
     // Fill the data table.
     try {
-      for (Object[] row : feedbackTrends) {
+      for (Map.Entry<Date, CompanyTrendDTO> entry : companyTrendDTOMap.entrySet()) {
 
         GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime((Date) row[1]);
+        //calendar.setTime((Date) row[1]);
+        calendar.setTime(entry.getKey());
 
         int year = calendar.get(GregorianCalendar.YEAR);
         int month = calendar.get(GregorianCalendar.MONTH);
         int day = calendar.get(GregorianCalendar.DAY_OF_MONTH);
 
         TableRow tableRow = new TableRow();
-        tableRow.addCell(new DateValue(year,month, day));
-        tableRow.addCell((Double)row[0]);
-        tableRow.addCell(50);
-        tableRow.addCell(40);
+        tableRow.addCell(new DateValue(year, month, day));
+        //tableRow.addCell((Double) row[0]);
+
+        CompanyTrendDTO companyTrendDTO= entry.getValue();
+        tableRow.addCell(companyTrendDTO.getImpressionCount());
+        tableRow.addCell(companyTrendDTO.getClickCount().doubleValue());
+        tableRow.addCell(companyTrendDTO.getSaleCount().doubleValue());
 
         //calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
         System.out.println(calendar.getTime());
@@ -108,7 +151,7 @@ public class CompanyImpressionTrendChart extends AbstractDataTableGenerator {
         data.addRowFromValues(calendar, row[1]);
         //data.addRowFromValues(row[1]);
       } catch (TypeMismatchException e) {
-        e.printStackTrace();
+        logger.error("Error rendering company trend chart", e);
       }
     }
   }
@@ -120,5 +163,13 @@ public class CompanyImpressionTrendChart extends AbstractDataTableGenerator {
 
   public ImpressionDao getImpressionDao() {
     return impressionDao;
+  }
+
+  public SaleDao getSaleDao() {
+    return saleDao;
+  }
+
+  public ClickDao getClickDao() {
+    return clickDao;
   }
 }

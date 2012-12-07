@@ -1,14 +1,16 @@
 package com.ds.visualization.dto;
 
+import java.math.BigInteger;
+
 /**
  * @author adlakha.vaibhav
  */
 public class CompanyTrendDTO {
 
 
-  private Double impressionCount;
-  private Double saleCount;
-  private Double clickCount;
+  private Double impressionCount  = new Double("0");
+  private BigInteger saleCount = new BigInteger("0");
+  private BigInteger clickCount  = new BigInteger("0");
 
 
   public Double getImpressionCount() {
@@ -19,19 +21,19 @@ public class CompanyTrendDTO {
     this.impressionCount = impressionCount;
   }
 
-  public Double getSaleCount() {
+  public BigInteger getSaleCount() {
     return saleCount;
   }
 
-  public void setSaleCount(Double saleCount) {
+  public void setSaleCount(BigInteger saleCount) {
     this.saleCount = saleCount;
   }
 
-  public Double getClickCount() {
+  public BigInteger getClickCount() {
     return clickCount;
   }
 
-  public void setClickCount(Double clickCount) {
+  public void setClickCount(BigInteger clickCount) {
     this.clickCount = clickCount;
   }
 }
