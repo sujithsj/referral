@@ -7,16 +7,16 @@ public class AffNotFoundException extends AffAuthenticationException {
 
 
   private static final long serialVersionUID = 1L;
-  private String userName;
+  private String login;
 
-  public AffNotFoundException(String key, String userName,  Object... messageParams) {
-    super(key, userName, null, messageParams);
+  public AffNotFoundException(String key, String login,  Object... messageParams) {
+    super(key, login, null, messageParams);
   }
 
   @Override
   public String getMessage() {
     StringBuilder message = new StringBuilder();
-    message.append(" no user  " + userName + " exists in system");
+    message.append(" no affiliate  " + login + " exists in system");
     return message.toString();
   }
 }

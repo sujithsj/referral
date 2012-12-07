@@ -49,8 +49,10 @@
 							</c:forEach>
 						</s:select>
 
-						<s:label name="Password"/>
-						<s:password name="affiliateDTO.passwordChecksum" class="check-empty auto-adjust"/>
+						<c:if test="${companyAffiliateAction.companyAffiliateId == null}">
+							<s:label name="Password"/>
+							<s:text name="affiliateDTO.passwordChecksum" class="check-empty auto-adjust"/>
+						</c:if>
 
 
 						company short name is :: ${companyAffiliateAction.companyShortName}
