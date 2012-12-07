@@ -1,15 +1,19 @@
 package com.ds.action.marketing;
 
 import com.ds.constants.EnumMarketingMaterialType;
+import com.ds.domain.campaign.Campaign;
 import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.domain.marketing.MarketingMaterialType;
 import com.ds.domain.user.User;
+import com.ds.pact.service.campaign.CampaignService;
 import com.ds.pact.service.marketing.MarketingService;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BaseAction;
 import net.sourceforge.stripes.action.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @author adlakha.vaibhav
@@ -25,11 +29,16 @@ public class MarketingMaterialAction extends BaseAction {
 
   private Long marketingMaterialId;
 
+  private List<Campaign> allCampaigns;
+
   @Autowired
   private MarketingService marketingService;
+  @Autowired
+  private CampaignService campaignService;
 
   @DefaultHandler
   public Resolution createOrEditMarketingMaterial() {
+    allCampaigns = getCampaignService().getAllCampaigns();
     if (marketingMaterialId != null) {
       MarketingMaterial marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
       title = marketingMaterial.getTitle();
@@ -37,7 +46,7 @@ public class MarketingMaterialAction extends BaseAction {
       body = marketingMaterial.getBody();
       landingPageURL = marketingMaterial.getLandingPageUrl();
 
-      if(marketingMaterial.getImage() !=null){
+      if (marketingMaterial.getImage() != null) {
         imageId = marketingMaterial.getImage().getId();
       }
     }
@@ -130,5 +139,17 @@ public class MarketingMaterialAction extends BaseAction {
 
   public void setImageId(Long imageId) {
     this.imageId = imageId;
+  }
+
+  public CampaignService getCampaignService() {
+    return campaignService;
+  }
+
+  public List<Campaign> getAllCampaigns() {
+    return allCampaigns;
+  }
+
+  public void setAllCampaigns(List<Campaign> allCampaigns) {
+    this.allCampaigns = allCampaigns;
   }
 }

@@ -1,5 +1,6 @@
 package com.ds.impl.service.marketing;
 
+import com.ds.constants.EnumMarketingMaterialType;
 import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.exception.InvalidParameterException;
 import com.ds.pact.dao.BaseDao;
@@ -38,7 +39,7 @@ public class MarketingServiceImpl implements MarketingService {
   @Override
   public Map<Long, Long> getCountForMarketingMaterialByType(String companyShortName) {
     Map<Long, Long> resultsCount = new HashMap<Long, Long>();
-    String query = "select mm.marketingMaterialType.id , count(*) from MarketingMaterial mm where mm.companyShortName = '"+ companyShortName + "' group by mm.marketingMaterialType.id";
+    String query = "select mm.marketingMaterialType.id , count(*) from MarketingMaterial mm where mm.companyShortName = '" + companyShortName + "' group by mm.marketingMaterialType.id";
 
     List<Object[]> results = (List<Object[]>) getBaseDao().findByQuery(query);
 
@@ -70,6 +71,9 @@ public class MarketingServiceImpl implements MarketingService {
   public MarketingMaterial saveMarketingMaterial(MarketingMaterial marketingMaterial) {
     return (MarketingMaterial) getBaseDao().save(marketingMaterial);
   }
+
+
+  
 
   public SearchService getSearchService() {
     return searchService;

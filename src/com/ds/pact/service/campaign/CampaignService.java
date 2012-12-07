@@ -6,6 +6,7 @@ import com.ds.dto.commission.CommissionPlanDTO;
 import com.ds.web.action.Page;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author adlakha.vaibhav
@@ -20,5 +21,7 @@ public interface CampaignService {
   public Campaign createCampaign(CampaignDTO campaignDTO, CommissionPlanDTO commissionPlanDTO, String companyShortName);
 
   public Campaign updateCampaign(Long campaignId, CommissionPlanDTO commissionPlanDTO, CampaignDTO campaignDTO);
+
+  public List<Campaign> getAllCampaigns();
 
 }

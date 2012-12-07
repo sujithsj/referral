@@ -70,6 +70,9 @@ public class AsyncEventProcessingMDB implements MessageListener {
      * @return the eventDispatcher
      */
     public EventDispatcher getEventDispatcher() {
+      if(eventDispatcher == null){
+        eventDispatcher = (EventDispatcher)ServiceLocatorFactory.getService("EventDispatcher");
+      }
         return eventDispatcher;
     }
 

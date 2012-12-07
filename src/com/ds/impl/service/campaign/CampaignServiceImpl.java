@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author adlakha.vaibhav
@@ -126,6 +127,11 @@ public class CampaignServiceImpl implements CampaignService {
       throw new InvalidParameterException("CAMPAIGN_TYPE_ID_CANNOT_BE_BLANK");
     }
     return (CampaignType) getBaseDao().findUniqueByNamedQueryAndNamedParam("getCampaignTypeById", new String[]{"campaignTypeId"}, new Object[]{campaignTypeId});
+  }
+
+  @Override
+  public List<Campaign> getAllCampaigns() {
+    return getBaseDao().getAll(Campaign.class);
   }
 
   public SearchService getSearchService() {

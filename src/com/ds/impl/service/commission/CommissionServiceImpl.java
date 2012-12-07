@@ -68,6 +68,9 @@ public class CommissionServiceImpl implements CommissionService {
     if (commissionPlan.isAutoApproveComm() == null) {
       commissionPlan.setAutoApproveComm(true);
     }
+    if(commissionPlan.isTiered() == null){
+      commissionPlan.setTiered(false);
+    }
 
     CommissionStrategy commissionStrategy = getCommissionStrategy(commissionPlanDTO.getCommissionStrategyId());
     commissionPlan.setCommissionStrategy(commissionStrategy);
