@@ -216,6 +216,40 @@
 		<url-pattern>/getImage/*</url-pattern>
 	</servlet-mapping>
 
+   <servlet id="MMRedirectServlet">
+		<servlet-name>MMRedirectServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.MMRedirectServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MMRedirectServlet</servlet-name>
+		<url-pattern>/mmr/*</url-pattern>
+	</servlet-mapping>
+
+  <servlet id="EventTrackingServlet">
+		<servlet-name>EventTrackingServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.EventTrackingServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EventTrackingServlet</servlet-name>
+		<url-pattern>/ets/*</url-pattern>
+	</servlet-mapping>
+
+
+  <servlet id="GoogleVisualizationDataSourceServlet">
+		<servlet-name>GoogleVisualizationDataSourceServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.GoogleVisualizationDataSourceServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoogleVisualizationDataSourceServlet</servlet-name>
+		<url-pattern>/datasource/*</url-pattern>
+	</servlet-mapping>
+  
 	<!--  Servlet End -->
 
 	<!--  Filter Start -->

@@ -46,7 +46,7 @@
 			<props>
 				<prop key="java.naming.factory.initial">org.apache.activemq.jndi.ActiveMQInitialContextFactory</prop>
 				<prop key="java.naming.provider.url">vm://localhost</prop>
-				<prop key="queue.EmailQueue">userrules.EmailQueue</prop>
+				<prop key="queue.EmailQueue">ds.EmailQueue</prop>
 			</props>
 
 		</property>
@@ -54,37 +54,25 @@
 
 
 
-	<!--<bean id="emailProcessingMDB" class="com.userrules.async.mdb.EmailProcessingMDB">
-		<property name="mailService">
-			<ref bean="mailService" />
-		</property>
-		<property name="emailTemplateService">
-			<ref bean="emailTemplateService" />
-		</property>
-		<property name="transactionTemplate" ref="transactionTemplate" />
-	</bean>-->
+	<bean id="emailProcessingMDB" class="com.ds.async.mdb.EmailProcessingMDB">
+	</bean>
 
-	<!--<bean id="emailProcessingMDBListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+	<bean id="emailProcessingMDBListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="concurrentConsumers" value="16" />
         <property name="connectionFactory" ref="jmsFactory" />
         <property name="destination" ref="emailQueue" />
         <property name="messageListener" ref="emailProcessingMDB" />
-    </bean>-->
+    </bean>
 
 
-<!--	<bean id="asyncEventProcessingMDB" class="com.userrules.async.mdb.AsyncEventProcessingMDB">
-		    <property name="eventDispatcher" ref="eventDispatcher" />
-		    <property name="transactionTemplate" ref="transactionTemplate" />
-	</bean>-->
-    <!--<bean id="asyncEventProcessingMDBListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+	<bean id="asyncEventProcessingMDB" class="com.ds.async.mdb.AsyncEventProcessingMDB">
+		    
+	</bean>
+    <bean id="asyncEventProcessingMDBListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="concurrentConsumers" value="16" />
         <property name="connectionFactory" ref="jmsFactory" />
         <property name="destination" ref="eventQueue" />
         <property name="messageListener" ref="asyncEventProcessingMDB" />
-    </bean>-->
-
-
-
-
+    </bean>
 
 </beans>

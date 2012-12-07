@@ -12,9 +12,9 @@
 			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER" />
 		<intercept-url pattern="/login.jsp*"
 			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER" />
-		<intercept-url pattern="/company/*" access="ROLE_EMPLOYEE" />
+		<!--<intercept-url pattern="/company/*" access="ROLE_EMPLOYEE" />-->
 		<intercept-url pattern="/employee/*" access="ROLE_EMPLOYEE" />
-		<intercept-url pattern="/admin/*" access="ROLE_EMPLOYEE" />
+		<intercept-url pattern="/marketing/*" access="ROLE_EMPLOYEE" />
 		<intercept-url pattern="/company*"
 			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER,ROLE_EMPLOYEE" />
 		<intercept-url pattern=" /j_ascend_security_check*"

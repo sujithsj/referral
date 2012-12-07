@@ -115,13 +115,7 @@
 		</property>
 	</bean>-->
 
-	<!--<bean id="postCommentEmailNotificationListener" class="com.userrules.event.listener.PostCommentEmailNotificationListener">
-		<property name="mailService">
-			<ref bean="mailService" />
-		</property>
-		<property name="adminService">
-			<ref bean="adminService" />
-		</property>
+	<!--<bean id="marketingMaterialServeEventListener" class="com.ds.core.event.listener.MarketingMaterialServeEventListener">
 	</bean>-->
 
 </beans>

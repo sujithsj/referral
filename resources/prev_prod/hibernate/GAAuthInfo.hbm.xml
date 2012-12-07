@@ -4,7 +4,7 @@
 
 <hibernate-mapping auto-import="true" default-lazy="false">
   <class name="com.ds.domain.core.GAAuthInfo" table="GA_AUTH_INFO">
-    <id name="id" type="long" column="ID" unsaved-value="0">
+    <id name="id" type="long" column="ID" >
       <generator class="native"/>
     </id>
 

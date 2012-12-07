@@ -13,8 +13,10 @@ public class SaleDaoImpl extends BaseDaoImpl implements SaleDao{
 
   @Override
   public List<Object[]> getSaleTrendForCompany(String companyShortName, Date startDate, Date endDate) {
-    String sql = "select sum(it.COUNT),cast(ct.CLICK_DATE as date) as clickDate from CLICK_TRACKING" +
-        " ct where it.COMPANY_SHORT_NAME = ? and it.IMPRESSION_DATE between ? and ? " +
+
+    //TODO: use only those campaigns whose type is for sale 
+    String sql = "select count(et.id),cast(et.CLICK_DATE as date) as eventDate from CLICK_TRACKING" +
+        " ct where ct.COMPANY_SHORT_NAME = ? and ct.CLICK_DATE between ? and ? " +
         " group by clickDate order by clickDate asc";
 
     return findByNativeSql(sql, 0, 0, companyShortName, startDate, endDate);

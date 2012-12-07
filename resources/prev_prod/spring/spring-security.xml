@@ -8,38 +8,42 @@
 
 
 	<http>
-		<intercept-url pattern="/admin/login*"
+		<intercept-url pattern="/login*"
 			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER" />
-		<intercept-url pattern="/html/admin/login.xhtml*"
+		<intercept-url pattern="/login.jsp*"
 			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER" />
-		<intercept-url pattern="/html/admin/*" access="ROLE_EMPLOYEE" />
-		<intercept-url pattern="/html/admin/store/*" access="ROLE_EMPLOYEE" />
+		<intercept-url pattern="/company/*" access="ROLE_EMPLOYEE" />
+		<intercept-url pattern="/employee/*" access="ROLE_EMPLOYEE" />
 		<intercept-url pattern="/admin/*" access="ROLE_EMPLOYEE" />
 		<intercept-url pattern="/company*"
 			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER,ROLE_EMPLOYEE" />
 		<intercept-url pattern=" /j_ascend_security_check*"
 			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER,ROLE_EMPLOYEE" />
 		<intercept-url pattern="/**" filters="none" />
-		<form-login login-page="/admin/login"
+		<form-login login-page="/pages/login.jsp"
 			authentication-success-handler-ref="authenticationSuccessRedirectHandler"
 			authentication-failure-handler-ref="authenticationFailureRedirectHandler" />
 		<anonymous />
-		<custom-filter ref="transactionFilter" before="CHANNEL_FILTER" />
+<!--		<custom-filter ref="transactionFilter" before="CHANNEL_FILTER" />-->
 		<!--<custom-filter ref="SSOFilter" after="FIRST" />
 		<custom-filter ref="trackUserDetailsFilter" after="LAST" />
 		<remember-me services-ref="rememberMeServices" />
 
-		<custom-filter ref="userRulesLogoutFilter" position="LOGOUT_FILTER" />-->
+		<custom-filter ref="userRulesLogoutFilter" position="LOGOUT_FILTER" /> -->
 	</http>
 
 	<authentication-manager alias="authenticationManager">
-		<authentication-provider user-service-ref="userService">
+		<authentication-provider user-service-ref="acegiUserDetailsService">
 			<password-encoder hash="md5" base64="true">
 				<salt-source user-property="username" />
 			</password-encoder>
 		</authentication-provider>
 
 	</authentication-manager>
+
+  <beans:bean id="acegiUserDetailsService"
+		class="com.ds.security.service.impl.AcegiUserDetailsServiceImpl">
+	</beans:bean>
 
 	<beans:bean id="authenticationSuccessRedirectHandler"
 		class="com.ds.security.web.AuthenticationSuccessRedirectHandler">
@@ -81,7 +85,7 @@
 	<!--<beans:bean id="trackUserDetailsFilter"
 		class="com.userrules.core.web.analytics.TrackUserDetailsFilter" />-->
 
-	<beans:bean id="userService" parent="transactionProxyFactoryBean">
+	<!--<beans:bean id="userService" parent="transactionProxyFactoryBean">
 		<beans:property name="target">
 			<beans:ref bean="userServiceImpl" />
 		</beans:property>
@@ -90,31 +94,31 @@
 				<beans:prop key="*">PROPAGATION_REQUIRED</beans:prop>
 			</beans:props>
 		</beans:property>
-	</beans:bean>
+	</beans:bean>-->
 
 
 
 
 
-	<beans:bean id="securityAPI" class="com.ds.security.api.SecurityAPIImpl">
+	<!--<beans:bean id="securityAPI" class="com.ds.security.api.SecurityAPIImpl">
 		<beans:property name="securityDao">
 			<beans:ref bean="securityDao" />
 		</beans:property>
 	</beans:bean>
-
-	<beans:bean id="securityDao"
+-->
+	<!--<beans:bean id="securityDao"
 		class="com.ds.security.dao.impl.SecurityDaoImpl">
 		<beans:property name="hibernateTemplate">
 			<beans:ref bean="hibernateTemplate" />
 		</beans:property>
-	</beans:bean>
+	</beans:bean>-->
 
 
 
 	<beans:bean id="rememberMeServices"
 		class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
 		<beans:property name="userDetailsService">
-			<beans:ref bean="userService" />
+			<beans:ref bean="acegiUserDetailsService" />
 		</beans:property>
 		<beans:property name="alwaysRemember" value="true" />
 		<beans:property name="key" value="Userrules" />
