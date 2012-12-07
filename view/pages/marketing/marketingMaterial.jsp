@@ -54,8 +54,8 @@
               <s:submit name="searchMarketingMaterial" class="btn btn-warning">Search</s:submit>
 
               Total Ads: ${mmSearchAction.totalAdCount}
-                <span class="badge badge-info">Banner : ${mmSearchAction.totalBannerAds}</span>
-                <span class="badge badge-info">Text ads : ${mmSearchAction.totalTextAds}</span>
+              <span class="badge badge-info">Banner : ${mmSearchAction.totalBannerAds}</span>
+              <span class="badge badge-info">Text ads : ${mmSearchAction.totalTextAds}</span>
             </s:form>
           </fieldset>
 
@@ -81,6 +81,7 @@
                     <span class="icon white small" data-icon="7"></span>Edit
                     <s:param name="marketingMaterialId" value="${marketingMaterail.id}"/>
                   </s:link>
+                  <a href="#" class="shareAd" mmId="${marketingMaterail.id}">Share this ad</a>
 
                     <%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
                             event="entityTags" target="_blank" class="button orange small">Tag
@@ -118,12 +119,20 @@
         $.each($(".mmType"), function(index, value) {
           var type = $(this).attr('type');
           var selType = $("#mmType").val();
-          if(selType === type){
+          if (selType === type) {
             $(this).addClass('disabled');
           }
         });
-      });
 
+        $(".shareAd").click(function(event) {
+          
+            var mmId = $(this).attr('mmId');
+            DS.Ajax.getJson("/api/mm/"+mmId+"/share/999", function(response){
+               alert(response.sc);
+            })
+        });
+
+      });
     </script>
   </s:layout-component>
 </s:layout-render>

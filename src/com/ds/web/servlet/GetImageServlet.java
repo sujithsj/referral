@@ -18,33 +18,39 @@ import java.io.IOException;
  */
 public class GetImageServlet extends HttpServlet {
 
-    private FileAttachmentService fileAttachmentService;
+  private FileAttachmentService fileAttachmentService;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        String imageId = request.getParameter("imageId");
-        if (StringUtils.isBlank(imageId)) {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
-        FileAttachment fileAttachment = getFileAttachmentService().loadFileAttachment(Long.parseLong(imageId));
-        if (fileAttachment == null) {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
+  protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+    String requestURI = request.getRequestURI();
+    String imageId = requestURI.substring(requestURI.indexOf("getImage/") + "getImage/".length());
 
-        IOUtils.copy(new ByteArrayInputStream(fileAttachment.getFileContent()), resp.getOutputStream());
-        resp.setContentType(fileAttachment.getMimeType());
+    if (StringUtils.isBlank(imageId)) {
+      imageId = request.getParameter("imageId");
     }
 
-    public FileAttachmentService getFileAttachmentService() {
-        if (this.fileAttachmentService == null) {
-            this.fileAttachmentService = ServiceLocatorFactory.getService(FileAttachmentService.class);
-        }
-        return fileAttachmentService;
+    if (StringUtils.isBlank(imageId)) {
+      resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+      return;
+    }
+    FileAttachment fileAttachment = getFileAttachmentService().loadFileAttachment(Long.parseLong(imageId));
+    if (fileAttachment == null) {
+      resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+      return;
     }
 
-    public void setFileAttachmentService(FileAttachmentService fileAttachmentService) {
-        this.fileAttachmentService = fileAttachmentService;
+    IOUtils.copy(new ByteArrayInputStream(fileAttachment.getFileContent()), resp.getOutputStream());
+    resp.setContentType(fileAttachment.getMimeType());
+  }
+
+  public FileAttachmentService getFileAttachmentService() {
+    if (this.fileAttachmentService == null) {
+      this.fileAttachmentService = ServiceLocatorFactory.getService(FileAttachmentService.class);
     }
+    return fileAttachmentService;
+  }
+
+  public void setFileAttachmentService(FileAttachmentService fileAttachmentService) {
+    this.fileAttachmentService = fileAttachmentService;
+  }
 
 }

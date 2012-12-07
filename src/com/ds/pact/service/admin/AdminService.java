@@ -153,6 +153,8 @@ public interface AdminService {
    */
   public void updateEntity(Object entity);
 
+  public void saveOrUpdateEntity(Object entity);
+
   /**
    * Returns a user corresponding to the specified userId
    *

@@ -7,8 +7,9 @@ import javax.persistence.Transient;
 /**
  * @author adlakha.vaibhav
  */
-public class VisitorInfo extends BaseDataObject{
+public class VisitorInfo extends BaseDataObject {
 
+  private Long id;
   private String ipAddress;
   private String hostName;
 
@@ -334,6 +335,14 @@ public class VisitorInfo extends BaseDataObject{
     return refererURL;
   }
 
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   /**
    * @param refererURL the refererURL to set
    */
@@ -343,7 +352,7 @@ public class VisitorInfo extends BaseDataObject{
 
   @Transient
   public Object[] getAllElementsInInfoAsArray() {
-    return new Object[]{this.visitorId, this.userName, this.companyShortName, this.operation,
+    return new Object[]{this.id, this.visitorId, this.userName, this.companyShortName, this.operation,
         this.entity, this.entityId, this.ipAddress, this.hostName, this.browserName, this.browserVersion, this.osName,
         this.osVersion, this.city, this.country, this.isp, this.httpMethodType,
         this.searchQuery, this.latitude, this.longitude, this.domain, this.refererURL};

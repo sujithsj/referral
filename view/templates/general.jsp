@@ -22,14 +22,16 @@
 
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.css"
+          type="text/css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/docs.css" type="text/css"/>
-    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/kickstart-forms.css" type="text/css"/>--%>
+      <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/kickstart-forms.css" type="text/css"/>--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css" type="text/css"/>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.css"
+          type="text/css"/>
 
-     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/application.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-affix.js"></script>
@@ -46,14 +48,15 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-transition.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-typeahead.js"></script>
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.js"></script>
-
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/common.js"></script>
   </head>
   <body>
   <s:layout-component name="modal"/>
     <%--<div id="container" class="container_24">--%>
 
- <s:layout-component name="header">
+  <s:layout-component name="header">
     <s:layout-render name="/templates/header.jsp"/>
   </s:layout-component>
 
@@ -64,12 +67,12 @@
     <%--<div id="error-messages" ></div>
     <div class="alert messages "><s:messages key="generalMessages"/></div>--%>
   </s:layout-component>
-                                               
+
   <s:layout-component name="content">
   </s:layout-component>
-              
+
   <s:layout-component name="scriptComponent"/>
-  <%--<s:layout-render name="/templates/footer.jsp"/>--%>
+    <%--<s:layout-render name="/templates/footer.jsp"/>--%>
 
     <%--</div>--%>
 
