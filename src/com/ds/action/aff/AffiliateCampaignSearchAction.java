@@ -4,18 +4,16 @@ import com.ds.domain.campaign.Campaign;
 import com.ds.pact.service.campaign.CampaignService;
 import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
-import com.ds.web.locale.AffiliateLocaleContext;
-import com.ds.web.locale.AffiliateLocaleContextHolder;
 import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
 
 /**
  * @author adlakha.vaibhav
@@ -37,11 +35,8 @@ public class AffiliateCampaignSearchAction extends BasePaginatedAction {
 
   @SuppressWarnings("unchecked")
   public Resolution searchCampaign() {
-    String companyShortNameForLoggedInAffiliate = null;
-    AffiliateLocaleContext  affiliateLocaleContext = AffiliateLocaleContextHolder.getAffiliateLocaleContext();
-    if(affiliateLocaleContext !=null){
-      companyShortNameForLoggedInAffiliate = affiliateLocaleContext.getCompanyShortName();
-    }
+    String companyShortNameForLoggedInAffiliate = AffiliateUIHelper.getCompanyShortNameForLoggedInAffiliate();
+
 
     if(StringUtils.isNotBlank(companyShortNameForLoggedInAffiliate)){
       campaignPage = getCampaignService().getCampaignsVisibleToAffiliate(companyShortNameForLoggedInAffiliate,getPageNo(), getPerPage() );
@@ -65,7 +60,7 @@ public class AffiliateCampaignSearchAction extends BasePaginatedAction {
   @Override
   public Set<String> getParamSet() {
     HashSet<String> params = new HashSet<String>();
-    params.add("companyShortName");
+    //params.add("companyShortName");
 
     return params;
   }
