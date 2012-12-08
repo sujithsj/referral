@@ -24,4 +24,6 @@ public interface CampaignService {
 
   public List<Campaign> getAllCampaigns();
 
+  public Page getCampaignsVisibleToAffiliate(String companyShortName,int pageNo, int perPage);
+
 }

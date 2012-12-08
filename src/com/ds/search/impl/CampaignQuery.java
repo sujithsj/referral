@@ -17,6 +17,8 @@ public class CampaignQuery extends AbstractSearchQuery {
   private String name;
   private String companyShortName;
   private boolean active = true;
+  private boolean isPrivate = false;
+  private boolean isQueryForAffiliate = false;
   private Date startDate;
   private Date endDate;
   private EnumCampaignType campaignType;
@@ -37,6 +39,11 @@ public class CampaignQuery extends AbstractSearchQuery {
     return this;
   }
 
+  public CampaignQuery setPrivate(boolean aPrivate) {
+    isPrivate = aPrivate;
+    return this;
+  }
+
   public CampaignQuery setStartDate(Date startDate) {
     this.startDate = startDate;
     return this;
@@ -49,6 +56,11 @@ public class CampaignQuery extends AbstractSearchQuery {
 
   public CampaignQuery setCampaignType(EnumCampaignType campaignType) {
     this.campaignType = campaignType;
+    return this;
+  }
+
+  public CampaignQuery setQueryForAffiliate(boolean queryForAffiliate) {
+    isQueryForAffiliate = queryForAffiliate;
     return this;
   }
 
@@ -66,10 +78,15 @@ public class CampaignQuery extends AbstractSearchQuery {
       getQueryParams().put("companyShortName", companyShortName);
     }
 
-    if (startDate != null && endDate != null) {
+    if (!isQueryForAffiliate && startDate != null && endDate != null) {
       queryStr.append(" and c.startDate >=  :startDate and c.endDate <=:endDate");
       getQueryParams().put("startDate", startDate);
       getQueryParams().put("endDate", endDate);
+    }
+
+    if(isQueryForAffiliate){
+       queryStr.append(" and (c.endDate is null or c.endDate >=  :affiliateVisibleDate) ");
+      getQueryParams().put("affiliateVisibleDate", new Date());
     }
 
 
@@ -79,7 +96,9 @@ public class CampaignQuery extends AbstractSearchQuery {
     }
 
     queryStr.append(" and c.active =  :active ");
+    queryStr.append(" and c.isPrivate =  :isPrivate ");
     getQueryParams().put("active", active);
+    getQueryParams().put("isPrivate", isPrivate);
 
 
     return queryStr.toString();
