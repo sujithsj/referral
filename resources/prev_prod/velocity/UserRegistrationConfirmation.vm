@@ -1,0 +1,21 @@
+<html>
+<body>
+<br>
+Hi ${context.fullName},
+<br>
+Welcome to UserRules.com! We would just need a little help from you to confirm your email address. Just click on this <a href="${context.confirmationLink}">link</a> and we will confirm your email address.<br>
+<br><br>
+Trouble with the link? Just copy paste the below text in your browser:<br>
+${context.confirmationLink}<br>
+
+
+<br>
+Thanks,<br>
+The UserRules.com Team<br>
+<br>
+<br>
+<font size=1><font color=#666666>Copyright © 2010 UserRules.com</font></font><br>
+<br>
+</body>
+
+</html>

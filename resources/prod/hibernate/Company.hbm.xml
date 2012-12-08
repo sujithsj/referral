@@ -9,7 +9,7 @@
 		<version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>
 
 		<property name="name" not-null="true" length="255" type="java.lang.String" column="NAME"/>
-		<property name="description" not-null="false" length="255" type="java.lang.String" column="DESCRIPTION"/>
+		<property name="description" not-null="false" length="500" type="java.lang.String" column="DESCRIPTION"/>
 		<property name="url" not-null="true" length="500" type="java.lang.String" column="URL"/>
 		<property name="fromEmail" not-null="false" length="255" type="java.lang.String" column="FROM_EMAIL"/>
 		<property name="verificationToken" not-null="false" length="100" type="java.lang.String"
@@ -36,5 +36,7 @@
 		</set>
 		<one-to-one name="companySettings" class="com.ds.domain.company.CompanySettings" property-ref="company"
 		            cascade="all" lazy="false"/>
+
+		
 	</class>
 </hibernate-mapping>

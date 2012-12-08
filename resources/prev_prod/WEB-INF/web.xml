@@ -11,7 +11,7 @@
 	</session-config>
 
 	<welcome-file-list>
-		<welcome-file>/pages/signup.jsp</welcome-file>
+		<welcome-file>/pages/login.jsp</welcome-file>
 	</welcome-file-list>
 
 
@@ -38,6 +38,7 @@
 	<!--  Listeners End -->
 
 
+  
 	<filter>
 		<filter-name>StripesFilter</filter-name>
 		<filter-class>
@@ -59,22 +60,22 @@
 			<param-name>Stripes.EncryptionKey</param-name>
 			<param-value>szsdvfmulwl#@$jfdhm38nszfn</param-value>
 		</init-param>
-		<init-param>
+		<!--<init-param>
 			<param-name>Extension.Packages</param-name>
 			<param-value>com.hk.admin.convertor</param-value>
-		</init-param>
+		</init-param>-->
 		<init-param>
 			<param-name>ActionBeanPropertyBinder.Class</param-name>
 			<param-value>
 				net.sourceforge.stripes.controller.SafeActionBeanPropertyBinder
 			</param-value>
 		</init-param>
-		<init-param>
+		<!--<init-param>
 			<param-name>TypeConverterFactory.Class</param-name>
 			<param-value>
         com.hk.admin.factory.SpringTypeConverterFactory
       </param-value>
-		</init-param>
+		</init-param>-->
 		<!--<init-param>
 			<param-name>CoreInterceptor.Classes</param-name>
 			<param-value>
@@ -146,10 +147,7 @@
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
-	<servlet-mapping>
-		<servlet-name>DispatcherServlet</servlet-name>
-		<url-pattern>*.action</url-pattern>
-	</servlet-mapping>
+
 
 	<!--  Stripes end -->
 
@@ -196,6 +194,27 @@
 		<url-pattern>/action/*</url-pattern>
 	</servlet-mapping>
 
+  <servlet id="FileUploadServlet">
+		<servlet-name>FileUploadServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.FileUploadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<url-pattern>/fileUpload/*</url-pattern>
+	</servlet-mapping>
+
+  <servlet id="GetImageServlet">
+		<servlet-name>GetImageServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.GetImageServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetImageServlet</servlet-name>
+		<url-pattern>/getImage/*</url-pattern>
+	</servlet-mapping>
 
 	<!--  Servlet End -->
 
@@ -223,6 +242,19 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+   <filter>
+      <filter-name>springSecurityFilterChain</filter-name>
+      <filter-class>
+        com.ds.web.filter.WebScaleFilterToBeanProxy
+      </filter-class>
+    </filter>
+    <filter-mapping>
+      <filter-name>springSecurityFilterChain</filter-name>
+      <url-pattern>/*</url-pattern>
+      <dispatcher>FORWARD</dispatcher>
+      <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+  
 	<!--<filter>
 		<filter-name>ShiroFilter</filter-name>
 		<filter-class>

@@ -1,0 +1,22 @@
+<html>
+<body>
+<br>
+Hi ${context.affiliate.firstName},
+<br><br>
+Welcome to
+<br>
+Have a nice day!!!
+<br>
+
+
+<br><br>
+<br><br>
+Thanks,<br>
+The ApniCompany.com Team<br>
+<br>
+<br>
+<font size=1><font color=#666666>Copyright © 2010 UserRules.com</font></font><br>
+<br>
+</body>
+
+</html>

@@ -3,7 +3,7 @@
 <hibernate-mapping default-lazy="false">
   <class dynamic-update="true" table="USER_KARMA_PROFILE" lazy="true" name="com.ds.domain.user.UserKarmaProfile"
          dynamic-insert="true">
-    <id name="id" type="long" column="ID" unsaved-value="0">
+    <id name="id" type="long" column="ID" >
       <generator class="native"/>
     </id>
     <version type="long" column="LOCK_VERSION" unsaved-value="undefined" name="lockVersion"/>
