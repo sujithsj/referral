@@ -25,6 +25,10 @@ public class DataTableGeneratorRegistry {
         TopTenAffiliateByClickPieChart topTenAffiliateByClickPieChart = (TopTenAffiliateByClickPieChart) ServiceLocatorFactory.getService("TopTenAffiliateByClickPieChart");
         dataTableGeneratorCache.put(dsName, topTenAffiliateByClickPieChart);
       }
+       else if("ttAffByCommission".equalsIgnoreCase(dsName)){
+        TopTenAffiliateByCommissionPieChart topTenAffiliateByCommissionPieChart = (TopTenAffiliateByCommissionPieChart) ServiceLocatorFactory.getService("TopTenAffiliateByCommissionPieChart");
+        dataTableGeneratorCache.put(dsName, topTenAffiliateByCommissionPieChart);
+      }
     }
 
     return dataTableGeneratorCache.get(dsName);
