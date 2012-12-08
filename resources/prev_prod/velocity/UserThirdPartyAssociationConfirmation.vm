@@ -1,0 +1,22 @@
+<html>
+<body>
+<br>
+Hi ${context.user.fullName},
+<br>
+We noticed that you have tried to associate your ${context.providerName} account ${context.preferredUserName} with this email address. Currently these 2 accounts are not linked together and so we would need you to confirm your email address in order to link this email address with your ${context.providerName} account ${context.preferredUserName}. To do this just click on this <a href="${context.confirmationLink}">link</a> and we will confirm your email address.<br>
+<br>
+<br>
+Trouble with the link? Just copy paste the below text in your browser:<br>
+${context.confirmationLink}<br>
+
+
+<br>
+Thanks,<br>
+The UserRules.com Team<br>
+<br>
+<br>
+<font size=1><font color=#666666>Copyright © 2010 UserRules.com</font></font><br>
+<br>
+</body>
+
+</html>

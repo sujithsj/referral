@@ -6,6 +6,7 @@
   <session-factory>
     <mapping class="com.ds.domain.company.Company"/>
     <mapping class="com.ds.domain.core.GAAuthInfo"/>
+    <mapping class="com.ds.domain.user.User"/>
 
   </session-factory>
 </hibernate-configuration>

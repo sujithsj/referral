@@ -3,7 +3,7 @@
 <hibernate-mapping default-lazy="false">
 	<class dynamic-update="true" table="COMPANY_SETTINGS" lazy="true"
 		name="com.ds.domain.company.CompanySettings" dynamic-insert="true">
-		<id name="id" type="long" column="ID" unsaved-value="0">
+		<id name="id" type="long" column="ID" >
 			<generator class="native" />
 		</id>
 

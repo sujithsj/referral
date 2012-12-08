@@ -21,6 +21,14 @@ public class DataTableGeneratorRegistry {
         CompanyImpressionTrendChart companyImpressionTrendChart = (CompanyImpressionTrendChart) ServiceLocatorFactory.getService("CompanyImpressionTrendChart");
         dataTableGeneratorCache.put(dsName, companyImpressionTrendChart);
       }
+      else if("ttAffByClick".equalsIgnoreCase(dsName)){
+        TopTenAffiliateByClickPieChart topTenAffiliateByClickPieChart = (TopTenAffiliateByClickPieChart) ServiceLocatorFactory.getService("TopTenAffiliateByClickPieChart");
+        dataTableGeneratorCache.put(dsName, topTenAffiliateByClickPieChart);
+      }
+       else if("ttAffByCommission".equalsIgnoreCase(dsName)){
+        TopTenAffiliateByCommissionPieChart topTenAffiliateByCommissionPieChart = (TopTenAffiliateByCommissionPieChart) ServiceLocatorFactory.getService("TopTenAffiliateByCommissionPieChart");
+        dataTableGeneratorCache.put(dsName, topTenAffiliateByCommissionPieChart);
+      }
     }
 
     return dataTableGeneratorCache.get(dsName);

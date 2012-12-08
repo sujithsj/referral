@@ -4,9 +4,72 @@
     "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <mapping class="com.ds.domain.company.Company"/>
-    <mapping class="com.ds.domain.core.GAAuthInfo"/>
-    <mapping class="com.ds.domain.user.User"/>
+    <property name="hibernate.connection.driver_class">
+      com.mysql.jdbc.Driver
+    </property>
+    <property name="hibernate.connection.url">
+      jdbc:mysql://localhost:3306/healthkart_def
+    </property>
+    <property name="hibernate.connection.username">
+      root
+    </property>
+    <property name="hibernate.connection.password"/>
+    <property name="hibernate.connection.pool_size">
+      10
+    </property>
+    <property name="show_sql">
+      false
+    </property>
+    <property name="format_sql">
+      false
+    </property>
+    <property name="use_sql_comments">
+      false
+    </property>
+    <property name="dialect">
+      org.hibernate.dialect.MySQLDialect
+    </property>
+    <!--<property name="hibernate.cache.region.factory_class">
+      net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory
+    </property>
+    <property name="cache.use_second_level_cache">
+      false
+    </property>-->
+    <property name="hibernate.current_session_context_class">
+      managed
+    </property>
+      
+   <mapping resource="Company.hbm.xml"/>
+    <mapping resource="FileAttachment.hbm.xml"/>
+    <mapping resource="Feature.hbm.xml"/>
+    <mapping resource="GAAuthInfo.hbm.xml"/>
+    <mapping resource="Plan.hbm.xml"/>
+    <mapping resource="Permission.hbm.xml"/>
+    <mapping resource="Role.hbm.xml"/>
+    <mapping resource="User.hbm.xml"/>
+    <mapping resource="UserSettings.hbm.xml"/>
+    <mapping resource="UserKarmaProfile.hbm.xml"/>
+    <mapping resource="UserLoginConfirmationRequest.hbm.xml"/>
+    <mapping resource="ThirdPartyAuth.hbm.xml"/>
+    <mapping resource="CompanySettings.hbm.xml"/>
+    
+    <mapping class="com.ds.domain.marketing.MarketingMaterial"/>
+    <mapping class="com.ds.domain.marketing.MarketingMaterialType"/>
+    <mapping class="com.ds.domain.affiliate.Affiliate"/>
+
+    <mapping class="com.ds.domain.affiliate.AffiliateCompanyCommissionPlan"/>
+    <mapping class="com.ds.domain.affiliate.AffiliateGroup"/>
+    <mapping class="com.ds.domain.affiliate.AffiliateSetting"/>
+    <mapping class="com.ds.domain.commission.CommissionPlan"/>
+    <mapping class="com.ds.domain.commission.CommissionCurrency"/>
+    <mapping class="com.ds.domain.commission.CommissionStrategy"/>
+    <mapping class="com.ds.domain.commission.CommissionStrategy"/>
+    <mapping class="com.ds.domain.campaign.Campaign"/>
+    <mapping class="com.ds.domain.campaign.CampaignType"/>
+    <mapping class="com.ds.domain.tracking.ImpressionTracking"/>
+    <mapping class="com.ds.domain.tracking.ClickTracking"/>
+    <mapping class="com.ds.domain.tracking.EventTracking"/>
+    <mapping class="com.ds.domain.visitor.VisitorInfo"/>
 
   </session-factory>
 </hibernate-configuration>
