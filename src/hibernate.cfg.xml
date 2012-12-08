@@ -61,6 +61,8 @@
     <mapping class="com.ds.domain.affiliate.AffiliateCompanyCommissionPlan"/>
     <mapping class="com.ds.domain.affiliate.CompanyAffiliateGroup"/>
     <mapping class="com.ds.domain.affiliate.AffiliateSetting"/>
+    <mapping class="com.ds.domain.affiliate.CompanyAffiliateInvite"/>
+    <mapping class="com.ds.domain.affiliate.CompanyAffiliateBillingAddress"/>
     <mapping class="com.ds.domain.commission.CommissionPlan"/>
     <mapping class="com.ds.domain.commission.CommissionCurrency"/>
     <mapping class="com.ds.domain.commission.CommissionStrategy"/>

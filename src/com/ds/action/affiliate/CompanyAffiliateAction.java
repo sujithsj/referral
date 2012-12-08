@@ -4,6 +4,7 @@ import com.ds.api.CacheAPI;
 import com.ds.api.FeatureAPI;
 import com.ds.constants.FeatureType;
 import com.ds.domain.affiliate.CompanyAffiliate;
+import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
 import com.ds.dto.affiliate.AffiliateDTO;
@@ -19,10 +20,14 @@ import com.ds.security.api.SecurityAPI;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.security.service.UserService;
 import com.ds.web.action.BaseAction;
+import com.ds.web.action.BasePaginatedAction;
+import com.ds.web.action.Page;
 import net.sourceforge.stripes.action.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Created by IntelliJ IDEA.
@@ -43,6 +48,10 @@ public class CompanyAffiliateAction extends BaseAction {
 	private Long affiliateId;
 	private Long companyAffiliateId;
 	private List<CompanyAffiliate> companyAffiliateListExcludingSelf;
+
+
+	private Page companyAffiliateInvitePage;
+	private List<CompanyAffiliateInvite> companyAffiliateInvites;
 
 	//private Set<Affiliate> companyAffiliates;
 	private User loggedInUser;
@@ -66,7 +75,7 @@ public class CompanyAffiliateAction extends BaseAction {
 	private CacheAPI cacheAPI;
 
 
-	@DefaultHandler
+/*	@DefaultHandler
 	public Resolution createOrEditCompanyAffiliate() {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
@@ -89,6 +98,8 @@ public class CompanyAffiliateAction extends BaseAction {
 		}
 		return setParamsForView();
 	}
+	*/
+
 
 	@SuppressWarnings("unchecked")
 	private Resolution setParamsForView() {
@@ -214,5 +225,21 @@ public class CompanyAffiliateAction extends BaseAction {
 
 	public void setAffiliateService(AffiliateService affiliateService) {
 		this.affiliateService = affiliateService;
+	}
+
+	public Page getCompanyAffiliateInvitePage() {
+		return companyAffiliateInvitePage;
+	}
+
+	public void setCompanyAffiliateInvitePage(Page companyAffiliateInvitePage) {
+		this.companyAffiliateInvitePage = companyAffiliateInvitePage;
+	}
+
+	public List<CompanyAffiliateInvite> getCompanyAffiliateInvites() {
+		return companyAffiliateInvites;
+	}
+
+	public void setCompanyAffiliateInvites(List<CompanyAffiliateInvite> companyAffiliateInvites) {
+		this.companyAffiliateInvites = companyAffiliateInvites;
 	}
 }

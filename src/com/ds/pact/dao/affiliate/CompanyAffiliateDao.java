@@ -4,6 +4,7 @@ import com.ds.pact.dao.BaseDao;
 import com.ds.domain.company.Company;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
+import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
@@ -262,6 +263,8 @@ public interface CompanyAffiliateDao extends BaseDao {
 	 * @return
 	 */
 	public Affiliate getAffiliateByLogin(String login);
+
+	public CompanyAffiliateInvite addCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite);
 
 }
 

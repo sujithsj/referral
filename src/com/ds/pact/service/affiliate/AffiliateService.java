@@ -81,6 +81,8 @@ public interface AffiliateService {
 
 	public void sendWelcomeEmail(Affiliate affiliate);
 
+	public void sendCompanyAffiliateInvitationEmail(String email, String companyShortName);
+
 	public boolean isEmailIdValid(String emailId);
 
 	public boolean isAffiliateLoginTaken(String login);

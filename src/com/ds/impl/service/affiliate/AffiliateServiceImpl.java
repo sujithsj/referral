@@ -369,6 +369,9 @@ public class AffiliateServiceImpl implements AffiliateService {
 		EmailEvent emailEvent = new EmailEvent(EmailTemplateService.EmailEventType.WelcomeAffiliate, affiliateContext);
 		getMailService().sendAsyncMail(emailEvent);
 
+	}
+
+	public void sendCompanyAffiliateInvitationEmail(String email, String companyShortName) {
 
 
 	}

@@ -2,6 +2,7 @@ package com.ds.pact.service.affiliate;
 
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
+import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.company.Company;
 import com.ds.domain.user.UserSettings;
 import com.ds.exception.DSException;
@@ -37,5 +38,9 @@ public interface CompanyAffiliateService {
 	public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName);
 
 	public List<CompanyAffiliate> getAllCompanyAffiliates(String companyShortName);
+
+	public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage);
+
+	public CompanyAffiliateInvite addCompanyAffiliateInvite(String companyShortName, String affiliateEmail);
 
 }

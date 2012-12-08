@@ -4,6 +4,7 @@ import com.ds.core.event.EmailEvent;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.affiliate.CompanyAffiliateGroup;
+import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
 import com.ds.impl.service.mail.AffiliateContext;
@@ -16,7 +17,9 @@ import com.ds.pact.service.mail.MailService;
 import com.ds.search.impl.AffiliateGroupQuery;
 import com.ds.search.impl.CompanyAffiliateQuery;
 import com.ds.search.impl.CompanyAffiliateGroupQuery;
+import com.ds.search.impl.CompanyAffiliateInviteQuery;
 import com.ds.web.action.Page;
+import com.ds.exception.DSException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,6 +175,23 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		}
 		companyAffiliate = saveCompanyAffiliate(companyAffiliate);
 		return companyAffiliate;
+	}
+
+	@Override
+	public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage){
+		CompanyAffiliateInviteQuery companyAffiliateInviteQuery = new CompanyAffiliateInviteQuery();
+		companyAffiliateInviteQuery.setCompanyShortName(companyShortName);
+		companyAffiliateInviteQuery.setOrderByField("id").setPageNo(pageNo).setRows(perPage);
+		return getSearchService().list(companyAffiliateInviteQuery);
+	}
+
+	@Transactional
+	@Override
+	public CompanyAffiliateInvite addCompanyAffiliateInvite(String companyShortName, String affiliateEmail) {
+		CompanyAffiliateInvite companyAffiliateInvite = new CompanyAffiliateInvite();
+		companyAffiliateInvite.setCompanyShortName(companyShortName);
+		companyAffiliateInvite.setAffiliateEmail(affiliateEmail);
+		return getCompanyAffiliateDAO().addCompanyAffiliateInvite(companyAffiliateInvite);		
 	}
 
 	/**

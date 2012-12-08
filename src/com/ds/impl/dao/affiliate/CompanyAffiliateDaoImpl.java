@@ -5,6 +5,7 @@ import com.ds.pact.dao.affiliate.CompanyAffiliateDao;
 import com.ds.domain.company.Company;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
+import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.user.User;
 import com.ds.domain.user.UserLoginConfirmationRequest;
 import com.ds.domain.user.UserSettings;
@@ -132,6 +133,11 @@ public class CompanyAffiliateDaoImpl extends BaseDaoImpl implements CompanyAffil
 			throw new InvalidParameterException("INVALID_AFFILIATE");
 		}
 		return affiliate;
+	}
+
+	@Override
+	public CompanyAffiliateInvite addCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite){
+		return (CompanyAffiliateInvite) save(companyAffiliateInvite);
 	}
 
 }
