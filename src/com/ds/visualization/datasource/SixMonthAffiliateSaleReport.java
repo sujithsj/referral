@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author adlakha.vaibhav
@@ -36,13 +35,23 @@ public class SixMonthAffiliateSaleReport extends AbstractDataTableGenerator {
       startDate = DSDateUtil.addToDate(endDate, Calendar.MONTH, -6);
     }
 
-   List<Object[]> sixMonthAffiliateSaleData = getSaleDao().getSixMonthAffiliateSaleReport(companyShortName, startDate, endDate);
+    List<Object[]> sixMonthAffiliateSaleData = getSaleDao().getSixMonthAffiliateSaleReport(companyShortName, startDate, endDate);
 
 
     DataTable data = new DataTable();
 
+    /**
+     *   select sum(revenue) rev, a.first_name, year(et.event_date) year, month(et.event_date) from event_tracking et
+     inner join affiliate a on a.id = et.affiliate_id
+     inner join CAMPAIGN c on c.ID = et.CAMPAIGN_ID
+     where c.CAMPAIGN_TYPE_ID = 10 and  et.company_short_name = 'hk' and et.event_date between '2012-12-01' and '2012-12-31'
+     group by et.affiliate_id, year(et.event_date), month(event_date) order by  rev desc limit 5 ;
 
-    
+
+     -- delete from event_tracking where affiliate_id = 2 and month(event_date) = 6;
+     */
+    return null;
+
   }
 
 

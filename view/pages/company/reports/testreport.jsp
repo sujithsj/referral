@@ -58,7 +58,7 @@
 
 
 
-<%--<script type="text/javascript">
+<script type="text/javascript">
 
   google.load("visualization", "1", {packages:["annotatedtimeline"]});
 
@@ -88,10 +88,10 @@
      });*/
   };
 
-</script>--%>
+</script>
 
 
-<%--<script type="text/javascript">
+<script type="text/javascript">
 
   google.load('visualization', '1.0', {'packages':['controls']});
 
@@ -165,7 +165,7 @@
 
   };
 
-</script>--%>
+</script>
 
 
 <script type="text/javascript">
