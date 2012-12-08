@@ -10,4 +10,6 @@ public interface ClickDao {
 
 
   public List<Object[]> getClickTrendForCompany(String companyShortName, Date startDate, Date endDate);
+
+  public List<Object[]>  getTopTenAffiiliatesByClicks(String companyShortName, Date startDate, Date endDate);
 }

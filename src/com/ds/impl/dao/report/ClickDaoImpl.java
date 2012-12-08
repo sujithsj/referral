@@ -21,4 +21,14 @@ public class ClickDaoImpl extends BaseDaoImpl implements ClickDao{
 
     return findByNativeSql(sql, 0, 0, companyShortName, startDate, endDate);
   }
+
+  @Override
+  public List<Object[]>  getTopTenAffiiliatesByClicks(String companyShortName, Date startDate, Date endDate){
+    String sql = "select count(ct.id) clicks, a.AFFILIATE_TYPE, a.first_name name from click_tracking ct " +
+        "inner join affiliate a on a.id = ct.affiliate_id " +
+        "where  ct.company_short_name = ? and ct.CLICK_DATE between ? and ? " +
+        "group by ct.affiliate_id order by clicks desc limit 10";
+
+    return findByNativeSql(sql, 0, 0, companyShortName, startDate, endDate);
+  }
 }
