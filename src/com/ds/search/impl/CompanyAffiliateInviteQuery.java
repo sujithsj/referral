@@ -18,9 +18,14 @@ public class CompanyAffiliateInviteQuery extends AbstractSearchQuery {
 
 
 	private String companyShortName;
+	private String affiliateEmail;
 
 	public void setCompanyShortName(String companyShortName) {
 		this.companyShortName = companyShortName;
+	}
+
+	public void setAffiliateEmail(String affiliateEmail) {
+		this.affiliateEmail = affiliateEmail;
 	}
 
 	@Override
@@ -31,6 +36,11 @@ public class CompanyAffiliateInviteQuery extends AbstractSearchQuery {
 			queryStr.append(" and cai.companyShortName  =  :companyShortName ");
 			getQueryParams().put("companyShortName", companyShortName);
 		}
+		if (StringUtils.isNotBlank(affiliateEmail)) {
+			queryStr.append(" and cai.affiliateEmail  =  :affiliateEmail ");
+			getQueryParams().put("affiliateEmail", affiliateEmail);
+		}
+
 
 		return queryStr.toString();
 	}

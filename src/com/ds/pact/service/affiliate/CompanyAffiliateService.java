@@ -43,4 +43,6 @@ public interface CompanyAffiliateService {
 
 	public CompanyAffiliateInvite addCompanyAffiliateInvite(String companyShortName, String affiliateEmail);
 
+	public CompanyAffiliateInvite getCompanayAffiliateInvite(String companyShortName, String affiliateEmail);
+
 }

@@ -2,6 +2,7 @@ package com.ds.impl.service.mail;
 
 import com.ds.pact.service.mail.EmailContext;
 import com.ds.pact.service.affiliate.AffiliateService;
+import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.impl.service.ServiceLocatorFactory;
@@ -20,22 +21,15 @@ public class CompanyAffiliateInvEmailContext extends EmailContext {
 
 
 	private CompanyAffiliateInvite companyAffiliateInvite;
-	private static final String COMPANY_ = "AFFILIATE_CONTEXT_AFFILIATE_LOGIN";
+	private static final String AFFILIATE_EMAIL = "AFFILIATE_EMAIL";
 
 	public CompanyAffiliateInvEmailContext() {
 
 	}
 
-	public Affiliate getAffiliate() {
-		return affiliate;
-	}
 
-	public void setAffiliate(Affiliate affiliate) {
-		this.affiliate = affiliate;
-	}
-
-	public AffiliateContext(Affiliate affiliate) {
-		this.affiliate = affiliate;
+	public CompanyAffiliateInvEmailContext(CompanyAffiliateInvite companyAffiliateInvite) {
+		this.companyAffiliateInvite = companyAffiliateInvite;
 	}
 
 
@@ -49,8 +43,8 @@ public class CompanyAffiliateInvEmailContext extends EmailContext {
 
 		Map<String, String> data = new HashMap<String, String>();
 
-		if (getAffiliate() != null) {
-			data.put(AFFILIATE_CONTEXT_AFFILIATE_LOGIN, getAffiliate().getLogin());
+		if (getCompanyAffiliateInvite() != null) {
+			data.put(AFFILIATE_EMAIL, getCompanyAffiliateInvite().getAffiliateEmail());
 		}
 		return data;
 
@@ -63,8 +57,16 @@ public class CompanyAffiliateInvEmailContext extends EmailContext {
 	 */
 	@Override
 	public void prepareFromWireRepresentation(Map<String, String> data) {
-		if (data.containsKey(AFFILIATE_CONTEXT_AFFILIATE_LOGIN)) {
-			this.affiliate = ServiceLocatorFactory.getService(AffiliateService.class).getAffiliateByLogin(data.get(AFFILIATE_CONTEXT_AFFILIATE_LOGIN));
+		if (data.containsKey(AFFILIATE_EMAIL)) {
+			//this.companyAffiliateInvite = ServiceLocatorFactory.getService(CompanyAffiliateService.class).getAffiliateByLogin(data.get(AFFILIATE_EMAIL));
 		}
+	}
+
+	public CompanyAffiliateInvite getCompanyAffiliateInvite() {
+		return companyAffiliateInvite;
+	}
+
+	public void setCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite) {
+		this.companyAffiliateInvite = companyAffiliateInvite;
 	}
 }

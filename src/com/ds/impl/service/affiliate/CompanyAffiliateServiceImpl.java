@@ -194,6 +194,10 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		return getCompanyAffiliateDAO().addCompanyAffiliateInvite(companyAffiliateInvite);		
 	}
 
+	public CompanyAffiliateInvite getCompanayAffiliateInvite(String companyShortName, String affiliateEmail){
+		return null;
+	}
+
 	/**
 	 * @return the logger
 	 */
