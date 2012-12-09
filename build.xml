@@ -30,103 +30,107 @@
 
 	</target>
 
-  <target name="collect-resources">
+	<target name="collect-resources">
 		<copy todir="${project.dist.dir}/WEB-INF/classes/spring">
-			<fileset dir="${project.resources.dir}/${project.env}/spring" />
+			<fileset dir="${project.resources.dir}/${project.env}/spring"/>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/classes/hibernate">
-			<fileset dir="${project.resources.dir}/${project.env}/hibernate" />
+		<copy todir="${project.dist.dir}/WEB-INF/classes/hibernate">
+			<fileset dir="${project.resources.dir}/${project.env}/hibernate"/>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/classes">
-      <fileset dir="${project.resources.dir}/${project.env}/cache"/>
-    </copy>
-    <copy todir="${project.dist.dir}/WEB-INF/classes">
-      <fileset dir="${project.resources.dir}/${project.env}/i18n"/>
-    </copy>
 		<copy todir="${project.dist.dir}/WEB-INF/classes">
-			<fileset dir="${project.resources.dir}/${project.env}/logging" />
+			<fileset dir="${project.resources.dir}/${project.env}/cache"/>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/classes/velocity">
-			<fileset dir="${project.resources.dir}/${project.env}/velocity" />
+		<copy todir="${project.dist.dir}/WEB-INF/classes">
+			<fileset dir="${project.resources.dir}/${project.env}/i18n"/>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/classes/">
-			<fileset dir="${project.resources.dir}/${project.env}/properties" />
+		<copy todir="${project.dist.dir}/WEB-INF/classes">
+			<fileset dir="${project.resources.dir}/${project.env}/logging"/>
+		</copy>
+		<copy todir="${project.dist.dir}/WEB-INF/classes/velocity">
+			<fileset dir="${project.resources.dir}/${project.env}/velocity"/>
+		</copy>
+		<copy todir="${project.dist.dir}/WEB-INF/classes/">
+			<fileset dir="${project.resources.dir}/${project.env}/properties"/>
 		</copy>
 
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.commons.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.hibernate.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/lib">
+		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.velocity.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/lib">
+		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.activemq.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.json.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.logger.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/lib">
+		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.infinispan.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.mysql.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.rest.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.spring.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/lib">
+		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.acegi.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.thirdParty.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/lib">
+		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.velocity.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/lib">
+		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.stripes.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
-    <copy todir="${project.dist.dir}/WEB-INF/lib">
+		<copy todir="${project.dist.dir}/WEB-INF/lib">
 			<fileset dir="${lib.googleVisualization.root}">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
+		</copy>
+		<copy todir="${project.dist.dir}/WEB-INF/classes">
+			<fileset file="${project.resources.dir}/${project.env}/WEB-INF/StripesResources.properties" />
+			<!--<fileset file="${project.web.dir}/resources/${project.env}/WEB-INF/healthkartTagLib.tld" />-->
 		</copy>
 
 	</target>
