@@ -10,6 +10,7 @@ import java.util.Date;
 @Table(name = "campaign")
 @NamedQueries({
     @NamedQuery(name = "getCampaignById", query = "select c from Campaign c where c.id = :campaignId")
+
 })
 public class Campaign implements java.io.Serializable {
 

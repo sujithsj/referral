@@ -134,6 +134,14 @@ public class CampaignServiceImpl implements CampaignService {
     return getBaseDao().getAll(Campaign.class);
   }
 
+  @Override
+  public Page getCampaignsVisibleToAffiliate(String companyShortName, int pageNo, int perPage){
+    CampaignQuery campaignQuery = new CampaignQuery();
+    campaignQuery.setCompanyShortName(companyShortName).setQueryForAffiliate(true).setPrivate(false).setActive(true);
+    campaignQuery.setOrderByField("nm").setPageNo(pageNo).setRows(perPage);
+    return getSearchService().list(campaignQuery);
+  }
+
   public SearchService getSearchService() {
     return searchService;
   }
