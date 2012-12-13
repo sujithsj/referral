@@ -45,4 +45,12 @@ public interface CompanyAffiliateService {
 
 	public CompanyAffiliateInvite getCompanayAffiliateInvite(String companyShortName, String affiliateEmail);
 
+	public void sendCompanyAffiliateInvitationEmail(CompanyAffiliateInvite companyAffiliateInvite);
+
+	public CompanyAffiliateInvite getCompanyAffiliateInvite(Long companyAffiliateInviteId);
+
+	public CompanyAffiliateInvite deleteCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite);
+
+	public CompanyAffiliateInvite saveCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite);
+
 }

@@ -266,5 +266,7 @@ public interface CompanyAffiliateDao extends BaseDao {
 
 	public CompanyAffiliateInvite addCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite);
 
+	public CompanyAffiliateInvite saveCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite);
+
 }
 

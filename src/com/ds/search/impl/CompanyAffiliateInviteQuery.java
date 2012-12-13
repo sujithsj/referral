@@ -19,6 +19,8 @@ public class CompanyAffiliateInviteQuery extends AbstractSearchQuery {
 
 	private String companyShortName;
 	private String affiliateEmail;
+	private Boolean converted;
+	private Boolean deleted;
 
 	public void setCompanyShortName(String companyShortName) {
 		this.companyShortName = companyShortName;
@@ -28,9 +30,17 @@ public class CompanyAffiliateInviteQuery extends AbstractSearchQuery {
 		this.affiliateEmail = affiliateEmail;
 	}
 
+	public void setConverted(Boolean converted) {
+		this.converted = converted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	@Override
 	protected String getBaseQuery() {
-		StringBuilder queryStr = new StringBuilder("select cai from CompanyAffiliateInvite cai where converted = 0 ");
+		StringBuilder queryStr = new StringBuilder("select cai from CompanyAffiliateInvite cai where 1=1 ");
 
 		if (StringUtils.isNotBlank(companyShortName)) {
 			queryStr.append(" and cai.companyShortName  =  :companyShortName ");
@@ -41,6 +51,15 @@ public class CompanyAffiliateInviteQuery extends AbstractSearchQuery {
 			getQueryParams().put("affiliateEmail", affiliateEmail);
 		}
 
+		if (converted != null) {
+			queryStr.append(" and cai.converted  =  :converted ");
+			getQueryParams().put("converted", converted);
+		}
+
+		if (deleted != null) {
+			queryStr.append(" and cai.deleted  =  :deleted ");
+			getQueryParams().put("deleted", deleted);
+		}
 
 		return queryStr.toString();
 	}

@@ -8,6 +8,7 @@ import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
 import com.ds.impl.service.mail.AffiliateContext;
+import com.ds.impl.service.mail.CompanyAffiliateInvEmailContext;
 import com.ds.pact.dao.affiliate.CompanyAffiliateDao;
 import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.affiliate.CompanyAffiliateService;
@@ -181,6 +182,8 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage){
 		CompanyAffiliateInviteQuery companyAffiliateInviteQuery = new CompanyAffiliateInviteQuery();
 		companyAffiliateInviteQuery.setCompanyShortName(companyShortName);
+		companyAffiliateInviteQuery.setConverted(false);
+		companyAffiliateInviteQuery.setDeleted(false);
 		companyAffiliateInviteQuery.setOrderByField("id").setPageNo(pageNo).setRows(perPage);
 		return getSearchService().list(companyAffiliateInviteQuery);
 	}
@@ -195,7 +198,45 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	}
 
 	public CompanyAffiliateInvite getCompanayAffiliateInvite(String companyShortName, String affiliateEmail){
+		CompanyAffiliateInviteQuery companyAffiliateInviteQuery = new CompanyAffiliateInviteQuery();
+		companyAffiliateInviteQuery.setCompanyShortName(companyShortName);
+		companyAffiliateInviteQuery.setAffiliateEmail(affiliateEmail);
+		List<CompanyAffiliateInvite> companyAffiliateInviteList = getSearchService().executeSearch(companyAffiliateInviteQuery);
+		if(companyAffiliateInviteList != null && companyAffiliateInviteList.size() == 1){
+			return companyAffiliateInviteList.get(0);
+		}
 		return null;
+	}
+
+	public void sendCompanyAffiliateInvitationEmail(CompanyAffiliateInvite companyAffiliateInvite){
+
+		CompanyAffiliateInvEmailContext companyAffiliateInvEmailContext = new CompanyAffiliateInvEmailContext(companyAffiliateInvite);
+
+		EmailEvent emailEvent = new EmailEvent(EmailTemplateService.EmailEventType.AffiliateInvitationEmail, companyAffiliateInvEmailContext);
+		getMailService().sendAsyncMail(emailEvent);
+
+	}
+
+	@Transactional
+	@Override
+	public CompanyAffiliateInvite deleteCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite) {
+		companyAffiliateInvite.setDeleted(true);
+		return getCompanyAffiliateDAO().addCompanyAffiliateInvite(companyAffiliateInvite);
+	}
+
+	public CompanyAffiliateInvite getCompanyAffiliateInvite(Long companyAffiliateInviteId) {
+		CompanyAffiliateInvite companyAffiliateInvite = (CompanyAffiliateInvite) getCompanyAffiliateDAO().load(CompanyAffiliateInvite.class, companyAffiliateInviteId);
+		if (companyAffiliateInvite == null) {
+			logger.error("No such invitation found in system: " + companyAffiliateInviteId);
+			throw new InvalidParameterException("INVALID_COMPANY_AFFILIATE_INVITE");
+		}
+		return companyAffiliateInvite;
+	}
+
+	@Override
+	@Transactional
+	public CompanyAffiliateInvite saveCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite){
+		return getCompanyAffiliateDAO().saveCompanyAffiliateInvite(companyAffiliateInvite);
 	}
 
 	/**

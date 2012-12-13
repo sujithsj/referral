@@ -22,16 +22,14 @@ public class CompanyAffiliateInvEmailContext extends EmailContext {
 
 	private CompanyAffiliateInvite companyAffiliateInvite;
 	private static final String AFFILIATE_EMAIL = "AFFILIATE_EMAIL";
+	private static final String COMPANY_SHORTNAME = "COMPANY_SHORTNAME";
 
 	public CompanyAffiliateInvEmailContext() {
-
 	}
-
 
 	public CompanyAffiliateInvEmailContext(CompanyAffiliateInvite companyAffiliateInvite) {
 		this.companyAffiliateInvite = companyAffiliateInvite;
 	}
-
 
 	/**
 	 * Map which represents Object State
@@ -45,9 +43,9 @@ public class CompanyAffiliateInvEmailContext extends EmailContext {
 
 		if (getCompanyAffiliateInvite() != null) {
 			data.put(AFFILIATE_EMAIL, getCompanyAffiliateInvite().getAffiliateEmail());
+			data.put(COMPANY_SHORTNAME, getCompanyAffiliateInvite().getCompanyShortName());
 		}
 		return data;
-
 	}
 
 	/**
@@ -57,8 +55,8 @@ public class CompanyAffiliateInvEmailContext extends EmailContext {
 	 */
 	@Override
 	public void prepareFromWireRepresentation(Map<String, String> data) {
-		if (data.containsKey(AFFILIATE_EMAIL)) {
-			//this.companyAffiliateInvite = ServiceLocatorFactory.getService(CompanyAffiliateService.class).getAffiliateByLogin(data.get(AFFILIATE_EMAIL));
+		if (data.containsKey(AFFILIATE_EMAIL) && data.containsKey(COMPANY_SHORTNAME)) {
+			this.companyAffiliateInvite = ServiceLocatorFactory.getService(CompanyAffiliateService.class).getCompanayAffiliateInvite(data.get(COMPANY_SHORTNAME), data.get(AFFILIATE_EMAIL));
 		}
 	}
 

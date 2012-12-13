@@ -140,4 +140,9 @@ public class CompanyAffiliateDaoImpl extends BaseDaoImpl implements CompanyAffil
 		return (CompanyAffiliateInvite) save(companyAffiliateInvite);
 	}
 
+	@Override
+	public CompanyAffiliateInvite saveCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite) {
+		return (CompanyAffiliateInvite) save(companyAffiliateInvite);
+	}
+
 }

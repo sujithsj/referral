@@ -7,6 +7,7 @@ import com.ds.core.event.EmailEvent;
 import com.ds.core.event.EventDispatcher;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
+import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
 import com.ds.exception.CompositeValidationException;
@@ -15,6 +16,7 @@ import com.ds.exception.ValidationException;
 import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.impl.service.admin.AdminServiceImpl;
 import com.ds.impl.service.mail.AffiliateContext;
+import com.ds.impl.service.mail.CompanyAffiliateInvEmailContext;
 import com.ds.pact.dao.AdminDAO;
 import com.ds.pact.dao.affiliate.AffiliateDao;
 import com.ds.pact.service.HttpService;
@@ -371,10 +373,6 @@ public class AffiliateServiceImpl implements AffiliateService {
 
 	}
 
-	public void sendCompanyAffiliateInvitationEmail(String email, String companyShortName) {
-
-
-	}
 
 	/**
 	 * @return the cacheAPI

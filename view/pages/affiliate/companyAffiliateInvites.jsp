@@ -35,7 +35,8 @@
 						        style="margin-bottom:10px;">
 							<s:label name="Affiliate Email"/>
 							<s:text name="affiliateEmail" placeholder="affiliate email"/>
-							<s:submit name="sendInvite" class="btn btn-warning">Send Invite</s:submit>
+							<%--this needs to be done via json and validation needs to be done on screen--%>
+							<s:submit name="sendInviteEmail" class="btn btn-warning">Send Invite</s:submit>
 						</s:form>
 					</fieldset>
 
@@ -58,13 +59,21 @@
 								<td>Yet to Be Converted</td>
 								<td>
 									resend email waala action
-<%--
-									<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateAction"
-									        event="resendWelcomeEmail" class="button blue small">
-										<span class="icon white small" data-icon="7"></span>Resend Welcome mail
-										<s:param name="companyAffiliateId" value="${companyAffiliate.id}"/>
+
+									<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateInviteAction"
+									        event="sendInviteEmail" class="button blue small">
+										<span class="icon white small" data-icon="7"></span>Resend Invitation mail
+										<s:param name="companyAffiliateInviteId" value="${companyAffiliateInvite.id}"/>
+										<s:param name="affiliateEmail" value="${companyAffiliateInvite.affiliateEmail}"/>
 									</s:link>
---%>
+
+								</td>
+								<td>
+									<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateInviteAction"
+										event="deleteInvite" class="button blue small">
+										<span class="icon white small" data-icon="7"></span>Cancel Invite
+										<s:param name="companyAffiliateInviteId" value="${companyAffiliateInvite.id}"/>
+										</s:link>
 								</td>
 							</tr>
 						</c:forEach>

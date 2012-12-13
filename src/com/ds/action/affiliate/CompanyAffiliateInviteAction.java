@@ -1,6 +1,5 @@
 package com.ds.action.affiliate;
 
-import com.ds.api.CacheAPI;
 import com.ds.api.FeatureAPI;
 import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.company.Company;
@@ -15,8 +14,6 @@ import com.ds.security.service.UserService;
 import com.ds.utils.BaseUtils;
 import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
-import com.ds.action.employee.UserSearchAction;
-import com.ds.exception.DSException;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
@@ -47,6 +44,7 @@ public class CompanyAffiliateInviteAction extends BasePaginatedAction {
 
 	private User loggedInUser;
 	private Company company;
+	private Long companyAffiliateInviteId;
 
 	@Autowired
 	private AdminService adminService;
@@ -62,7 +60,6 @@ public class CompanyAffiliateInviteAction extends BasePaginatedAction {
 	private SecurityAPI securityAPI;
 	@Autowired
 	private UserService userService;
-
 
 
 	@DefaultHandler
@@ -85,23 +82,47 @@ public class CompanyAffiliateInviteAction extends BasePaginatedAction {
 		}
 	}
 
-	public Resolution sendInvite() {
+
+	public Resolution sendInviteEmail() {
+
+		CompanyAffiliateInvite companyAffiliateInvite = null;
+		loggedInUser = SecurityHelper.getLoggedInUser();
+		companyShortName = loggedInUser.getCompanyShortName();
+		if (companyAffiliateInviteId != null) {
+			companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(companyAffiliateInviteId);
+			if (companyAffiliateInvite != null) {
+				getCompanyAffiliateService().sendCompanyAffiliateInvitationEmail(companyAffiliateInvite);
+			} else {
+				addValidationError("inviteAlreadyExists", new LocalizableError("/Invite.action.invite.id.error"));
+				return new ForwardResolution(getContext().getSourcePage());
+			}
+		} else {
+			companyAffiliateInvite = getCompanyAffiliateService().getCompanayAffiliateInvite(companyShortName, affiliateEmail);
+			if (companyAffiliateInvite == null) {
+				companyAffiliateInvite = getCompanyAffiliateService().addCompanyAffiliateInvite(companyShortName, affiliateEmail);
+				getCompanyAffiliateService().sendCompanyAffiliateInvitationEmail(companyAffiliateInvite);
+
+			} else {
+				addValidationError("inviteAlreadyExists", new LocalizableError("/Invite.action.email.id.already.exists"));
+				return new ForwardResolution(getContext().getSourcePage());
+			}
+		}
+		return new RedirectResolution(CompanyAffiliateInviteAction.class);
+	}
+
+	@DontValidate
+	public Resolution deleteInvite() {
 
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
 
-		try {
-			getCompanyAffiliateService().addCompanyAffiliateInvite(companyShortName, affiliateEmail);
-			//getAffiliateService().sendInvitationEmail(companyShortName, affiliateEmail);
-		} catch (Exception e) {
-			addValidationError("inviteAlreadyExists", new LocalizableError("/Invite.action.email.id.already.exists"));
-			return new ForwardResolution(getContext().getSourcePage());
+		CompanyAffiliateInvite companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(companyAffiliateInviteId);
+		if (companyAffiliateInvite != null) {
+			getCompanyAffiliateService().deleteCompanyAffiliateInvite(companyAffiliateInvite);
 		}
 
 		return new RedirectResolution(CompanyAffiliateInviteAction.class);
-		//getAffiliateService().sendWelcomeEmail(companyAffiliate.getAffiliate());
 
-		//return null;
 	}
 
 
@@ -183,5 +204,13 @@ public class CompanyAffiliateInviteAction extends BasePaginatedAction {
 
 	public void setAffiliateEmail(String affiliateEmail) {
 		this.affiliateEmail = affiliateEmail;
+	}
+
+	public Long getCompanyAffiliateInviteId() {
+		return companyAffiliateInviteId;
+	}
+
+	public void setCompanyAffiliateInviteId(Long companyAffiliateInviteId) {
+		this.companyAffiliateInviteId = companyAffiliateInviteId;
 	}
 }
