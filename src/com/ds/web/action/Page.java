@@ -6,7 +6,7 @@ import java.util.List;
  * @author adlakha.vaibhav
  */
 public class Page {
-  public static final int DEFAULT_PAGE_SIZE = 3;
+  public static final int DEFAULT_PAGE_SIZE = 70;
 
   private List resultList;
   private int pageSize;
