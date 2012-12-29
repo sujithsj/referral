@@ -41,8 +41,8 @@
           </div>
           <div class="span2">
             <s:link beanclass="com.ds.action.employee.UserAction"
-                    event="createOrEditUser" class="btn btn-inverse">
-              <i class="icon-plus-sign icon-white"></i>Add new user
+                    event="createOrEditUser" class="btn btn-success">
+              <i class="icon-plus-sign icon-white"></i>&nbsp;Add new user
             </s:link>
           </div>
         </div>
@@ -62,7 +62,7 @@
                     <th>User Id</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Actions</th>
+                    <th style="width: 10%">Actions</th>
                   </tr>
                   </thead>
                   <tbody>
