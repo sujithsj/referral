@@ -155,7 +155,7 @@
             <s:submit name="saveUser" value="Save Changes" class="btn btn-success"/>
 
             <s:link beanclass="com.ds.action.employee.UserSearchAction"
-                    class="btn btn-inverse"><i class="icon-hand-left icon-white"></i> Back</s:link>
+                    class="btn btn-inverse"><i class="icon-hand-left icon-white"></i>&nbsp;Back</s:link>
           </div>
         </div>
       </s:form>
