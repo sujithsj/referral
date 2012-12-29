@@ -1,3 +1,5 @@
+<%@ page import="com.ds.web.locale.AffiliateLocaleContext" %>
+<%@ page import="com.ds.web.locale.AffiliateLocaleContextHolder" %>
 <%@include file="/includes/taglibInclude.jsp" %>
 
 <s:layout-render name="/templates/general.jsp">
@@ -6,8 +8,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.login.css" type="text/css"/>
 
     <%
-
-      HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+     /* HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
       String requestURL = req.getRequestURL().toString();
       String subdomain = null;
       if (requestURL != null && requestURL.length() > "http://".length()) {
@@ -23,7 +24,7 @@
       if (subdomain != null && !subdomain.equals("dev")) {
         String redirectURL = "http://" + subdomain + ".healthkart.com/pages/aff/affiliateLogin.jsp";
         response.sendRedirect(redirectURL);
-      }
+      }*/
     %>
 
     <div id="logo">

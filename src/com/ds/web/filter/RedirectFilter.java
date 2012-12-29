@@ -1,8 +1,5 @@
 package com.ds.web.filter;
 
-import com.ds.domain.company.Company;
-import com.ds.impl.service.ServiceLocatorFactory;
-import com.ds.pact.service.admin.AdminService;
 import com.ds.web.locale.AffiliateLocaleContext;
 import com.ds.web.locale.AffiliateLocaleContextHolder;
 import org.apache.commons.lang.StringUtils;
@@ -16,12 +13,7 @@ import java.io.IOException;
 /**
  * @author adlakha.vaibhav
  */
-public class AffiliateLocalizationFilter implements Filter {
-
-
-  private AdminService adminService;
-
-  public static final String BASE_URL = ".healthkart.com";
+public class RedirectFilter implements Filter {
 
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -30,6 +22,7 @@ public class AffiliateLocalizationFilter implements Filter {
       if (servletRequest instanceof HttpServletRequest) {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         String requestURL = req.getRequestURL().toString();
+
         String subdomain = null;
         if (requestURL != null && requestURL.length() > "http://".length()) {
           requestURL = requestURL.substring(7);
@@ -38,25 +31,20 @@ public class AffiliateLocalizationFilter implements Filter {
           subdomain = requestURL.substring(0, requestURL.indexOf("."));
         }
 
-        String environment = System.getProperty("env");
+        AffiliateLocaleContext affiliateLocaleContext = AffiliateLocaleContextHolder.getAffiliateLocaleContext();
 
-        if (StringUtils.isBlank(environment)) {
-          environment = "dev";
-        }
+        if (StringUtils.isNotBlank(affiliateLocaleContext.getCompanyShortName())) {
+          /**
+           * TODO: check if affiliate is logged in redirect to fk.healthkart.com
+           */
 
-        if (subdomain != null && !subdomain.equals("dev") && !subdomain.equals("www")) {
-
-          Company company = getAdminService().getCompany(subdomain);
-
-          if (company == null) {
+          if (requestURL.equals("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL) ||
+              requestURL.equals(affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL) ||
+             requestURL.equals(affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/") ||
+              requestURL.equals("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/") ) {
             HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-            httpServletResponse.sendRedirect("http://" + environment + BASE_URL);
-          } else {
-            AffiliateLocaleContext affiliateLocaleContext = new AffiliateLocaleContext();
-            affiliateLocaleContext.setCompanyShortName(company.getShortName());
-            AffiliateLocaleContextHolder.setAffiliateLocaleContext(affiliateLocaleContext);
+            httpServletResponse.sendRedirect("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/pages/aff/affiliateLogin.jsp");
           }
-
         }
       }
 
@@ -73,10 +61,5 @@ public class AffiliateLocalizationFilter implements Filter {
   public void init(FilterConfig arg0) throws ServletException {
   }
 
-  public AdminService getAdminService() {
-    if (adminService == null) {
-      adminService = (AdminService) ServiceLocatorFactory.getService(AdminService.class);
-    }
-    return adminService;
-  }
+
 }
