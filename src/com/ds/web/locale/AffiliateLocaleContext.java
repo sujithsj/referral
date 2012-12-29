@@ -4,9 +4,8 @@ package com.ds.web.locale;
  * @author adlakha.vaibhav
  */
 public class AffiliateLocaleContext {
-
-  //TODO: remove this hard coding
-  private String companyShortName  = "hk";
+  
+  private String companyShortName;
 
   private String login;
 

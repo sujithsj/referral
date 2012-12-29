@@ -3,78 +3,183 @@
 <s:layout-render name="/templates/general.jsp">
 
   <s:layout-component name="content">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.main.css" type="text/css"/>
+    <s:layout-render name="/includes/companyHeader.jsp"/>
+    <s:layout-render name="/includes/companySideBar.jsp"/>
+
     <s:useActionBean beanclass="com.ds.action.employee.UserAction" var="userAction"/>
-    <div class="content-outer wrap">
-      <div class="col_12">
-        <div id="page-heading">
-          <c:choose>
-            <c:when test="${userAction.employeeId != null}">
-              <h4>Edit User</h4>
-            </c:when>
-            <c:otherwise>
-              <h4>Create User</h4>
-            </c:otherwise>
-          </c:choose>
-        </div>
+    <div id="content">
+      <c:choose>
+        <c:when test="${userAction.employeeId != null}">
+          <s:layout-render name="/includes/companyContentHeader.jsp" includeHeaderBtnGrp="false"
+                           headerLabel="Edit  User"/>
+        </c:when>
+        <c:otherwise>
+          <s:layout-render name="/includes/companyContentHeader.jsp" includeHeaderBtnGrp="false"
+                           headerLabel="Create New User"/>
+        </c:otherwise>
+      </c:choose>
 
-        <s:form beanclass="com.ds.action.employee.UserAction" class="vertical">
-          <div class="col_6">
+      <s:form beanclass="com.ds.action.employee.UserAction" id="userBasicInfoForm" class="form-horizontal">
+        <div class="container-fluid">
 
-            <s:label name="User Full Name"/>
-            <s:text name="userDTO.fullName" class="check-empty auto-adjust"/>
+          <div class="row-fluid">
+            <div class="span6">
+              <div class="widget-box">
+                <div class="widget-title">
+								<span class="icon">
+									<i class="icon-user"></i>
+								</span>
+                  <h5>User Information</h5>
+                </div>
+                <div class="widget-content nopadding">
 
-            <s:label name="Email"/>
-            <s:text name="userDTO.email" class="check-empty auto-adjust"/>
+                  <div class="control-group" id="1">
+                    <s:label class="control-label" name="User Full Name"/>
+                    <div class="controls">
+                      <s:text class="required" name="userDTO.fullName"/>
+                    </div>
+                  </div>
+                  <div class="control-group" id="2">
+                    <s:label class="control-label" name="Email"/>
+                    <div class="controls">
+                      <s:text name="userDTO.email" class="required email"/>
+                    </div>
+                  </div>
+                  <div class="control-group" id="3">
+                    <s:label class="control-label" name="Password"/>
+                    <div class="controls">
+                      <s:password name="userDTO.password" class="required" minlength="6"/>
+                    </div>
+                  </div>
 
-            <s:label name="Password"/>
-            <s:text name="userDTO.newPassword" class="check-empty auto-adjust"/>
 
-            <s:label name="Send Email On Affiliate Signup"/>
-            <s:checkbox name="userDTO.sendEmailOnAddAffiliate" class="check-empty auto-adjust" maxlength="11"/>
+                </div>
+              </div>
+            </div>
+            <div class="span6">
+              <div class="widget-box">
+                <div class="widget-title">
+								<span class="icon">
+									<i class="icon-wrench"></i>
+								</span>
+                  <h5>User Settings</h5>
+                </div>
+                <div class="widget-content nopadding">
+                  <div class="control-group">
+                    <s:label name="Email On Affiliate Request" class="control-label"/>
+                    <div class="controls">
+                      <s:checkbox name="userDTO.sendEmailOnAddAffiliate"/>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <s:label name="Email On Affiliate Addition" class="control-label"/>
+                    <div class="controls">
+                      <s:checkbox name="userDTO.sendEmailOnJoinAffiliate"/>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <s:label name="Email On Payout" class="control-label"/>
+                    <div class="controls">
+                      <s:checkbox name="userDTO.sendEmailOnPayout"/>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <s:label name="Enabled" class="control-label"/>
+                    <div class="controls">
+                      <s:checkbox name="userDTO.enabled"/>
+                    </div>
+                  </div>
+                  
+                    <%-- <div class="control-group">
+                      <s:label name="Send Email On Goal Conversion" class="control-label"/>
+                      <div class="controls">
+                        <s:checkbox name="userDTO.sendEmailOnGoalConversion"/>
+                      </div>
+                    </div>--%>
+                    <%-- <div class="control-group">
+                      <s:label name="account non expired" class="control-label"/>
+                      <div class="controls">
+                        <s:checkbox name="userDTO.accountNonExpired"/>
+                      </div>
+                    </div>--%>
+                    <%--<div class="control-group">
+                      <s:label name="Account non locked" class="control-label"/>
+                      <div class="controls">
+                        <s:checkbox name="userDTO.accountNonLocked"/>
+                      </div>
+                    </div>--%>
 
-            <s:label name="Send Email On Affiliate Joining"/>
-            <s:checkbox name="userDTO.sendEmailOnJoinAffiliate" class="auto-adjust"/>
+                    <%--<div class="control-group">
+                      <s:label name="Credintals non expired" class="control-label"/>
+                      <div class="controls">
+                        <s:checkbox name="userDTO.credentialsNonExpired"/>
+                      </div>
+                    </div>--%>
 
-            <s:label name="Send Email On Payout"/>
-            <s:checkbox name="userDTO.sendEmailOnPayout" class="auto-adjust"/>
+                </div>
+              </div>
 
-            <s:label name="Send Email On Goal Conversion"/>
-            <s:checkbox name="userDTO.sendEmailOnGoalConversion" class="auto-adjust"/>
-
-            <s:label name="account non expired"/>
-            <s:checkbox name="userDTO.accountNonExpired" class="auto-adjust"/>
-
-            <s:label name="Account non locked"/>
-            <s:checkbox name="userDTO.accountNonLocked" class="auto-adjust"/>
-
-            <s:label name="Enabled"/>
-            <s:checkbox name="userDTO.enabled" class="auto-adjust"/>
-
-            <s:label name="Credintals non expired"/>
-            <s:checkbox name="userDTO.credentialsNonExpired" class="auto-adjust"/>
-
-            <h2>Roles:</h2>
-            <c:forEach items="${userAction.userRoles}" var="role" varStatus="roleCount">
-              
-              <s:hidden name="userDTO.rolesToSync[${roleCount.index}]" value="${role.name}"/>
-              <s:checkbox name="userDTO.rolesToSync[${roleCount.index}]"/> ${role.name}<br/>
-            </c:forEach>
-
+            </div>
           </div>
 
-          <div class="clear"></div>
+          <div class="row-fluid">
+            <div class="span6">
+              <div class="widget-box collapsible">
+                <div class="widget-title">
+                  <a href="#collapseRoles" data-toggle="collapse">
+								<span class="icon">
+									<i class="icon-magnet"></i>
+								</span>
+                    <h5>User Roles</h5>
+                  </a>
+                </div>
+                <div class="collapse " id="collapseRoles">
+                  <div class="widget-content nopadding">
 
-          <div class="col_2">
+                    <c:forEach items="${userAction.userRoles}" var="role" varStatus="roleCount">
+
+                      <s:hidden name="userDTO.rolesToSync[${roleCount.index}]" value="${role.name}"/>
+                      <s:checkbox name="userDTO.rolesToSync[${roleCount.index}]"/> ${role.name}<br/>
+                    </c:forEach>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row-fluid">
             <s:hidden name="employeeId"/>
-            <s:submit name="saveUser" value="Save Changes" class="button blue small"/>
-          </div>
+            <s:submit name="saveUser" value="Save Changes" class="btn btn-success"/>
 
-          <div class="col_2">
             <s:link beanclass="com.ds.action.employee.UserSearchAction"
-                    class="button blue small"><span class="icon white small" data-icon=":"></span>Back</s:link>
+                    class="btn btn-inverse"><i class="icon-hand-left icon-white"></i> Back</s:link>
           </div>
-        </s:form>
-      </div>
+        </div>
+      </s:form>
+
+      <s:layout-render name="/includes/footer.jsp"/>
     </div>
+    </div>
+
+    </div>
+
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/user/userCrud.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/select2.min.js"></script>
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/assets/js/unicorn.form_validation.js"></script>
+    <%--
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.peity.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/unicorn.dashboard.js"></script>
+    --%>
+
+
   </s:layout-component>
+
 </s:layout-render>

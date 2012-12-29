@@ -59,9 +59,15 @@ public class MarketingMaterialSaleEventListener implements EventListener {
 
       getBaseDao().save(eventTracking);
 
+
+      /**
+       * now that we have captured event tracking , we will capture the commission earning , may be we can do this via quartz.
+       */
+
+
     } catch (Throwable t) {
-      logger.error("Unable to save click tracking" + eventTracking, t);
-      throw new DSException("UNABLE_TO_SAVE_CLICK_TRACKING");
+      logger.error("Unable to save sale event tracking" + eventTracking, t);
+      throw new DSException("UNABLE_TO_SAVE_SALE_EVENT_TRACKING");
     }
 
   }

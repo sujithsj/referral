@@ -1,12 +1,17 @@
 package com.ds.impl.service.commission;
 
+import com.ds.domain.campaign.Campaign;
 import com.ds.domain.commission.CommissionCurrency;
 import com.ds.domain.commission.CommissionPlan;
 import com.ds.domain.commission.CommissionStrategy;
+import com.ds.domain.tracking.EventTracking;
+import com.ds.domain.affiliate.Affiliate;
 import com.ds.dto.commission.CommissionPlanDTO;
 import com.ds.exception.InvalidParameterException;
 import com.ds.pact.dao.BaseDao;
 import com.ds.pact.service.commission.CommissionService;
+import com.ds.pact.service.affiliate.CompanyAffiliateService;
+import com.ds.constants.EnumCommisionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +24,9 @@ public class CommissionServiceImpl implements CommissionService {
 
   @Autowired
   private BaseDao baseDao;
+
+  @Autowired
+  private CompanyAffiliateService companyAffiliateService;
 
   
 
@@ -99,8 +107,30 @@ public class CommissionServiceImpl implements CommissionService {
 
   }
 
+  @Override
+  @Transactional
+  public void creditCommissionToAffiliateForEvent(Long eventTrackingId){
+
+    EventTracking eventTracking = getBaseDao().get(EventTracking.class, eventTrackingId);
+    Campaign campaign = eventTracking.getCampaign();
+    Affiliate affiliate = eventTracking.getAffiliate();
+
+    CommissionStrategy commissionStrategy = campaign.getCommissionPlan().getCommissionStrategy();
+
+
+    if(EnumCommisionStrategy.ONE_TIME_FLAT_COMM.getId().equals(commissionStrategy.getId())){
+         // getCompanyAffiliateService().get
+    }
+
+    
+  }
+
 
   public BaseDao getBaseDao() {
     return baseDao;
+  }
+
+  public CompanyAffiliateService getCompanyAffiliateService() {
+    return companyAffiliateService;
   }
 }
