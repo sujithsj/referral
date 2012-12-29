@@ -89,7 +89,11 @@
                   </c:forEach>
                   </tbody>
                 </table>
+
+
               </div>
+              <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${userSearchAction}"/>
+                <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${userSearchAction}"/>
             </div>
           </div>
         </div>

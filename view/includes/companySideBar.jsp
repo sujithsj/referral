@@ -4,14 +4,9 @@
 <div id="sidebar">
 			<%--<a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard kk</a>--%>
 			<ul>
-				<li class="active"><a href="/pages/company/dashboard.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-				<li class="submenu">
-					<a href="#"><i class="icon icon-user"></i> <span>Users</span> <span class="label">3</span></a>
-					<ul>
-						<li><a href="form-common.html">Common elements</a></li>
-						<li><a href="form-validation.html">Validation</a></li>
-						<li><a href="form-wizard.html">Wizard</a></li>
-					</ul>
+				<li ><a href="/pages/company/dashboard.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+				<li>
+					<a href="${pageContext.request.contextPath}/employee/UserSearch.action"><i class="icon icon-user"></i> <span>Users</span> <span class="label">3</span></a>
 				</li>
 				<li><a href="buttons.html"><i class="icon icon-tint"></i> <span>Campaigns</span></a></li>
 				<li><a href="interface.html"><i class="icon icon-file"></i> <span>Ads</span></a></li>

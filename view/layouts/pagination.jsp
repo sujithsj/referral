@@ -31,7 +31,8 @@
       <%
         if (basePaginatedAction.getPageNo() > 1) {
       %>
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=basePaginatedAction.getPageNo()-1%>" pageText="&larr; Previous"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}"
+                       pageNo="<%=basePaginatedAction.getPageNo()-1%>" pageText="&larr; Previous"/>
       <%
         }
       %>
@@ -48,13 +49,18 @@
             // Case 1
             for (int pageNo = 1; pageNo <= (maxDisplay - 2); pageNo++) {
       %>
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=pageNo%>" pageText="<%=pageNo%>"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=pageNo%>"
+                       pageText="<%=pageNo%>"/>
       <%
         }
       %>
 
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=basePaginatedAction.getPageCount()-1%>" pageText="<%=basePaginatedAction.getPageCount()-1%>"/>
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=basePaginatedAction.getPageCount()%>" pageText="<%=basePaginatedAction.getPageCount()%>"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}"
+                       pageNo="<%=basePaginatedAction.getPageCount()-1%>"
+                       pageText="<%=basePaginatedAction.getPageCount()-1%>"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}"
+                       pageNo="<%=basePaginatedAction.getPageCount()%>"
+                       pageText="<%=basePaginatedAction.getPageCount()%>"/>
       <%
       } else if ((basePaginatedAction.getPageCount() - basePaginatedAction.getPageNo()) < (maxDisplay - 4)) {
         // Case 2
@@ -65,7 +71,8 @@
       <%
         for (int pageNo = (basePaginatedAction.getPageCount() - maxDisplay + 2); pageNo <= basePaginatedAction.getPageCount(); pageNo++) {
       %>
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=pageNo%>" pageText="<%=pageNo%>"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=pageNo%>"
+                       pageText="<%=pageNo%>"/>
       <%
         }
       } else {
@@ -77,13 +84,18 @@
       <%
         for (int pageNo = basePaginatedAction.getPageNo() - (maxDisplay / 2 - 2); pageNo <= basePaginatedAction.getPageNo() + (maxDisplay / 2 - 2); pageNo++) {
       %>
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=pageNo%>" pageText="<%=pageNo%>"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=pageNo%>"
+                       pageText="<%=pageNo%>"/>
       <%
         }
       %>
 
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=basePaginatedAction.getPageCount()-1%>" pageText="<%=basePaginatedAction.getPageCount()-1%>"/>
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=basePaginatedAction.getPageCount()%>" pageText="<%=basePaginatedAction.getPageCount()%>"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}"
+                       pageNo="<%=basePaginatedAction.getPageCount()-1%>"
+                       pageText="<%=basePaginatedAction.getPageCount()-1%>"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}"
+                       pageNo="<%=basePaginatedAction.getPageCount()%>"
+                       pageText="<%=basePaginatedAction.getPageCount()%>"/>
       <%
         }
 
@@ -91,7 +103,8 @@
         // very easy, render all pages!
         for (int pageNo = 1; pageNo <= basePaginatedAction.getPageCount(); pageNo++) {
       %>
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=pageNo%>" pageText="<%=pageNo%>"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=pageNo%>"
+                       pageText="<%=pageNo%>"/>
       <%
           }
         }
@@ -101,7 +114,8 @@
       <%
         if (basePaginatedAction.getPageNo() < basePaginatedAction.getPageCount()) {
       %>
-      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}" pageNo="<%=basePaginatedAction.getPageNo()+1%>" pageText="Next &rarr;"/>
+      <s:layout-render name="/layouts/_pageNoLink.jsp" paginatedBean="${paginatedBean}"
+                       pageNo="<%=basePaginatedAction.getPageNo()+1%>" pageText="Next &rarr;"/>
       <%
         }
       %>

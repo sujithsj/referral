@@ -251,7 +251,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/excanvas.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.peity.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/unicorn.dashboard.js"></script>
+
 
 
 </s:layout-component>
