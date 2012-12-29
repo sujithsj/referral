@@ -37,16 +37,16 @@
                   <s:hidden name="campaignTypeId" id="campaignType"/>
 
                   <%--<div class="input btn-toolbar">--%>
-                    <div class="btn-group">
+                  <div class="btn-group">
 
-                      <a class="btn cpType" href="#" type="<%=EnumCampaignType.ALL.getId()%>">All</a>
-                      <a class="btn cpType" href="#" type="<%=EnumCampaignType.SALE.getId()%>">Sale</a>
-                      <a class="btn cpType" href="#" type="<%=EnumCampaignType.EMAIL_OPT_IN.getId()%>">Email Opt In</a>
-                      <a class="btn cpType" href="#" type="<%=EnumCampaignType.USER_SIGN_UP.getId()%>">User Sign Up</a>
-                      <a class="btn cpType" href="#" type="<%=EnumCampaignType.AFFILIATE_SIGN_UP.getId()%>">Affiliate
-                        Sign
-                        Up</a>
-                    </div>
+                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.ALL.getId()%>">All</a>
+                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.SALE.getId()%>">Sale</a>
+                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.EMAIL_OPT_IN.getId()%>">Email Opt In</a>
+                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.USER_SIGN_UP.getId()%>">User Sign Up</a>
+                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.AFFILIATE_SIGN_UP.getId()%>">Affiliate
+                      Sign
+                      Up</a>
+                  </div>
                   <%--  </div>--%>
                   <s:submit name="searchCampaign" class="btn btn-inverse">Search</s:submit>
                 </s:form>
@@ -56,8 +56,66 @@
           <div class="span2">
             <s:link beanclass="com.ds.action.campaign.CampaignAction"
                     event="createOrEditCampaign" class="btn btn-success">
-              <i class="icon-plus-sign icon-white"></i>&nbsp;Add  Campaign
+              <i class="icon-plus-sign icon-white"></i>&nbsp;Add Campaign
             </s:link>
+          </div>
+        </div>
+
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="widget-box">
+              <div class="widget-title">
+								<span class="icon">
+									<i class="icon-filter"></i>
+								</span>
+                <h5>Campaigns</h5>
+              </div>
+              <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Reward Type</th>
+                    <th>Approved</th>
+                    <th>Pending</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th style="width: 10%">Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <c:forEach items="${campaignSearchAction.campaigns}" var="campaign">
+                    <tr>
+                      <td>${campaign.name}</td>
+                      <td>${campaign.campaignType.type}</td>
+                      <td>${campaign.active}</td>
+                      <td>${campaign.commissionPlan.commissionStrategy.name}</td>
+                      <td>$Approved Commision</td>
+                      <td>$Pending Commision</td>
+                      <td>${campaign.startDate}</td>
+                      <td>${campaign.endDate}</td>
+                      <td>
+                        <div class="btn-group">
+                          <s:link beanclass="com.ds.action.campaign.CampaignAction"
+                                  event="createOrEditCampaign" class="button blue small">
+                            <span class="icon white small" data-icon="7"></span>Edit
+                            <s:param name="campaignId" value="${campaign.id}"/>
+                          </s:link>
+
+                        </div>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                  </tbody>
+                </table>
+
+
+              </div>
+              <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${campaignSearchAction}"/>
+              <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${campaignSearchAction}"/>
+            </div>
           </div>
         </div>
         <s:layout-render name="/includes/footer.jsp"/>
@@ -74,6 +132,32 @@
     --%>
 
 
+  </s:layout-component>
+  <s:layout-component name="scriptComponent">
+
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+        $('.cpType').click(function(event) {
+          var type = $(this).attr('type');
+          $("#campaignType").val(type);
+          var searchForm = $("#campaignSearchForm")[0];
+          var actionUrl = searchForm.action;
+          actionUrl += '?searchCampaign';
+          searchForm.action = actionUrl;
+          searchForm.submit();
+        });
+
+        $.each($(".cpType"), function(index, value) {
+          var type = $(this).attr('type');
+          var selType = $("#campaignType").val();
+          if (selType === type) {
+            $(this).addClass('disabled');
+          }
+        });
+      });
+
+    </script>
   </s:layout-component>
 
 </s:layout-render>
