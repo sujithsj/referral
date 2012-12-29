@@ -24,8 +24,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.css"
           type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/docs.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css" type="text/css"/>
+    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/docs.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css" type="text/css"/--%>>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/uniform.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/select2.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.main.css " type="text/css"/>
     <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.css"
           type="text/css"/>--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.grey.css" class="skin-color" type="text/css"/>
