@@ -5,7 +5,6 @@
   <s:layout-component name="content">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.login.css" type="text/css"/>
 
-
     <%
 
       HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();

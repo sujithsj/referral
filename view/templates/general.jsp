@@ -26,15 +26,16 @@
           type="text/css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/docs.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.css"
-          type="text/css"/>
+    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.css"
+          type="text/css"/>--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.grey.css" class="skin-color" type="text/css"/>
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.ui.custom.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/application.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-affix.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.uniform.js"></script>
+    <%--<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/application.js"></script>--%>
+    <%--<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-affix.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-alert.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-button.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-carousel.js"></script>
@@ -46,8 +47,9 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-tab.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-tooltip.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-typeahead.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-typeahead.js"></script>--%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/unicorn.js"></script>
+    
 
     <script type="text/javascript"
             src="${pageContext.request.contextPath}/assets/js/google-code-prettify/prettify.js"></script>

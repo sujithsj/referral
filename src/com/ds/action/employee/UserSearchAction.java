@@ -33,7 +33,7 @@ public class UserSearchAction extends BasePaginatedAction {
 
    @DefaultHandler
    public Resolution pre() {
-    return new ForwardResolution("/pages/company/users.jsp");
+    return new ForwardResolution("/pages/company/old_users.jsp");
    }
 
   @SuppressWarnings("unchecked")
@@ -43,7 +43,7 @@ public class UserSearchAction extends BasePaginatedAction {
     userPage = getUserService().searchUser(userName, email, companyShortName, getPageNo(), getPerPage());
     users = userPage.getList();
 
-    return new ForwardResolution("/pages/company/users.jsp");
+    return new ForwardResolution("/pages/company/old_users.jsp");
 
   }
 
