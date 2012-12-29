@@ -52,7 +52,7 @@
                       <s:password name="userDTO.password" class="required" minlength="6"/>
                     </div>
                   </div>
-                  
+
 
                 </div>
               </div>
@@ -67,7 +67,13 @@
                 </div>
                 <div class="widget-content nopadding">
                   <div class="control-group">
-                    <s:label name="Email On Affiliate Joining" class="control-label"/>
+                    <s:label name="Email On Affiliate Request" class="control-label"/>
+                    <div class="controls">
+                      <s:checkbox name="userDTO.sendEmailOnAddAffiliate"/>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <s:label name="Email On Affiliate Addition" class="control-label"/>
                     <div class="controls">
                       <s:checkbox name="userDTO.sendEmailOnJoinAffiliate"/>
                     </div>
@@ -84,12 +90,7 @@
                       <s:checkbox name="userDTO.enabled"/>
                     </div>
                   </div>
-                    <%--<div class="control-group">
-                      <s:label name="Send Email On Affiliate Signup" class="control-label"/>
-                      <div class="controls">
-                        <s:checkbox name="userDTO.sendEmailOnAddAffiliate"/>
-                      </div>
-                    </div>--%>
+                  
                     <%-- <div class="control-group">
                       <s:label name="Send Email On Goal Conversion" class="control-label"/>
                       <div class="controls">
@@ -123,7 +124,7 @@
           </div>
 
           <div class="row-fluid">
-            <div class="span12">
+            <div class="span6">
               <div class="widget-box collapsible">
                 <div class="widget-title">
                   <a href="#collapseRoles" data-toggle="collapse">
@@ -136,20 +137,11 @@
                 <div class="collapse " id="collapseRoles">
                   <div class="widget-content nopadding">
 
-                    <div class="control-group">
-                      <label class="control-label">Normal text input</label>
+                    <c:forEach items="${userAction.userRoles}" var="role" varStatus="roleCount">
 
-                      <div class="controls">
-                        <input type="text"/>
-                      </div>
-                    </div>
-                    <div class="control-group">
-                      <label class="control-label">Password input</label>
-
-                      <div class="controls">
-                        <input type="password"/>
-                      </div>
-                    </div>
+                      <s:hidden name="userDTO.rolesToSync[${roleCount.index}]" value="${role.name}"/>
+                      <s:checkbox name="userDTO.rolesToSync[${roleCount.index}]"/> ${role.name}<br/>
+                    </c:forEach>
 
                   </div>
                 </div>
@@ -160,10 +152,10 @@
 
           <div class="row-fluid">
             <s:hidden name="employeeId"/>
-            <s:submit name="saveUser" value="Save Changes" class="button blue small"/>
+            <s:submit name="saveUser" value="Save Changes" class="btn btn-success"/>
 
             <s:link beanclass="com.ds.action.employee.UserSearchAction"
-                    class="button blue small"><span class="icon white small" data-icon=":"></span>Back</s:link>
+                    class="btn btn-inverse"><i class="icon-hand-left icon-white"></i> Back</s:link>
           </div>
         </div>
       </s:form>
