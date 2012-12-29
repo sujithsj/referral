@@ -102,7 +102,12 @@ public class CompanyAffiliateInviteAction extends BasePaginatedAction {
 				companyAffiliateInvite = getCompanyAffiliateService().addCompanyAffiliateInvite(companyShortName, affiliateEmail);
 				getCompanyAffiliateService().sendCompanyAffiliateInvitationEmail(companyAffiliateInvite);
 
-			} else {
+			} else if (companyAffiliateInvite.getDeleted()){ //someone trying to send email to already existing invite
+				companyAffiliateInvite.setDeleted(false);
+				companyAffiliateInvite = getCompanyAffiliateService().saveCompanyAffiliateInvite(companyAffiliateInvite);
+				getCompanyAffiliateService().sendCompanyAffiliateInvitationEmail(companyAffiliateInvite);
+			}
+			else { //someone trying to send email to already existing invite
 				addValidationError("inviteAlreadyExists", new LocalizableError("/Invite.action.email.id.already.exists"));
 				return new ForwardResolution(getContext().getSourcePage());
 			}
