@@ -24,7 +24,7 @@
         <li><a class="sTrash" title="" href="#">trash</a></li>
       </ul>
     </li>
-    <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-cog"></i> <span
+    <li class="btn btn-inverse"><a title="" href="${pageContext.request.contextPath}/company/Company.action"><i class="icon icon-cog"></i> <span
         class="text">Settings</span></a></li>
     <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span
         class="text">Logout</span></a></li>
@@ -38,11 +38,13 @@
     <h1>Dashboard</h1>
 
     <div class="btn-group">
-      <a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
-      <a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+      <a class="btn btn-large tip-bottom" title="Manage Ads" href="${pageContext.request.contextPath}/marketing/MarketingMaterialSearch.action"><i class="icon-file"></i></a>
+      <a class="btn btn-large tip-bottom" title="Manage Users" href="${pageContext.request.contextPath}/employee/UserSearch.action"><i class="icon-user"></i></a>
+      <a class="btn btn-large tip-bottom" title="Manage Affiliates" href="${pageContext.request.contextPath}/affiliate/CompanyAffiliateSearch.action"><i class="icon-th"></i></a>
       <a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span
           class="label label-important">5</span></a>
       <a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+
     </div>
   </div>
   <div id="breadcrumb">
@@ -240,39 +242,10 @@
         </div>
       </div>
     </div>
-    <div class="row-fluid">
-      <div class="span12">
-        <div class="widget-box widget-calendar">
-          <div class="widget-title"><span class="icon"><i class="icon-calendar"></i></span><h5>Calendar</h5></div>
-          <div class="widget-content nopadding">
-            <div class="calendar"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
+    
     <s:layout-render name="/includes/footer.jsp"/>
   </div>
 </div>
-
-
-<%--
-<script src="js/excanvas.min.js"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.ui.custom.js"></script>
---%>
-<%--
-<script src="js/bootstrap.min.js"></script>
---%>
-<%--<script src="js/jquery.flot.min.js"></script>
-<script src="js/jquery.flot.resize.min.js"></script>
-<script src="js/jquery.peity.min.js"></script>
-<script src="js/fullcalendar.min.js"></script>--%>
-<%--
-<script src="js/unicorn.js"></script>
-<script src="js/unicorn.dashboard.js"></script>
---%>
 
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/excanvas.min.js"></script>
