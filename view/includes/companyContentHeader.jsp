@@ -24,7 +24,7 @@
         <a class="btn btn-large tip-bottom" title="Manage Users"
            href="${pageContext.request.contextPath}/employee/UserSearch.action"><i class="icon-user"></i></a>
         <a class="btn btn-large tip-bottom" title="Manage Affiliates"
-           href="${pageContext.request.contextPath}/affiliate/CompanyAffiliateSearch.action"><i class="icon-th"></i></a>
+           href="${pageContext.request.contextPath}/affiliate/CompanyAffiliateSearch.action"><i class="icon-leaf"></i></a>
         <a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span
             class="label label-important">5</span></a>
         <a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>

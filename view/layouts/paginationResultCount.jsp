@@ -23,12 +23,16 @@
 
     if (basePaginatedActionObj != null && basePaginatedActionObj instanceof BasePaginatedAction) {
       BasePaginatedAction basePaginatedAction = (BasePaginatedAction) basePaginatedActionObj;
-      int startResult = (basePaginatedAction.getPageNo() - 1)*basePaginatedAction.getPerPage() + 1;
-      int endResult = (basePaginatedAction.getPageNo() - 1)*basePaginatedAction.getPerPage() + basePaginatedAction.getPerPage();
+      int startResult = (basePaginatedAction.getPageNo() - 1) * basePaginatedAction.getPerPage() + 1;
+      int endResult = (basePaginatedAction.getPageNo() - 1) * basePaginatedAction.getPerPage() + basePaginatedAction.getPerPage();
       if (endResult > basePaginatedAction.getResultCount()) endResult = basePaginatedAction.getResultCount();
+      if (basePaginatedAction.getResultCount() > 0) {
   %>
-  Showing <%=startResult%> - <%=endResult%> of <%=basePaginatedAction.getResultCount()%> results
+  <div class="pagination">
+    Showing <%=startResult%> - <%=endResult%> of <%=basePaginatedAction.getResultCount()%> results
+  </div>
   <%
+    }
   } else {
   %>
   No BasePaginatedAction object found with the attribute paginatedBean

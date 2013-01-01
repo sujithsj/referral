@@ -9,10 +9,10 @@
 
     <s:useActionBean beanclass="com.ds.action.employee.UserSearchAction" var="userSearchAction"/>
     <div id="content">
-      <s:layout-render name="/includes/companyContentHeader.jsp" headerLabel="Manage Users"/>
+      <s:layout-render name="/includes/companyContentHeader.jsp" headerLabel="Users"/>
       <div id="breadcrumb">
         <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
-        <a href="#" class="current">Manage Users</a>
+        <a href="#" class="current">Users</a>
       </div>
 
       <div class="container-fluid">
@@ -41,8 +41,8 @@
           </div>
           <div class="span2">
             <s:link beanclass="com.ds.action.employee.UserAction"
-                    event="createOrEditUser" class="btn btn-inverse">
-              <i class="icon-plus-sign icon-white"></i>Add new user
+                    event="createOrEditUser" class="btn btn-success">
+              <i class="icon-plus-sign icon-white"></i>&nbsp;Add new user
             </s:link>
           </div>
         </div>
@@ -62,7 +62,7 @@
                     <th>User Id</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Actions</th>
+                    <th style="width: 10%">Actions</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -89,7 +89,11 @@
                   </c:forEach>
                   </tbody>
                 </table>
+
+
               </div>
+              <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${userSearchAction}"/>
+                <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${userSearchAction}"/>
             </div>
           </div>
         </div>
