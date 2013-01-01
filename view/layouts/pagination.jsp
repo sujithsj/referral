@@ -25,8 +25,10 @@
       BasePaginatedAction basePaginatedAction = (BasePaginatedAction) basePaginatedActionObj;
       if (basePaginatedAction.getPageCount() > 1) {
   %>
-  <div class="pagi">
-    <div class="links">
+  <%--<div class="pagi">--%>
+  <div class="pagination pagination-right">
+    <%--<div class="links">--%>
+    <ul>
         <%-- Previous link if applicable --%>
       <%
         if (basePaginatedAction.getPageNo() > 1) {
@@ -120,7 +122,8 @@
         }
       %>
     </div>
-  </div>
+  <%--</div>--%>
+    </ul>
   <%
     }
   %>

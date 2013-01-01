@@ -28,7 +28,8 @@
                 <h5>Search Campaign</h5>
               </div>
               <div class="widget-content">
-                <s:form beanclass="com.ds.action.campaign.CampaignSearchAction" class="form-inline">
+                <s:form beanclass="com.ds.action.campaign.CampaignSearchAction" id="campaignSearchForm"
+                        class="form-inline">
                   <div class="input-prepend">
                     <span class="add-on"><i class="icon-user"></i></span><s:text name="name"
                                                                                  placeholder="Campaign Name"/>
@@ -110,11 +111,32 @@
                   </c:forEach>
                   </tbody>
                 </table>
+              </div>
 
+              <div class="row-fluid">
+                <div class="span3">
+                  <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${campaignSearchAction}"/>
+                </div>
+                <div class="span9">
+                  <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${campaignSearchAction}"/>
+                </div>
 
               </div>
-              <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${campaignSearchAction}"/>
-              <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${campaignSearchAction}"/>
+
+                <%--<div class="pagination">
+                  <ul>
+                    <li class="disabled"><span>Prev</span></li>
+                    <li class="active"><span>1</span></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">6</a></li>
+                    <li><a href="#">7</a></li>
+                    <li><a href="#">8</a></li>
+                    <li><a href="#">Next</a></li>
+                  </ul>
+                </div>--%>
             </div>
           </div>
         </div>
@@ -151,6 +173,7 @@
         $.each($(".cpType"), function(index, value) {
           var type = $(this).attr('type');
           var selType = $("#campaignType").val();
+
           if (selType === type) {
             $(this).addClass('disabled');
           }

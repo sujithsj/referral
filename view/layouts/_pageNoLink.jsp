@@ -17,7 +17,7 @@
     if (basePaginatedAction.getPageNo() != pageNo) {
   %>
 
-  <s:link class="pagi_link" beanclass="<%=basePaginatedAction.getClass().getName()%>" event="<%=basePaginatedAction.getEventParam()%>">
+  <li><s:link beanclass="<%=basePaginatedAction.getClass().getName()%>" event="<%=basePaginatedAction.getEventParam()%>">
     <%
       if (basePaginatedAction.getParamSet() != null && !basePaginatedAction.getParamSet().isEmpty()) {
         for (String param : basePaginatedAction.getParamSet()) {
@@ -66,13 +66,15 @@
     %>
     ${pageText}
   </s:link>
-
+  </li>
   <%
     } else {
   %>
-  <a class="pagi_link current">
+  <li class="active">
+  <%--<a class="pagi_link current">--%>
   <span>${pageText}</span>
-  </a>
+  <%--</a>--%>
+    </li>
   <%
     }
   %>

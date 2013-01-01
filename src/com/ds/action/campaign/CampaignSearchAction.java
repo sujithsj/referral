@@ -1,12 +1,12 @@
 package com.ds.action.campaign;
 
-import com.ds.constants.EnumCampaignType;
 import com.ds.domain.campaign.Campaign;
 import com.ds.domain.user.User;
 import com.ds.pact.service.campaign.CampaignService;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
+import com.ds.constants.EnumCampaignType;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -33,14 +33,14 @@ public class CampaignSearchAction extends BasePaginatedAction {
   private Long campaignTypeId;
 
   private Page campaignPage;
-  private List<Campaign> campaigns;
+  private List<Campaign> campaigns;   
 
   @Autowired
   private CampaignService campaignService;
 
   @DefaultHandler
   public Resolution pre() {
-    campaignTypeId = EnumCampaignType.ALL.getId();
+    /*campaignTypeId = EnumCampaignType.ALL.getId();*/
     return searchCampaign();
   }
 
@@ -49,12 +49,16 @@ public class CampaignSearchAction extends BasePaginatedAction {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     companyShortName = loggedInUser.getCompanyShortName();
     //get all marketing materials
-    if (EnumCampaignType.ALL.getId().equals(campaignTypeId)) {
+    /*if ( campaignTypeId ==null || EnumCampaignType.ALL.getId().equals(campaignTypeId)) {
       campaignTypeId = null;
-    }
+    }*/
 
     campaignPage = getCampaignService().searchCampaign(name, companyShortName,startDate, endDate, campaignTypeId, active, getPageNo(), getPerPage());
     campaigns = campaignPage.getList();
+
+    if(campaignTypeId == null){
+      campaignTypeId = EnumCampaignType.ALL.getId();
+    }
 
     return new ForwardResolution("/pages/campaign/campaign.jsp");
 
