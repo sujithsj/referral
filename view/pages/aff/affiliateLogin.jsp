@@ -14,6 +14,9 @@
 				</header>--%>
 		<%
 
+			String email = request.getParameter("email");
+			pageContext.setAttribute("email", email);
+/*
 			HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
 			String requestURL = req.getRequestURL().toString();
 			String subdomain = null;
@@ -30,7 +33,7 @@
 			if (subdomain != null && subdomain.equals("dev")) {
 				String redirectURL = "http://" + subdomain + ".healthkart.com";
 				response.sendRedirect(redirectURL);
-			}
+			}*/
 		%>
 		<div class="container">
 
@@ -44,12 +47,17 @@
 			<div class="container">
 				<div class="row">
 					<div class="span3 offset2" style="margin-right:20px">
-						<a href="${pageContext.request.contextPath}/pages/aff/affiliateSignUp.jsp" class="btn btn-primary" style="margin-left:150px;">Sign Up</a>
-<%--						<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupSearchAction" class="btn btn-primary">Groups
-						</s:link>--%>
+						<c:url value="/pages/aff/affiliateSignUp.jsp" var="signUpUrl">
+							<c:param name="email" value="${email}"/>
+						</c:url>
+						<a href="${signUpUrl}" class="btn btn-primary">Sign Up</a>
+						<%--<a href="${pageContext.request.contextPath}/pages/aff/affiliateSignUp.jsp" class="btn btn-primary">Sign Up</a>--%>
+							<%--						<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupSearchAction" class="btn btn-primary">Groups
+						 </s:link>--%>
 					</div>
 				</div>
 			</div>
+
 
 			<div class="span9">
 
@@ -57,7 +65,7 @@
 					<fieldset>
 						<legend><em>Login using an existing account</em></legend>
 						<s:label name="Email"/>
-						<s:text name="login" class="auto-adjust check-empty"/>
+						<s:text name="login" class="auto-adjust check-empty" value="${email}"/>
 
 						<s:label name="Password"/>
 						<s:password name="password" class="auto-adjust check-empty"/>

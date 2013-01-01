@@ -38,13 +38,13 @@ public class RedirectFilter implements Filter {
            * TODO: check if affiliate is logged in redirect to fk.healthkart.com
            */
 
-          if (requestURL.equals("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL) ||
-              requestURL.equals(affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL) ||
-             requestURL.equals(affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/") ||
-              requestURL.equals("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/") ) {
-            HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-            httpServletResponse.sendRedirect("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/pages/aff/affiliateLogin.jsp");
-          }
+	        if (requestURL.equals("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL) ||
+			        requestURL.equals(affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL) ||
+			        requestURL.equals(affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/") ||
+			        requestURL.equals("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/")) {
+		        HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+		        httpServletResponse.sendRedirect("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/pages/aff/affiliateLogin.jsp");
+	        }
         }
       }
 
