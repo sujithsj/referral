@@ -49,9 +49,7 @@ public class CampaignSearchAction extends BasePaginatedAction {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     companyShortName = loggedInUser.getCompanyShortName();
     //get all marketing materials
-    /*if ( campaignTypeId ==null || EnumCampaignType.ALL.getId().equals(campaignTypeId)) {
-      campaignTypeId = null;
-    }*/
+
 
     campaignPage = getCampaignService().searchCampaign(name, companyShortName,startDate, endDate, campaignTypeId, active, getPageNo(), getPerPage());
     campaigns = campaignPage.getList();

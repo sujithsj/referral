@@ -47,6 +47,9 @@ public class CampaignServiceImpl implements CampaignService {
 
   @Override
   public Page searchCampaign(String name, String companyShortName, Date startDate, Date endDate, Long campaignTypeId, boolean active, int pageNo, int perPage) {
+    if (EnumCampaignType.ALL.getId().equals(campaignTypeId)) {
+      campaignTypeId = null;
+    }
     CampaignQuery campaignQuery = new CampaignQuery();
     campaignQuery.setCompanyShortName(companyShortName);
     campaignQuery.setName(name).setStartDate(startDate).setEndDate(endDate).setCampaignType(EnumCampaignType.getById(campaignTypeId));
@@ -88,7 +91,7 @@ public class CampaignServiceImpl implements CampaignService {
     }
     campaignDTO.syncToCampaign(campaign);
 
-    if (campaign.getStartDate() !=null && campaign.getEndDate() !=null && campaign.getEndDate().compareTo(campaign.getStartDate()) == -1) {
+    if (campaign.getStartDate() != null && campaign.getEndDate() != null && campaign.getEndDate().compareTo(campaign.getStartDate()) == -1) {
       throw new ValidationException("endDate", "End Date cannot be less than start date");
     }
     /**
@@ -97,7 +100,7 @@ public class CampaignServiceImpl implements CampaignService {
     if (campaign.isPrivate() == null) {
       campaign.setPrivate(false);
     }
-    if (campaign.isActive() == null || (campaign.getStartDate() !=null && campaign.getStartDate().compareTo(new Date()) == 1)) {
+    if (campaign.isActive() == null || (campaign.getStartDate() != null && campaign.getStartDate().compareTo(new Date()) == 1)) {
       campaign.setActive(true);
     }
     if (campaign.isDeleted() == null) {
@@ -135,7 +138,7 @@ public class CampaignServiceImpl implements CampaignService {
   }
 
   @Override
-  public Page getCampaignsVisibleToAffiliate(String companyShortName, int pageNo, int perPage){
+  public Page getCampaignsVisibleToAffiliate(String companyShortName, int pageNo, int perPage) {
     CampaignQuery campaignQuery = new CampaignQuery();
     campaignQuery.setCompanyShortName(companyShortName).setQueryForAffiliate(true).setPrivate(false).setActive(true);
     campaignQuery.setOrderByField("nm").setPageNo(pageNo).setRows(perPage);

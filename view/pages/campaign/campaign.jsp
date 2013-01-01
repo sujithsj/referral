@@ -31,7 +31,7 @@
                 <s:form beanclass="com.ds.action.campaign.CampaignSearchAction" id="campaignSearchForm"
                         class="form-inline">
                   <div class="input-prepend">
-                    <span class="add-on"><i class="icon-user"></i></span><s:text name="name"
+                    <span class="add-on"><i class="icon-tag"></i></span><s:text name="name"
                                                                                  placeholder="Campaign Name"/>
                   </div>
 
@@ -100,11 +100,15 @@
                       <td>
                         <div class="btn-group">
                           <s:link beanclass="com.ds.action.campaign.CampaignAction"
-                                  event="createOrEditCampaign" class="button blue small">
-                            <span class="icon white small" data-icon="7"></span>Edit
+                                  event="createOrEditCampaign" class="btn tip-bottom" title="Edit">
+                           <i class="icon-edit"></i>
                             <s:param name="campaignId" value="${campaign.id}"/>
                           </s:link>
-
+                         <%-- <s:link beanclass="com.ds.action.employee.UserAction"
+                                  event="createOrEditUser" title="Edit">
+                            <i class="icon-edit"></i>
+                            <s:param name="employeeId" value="${user.username}"/>
+                          </s:link>--%>
                         </div>
                       </td>
                     </tr>
