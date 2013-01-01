@@ -10,7 +10,7 @@
 				</li>
 				<li><a href="${pageContext.request.contextPath}/campaign/CampaignSearch.action"><i class="icon icon-tint"></i> <span>Campaigns</span></a></li>
 				<li><a href="${pageContext.request.contextPath}/marketing/MarketingMaterialSearch.action"><i class="icon icon-file"></i> <span>Ads</span></a></li>
-				<li><a href="tables.html"><i class="icon icon-leaf"></i> <span>Affiliates</span></a></li>
+				<li><a href="${pageContext.request.contextPath}/affiliate/CompanyAffiliateSearch.action"><i class="icon icon-leaf"></i> <span>Affiliates</span></a></li>
         <li><a href="grid.html"><i class="icon icon-gift"></i> <span>Payouts</span></a></li>
         <li class="submenu">
 					<a href="#"><i class="icon icon-signal"></i> <span>Reports</span> <span class="label">3</span></a>
