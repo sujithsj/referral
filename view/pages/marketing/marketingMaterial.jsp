@@ -104,7 +104,9 @@
                           <i class="icon-edit"></i>
                           <s:param name="marketingMaterialId" value="${marketingMaterail.id}"/>
                         </s:link>
-                        <a href="#" class="shareAd" mmId="${marketingMaterail.id}">Share this ad</a>
+                        <a href="#" class="shareAd btn tip-bottom" title="Share this ad" mmId="${marketingMaterail.id}">
+                          <i class="icon-share"></i>
+                        </a>
                       </div>
                     </td>
                   </tr>
@@ -128,7 +130,7 @@
       </div>
       <s:layout-render name="/includes/footer.jsp"/>
     </div>
-   
+
   </s:layout-component>
   <s:layout-component name="scriptComponent">
 
@@ -156,10 +158,10 @@
 
         $(".shareAd").click(function(event) {
 
-            var mmId = $(this).attr('mmId');
-            DS.Ajax.getJson("/api/mm/"+mmId+"/share/999", function(response){
-               alert(response.sc);
-            })
+          var mmId = $(this).attr('mmId');
+          DS.Ajax.getJson("/api/mm/" + mmId + "/share/999", function(response) {
+            alert(response.sc);
+          })
         });
 
       });
