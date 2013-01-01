@@ -9,10 +9,10 @@
 
     <s:useActionBean beanclass="com.ds.action.employee.UserSearchAction" var="userSearchAction"/>
     <div id="content">
-      <s:layout-render name="/includes/companyContentHeader.jsp" headerLabel="Manage Users"/>
+      <s:layout-render name="/includes/companyContentHeader.jsp" headerLabel="Users"/>
       <div id="breadcrumb">
         <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
-        <a href="#" class="current">Manage Users</a>
+        <a href="#" class="current">Users</a>
       </div>
 
       <div class="container-fluid">
