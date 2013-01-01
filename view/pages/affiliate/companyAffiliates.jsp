@@ -5,7 +5,7 @@
   <s:layout-component name="content">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.main.css" type="text/css"/>
     <s:layout-render name="/includes/companyHeader.jsp"/>
-    <s:layout-render name="/includes/companySideBar.jsp"/>
+    <s:layout-render name="/includes/companySideBar.jsp" openMenu="affiliate"/>
 
     <s:useActionBean beanclass="com.ds.action.affiliate.CompanyAffiliateSearchAction"
                      var="companyAffiliateSearchAction"/>
@@ -17,8 +17,9 @@
       </div>
 
       <div class="container-fluid">
+        
         <div class="row-fluid">
-          <div class="span8">
+          <div class="span12">
             <div class="widget-box">
               <div class="widget-title">
 								<span class="icon">
@@ -40,7 +41,7 @@
               </div>
             </div>
           </div>
-          <div class="span4">
+          <%--<div class="span4">
             <s:link beanclass="com.ds.action.affiliate.CompanyAffiliateInviteAction"
                     event="displayAllCompanyInvites" class="btn btn-success">
               <i class="icon-envelope icon-white"></i>&nbsp;View All Invites
@@ -48,7 +49,7 @@
             <s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupSearchAction" class="btn btn-success">
             <i class="icon-folder-close icon-white"></i>&nbsp;View Affiliate Groups
             </s:link>
-          </div>
+          </div>--%>
         </div>
 
         <div class="row-fluid">
@@ -95,28 +96,15 @@
                   </c:forEach>
                   </tbody>
                 </table>
-
-
               </div>
               <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${companyAffiliateSearchAction}"/>
               <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${companyAffiliateSearchAction}"/>
             </div>
           </div>
         </div>
-
         <s:layout-render name="/includes/footer.jsp"/>
       </div>
-
     </div>
-
-
-    <%--
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/excanvas.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.peity.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/unicorn.dashboard.js"></script>
-    --%>
-
 
   </s:layout-component>
 

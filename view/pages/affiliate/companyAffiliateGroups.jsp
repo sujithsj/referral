@@ -2,110 +2,110 @@
 
 <s:layout-render name="/templates/general.jsp">
 
-	<%--<s:layout-component name="heading">Split Base Order Manually</s:layout-component>--%>
-	<s:layout-component name="content">
-		<s:useActionBean beanclass="com.ds.action.affiliate.CompanyAffiliateGroupSearchAction"
-		                 var="companyAffiliateGroupSearchAction"/>
-		<div class="container">
+  <s:layout-component name="content">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.main.css" type="text/css"/>
+    <s:layout-render name="/includes/companyHeader.jsp"/>
+    <s:layout-render name="/includes/companySideBar.jsp" openMenu="affiliate"/>
 
-				<%--<s:layout-render name="${pageContext.request.contextPath}/includes/menu/setupSidebar.jsp"/>--%>
+    <s:useActionBean beanclass="com.ds.action.affiliate.CompanyAffiliateSearchAction"
+                     var="companyAffiliateSearchAction"/>
+    <div id="content">
+      <s:layout-render name="/includes/companyContentHeader.jsp" headerLabel="Affiliate Groups"/>
+      <div id="breadcrumb">
+        <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+        <a href="#" class="current">Affiliate Groups</a>
+      </div>
 
-			<div class="row">
-				<div class="span3 bs-docs-sidebar">
-					<s:layout-render name="/includes/menu/setupSidebar.jsp"/>
-				</div>
+      <div class="container-fluid">
 
-				<div class="span9 wrap">
-					<div class="container">
-						<div class="row">
-							<div class="span4">
-								<p class="lead">Affiliate Groups</p>
-							</div>
-							<div class="span3 offset2">
-								<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupAction"
-								        event="createOrEditCompanyAffiliateGroup" class="btn btn-primary">Add New Group
-								</s:link>
-							</div>
-						</div>
-					</div>
-						<%--<ul class="breadcrumb">
-												<li><a href="#">Setup</a> <span class="divider">/</span></li>
-												<li class="active">User Accounts</li>
-											</ul>--%>
+        <div class="row-fluid">
+          <div class="span8">
+            <div class="widget-box">
+              <div class="widget-title">
+								<span class="icon">
+									<i class=" icon-search"></i>
+								</span>
+                <h5>Search Affiliates</h5>
+              </div>
+              <div class="widget-content">
+                <s:form beanclass="com.ds.action.affiliate.CompanyAffiliateSearchAction" class="form-inline">
+                  <div class="input-prepend">
+                    <span class="add-on"><i class="icon-user"></i></span><s:text name="login"
+                                                                                 placeholder="Affiliate Login"/>
+                  </div>
+                  <div class="input-prepend">
+                    <span class="add-on"><i class="icon-envelope"></i></span><s:text name="email" placeholder="Email"/>
+                  </div>
+                  <s:submit name="searchCompanyAffiliates" class="btn btn-inverse">Search</s:submit>
+                </s:form>
+              </div>
+            </div>
+          </div>
+          <div class="span4">
+            <s:link beanclass="com.ds.action.affiliate.CompanyAffiliateInviteAction"
+                    event="displayAllCompanyInvites" class="btn btn-success">
+              <i class="icon-envelope icon-white"></i>&nbsp;View All Invites
+            </s:link>
+            <s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupSearchAction" class="btn btn-success">
+            <i class="icon-folder-close icon-white"></i>&nbsp;View Affiliate Groups
+            </s:link>
+          </div>
+        </div>
 
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="widget-box">
+              <div class="widget-title">
+								<span class="icon">
+									<i class="icon-filter"></i>
+								</span>
+                <h5>Affiliates</h5>
+              </div>
+              <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Affiliate Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th style="width: 10%">Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <c:forEach items="${companyAffiliateSearchAction.companyAffiliates}" var="companyAffiliate">
+                    <tr>
+                      <td>${companyAffiliate.affiliate.login}</td>
+                      <td>${companyAffiliate.affiliate.firstName} ${companyAffiliate.affiliate.lastName}</td>
+                      <td>${companyAffiliate.affiliate.email}</td>
+                      <td>
+                        <div class="btn-group">
+                          <s:link beanclass="com.ds.action.affiliate.CompanyAffiliateAction"
+                                  event="createOrEditCompanyAffiliate" class="btn tip-bottom" title="Edit">
+                             <i class="icon-edit"></i>
+                            <s:param name="companyAffiliateId" value="${companyAffiliate.id}"/>
+                          </s:link>
+                          <s:link beanclass="com.ds.action.affiliate.CompanyAffiliateAction"
+                                  event="resendWelcomeEmail" class="btn tip-bottom" title="Resend Welcome mail">
+                             <i class="icon-envelope"></i>
+                            <s:param name="companyAffiliateId" value="${companyAffiliate.id}"/>
+                          </s:link>
 
-					<fieldset>
-						<legend><em>Filter Groups</em></legend>
-						<s:form beanclass="com.ds.action.affiliate.CompanyAffiliateGroupSearchAction"
-						        class="form-inline"
-						        style="margin-bottom:10px;">
-							<s:label name="Group Name"/>
-							<s:text name="name"/>
-							<s:submit name="searchCompanyAffiliateGroups" class="btn btn-warning">Search</s:submit>
-						</s:form>
-					</fieldset>
+                        </div>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                  </tbody>
+                </table>
+              </div>
+              <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${companyAffiliateSearchAction}"/>
+              <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${companyAffiliateSearchAction}"/>
+            </div>
+          </div>
+        </div>
+        <s:layout-render name="/includes/footer.jsp"/>
+      </div>
+    </div>
 
+  </s:layout-component>
 
-					<table class="striped table-condensed table-hover table-striped">
-
-						<tr>
-							<th>Id</th>
-							<th>Name</th>
-							<th>Description</th>
-							<th>No. of Affiliates</th>
-							<th>Actions</th>
-						</tr>
-
-						<tbody>
-						<c:forEach items="${companyAffiliateGroupSearchAction.companyAffiliateGroups}"
-						           var="companyAffiliateGroup">
-							<tr>
-								<td>${companyAffiliateGroup.id}</td>
-								<td>${companyAffiliateGroup.name}</td>
-								<td>${companyAffiliateGroup.description}</td>
-								<td>${fn:length(companyAffiliateGroup.companyAffiliates)}</td>
-								<td>
-									<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateGroupAction"
-									        event="createOrEditCompanyAffiliateGroup" class="button blue small">
-										<span class="icon white small" data-icon="7"></span>Edit
-										<s:param name="companyAffiliateGroupId" value="${companyAffiliateGroup.id}"/>
-									</s:link>
-										<%--<s:link beanclass="com.ds.action.affiliate.CompanyAffiliateActioneAction"
-											 event="resendWelcomeEmail" class="button blue small">
-										 <span class="icon white small" data-icon="7"></span>Delete
-										 <s:param name="affiliateId" value="${affiliateGroup.id}"/>
-									 </s:link>--%>
-										<%-- <s:link beanclass="com.hk.action.admin.crud.catalog.tags.AssociateTagsAction"
-																						event="entityTags" target="_blank" class="button orange small">Tag
-																			<s:param name="entityId" value="${brand.id}"/>
-																			<s:param name="type" value="${type}"/>
-																		</s:link>--%>
-								</td>
-							</tr>
-						</c:forEach>
-						</tbody>
-					</table>
-					<s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${companyAffiliateGroupSearchAction}"/>
-					<s:layout-render name="/layouts/pagination.jsp" paginatedBean="${companyAffiliateGroupSearchAction}"/>
-				</div>
-
-			</div>
-		</div>
-	</s:layout-component>
-	<s:layout-component name="scriptComponent">
-
-		<script type="text/javascript">
-
-			$(document).ready(function() {
-				/*alert('aaa');
-				 $('.bs-docs-sidenav').affix({
-				 offset: {
-				 top: 155
-				 , bottom: 170
-				 }
-				 });*/
-			});
-
-		</script>
-	</s:layout-component>
 </s:layout-render>
