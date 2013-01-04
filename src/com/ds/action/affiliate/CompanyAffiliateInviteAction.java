@@ -133,7 +133,7 @@ public class CompanyAffiliateInviteAction extends BasePaginatedAction {
 
 	@Override
 	public int getPageCount() {
-		return company != null ? companyAffiliateInvitePage.getTotalPages() : 0;
+		return companyAffiliateInvitePage != null ? companyAffiliateInvitePage.getTotalPages() : 0;
 	}
 
 	@Override

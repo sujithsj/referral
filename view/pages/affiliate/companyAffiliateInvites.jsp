@@ -88,9 +88,20 @@
                   </tbody>
                 </table>
               </div>
-              <s:layout-render name="/layouts/paginationResultCount.jsp"
+	            <div class="row-fluid">
+	              <div class="span3">
+	                <s:layout-render name="/layouts/paginationResultCount.jsp" paginatedBean="${companyAffiliateInviteAction}"/>
+	              </div>		                                  
+	              <div class="span9">
+	                <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${companyAffiliateInviteAction}"/>
+	              </div>
+
+	            </div>
+
+              <%--<s:layout-render name="/layouts/paginationResultCount.jsp"
                                paginatedBean="${companyAffiliateInviteAction}"/>
-              <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${companyAffiliateInviteAction}"/>
+
+              <s:layout-render name="/layouts/pagination.jsp" paginatedBean="${companyAffiliateInviteAction}"/>--%>
             </div>
           </div>
         </div>
