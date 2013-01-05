@@ -6,6 +6,7 @@
 
 <s:layout-component name="content">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.main.css" type="text/css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/marketing/textAd.css" type="text/css"/>
 <s:layout-render name="/includes/companyHeader.jsp"/>
 <s:layout-render name="/includes/companySideBar.jsp"/>
 
@@ -38,7 +39,7 @@
               <div class="control-group">
                 <s:label class="control-label" name="Type Of Ad"/>
                 <div class="controls">
-                  <s:select name="type">
+                  <s:select name="type" id="adTypeSelect">
                     <c:forEach items="<%=EnumMarketingMaterialType.getAllMMTypes()%>" var="pType">
                       <s:option value="${pType.id}">${pType.type}</s:option>
                     </c:forEach>
@@ -118,7 +119,7 @@
           </div>
         </div>
 
-        <div class="span7" id="adPreviewDiv" style="display:none;">
+        <div class="span7" id="adPreviewDiv">
           <div class="widget-box">
             <div class="widget-title">
               <a href="#collapseAdPreview" data-toggle="collapse">
@@ -129,7 +130,7 @@
               </a>
             </div>
             <div class="collapse in" id="collapseAdPreview">
-              <div class="widget-content">
+              <div class="widget-content" id="previewContent">
                 Ad Preview goes here
               </div>
             </div>
@@ -137,7 +138,7 @@
         </div>
       </div>
       <div class="row-fluid">
-        <s:hidden name="marketingMaterialId"/>
+        <s:hidden name="marketingMaterialId" id="marketingMaterialId"/>
         <s:submit name="saveMarketingMaterial" value="Save Changes" class="btn btn-success"/>
 
         <s:link beanclass="com.ds.action.employee.UserSearchAction"
@@ -145,57 +146,60 @@
       </div>
     </div>
   </s:form>
-
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span5">
-        <div class="widget-box">
-          <div class="widget-title">
-            <a href="#collapseImageWidget" data-toggle="collapse">
+  <c:if test="${mmAction.marketingMaterialId !=null}">
+    <div class="container-fluid" id="imageContainer" style="display:none">
+      <div class="row-fluid">
+        <div class="span5">
+          <div class="widget-box">
+            <div class="widget-title">
+              <a href="#collapseImageWidget" data-toggle="collapse">
 								<span class="icon">
 									<i class="icon-magnet"></i>
 								</span>
-              <h5>Upload New Banner Image</h5>
-            </a>
-          </div>
-          <div class="collapse in" id="collapseImageWidget">
-            <div class="widget-content">
-              <form action="/fileUpload" multipart="1" method="post" enctype="multipart/form-data"
-                    id="mmImageUploadForm">
-                <input type="file" name="file" class="formelement" style="width: 312px;" id="marketing_tool_banner">
-                <input type="hidden" name="fileManageType" value="<%=FileManageType.MARKETING_MATERIAL%>">
-                <input type="hidden" name="identifier" value="${mmAction.marketingMaterialId}">
-                <input type="submit" value="&nbsp;Upload" class="btn btn-inverse"><i class="icon-hand-left icon-white"></i></input>
-              </form>
+                <h5>Upload New Banner Image</h5>
+              </a>
+            </div>
+            <div class="collapse in" id="collapseImageWidget">
+              <div class="widget-content">
+                <form action="/fileUpload" multipart="1" method="post" enctype="multipart/form-data"
+                      id="mmImageUploadForm">
+                  <input type="file" name="file" class="formelement" style="width: 312px;" id="marketing_tool_banner">
+                  <input type="hidden" name="fileManageType" value="<%=FileManageType.MARKETING_MATERIAL%>">
+                  <input type="hidden" name="identifier" value="${mmAction.marketingMaterialId}">
+                  <input type="submit" value="&nbsp;Upload" class="btn btn-inverse"><i
+                    class="icon-hand-left icon-white"></i></input>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="span7">
-        <div class="widget-box">
-          <div class="widget-title">
-            <a href="#collapseExistingImageWidget" data-toggle="collapse">
+        <c:if test="${mmAction.imageId !=null}">
+          <div class="span7">
+            <div class="widget-box">
+              <div class="widget-title">
+                <a href="#collapseExistingImageWidget" data-toggle="collapse">
 								<span class="icon">
 									<i class="icon-magnet"></i>
 								</span>
-              <h5>Existing Image</h5>
-            </a>
-          </div>
-          <div class="collapse in" id="collapseExistingImageWidget">
-            <div class="widget-content">
-              <img src="/getImage?imageId=${mmAction.imageId}" alt="CompanyLogo">
-              <br/><br/>
-              <s:link beanclass="com.ds.action.core.FileManageAction" event="deleteMarketingMaterialImage"
-                      class="btn btn-inverse"><i class="icon-hand-left icon-white"></i>&nbsp;Delete Image
-                <s:param name="companyShortName" value="${mmAction.marketingMaterialId}"/>
-              </s:link>
+                  <h5>Existing Image</h5>
+                </a>
+              </div>
+              <div class="collapse in" id="collapseExistingImageWidget">
+                <div class="widget-content">
+                  <img src="/getImage?imageId=${mmAction.imageId}" alt="CompanyLogo">
+                  <br/><br/>
+                  <s:link beanclass="com.ds.action.core.FileManageAction" event="deleteMarketingMaterialImage"
+                          class="btn btn-inverse"><i class="icon-hand-left icon-white"></i>&nbsp;Delete Image
+                    <s:param name="companyShortName" value="${mmAction.marketingMaterialId}"/>
+                  </s:link>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </c:if>
       </div>
     </div>
-  </div>
-
+  </c:if>
 
   <s:layout-render name="/includes/footer.jsp"/>
 </div>
@@ -215,29 +219,7 @@
 
 <s:layout-component name="scriptComponent">
 
-  <script type="text/javascript">
-
-    $(document).ready(function() {
-      $('.cpType').click(function(event) {
-        var type = $(this).attr('type');
-        $("#campaignType").val(type);
-        var searchForm = $("#campaignSearchForm")[0];
-        var actionUrl = searchForm.action;
-        actionUrl += '?searchCampaign';
-        searchForm.action = actionUrl;
-        searchForm.submit();
-      });
-
-      $.each($(".cpType"), function(index, value) {
-        var type = $(this).attr('type');
-        var selType = $("#campaignType").val();
-        if (selType === type) {
-          $(this).addClass('disabled');
-        }
-      });
-    });
-
-  </script>
+  
 </s:layout-component>
 
 </s:layout-render>

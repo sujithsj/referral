@@ -22,10 +22,11 @@ public class GetImageServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
     String requestURI = request.getRequestURI();
-    String imageId = requestURI.substring(requestURI.indexOf("getImage/") + "getImage/".length());
+    String imageId =  request.getParameter("imageId");
+
 
     if (StringUtils.isBlank(imageId)) {
-      imageId = request.getParameter("imageId");
+         imageId = requestURI.substring(requestURI.indexOf("getImage/") + "getImage/".length() );
     }
 
     if (StringUtils.isBlank(imageId)) {

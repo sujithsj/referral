@@ -37,7 +37,7 @@ public enum EnumMarketingMaterialType {
   public static List<EnumMarketingMaterialType> getAllMMTypes() {
 		return Arrays.asList(
 				EnumMarketingMaterialType.Banner,
-				EnumMarketingMaterialType.TextLink
+				EnumMarketingMaterialType.TextAd
 				);
 
 	}

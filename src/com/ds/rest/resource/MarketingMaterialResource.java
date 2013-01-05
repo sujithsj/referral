@@ -30,7 +30,7 @@ import javax.ws.rs.Produces;
 public class MarketingMaterialResource {
 
   //TODO: neeed to build this from company like pricemia.zferal.com  
-  private static final String BASE_URL = "healthkart.dolusmia.com";
+  private static final String BASE_URL = "hk.healthkart.com";
 
   @Autowired
   private MarketingService marketingService;
@@ -39,6 +39,35 @@ public class MarketingMaterialResource {
   @Autowired
   private EventDispatcher eventDispatcher;
 
+
+  @GET
+  @Path("/{mmId}/preview/")
+  @Produces("application/json")
+  public String getPreview(@PathParam("mmId")
+  Long marketingMaterialId) {
+    String previewCode = null;
+
+    MarketingMaterial marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
+
+    Long mmTypeId = marketingMaterial.getMarketingMaterialType().getId();
+
+    if (EnumMarketingMaterialType.Banner.getId().equals(mmTypeId)) {
+      if (marketingMaterial.getImage() != null) {
+        previewCode = MMTemplateBuilder.getPreviewForBanner(BASE_URL, marketingMaterial.getId(), marketingMaterial.getTitle(), marketingMaterial.getImage().getId());
+      }
+    }
+    if (EnumMarketingMaterialType.TextAd.getId().equals(mmTypeId)) {
+      Company company = getAdminService().getCompany(marketingMaterial.getCompanyShortName());
+      previewCode = MMTemplateBuilder.getPreviewForTextAd(BASE_URL, marketingMaterial.getId(), marketingMaterial.getTitle(), marketingMaterial.getBody(), company.getName());
+    }
+
+
+    if (StringUtils.isBlank(previewCode)) {
+      return new JSONResponseBuilder().addField("exception", false).addField("sc", "No Preview could be loaded for this ad").build();
+    } else {
+      return new JSONResponseBuilder().addField("exception", false).addField("sc", previewCode).build();
+    }
+  }
 
   @GET
   @Path("/{mmId}/share/{affiliateId}")
@@ -58,7 +87,7 @@ public class MarketingMaterialResource {
 
     if (EnumMarketingMaterialType.Banner.getId().equals(mmTypeId)) {
       if (marketingMaterial.getImage() != null) {
-        sharingCode = MMTemplateBuilder.getSharingCodeForBanner(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getImage().getId());
+        sharingCode = MMTemplateBuilder.getSharingCodeForBanner(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getImage().getId());
       }
     }
     if (EnumMarketingMaterialType.TextAd.getId().equals(mmTypeId)) {
@@ -101,7 +130,7 @@ public class MarketingMaterialResource {
 
     if (EnumMarketingMaterialType.Banner.getId().equals(mmTypeId)) {
       if (marketingMaterial.getImage() != null) {
-        jsContent = MMTemplateBuilder.getBannerByJS(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getImage().getId());
+        jsContent = MMTemplateBuilder.getBannerByJS(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getImage().getId());
       }
     }
 
@@ -110,13 +139,13 @@ public class MarketingMaterialResource {
       jsContent = MMTemplateBuilder.getTextAdByJS(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getBody(), company.getName());
     }
 
-     try{
-    MarketingMaterialContext marketingMaterialContext = new MarketingMaterialContext(marketingMaterial.getId(), null, affiliateId);
+    try {
+      MarketingMaterialContext marketingMaterialContext = new MarketingMaterialContext(marketingMaterial.getId(), null, affiliateId);
 
-    getEventDispatcher().dispatchEvent(new MarketingMaterialImpressionEvent(marketingMaterial.getMarketingMaterialType().getId(), marketingMaterialContext));
-     }catch(Exception e){
-       //TODO: logger for failure of impression event wherever we are using event dispatcher use in try catch
-     }
+      getEventDispatcher().dispatchEvent(new MarketingMaterialImpressionEvent(marketingMaterial.getMarketingMaterialType().getId(), marketingMaterialContext));
+    } catch (Exception e) {
+      //TODO: logger for failure of impression event wherever we are using event dispatcher use in try catch
+    }
 
 
     return jsContent;

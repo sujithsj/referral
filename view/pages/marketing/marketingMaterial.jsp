@@ -47,9 +47,13 @@
                       class="label label-success"
                       style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalBannerAds}</span></a>
                   <a class="btn btn-inverse mmType" href="#" type="<%=EnumMarketingMaterialType.TextLink.getId()%>">Text
-                    Ads&nbsp;<span
+                    Links&nbsp;<span
                         class="label label-success"
                         style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalTextAds}</span></a>
+                  <a class="btn btn-inverse mmType" href="#" type="<%=EnumMarketingMaterialType.TextAd.getId()%>">Text
+                    Ads&nbsp;<span
+                        class="label label-success"
+                        style="position:absolute; top:-8px;right:3px;">NA</span></a>
                 </div>
 
                 <%--<div class="navbar navbar-inverse">

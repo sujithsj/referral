@@ -1,0 +1,52 @@
+<style type ="text/css" media="screen">
+.ad a {
+  float: none !important;
+  padding: 0 !important;
+}
+
+.ad .adt, .ad .adt span, .ad .adb, .ad .add a {
+  font-family: Tahoma;
+}
+
+.ad {
+  width: 248px !important;
+  border: 1px solid #B2B2B2 !important;
+  padding: 4px !important;
+  background-color: #ffffff !important;
+  text-align: left !important;
+}
+
+.ad .adt {
+  font-size: 14px !important;
+  color: #129FCD !important;
+  cursor: pointer !important;
+  font-weight: bold !important;
+  padding: 1px !important;
+  text-decoration: underline !important;
+}
+
+.ad a.adt {
+  font-size: 14px !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  color: #0F5290 !important;
+  font-weight: bold !important;
+}
+
+.ad .adb {
+  color: #666666 !important;
+  font-size: 12px !important;
+  line-height: 15px !important;
+  margin-bottom: 2px !important;
+  padding: 1px !important;
+}
+
+.ad .add a {
+  color: #31B100 !important;
+  font-size: 10px !important;
+  line-height: 12px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+
+</style>
