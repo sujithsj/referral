@@ -77,12 +77,8 @@
           <span class="pull-right"><s:submit name="registerCompany" class="btn btn-inverse" value="Sign Up"/></span>
 
         </div>
-
       </s:form>
-
     </div>
-
-
     </div>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.validate.js"></script>
