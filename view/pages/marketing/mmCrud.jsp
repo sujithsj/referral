@@ -166,7 +166,7 @@
                   <input type="file" name="file" class="formelement" style="width: 312px;" id="marketing_tool_banner">
                   <input type="hidden" name="fileManageType" value="<%=FileManageType.MARKETING_MATERIAL%>">
                   <input type="hidden" name="identifier" value="${mmAction.marketingMaterialId}">
-                  <input type="submit" value="&nbsp;Upload" class="btn btn-inverse"><i
+                  <input type="submit" value="&nbsp;Upload" class="btn btn-success"><i
                     class="icon-hand-left icon-white"></i></input>
                 </form>
               </div>
@@ -189,7 +189,7 @@
                   <img src="/getImage?imageId=${mmAction.imageId}" alt="CompanyLogo">
                   <br/><br/>
                   <s:link beanclass="com.ds.action.core.FileManageAction" event="deleteMarketingMaterialImage"
-                          class="btn btn-inverse"><i class="icon-hand-left icon-white"></i>&nbsp;Delete Image
+                          class="btn btn-danger"><i class="icon-hand-left icon-white"></i>&nbsp;Delete Image
                     <s:param name="companyShortName" value="${mmAction.marketingMaterialId}"/>
                   </s:link>
                 </div>

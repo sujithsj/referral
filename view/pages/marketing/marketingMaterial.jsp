@@ -5,6 +5,7 @@
 
   <s:layout-component name="content">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.main.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/marketing/textAd.css" type="text/css"/>
     <s:layout-render name="/includes/companyHeader.jsp"/>
     <s:layout-render name="/includes/companySideBar.jsp"/>
 
@@ -46,14 +47,10 @@
                   <a class="btn btn-inverse mmType" href="#" type="<%=EnumMarketingMaterialType.Banner.getId()%>">Banner&nbsp;<span
                       class="label label-success"
                       style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalBannerAds}</span></a>
-                  <a class="btn btn-inverse mmType" href="#" type="<%=EnumMarketingMaterialType.TextLink.getId()%>">Text
-                    Links&nbsp;<span
-                        class="label label-success"
-                        style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalTextAds}</span></a>
                   <a class="btn btn-inverse mmType" href="#" type="<%=EnumMarketingMaterialType.TextAd.getId()%>">Text
                     Ads&nbsp;<span
                         class="label label-success"
-                        style="position:absolute; top:-8px;right:3px;">NA</span></a>
+                        style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalTextAds}</span></a>
                 </div>
 
                 <%--<div class="navbar navbar-inverse">
@@ -111,6 +108,9 @@
                         <a href="#" class="shareAd btn tip-bottom" title="Share this ad" mmId="${marketingMaterail.id}">
                           <i class="icon-share"></i>
                         </a>
+                        <a href="#" class="preview btn tip-bottom" title="Preview" mmId="${marketingMaterail.id}">
+                          <i class="icon-screenshot"></i>
+                        </a>
                       </div>
                     </td>
                   </tr>
@@ -164,6 +164,15 @@
 
           var mmId = $(this).attr('mmId');
           DS.Ajax.getJson("/api/mm/" + mmId + "/share/999", function(response) {
+            alert(response.sc);
+          })
+        });
+
+
+        $(".preview").click(function(event) {
+
+          var mmId = $(this).attr('mmId');
+          DS.Ajax.getJson("/api/mm/" + mmId + "/preview/", function(response) {
             alert(response.sc);
           })
         });
