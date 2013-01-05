@@ -19,6 +19,8 @@ public class RedirectFilter implements Filter {
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
     try {
 
+	    boolean redirect = false;
+
       if (servletRequest instanceof HttpServletRequest) {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         String requestURL = req.getRequestURL().toString();
@@ -43,12 +45,18 @@ public class RedirectFilter implements Filter {
 			        requestURL.equals(affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/") ||
 			        requestURL.equals("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/")) {
 		        HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-		        httpServletResponse.sendRedirect("http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/pages/aff/affiliateLogin.jsp");
+		        String redirectUrl = "http://" + affiliateLocaleContext.getCompanyShortName() + AffiliateLocalizationFilter.BASE_URL + "/pages/aff/affiliateLogin.jsp";
+		        if(req.getQueryString() != null && req.getQueryString().length() > 0){
+					redirectUrl += "?" + req.getQueryString();								        
+		        }
+		        httpServletResponse.sendRedirect(redirectUrl);
+		        redirect = true;
 	        }
         }
       }
-
-      filterChain.doFilter(servletRequest, servletResponse);
+	  if(!redirect){
+        filterChain.doFilter(servletRequest, servletResponse);
+	  }
     } finally {
       LocaleContextHolder.resetLocaleContext();
     }

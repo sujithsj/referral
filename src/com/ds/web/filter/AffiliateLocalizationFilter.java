@@ -50,6 +50,7 @@ public class AffiliateLocalizationFilter implements Filter {
 
           if (company == null) {
             HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+
             httpServletResponse.sendRedirect("http://" + environment + BASE_URL);
           } else {
             AffiliateLocaleContext affiliateLocaleContext = new AffiliateLocaleContext();

@@ -70,7 +70,11 @@
   <h1><s:layout-component name="heading"/></h1>
 
   <s:layout-component name="messages">
-    <s:errors/>
+
+	  <div id="errorAlert" class="alert alert-error">
+		  <button class="close" data-dismiss="alert">×</button>
+		  <div id="errors"><s:errors/></div>
+	  </div>
     <%--<div id="error-messages" ></div>
     <div class="alert messages "><s:messages key="generalMessages"/></div>--%>
   </s:layout-component>
@@ -84,5 +88,16 @@
     <%--</div>--%>
 
   </body>
+  <script type="text/javascript">
+	 	$(document).ready(function() {
+		function checkErrors() {
+			var errors = $('#errors').text();
+			if(errors == null || errors.length == 0){
+				$('#errorAlert').hide();
+			}
+		};
+		checkErrors();
+	});
+  </script>
   </html>
 </s:layout-definition>
