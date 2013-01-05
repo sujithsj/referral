@@ -304,9 +304,9 @@ public class AffiliateServiceImpl implements AffiliateService {
 	private void validateAffiliate(Affiliate affiliate, CompositeValidationException compositeValidationException, Object[] recaptchaParams) {
 
 		if (!isEmailIdValid(affiliate.getEmail())) {
-			compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.INVALID_EMAIL, "not a valid email"));
+			compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.INVALID_AFFILIATE_EMAIL, "not a valid email"));
 		} else if (isAffiliateLoginTaken(affiliate.getLogin())) {
-			compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.LOGIN_EXISTS, "login has already been taken"));
+			compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.AFFILIATE_LOGIN_EXISTS, "login has already been taken"));
 		}
 
 		if (recaptchaParams != null) {

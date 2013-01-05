@@ -81,9 +81,9 @@ public class AffiliateSignUpAction extends BaseAction {
 		}catch(CompositeValidationException cve){
 			List<ValidationException> validationExceptions = cve.getValidationExceptions();
 			for(ValidationException validationException : validationExceptions){
-				if(validationException.getFieldName().equals(ValidationConstants.INVALID_EMAIL)){
+				if(validationException.getFieldName().equals(ValidationConstants.INVALID_AFFILIATE_EMAIL)){
 					getContext().getValidationErrors().add("invalidEmail", new LocalizableError("/Signup.action.InvalidEmail"));
-				}else if(validationException.getFieldName().equals(ValidationConstants.LOGIN_EXISTS)){
+				}else if(validationException.getFieldName().equals(ValidationConstants.AFFILIATE_LOGIN_EXISTS)){
 					addValidationError("userExists", new LocalizableError("/Signup.action.email.id.already.exists"));
 					return new ForwardResolution(getContext().getSourcePage());
 				}

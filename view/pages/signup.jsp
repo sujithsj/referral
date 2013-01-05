@@ -87,6 +87,7 @@
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.validate.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/signup/signup.js"></script>
+	  <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/select2.min.js"></script>
     <script type="text/javascript"
             src="${pageContext.request.contextPath}/assets/js/unicorn.form_validation.js"></script>
 
