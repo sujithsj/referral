@@ -13,6 +13,7 @@ import com.ds.domain.user.User;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.DSException;
 import com.ds.exception.ValidationException;
+import com.ds.exception.ValidationConstants;
 import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.impl.service.admin.AdminServiceImpl;
 import com.ds.impl.service.mail.AffiliateContext;
@@ -29,6 +30,7 @@ import com.ds.search.impl.AffiliateQuery;
 import com.ds.search.impl.AffiliateGroupQuery;
 import com.ds.security.api.SecurityAPI;
 import com.ds.web.action.Page;
+import com.ds.dto.affiliate.AffiliateDTO;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,7 +94,7 @@ public class AffiliateServiceImpl implements AffiliateService {
 
 	@Override
 	@Transactional
-	public Affiliate saveNewAffiliate(Affiliate affiliate) {
+	public Affiliate saveNewAffiliate(Affiliate affiliate) throws CompositeValidationException{
 
 		CompositeValidationException compositeValidationException = new CompositeValidationException();
 		validateAffiliate(affiliate, compositeValidationException, null);
@@ -302,9 +304,9 @@ public class AffiliateServiceImpl implements AffiliateService {
 	private void validateAffiliate(Affiliate affiliate, CompositeValidationException compositeValidationException, Object[] recaptchaParams) {
 
 		if (!isEmailIdValid(affiliate.getEmail())) {
-			compositeValidationException.getValidationExceptions().add(new ValidationException("email", "not a valid email"));
+			compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.INVALID_EMAIL, "not a valid email"));
 		} else if (isAffiliateLoginTaken(affiliate.getLogin())) {
-			compositeValidationException.getValidationExceptions().add(new ValidationException("login", "login has already been taken"));
+			compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.LOGIN_EXISTS, "login has already been taken"));
 		}
 
 		if (recaptchaParams != null) {
@@ -412,6 +414,16 @@ public class AffiliateServiceImpl implements AffiliateService {
 	@Override
 	public Affiliate getAffiliateByLogin(String login) {
 		return getAffiliateDAO().getAffiliateByLogin(login);
+	}
+
+	@Override
+	@Transactional
+	public Affiliate createAffiliate(AffiliateDTO affiliateDTO) throws CompositeValidationException{
+
+		Affiliate affiliate = null;
+		affiliate = affiliateDTO.extractAffiliate(affiliate);
+		affiliate = saveNewAffiliate(affiliate);
+		return affiliate;
 	}
 	/**
 	 * @return the featureAPI

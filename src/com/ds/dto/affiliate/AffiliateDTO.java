@@ -43,7 +43,11 @@ public class AffiliateDTO {
 			affiliate = new Affiliate();
 		}
 		affiliate.setId(this.affiliateId);
-		affiliate.setLogin(this.login);
+		if (this.login != null) {
+			affiliate.setLogin(this.login);
+		} else {
+			affiliate.setLogin(this.email);
+		}
 		affiliate.setFirstName(this.firstName);
 		affiliate.setLastName(this.lastName);
 		affiliate.setEmail(this.email);

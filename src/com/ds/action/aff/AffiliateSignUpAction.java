@@ -1,18 +1,29 @@
 package com.ds.action.aff;
 
-import com.ds.web.action.BaseAction;
-import com.ds.web.locale.AffiliateLocaleContext;
-import com.ds.web.locale.AffiliateLocaleContextHolder;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
 import com.ds.utils.BaseUtils;
+import com.ds.web.action.BaseAction;
+import com.ds.web.locale.AffiliateLocaleContext;
+import com.ds.web.locale.AffiliateLocaleContextHolder;
+import com.ds.pact.service.affiliate.CompanyAffiliateService;
+import com.ds.pact.service.affiliate.AffiliateService;
+import com.ds.domain.affiliate.Affiliate;
+import com.ds.exception.CompositeValidationException;
+import com.ds.exception.ValidationException;
+import com.ds.exception.ValidationConstants;
 import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.RedirectResolution;
-import net.sourceforge.stripes.validation.ValidationMethod;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.validation.LocalizableError;
-import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidationMethod;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,33 +34,67 @@ import org.apache.commons.lang.StringUtils;
  */
 public class AffiliateSignUpAction extends BaseAction {
 
+	private Logger logger = LoggerFactory.getLogger(AffiliateSignUpAction.class);
 	private AffiliateDTO affiliateDTO;
 
 	private CompanyAffiliateDTO companyAffiliateDTO;
 
-	AffiliateLocaleContext affiliateLocaleContext = AffiliateLocaleContextHolder.getAffiliateLocaleContext();
+	@Autowired
+	private AffiliateService affiliateService;
+
+	private AffiliateLocaleContext affiliateLocaleContext = AffiliateLocaleContextHolder.getAffiliateLocaleContext();
+
+	CompanyAffiliateService companyAffiliateService;
 
 	@ValidationMethod()
 	public void isValidAffiliateEmail() {
 		if (!BaseUtils.isValidEmail(affiliateDTO.getEmail())) {
 			getContext().getValidationErrors().add("invalidEmail", new LocalizableError("/Signup.action.InvalidEmail"));
 		}
-		if (StringUtils.isBlank(affiliateDTO.getFirstName())){
+		if (StringUtils.isBlank(affiliateDTO.getFirstName())) {
 			getContext().getValidationErrors().add("firstNameMandatory", new LocalizableError("/Signup.action.FirstNameMandatory"));
 		}
-		if (StringUtils.isBlank(affiliateDTO.getPasswordChecksum())){
+		if (StringUtils.isBlank(affiliateDTO.getPasswordChecksum())) {
 			getContext().getValidationErrors().add("passwordMandatory", new LocalizableError("/Signup.action.PasswordMandatory"));
 		}
 
 	}
 
 	@DefaultHandler
-	public Resolution registerAffiliate(){
+	public Resolution registerAffiliate() {
 		System.out.println(affiliateLocaleContext.getCompanyShortName());
+
+
+		//create affiliate (check if email already there then only need to create compnay affiliate)
+		try{
+		Affiliate affiliate = getAffiliateService().createAffiliate(affiliateDTO);
+
+
+		//create company affiliate (check if company affiliate already exists)
+
+		//mark deleted false if company plan cannot add more affiliates
+		//if the plan allows and company affiliate invite exists then auto approve
+		//if plan allows and no invite but auto approve is true then auto approve.
+
+		//shoot an appropriate welcome email on basis of deleted flag
+
+		}catch(CompositeValidationException cve){
+			List<ValidationException> validationExceptions = cve.getValidationExceptions();
+			for(ValidationException validationException : validationExceptions){
+				if(validationException.getFieldName().equals(ValidationConstants.INVALID_EMAIL)){
+					getContext().getValidationErrors().add("invalidEmail", new LocalizableError("/Signup.action.InvalidEmail"));
+				}else if(validationException.getFieldName().equals(ValidationConstants.LOGIN_EXISTS)){
+					addValidationError("userExists", new LocalizableError("/Signup.action.email.id.already.exists"));
+					return new ForwardResolution(getContext().getSourcePage());
+				}
+			}
+			logger.error("user exists with this email id " + affiliateDTO.getLogin());
+		}
 
 
 		return new RedirectResolution("http://www.google.com");
 	}
+
 	public AffiliateDTO getAffiliateDTO() {
 		return affiliateDTO;
 	}
@@ -72,5 +117,21 @@ public class AffiliateSignUpAction extends BaseAction {
 
 	public void setCompanyAffiliateDTO(CompanyAffiliateDTO companyAffiliateDTO) {
 		this.companyAffiliateDTO = companyAffiliateDTO;
+	}
+
+	public AffiliateService getAffiliateService() {
+		return affiliateService;
+	}
+
+	public void setAffiliateService(AffiliateService affiliateService) {
+		this.affiliateService = affiliateService;
+	}
+
+	public CompanyAffiliateService getCompanyAffiliateService() {
+		return companyAffiliateService;
+	}
+
+	public void setCompanyAffiliateService(CompanyAffiliateService companyAffiliateService) {
+		this.companyAffiliateService = companyAffiliateService;
 	}
 }
