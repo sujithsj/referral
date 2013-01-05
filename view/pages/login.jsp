@@ -49,8 +49,13 @@
           </div>
         </div>
         <div class="form-actions">
-          <span class="pull-left"><a href="#" class="flip-link" id="to-recover">Lost password?</a></span>
-          <span class="pull-right"><s:submit name="loginUser" class="btn btn-inverse" value="Login"/>
+          <span class="pull-left">
+            <a href="/pages/signup.jsp" style="text-align:left;">Signup</a>&nbsp;&nbsp;
+            <a href="#"  target="_blank" class="flip-link" id="to-recover">Lost password?</a>
+
+          </span>
+          <span class="pull-right"><s:submit name="loginUser" class="btn btn-inverse" value="Login"/></span>
+          <%--<span class="pull-right"><a href="#" class="flip-link">Signup</a></span>--%>
         </div>
         <%--</form>--%>
       </s:form>

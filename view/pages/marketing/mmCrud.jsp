@@ -130,8 +130,8 @@
               </a>
             </div>
             <div class="collapse in" id="collapseAdPreview">
-              <div class="widget-content" id="previewContent">
-                Ad Preview goes here
+              <div class="widget-content" align="center" id="previewContent">
+                Ad Preview 
               </div>
             </div>
           </div>
@@ -141,7 +141,7 @@
         <s:hidden name="marketingMaterialId" id="marketingMaterialId"/>
         <s:submit name="saveMarketingMaterial" value="Save Changes" class="btn btn-success"/>
 
-        <s:link beanclass="com.ds.action.employee.UserSearchAction"
+        <s:link beanclass="com.ds.action.marketing.MarketingMaterialSearchAction"
                 class="btn btn-inverse"><i class="icon-hand-left icon-white"></i>&nbsp;Back</s:link>
       </div>
     </div>
