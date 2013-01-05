@@ -2,40 +2,12 @@
 
 <s:layout-render name="/templates/general.jsp">
 
-	<%--<s:layout-component name="heading">Split Base Order Manually</s:layout-component>--%>
 	<s:layout-component name="content">
 		<s:useActionBean beanclass="com.ds.action.aff.AffiliateSignUpAction" var="affiliateSignUpAction"/>
 
-		<%--<header class="jumbotron subhead">
-					<div class="container">
-						<h1>
-							Register your company
-						</h1>
-					</div>
-				</header>--%>
 		<%
 			String email = request.getParameter("email");
 			pageContext.setAttribute("email", email);
-
-/*
-			HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
-			String requestURL = req.getRequestURL().toString();
-			String subdomain = null;
-			if (requestURL != null && requestURL.length() > "http://".length()) {
-				requestURL = requestURL.substring(7);
-			}
-			if (requestURL != null && requestURL.contains(".")) {
-				subdomain = requestURL.substring(0, requestURL.indexOf("."));
-			}
-			pageContext.setAttribute("subdomain", subdomain);
-			System.out.println("aff login subdomain " + subdomain);
-			//System.out.println(req.getRequestURL());
-			//System.out.println(req.getRemoteHost());
-			if (subdomain != null && subdomain.equals("dev")) {
-				String redirectURL = "http://" + subdomain + ".healthkart.com";
-				response.sendRedirect(redirectURL);
-			}
-*/
 		%>
 		<div class="container">
 
@@ -76,15 +48,14 @@
 							<s:text name="affiliateDTO.passwordChecksum"/>
 						</div>
 					</div>
+					<s:hidden name="companyAffiliateDTO.companyShortName" value="${affiliateSignUpAction.affiliateLocaleContext.companyShortName}"/>
 					<div class="control-group">
             <div class="controls ">
-              <s:submit name="registerAffiliate" value="Create Affiliate" class="btn-large btn-primary"/>
+              <s:submit name="registerAffiliate" value="Create Affiliate" class="btn btn-success"/>
             </div>
           </div>
-					${affiliateSignUpAction.affiliateLocaleContext.companyShortName}
-					<s:hidden name="companyAffiliateDTO.companyShortName" value="${affiliateSignUpAction.affiliateLocaleContext.companyShortName}"/>
-				</s:form>
 
+				</s:form>
 
 			</div>
 		</div>

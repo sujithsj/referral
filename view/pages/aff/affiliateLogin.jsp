@@ -10,24 +10,6 @@
 
 			String email = request.getParameter("email");
 			pageContext.setAttribute("email", email);
-/*
-			HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
-			String requestURL = req.getRequestURL().toString();
-			String subdomain = null;
-			if (requestURL != null && requestURL.length() > "http://".length()) {
-				requestURL = requestURL.substring(7);
-			}
-			if (requestURL != null && requestURL.contains(".")) {
-				subdomain = requestURL.substring(0, requestURL.indexOf("."));
-			}
-			System.out.println("aff login subdomain " + subdomain);
-			pageContext.setAttribute("subdomain", subdomain);
-			//System.out.println(req.getRequestURL());
-			//System.out.println(req.getRemoteHost());
-			if (subdomain != null && subdomain.equals("dev")) {
-				String redirectURL = "http://" + subdomain + ".healthkart.com";
-				response.sendRedirect(redirectURL);
-			}*/
 		%>
 		<div id="logo">
 			<img src="${pageContext.request.contextPath}/assets/img/logo.png" alt=""/>
@@ -35,15 +17,6 @@
 		<p style="color:white;text-align:center;font-size:medium;">
 			Affiliate Login page
 		</p>
-
-<%--
-		<div>
-			<c:url value="/pages/aff/affiliateSignUp.jsp" var="signUpUrl">
-				<c:param name="email" value="${email}"/>
-			</c:url>
-			<a href="${signUpUrl}" class="btn btn-primary">Sign Up</a>
-		</div>
---%>
 
 		<div id="loginbox">
 			<s:form beanclass="com.ds.action.aff.AffiliateLoginAction" id="loginform" class="form-vertical">
@@ -90,25 +63,6 @@
 			</form>
 		</div>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/unicorn.login.js"></script>
-
-
-		<%--		<div class="span9">
-			<s:form beanclass="com.ds.action.aff.AffiliateLoginAction" class="vertical">
-				<fieldset>
-					<legend><em>Login using an existing account</em></legend>
-					<s:label name="Email"/>
-					<s:text name="login" class="auto-adjust check-empty" value="${email}"/>
-
-					<s:label name="Password"/>
-					<s:password name="password" class="auto-adjust check-empty"/>
-				</fieldset>
-
-				<div class="col_3">
-					<s:submit name="loginAffiliate" class="button blue small" value="Login"/>
-				</div>
-			</s:form>
-
-		</div>--%>
 
 	</s:layout-component>
 </s:layout-render>

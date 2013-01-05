@@ -70,7 +70,12 @@
   <h1><s:layout-component name="heading"/></h1>
 
   <s:layout-component name="messages">
-    <s:errors/>
+
+	  <div class="alert alert-error">
+
+		  <button class="close" data-dismiss="alert">×</button>
+		  <s:errors/>
+	  </div>
     <%--<div id="error-messages" ></div>
     <div class="alert messages "><s:messages key="generalMessages"/></div>--%>
   </s:layout-component>
