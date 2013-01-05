@@ -60,7 +60,7 @@
 					<div class="control-group">
 						<s:label class="control-label" name="First Name"/>
 						<div class="controls ">
-							<s:text name="affiliateDTO.firstName" placeholder="first name" value="${affiliateSignUpAction.affiliateLocaleContext.companyShortName}"/>
+							<s:text name="affiliateDTO.firstName" placeholder="first name"/>
 						</div>
 					</div>
 					<div class="control-group">
