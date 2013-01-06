@@ -1,26 +1,26 @@
 package com.ds.impl.service.affiliate;
 
+import com.ds.api.FeatureAPI;
+import com.ds.constants.FeatureType;
 import com.ds.core.event.EmailEvent;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
-import com.ds.domain.affiliate.CompanyAffiliateGroup;
 import com.ds.domain.affiliate.CompanyAffiliateInvite;
+import com.ds.domain.company.Company;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
 import com.ds.impl.service.mail.AffiliateContext;
 import com.ds.impl.service.mail.CompanyAffiliateInvEmailContext;
 import com.ds.pact.dao.affiliate.CompanyAffiliateDao;
+import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.pact.service.core.SearchService;
 import com.ds.pact.service.mail.EmailTemplateService;
 import com.ds.pact.service.mail.MailService;
-import com.ds.search.impl.AffiliateGroupQuery;
-import com.ds.search.impl.CompanyAffiliateQuery;
-import com.ds.search.impl.CompanyAffiliateGroupQuery;
 import com.ds.search.impl.CompanyAffiliateInviteQuery;
+import com.ds.search.impl.CompanyAffiliateQuery;
 import com.ds.web.action.Page;
-import com.ds.exception.DSException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +32,9 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
  * User: Rahul
  * Date: Nov 18, 2012
  * Time: 3:56:37 PM
- * To change this template use File | Settings | File Templates.
  */
 @Service
 public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
@@ -54,16 +52,19 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	private SearchService searchService;
 	@Autowired
 	private AffiliateService affiliateService;
-
+	@Autowired
+	private FeatureAPI featureAPI;
+	@Autowired
+	private AdminService adminService;
 
 	@Override
 	@Transactional
 	public CompanyAffiliate saveCompanyAffiliate(CompanyAffiliate companyAffiliate) {
-		return getCompanyAffiliateDAO().saveCompanyAffiliate(companyAffiliate);
+		return getCompanyAffiliateDao().saveCompanyAffiliate(companyAffiliate);
 	}
 
 	public CompanyAffiliate getCompanyAffiliate(Long companyAffiliateId) {
-		CompanyAffiliate companyAffiliate = (CompanyAffiliate) getCompanyAffiliateDAO().load(CompanyAffiliate.class, companyAffiliateId);
+		CompanyAffiliate companyAffiliate = getCompanyAffiliateDao().load(CompanyAffiliate.class, companyAffiliateId);
 
 		if (companyAffiliate == null) {
 			logger.error("No such affiliate found in system: " + companyAffiliateId);
@@ -73,12 +74,12 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	}
 
 	/**
-	 * @param login
-	 * @param email
-	 * @param companyShortName
-	 * @param pageNo
-	 * @param perPage
-	 * @return
+	 * @param login Login
+	 * @param email Email
+	 * @param companyShortName CompanyShortName
+	 * @param pageNo PageNumber
+	 * @param perPage PerPage
+	 * @return Page
 	 */
 	@Override
 	public Page searchCompanyAffiliate(String login, String email, String companyShortName, int pageNo, int perPage) {
@@ -93,21 +94,23 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	}
 
 	/**
-	 * @param affiliate
-	 * @param companyShortName
+	 * @param affiliate Affiliate
+	 * @param companyShortName Company Short Name
 	 */
 	@Override
 	@Transactional
-	public CompanyAffiliate saveCompanyAffiliate(Affiliate affiliate, String companyShortName) {
+	public CompanyAffiliate createCompanyAffiliate(Affiliate affiliate, String companyShortName) {
+		Company company = getAdminService().getCompany(companyShortName);
 		CompanyAffiliate companyAffiliate = new CompanyAffiliate();
 		companyAffiliate.setAffiliate(affiliate);
 		companyAffiliate.setCompanyShortName(companyShortName);
-		return getCompanyAffiliateDAO().saveCompanyAffiliate(companyAffiliate);
+		getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getCompanyAffiliateCount(companyShortName));
+		return getCompanyAffiliateDao().saveCompanyAffiliate(companyAffiliate);
 
 	}
 
 	/**
-	 * @param affiliate
+	 * @param affiliate Affiliate
 	 */
 	public void sendWelcomeEmail(Affiliate affiliate) {
 
@@ -120,8 +123,9 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	}
 
 	/**
-	 * @param companyAffiliateId
-	 * @return
+	 * @param companyAffiliateId  CompanyAffiliateId
+	 * @param companyShortName CompanyShortName
+	 * @return List of Company Affiliates
 	 */
 	@Override
 	public List<CompanyAffiliate> getCompanyAffiliatesExcludingSelf(Long companyAffiliateId, String companyShortName) {
@@ -140,10 +144,17 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 
 	}
 
+	@Override
+	public long getCompanyAffiliateCount(String companyShortName) {
+		List<CompanyAffiliate> companyAffiliateList = getAllCompanyAffiliates(companyShortName);
+		return companyAffiliateList == null ? 0 : companyAffiliateList.size();
+	}
+
+
 	@Transactional
 	@Override
 	public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName) {
-		if (companyAffiliateDTO == null){
+		if (companyAffiliateDTO == null) {
 			companyAffiliateDTO = new CompanyAffiliateDTO();
 		}
 		Long parentAffiliateId = companyAffiliateDTO.getParentCompanyAffiliateId();
@@ -153,8 +164,8 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		}
 		Affiliate affiliate = getAffiliateService().getAffiliateByLogin(affiliateDTO.getLogin());
 		//affiliate already exists setting the Id and would update the first name last name as per the newly filled values
-		if(affiliate != null) {
-			affiliateDTO.setAffiliateId(affiliate.getId());			
+		if (affiliate != null) {
+			affiliateDTO.setAffiliateId(affiliate.getId());
 		}
 		affiliate = affiliateDTO.extractAffiliate(affiliate);
 		if (affiliate.getId() == null) {
@@ -179,7 +190,7 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	}
 
 	@Override
-	public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage){
+	public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage) {
 		CompanyAffiliateInviteQuery companyAffiliateInviteQuery = new CompanyAffiliateInviteQuery();
 		companyAffiliateInviteQuery.setCompanyShortName(companyShortName);
 		companyAffiliateInviteQuery.setConverted(false);
@@ -194,21 +205,21 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		CompanyAffiliateInvite companyAffiliateInvite = new CompanyAffiliateInvite();
 		companyAffiliateInvite.setCompanyShortName(companyShortName);
 		companyAffiliateInvite.setAffiliateEmail(affiliateEmail);
-		return getCompanyAffiliateDAO().addCompanyAffiliateInvite(companyAffiliateInvite);		
+		return getCompanyAffiliateDao().addCompanyAffiliateInvite(companyAffiliateInvite);
 	}
 
-	public CompanyAffiliateInvite getCompanayAffiliateInvite(String companyShortName, String affiliateEmail){
+	public CompanyAffiliateInvite getCompanayAffiliateInvite(String companyShortName, String affiliateEmail) {
 		CompanyAffiliateInviteQuery companyAffiliateInviteQuery = new CompanyAffiliateInviteQuery();
 		companyAffiliateInviteQuery.setCompanyShortName(companyShortName);
 		companyAffiliateInviteQuery.setAffiliateEmail(affiliateEmail);
 		List<CompanyAffiliateInvite> companyAffiliateInviteList = getSearchService().executeSearch(companyAffiliateInviteQuery);
-		if(companyAffiliateInviteList != null && companyAffiliateInviteList.size() == 1){
+		if (companyAffiliateInviteList != null && companyAffiliateInviteList.size() == 1) {
 			return companyAffiliateInviteList.get(0);
 		}
 		return null;
 	}
 
-	public void sendCompanyAffiliateInvitationEmail(CompanyAffiliateInvite companyAffiliateInvite){
+	public void sendCompanyAffiliateInvitationEmail(CompanyAffiliateInvite companyAffiliateInvite) {
 
 		CompanyAffiliateInvEmailContext companyAffiliateInvEmailContext = new CompanyAffiliateInvEmailContext(companyAffiliateInvite);
 
@@ -221,11 +232,11 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	@Override
 	public CompanyAffiliateInvite deleteCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite) {
 		companyAffiliateInvite.setDeleted(true);
-		return getCompanyAffiliateDAO().addCompanyAffiliateInvite(companyAffiliateInvite);
+		return getCompanyAffiliateDao().addCompanyAffiliateInvite(companyAffiliateInvite);
 	}
 
 	public CompanyAffiliateInvite getCompanyAffiliateInvite(Long companyAffiliateInviteId) {
-		CompanyAffiliateInvite companyAffiliateInvite = (CompanyAffiliateInvite) getCompanyAffiliateDAO().load(CompanyAffiliateInvite.class, companyAffiliateInviteId);
+		CompanyAffiliateInvite companyAffiliateInvite = (CompanyAffiliateInvite) getCompanyAffiliateDao().load(CompanyAffiliateInvite.class, companyAffiliateInviteId);
 		if (companyAffiliateInvite == null) {
 			logger.error("No such invitation found in system: " + companyAffiliateInviteId);
 			throw new InvalidParameterException("INVALID_COMPANY_AFFILIATE_INVITE");
@@ -235,8 +246,8 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 
 	@Override
 	@Transactional
-	public CompanyAffiliateInvite saveCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite){
-		return getCompanyAffiliateDAO().saveCompanyAffiliateInvite(companyAffiliateInvite);
+	public CompanyAffiliateInvite saveCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite) {
+		return getCompanyAffiliateDao().saveCompanyAffiliateInvite(companyAffiliateInvite);
 	}
 
 	/**
@@ -254,15 +265,31 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		this.searchService = searchService;
 	}
 
-	public CompanyAffiliateDao getCompanyAffiliateDAO() {
-		return companyAffiliateDao;
-	}
-
 	public AffiliateService getAffiliateService() {
 		return affiliateService;
 	}
 
 	public MailService getMailService() {
 		return mailService;
+	}
+
+	public FeatureAPI getFeatureAPI() {
+		return featureAPI;
+	}
+
+	public void setFeatureAPI(FeatureAPI featureAPI) {
+		this.featureAPI = featureAPI;
+	}
+
+	public CompanyAffiliateDao getCompanyAffiliateDao() {
+		return companyAffiliateDao;
+	}
+
+	public AdminService getAdminService() {
+		return adminService;
+	}
+
+	public MessageDigestPasswordEncoder getMessageDigestPasswordEncoder() {
+		return messageDigestPasswordEncoder;
 	}
 }

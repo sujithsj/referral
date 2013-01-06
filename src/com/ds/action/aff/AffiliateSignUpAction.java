@@ -7,6 +7,7 @@ import com.ds.dto.affiliate.CompanyAffiliateDTO;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.ValidationConstants;
 import com.ds.exception.ValidationException;
+import com.ds.exception.FeatureNotAccessibleException;
 import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.utils.BaseUtils;
@@ -70,7 +71,7 @@ public class AffiliateSignUpAction extends BaseAction {
 		try {
 			Affiliate affiliate = getAffiliateService().createAffiliate(affiliateDTO);
 
-			CompanyAffiliate companyAffiliate = getCompanyAffiliateService().saveCompanyAffiliate()
+			CompanyAffiliate companyAffiliate = getCompanyAffiliateService().createCompanyAffiliate(affiliate, affiliateLocaleContext.getCompanyShortName());
 
 			//create company affiliate (check if company affiliate already exists)
 
@@ -91,6 +92,8 @@ public class AffiliateSignUpAction extends BaseAction {
 				}
 			}
 			logger.error("user exists with this email id " + affiliateDTO.getLogin());
+		} catch (FeatureNotAccessibleException fnae){
+			;
 		}
 
 

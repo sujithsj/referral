@@ -26,7 +26,8 @@ public class CompanyAffiliate extends BaseDataObject {
 	@Column(name = "COMPANY_SHORTNAME", nullable = false)
 	private String companyShortName;
 
-	@Column(name = "")
+	@Column(name = "ACTIVE", nullable = false)
+	private Boolean active = false;
 
 
 	@ManyToOne(fetch = FetchType.LAZY)
