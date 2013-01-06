@@ -98,7 +98,7 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	 */
 	@Override
 	@Transactional
-	public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName) {
+	public CompanyAffiliate saveCompanyAffiliate(Affiliate affiliate, String companyShortName) {
 		CompanyAffiliate companyAffiliate = new CompanyAffiliate();
 		companyAffiliate.setAffiliate(affiliate);
 		companyAffiliate.setCompanyShortName(companyShortName);

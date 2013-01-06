@@ -26,6 +26,8 @@ public class CompanyAffiliate extends BaseDataObject {
 	@Column(name = "COMPANY_SHORTNAME", nullable = false)
 	private String companyShortName;
 
+	@Column(name = "")
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PARENT_COMPANY_AFFILIATE_ID", nullable = true)

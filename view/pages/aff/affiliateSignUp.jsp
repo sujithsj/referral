@@ -1,63 +1,67 @@
 <%@include file="/includes/taglibInclude.jsp" %>
-
 <s:layout-render name="/templates/general.jsp">
-
 	<s:layout-component name="content">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.login.css" type="text/css"/>
+		<div id="logo">
+			<img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="referoscope logo"/>
+		</div>
+		<p style="color:white;text-align:center;font-size:medium;">
+			Affiliate Sign Up
+		</p>
 		<s:useActionBean beanclass="com.ds.action.aff.AffiliateSignUpAction" var="affiliateSignUpAction"/>
-
 		<%
 			String email = request.getParameter("email");
 			pageContext.setAttribute("email", email);
 		%>
-		<div class="container">
+		<div id="loginbox" style="height:230px;">
+		<s:form id="loginform" beanclass="com.ds.action.aff.AffiliateSignUpAction" class="form-vertical">
+			<br/>
 
-		<h1>Affiliate Sign Up</h1>
-
-		<div class="row">
-			<div class="span3 bs-docs-sidebar">
-
+			<div class="control-group">
+				<div class="controls ">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-tag"></i></span>
+						<s:text name="affiliateDTO.email" class="required email" placeholder="Affiliate Email" value="${email}"/>
+					</div>
+				</div>
 			</div>
-			<div class="span9">
-
-				<s:form beanclass="com.ds.action.aff.AffiliateSignUpAction" class="form-horizontal">
-					<fieldset>
-						<legend>test</legend>
-						<div class="control-group">
-							<s:label class="control-label" name="Email"/>
-							<div class="controls ">
-								<s:text name="affiliateDTO.email" placeholder="email" value="${email}"/>
-							</div>
-						</div>
-					</fieldset>
-					<div class="control-group">
-						<s:label class="control-label" name="First Name"/>
-						<div class="controls ">
-							<s:text name="affiliateDTO.firstName" placeholder="first name"/>
-						</div>
+			<div class="control-group">
+				<div class="controls ">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-tag"></i></span>
+						<s:text name="affiliateDTO.firstName" placeholder="First Name" class="required"/>
 					</div>
-					<div class="control-group">
-						<s:label class="control-label" name="Last Name"/>
-						<div class="controls">
-							<s:text name="affiliateDTO.lastName" placeholder="last name"/>
-							<div class="input-append"><span class="add-on" style="margin-left:-5px;">.ds.com</span></div>
-						</div>
-					</div>
-					<div class="control-group">
-						<s:label class="control-label" name="Password"/>
-						<div class="controls ">
-							<s:text name="affiliateDTO.passwordChecksum"/>
-						</div>
-					</div>
-					<s:hidden name="companyAffiliateDTO.companyShortName" value="${affiliateSignUpAction.affiliateLocaleContext.companyShortName}"/>
-					<div class="control-group">
-            <div class="controls ">
-              <s:submit name="registerAffiliate" value="Create Affiliate" class="btn btn-success"/>
-            </div>
-          </div>
-
-				</s:form>
-
+				</div>
 			</div>
-		</div>
+			<div class="control-group">
+
+				<div class="controls">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-tag"></i></span>
+						<s:text name="affiliateDTO.lastName" placeholder="Last Name"/>
+					</div>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls ">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-tag"></i></span>
+						<s:password name="affiliateDTO.passwordChecksum" placeholder="Password" class="required"/>
+					</div>
+				</div>
+			</div>
+			<s:hidden name="companyAffiliateDTO.companyShortName"
+			          value="${affiliateSignUpAction.affiliateLocaleContext.companyShortName}"/>
+			<div class="control-group">
+				<div class="controls ">
+					<s:submit name="registerAffiliate" value="Create Affiliate" class="btn btn-success"/>
+				</div>
+			</div>
+
+		</s:form>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.validate.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/signup/signup.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/select2.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/unicorn.form_validation.js"></script>
 	</s:layout-component>
 </s:layout-render>

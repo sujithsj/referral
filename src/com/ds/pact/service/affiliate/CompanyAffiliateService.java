@@ -29,7 +29,7 @@ public interface CompanyAffiliateService {
 
 	public Page searchCompanyAffiliate(String login, String email, String companyShortName, int pageNo, int perPage);
 
-	public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName);
+	public CompanyAffiliate saveCompanyAffiliate(Affiliate affiliate, String companyShortName);
 
 	public void sendWelcomeEmail(Affiliate affiliate);
 
