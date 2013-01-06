@@ -288,7 +288,7 @@
   </div>
 
   <div class="control-group">
-    <s:label class="control-label" name="Limit recurring commissions by period: (optional)"/>
+   <s:label class="control-label" name="Limit recurring commissions by period: (optional)"/>
     <div class="controls">
       <s:text name="commissionPlanDTO.limitRecurCommDays"/>
     </div>
