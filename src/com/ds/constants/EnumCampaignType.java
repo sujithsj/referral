@@ -40,8 +40,8 @@ public enum EnumCampaignType {
 
   public static List<EnumCampaignType> getAllCampaignTypes() {
     return Arrays.asList(
-        EnumCampaignType.SALE,
         EnumCampaignType.AFFILIATE_SIGN_UP,
+        EnumCampaignType.SALE,
         EnumCampaignType.USER_SIGN_UP,
         EnumCampaignType.REGISTRATION,
         EnumCampaignType.EMAIL_OPT_IN,
