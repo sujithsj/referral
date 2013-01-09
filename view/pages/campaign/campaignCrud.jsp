@@ -8,9 +8,27 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.main.css" type="text/css"/>
 
 <style type="text/css">
-.form-horizontal .control-label{
-  #width: 300px;
-}
+  .form-horizontal .control-label {
+    float: left; /*original: width: 140px;*/
+    width: 300px;
+    padding-top: 5px;
+    text-align: right;
+  }
+
+  .form-horizontal .controls {
+  /*original: margin-left: 160px;*/
+    margin-left: 330px;
+  }
+
+  .stepLabel {
+    line-height: 22px;
+    margin-bottom: 5px;
+  }
+
+  .tierLabel {
+    line-height: 18px;
+    margin-bottom: 5px;
+  }
 </style>
 
 <s:layout-render name="/includes/companyHeader.jsp"/>
@@ -44,253 +62,252 @@
 <s:form beanclass="com.ds.action.campaign.CampaignAction" id="form-wizard" class="form-horizontal">
 <%--<form  class="form-horizontal" method="post">--%>
 <div id="form-wizard-1" class="step">
-  <div class="control-group" style="margin-right:10px;">
-    <span class="label label-inverse pull-left" style="line-height:18px;">Basic Information</span>
+<div class="control-group" style="margin-right:10px;">
+  <span class="label label-inverse pull-left stepLabel">Basic Information</span>
+</div>
+<div class="control-group">
+  <s:label class="control-label" name="Campaign Name"/>
+  <div class="controls">
+    <s:text name="campaignDTO.name" placeholder="campaign name"/>
   </div>
-  <div class="control-group">
-    <s:label class="control-label" name="Campaign Name"/>
-    <div class="controls">
-      <s:text name="campaignDTO.name" placeholder="campaign name"/>
+</div>
+<div class="control-group">
+  <s:label class="control-label" name="Description"/>
+  <div class="controls">
+    <s:textarea name="campaignDTO.description" placeholder="campaign description"/>
+  </div>
+</div>
+<div class="control-group">
+  <s:label class="control-label" name="Campaign Type"/>
+  <div class="controls">
+    <s:select name="campaignDTO.campaignTypeId" style="width:200px;">
+      <c:forEach items="<%=EnumCampaignType.getAllCampaignTypes()%>" var="pType">
+        <s:option value="${pType.id}">${pType.type}</s:option>
+      </c:forEach>
+    </s:select>
+  </div>
+</div>
+<div class="control-group">
+  <s:label class="control-label" name="How do you want to reward your affiliates?"/>
+  <div class="controls">
+    <s:select name="commissionPlanDTO.commissionStrategyId" id="commStSel">
+      <c:forEach items="<%=EnumCommisionStrategy.getAllCommissionStategies()%>" var="stType">
+        <s:option value="${stType.id}">${stType.name}</s:option>
+      </c:forEach>
+    </s:select>
+  </div>
+</div>
+<div class="control-group">
+  <s:label class="control-label" name="Enable tiered Commissions"/>
+  <div class="controls">
+    <s:checkbox id="tiered" name="commissionPlanDTO.tiered"/>
+  </div>
+</div>
+<div id="tieredCommission">
+  <div id="tier1Comm" class="control-group">
+    <fieldset>
+      <div class="control-group" style="margin-right:10px;">
+        <span class="label label-success pull-left tierLabel">Tier 1</span>
+      </div>
+      <div class="control-group" id="tier1RecurRevShareDiv">
+        <s:label class="control-label" name="Initial Revenue share"/>
+        <div class="controls ">
+          <s:text name="commissionPlanDTO.tier1InitCom"/>
+          <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+        </div>
+        <s:label class="control-label" name="Recurring Revenue share"/>
+        <div class="controls ">
+          <s:text name="commissionPlanDTO.tier1RecurCom"/>
+          <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+        </div>
+      </div>
+
+      <div class="control-group" id="tier1RecurCommDiv">
+        <s:label class="control-label" name="Initial Commission"/>
+        <div class="controls">
+          <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+          <s:text name="commissionPlanDTO.tier1InitCom"/>
+        </div>
+        <s:label class="control-label" name="Recurring Commission"/>
+        <div class="controls">
+          <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+          <s:text name="commissionPlanDTO.tier1RecurCom"/>
+        </div>
+      </div>
+
+      <div class="control-group" id="tier1OneTimeRevShareDiv">
+        <s:label class="control-label" name="Revenue Share"/>
+        <div class="controls">
+          <s:text name="commissionPlanDTO.tier1OneTimeCom"/>
+          <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+        </div>
+      </div>
+
+      <div class="control-group" id="tier1OneTimeCommDiv">
+        <s:label class="control-label" name="Commission"/>
+        <div class="controls">
+          <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+          <s:text name="commissionPlanDTO.tier1OneTimeCom"/>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div id="tier2Comm">
+    <fieldset>
+      <div class="control-group" style="margin-right:10px;">
+        <span class="label label-success pull-left tierLabel">Tier 1</span>
+      </div>
+
+      <input type="button" id="hideTier2Btn" class= "btn btn-inverse" value="Hide Tier">
+
+      <div class="control-group" id="tier2RecurRevShareDiv">
+        <s:label class="control-label" name="Initial Revenue share"/>
+        <div class="controls ">
+          <s:text name="commissionPlanDTO.tier2InitCom"/>
+          <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+        </div>
+        <s:label class="control-label" name="Recurring Revenue share"/>
+        <div class="controls ">
+          <s:text name="commissionPlanDTO.tier2RecurCom"/>
+          <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+        </div>
+      </div>
+
+      <div class="control-group" id="tier2RecurCommDiv">
+        <s:label class="control-label" name="Initial Commission"/>
+        <div class="controls">
+          <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+          <s:text name="commissionPlanDTO.tier2InitCom"/>
+        </div>
+        <s:label class="control-label" name="Recurring Commission"/>
+        <div class="controls">
+          <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+          <s:text name="commissionPlanDTO.tier2RecurCom"/>
+        </div>
+      </div>
+
+      <div class="control-group" id="tier2OneTimeRevShareDiv">
+        <s:label class="control-label" name="Revenue Share"/>
+        <div class="controls">
+          <s:text name="commissionPlanDTO.tier2OneTimeCom"/>
+          <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+        </div>
+      </div>
+
+      <div class="control-group" id="tier2OneTimeCommDiv">
+        <s:label class="control-label" name="Commission"/>
+        <div class="controls">
+          <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+          <s:text name="commissionPlanDTO.tier2OneTimeCom"/>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div id="tier3Comm">
+    <fieldset>
+     <div class="control-group" style="margin-right:10px;">
+        <span class="label label-success pull-left tierLabel">Tier 1</span>
+      </div>
+
+      <input type="button" id="hideTier3Btn" class= "btn btn-inverse" value="Hide Tier">
+
+      <div class="control-group" id="tier3RecurRevShareDiv">
+        <s:label class="control-label" name="Initial Revenue share"/>
+        <div class="controls ">
+          <s:text name="commissionPlanDTO.tier3InitCom"/>
+          <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+        </div>
+        <s:label class="control-label" name="Recurring Revenue share"/>
+        <div class="controls ">
+          <s:text name="commissionPlanDTO.tier3RecurCom"/>
+          <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+        </div>
+      </div>
+
+      <div class="control-group" id="tier3RecurCommDiv">
+        <s:label class="control-label" name="Initial Commission"/>
+        <div class="controls">
+          <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+          <s:text name="commissionPlanDTO.tier3InitCom"/>
+        </div>
+        <s:label class="control-label" name="Recurring Commission"/>
+        <div class="controls">
+          <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+          <s:text name="commissionPlanDTO.tier3RecurCom"/>
+        </div>
+      </div>
+
+      <div class="control-group" id="tier3OneTimeRevShareDiv">
+        <s:label class="control-label" name="Revenue Share"/>
+        <div class="controls">
+          <s:text name="commissionPlanDTO.tier3OneTimeCom"/>
+          <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+        </div>
+      </div>
+
+      <div class="control-group" id="tier3OneTimeCommDiv">
+        <s:label class="control-label" name="Commission"/>
+        <div class="controls">
+          <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+          <s:text name="commissionPlanDTO.tier3OneTimeCom"/>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <input type="button" id="addTierBtn" class ="btn btn-success" value="Add Tier">
+</div>
+
+<div id="nonTierCommision">
+
+  <div class="control-group" id="recurRevShareDiv">
+    <s:label class="control-label" name="Initial Revenue share"/>
+    <div class="controls ">
+      <s:text name="commissionPlanDTO.initCom"/>
+      <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
     </div>
-  </div>
-  <div class="control-group">
-    <s:label class="control-label" name="Description"/>
-    <div class="controls">
-      <s:textarea name="campaignDTO.description" placeholder="campaign description"/>
-    </div>
-  </div>
-  <div class="control-group">
-    <s:label class="control-label" name="Campaign Type"/>
-    <div class="controls">
-      <s:select name="campaignDTO.campaignTypeId" style="width:200px;">
-        <c:forEach items="<%=EnumCampaignType.getAllCampaignTypes()%>" var="pType">
-          <s:option value="${pType.id}">${pType.type}</s:option>
-        </c:forEach>
-      </s:select>
-    </div>
-  </div>
-  <div class="control-group">
-    <s:label class="control-label" name="How do you want to reward your affiliates?"/>
-    <div class="controls">
-      <s:select name="commissionPlanDTO.commissionStrategyId" id="commStSel">
-        <c:forEach items="<%=EnumCommisionStrategy.getAllCommissionStategies()%>" var="stType">
-          <s:option value="${stType.id}">${stType.name}</s:option>
-        </c:forEach>
-      </s:select>
-    </div>
-  </div>
-  <div class="control-group">
-    <s:label class="control-label" name="Enable tiered Commissions"/>
-    <div class="controls">
-      <s:checkbox id="tiered" name="commissionPlanDTO.tiered"/>
+    <s:label class="control-label" name="Recurring Revenue share"/>
+    <div class="controls ">
+      <s:text name="commissionPlanDTO.recurCom"/>
+      <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
     </div>
   </div>
 
+  <div class="control-group" id="recurCommDiv">
+    <s:label class="control-label" name="Initial Commission"/>
+    <div class="controls">
+      <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+      <s:text name="commissionPlanDTO.initCom"/>
+    </div>
+    <s:label class="control-label" name="Recurring Commission"/>
+    <div class="controls">
+      <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+      <s:text name="commissionPlanDTO.recurCom"/>
+    </div>
+  </div>
+
+  <div class="control-group" id="oneTimeRevShareDiv">
+    <s:label class="control-label" name="Revenue Share"/>
+    <div class="controls">
+      <s:text name="commissionPlanDTO.oneTimeCom"/>
+      <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
+    </div>
+  </div>
+
+  <div class="control-group" id="oneTimeCommDiv">
+    <s:label class="control-label" name="Commission"/>
+    <div class="controls">
+      <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+      <s:text name="commissionPlanDTO.oneTimeCom"/>
+    </div>
+  </div>
 
 </div>
+
+</div>
+
 <div id="form-wizard-2" class="step">
   <div class="control-group" style="margin-right:10px;">
-    <span class="label label-inverse pull-left" style="line-height:18px;">Commission Plan</span>
-  </div>
-  <div id="tieredCommission">
-    <div id="tier1Comm" class="control-group">
-      <fieldset>
-        <legend>Tier 1</legend>
-
-        <div class="control-group" id="tier1RecurRevShareDiv">
-          <s:label class="control-label" name="Initial Revenue share"/>
-          <div class="controls ">
-            <s:text name="commissionPlanDTO.tier1InitCom"/>
-            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-          </div>
-          <s:label class="control-label" name="Recurring Revenue share"/>
-          <div class="controls ">
-            <s:text name="commissionPlanDTO.tier1RecurCom"/>
-            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-          </div>
-        </div>
-
-        <div class="control-group" id="tier1RecurCommDiv">
-          <s:label class="control-label" name="Initial Commission"/>
-          <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-            <s:text name="commissionPlanDTO.tier1InitCom"/>
-          </div>
-          <s:label class="control-label" name="Recurring Commission"/>
-          <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-            <s:text name="commissionPlanDTO.tier1RecurCom"/>
-          </div>
-        </div>
-
-        <div class="control-group" id="tier1OneTimeRevShareDiv">
-          <s:label class="control-label" name="Revenue Share"/>
-          <div class="controls">
-            <s:text name="commissionPlanDTO.tier1OneTimeCom"/>
-            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-          </div>
-        </div>
-
-        <div class="control-group" id="tier1OneTimeCommDiv">
-          <s:label class="control-label" name="Commission"/>
-          <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-            <s:text name="commissionPlanDTO.tier1OneTimeCom"/>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-    <div id="tier2Comm">
-      <fieldset>
-        <legend>Tier 2</legend>
-
-        <input type="button" id="hideTier2Btn" value="Hide Tier">
-
-        <div class="control-group" id="tier2RecurRevShareDiv">
-          <s:label class="control-label" name="Initial Revenue share"/>
-          <div class="controls ">
-            <s:text name="commissionPlanDTO.tier2InitCom"/>
-            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-          </div>
-          <s:label class="control-label" name="Recurring Revenue share"/>
-          <div class="controls ">
-            <s:text name="commissionPlanDTO.tier2RecurCom"/>
-            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-          </div>
-        </div>
-
-        <div class="control-group" id="tier2RecurCommDiv">
-          <s:label class="control-label" name="Initial Commission"/>
-          <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-            <s:text name="commissionPlanDTO.tier2InitCom"/>
-          </div>
-          <s:label class="control-label" name="Recurring Commission"/>
-          <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-            <s:text name="commissionPlanDTO.tier2RecurCom"/>
-          </div>
-        </div>
-
-        <div class="control-group" id="tier2OneTimeRevShareDiv">
-          <s:label class="control-label" name="Revenue Share"/>
-          <div class="controls">
-            <s:text name="commissionPlanDTO.tier2OneTimeCom"/>
-            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-          </div>
-        </div>
-
-        <div class="control-group" id="tier2OneTimeCommDiv">
-          <s:label class="control-label" name="Commission"/>
-          <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-            <s:text name="commissionPlanDTO.tier2OneTimeCom"/>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-    <div id="tier3Comm">
-      <fieldset>
-        <legend>Tier 3</legend>
-
-        <input type="button" id="hideTier3Btn" value="Hide Tier">
-
-        <div class="control-group" id="tier3RecurRevShareDiv">
-          <s:label class="control-label" name="Initial Revenue share"/>
-          <div class="controls ">
-            <s:text name="commissionPlanDTO.tier3InitCom"/>
-            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-          </div>
-          <s:label class="control-label" name="Recurring Revenue share"/>
-          <div class="controls ">
-            <s:text name="commissionPlanDTO.tier3RecurCom"/>
-            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-          </div>
-        </div>
-
-        <div class="control-group" id="tier3RecurCommDiv">
-          <s:label class="control-label" name="Initial Commission"/>
-          <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-            <s:text name="commissionPlanDTO.tier3InitCom"/>
-          </div>
-          <s:label class="control-label" name="Recurring Commission"/>
-          <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-            <s:text name="commissionPlanDTO.tier3RecurCom"/>
-          </div>
-        </div>
-
-        <div class="control-group" id="tier3OneTimeRevShareDiv">
-          <s:label class="control-label" name="Revenue Share"/>
-          <div class="controls">
-            <s:text name="commissionPlanDTO.tier3OneTimeCom"/>
-            <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-          </div>
-        </div>
-
-        <div class="control-group" id="tier3OneTimeCommDiv">
-          <s:label class="control-label" name="Commission"/>
-          <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-            <s:text name="commissionPlanDTO.tier3OneTimeCom"/>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-    <input type="button" id="addTierBtn" value="Add Tier">
-  </div>
-
-  <div id="nonTierCommision">
-
-    <div class="control-group" id="recurRevShareDiv">
-      <s:label class="control-label" name="Initial Revenue share"/>
-      <div class="controls ">
-        <s:text name="commissionPlanDTO.initCom"/>
-        <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-      </div>
-      <s:label class="control-label" name="Recurring Revenue share"/>
-      <div class="controls ">
-        <s:text name="commissionPlanDTO.recurCom"/>
-        <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-      </div>
-    </div>
-
-    <div class="control-group" id="recurCommDiv">
-      <s:label class="control-label" name="Initial Commission"/>
-      <div class="controls">
-        <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-        <s:text name="commissionPlanDTO.initCom"/>
-      </div>
-      <s:label class="control-label" name="Recurring Commission"/>
-      <div class="controls">
-        <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-        <s:text name="commissionPlanDTO.recurCom"/>
-      </div>
-    </div>
-
-    <div class="control-group" id="oneTimeRevShareDiv">
-      <s:label class="control-label" name="Revenue Share"/>
-      <div class="controls">
-        <s:text name="commissionPlanDTO.oneTimeCom"/>
-        <div class="input-append"><span class="add-on" style="margin-left:-5px;">%</span></div>
-      </div>
-    </div>
-
-    <div class="control-group" id="oneTimeCommDiv">
-      <s:label class="control-label" name="Commission"/>
-      <div class="controls">
-        <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
-        <s:text name="commissionPlanDTO.oneTimeCom"/>
-      </div>
-    </div>
-
-  </div>
-
-</div>
-<div id="form-wizard-3" class="step">
-  <div class="control-group" style="margin-right:10px;">
-    <span class="label label-inverse pull-left" style="line-height:18px;">Advanced Settings</span>
+    <span class="label label-inverse pull-left stepLabel">Advanced Settings</span>
   </div>
   <div class="control-group">
     <s:label class="control-label" name="Start Date"/>
@@ -344,8 +361,8 @@
 
 
 <div class="form-actions">
-  <input id="back" class="btn btn-primary" type="reset" value="Back"/>
-  <input id="next" class="btn btn-primary" type="submit" value="Next"/>
+  <input id="back" class="btn btn-inverse" type="reset" value="Back"/>
+  <input id="next" class="btn btn-success" type="submit" value="Next"/>
 
   <div id="status"></div>
 </div>
