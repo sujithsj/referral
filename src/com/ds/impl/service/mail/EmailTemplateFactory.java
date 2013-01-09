@@ -30,6 +30,12 @@ public class EmailTemplateFactory {
       emailTemplate.setHtml(true);
       emailTemplate.setBodyTemplateName("velocity/AffiliateInvitation.vm");
       return emailTemplate;
+    } else if("AffiliateWaitingApproval".equals(templateKey)){
+      EmailTemplate emailTemplate = new EmailTemplate();
+      emailTemplate.setSubject("Thanks for signing up. Your request is waiting for approval");
+      emailTemplate.setHtml(true);
+      emailTemplate.setBodyTemplateName("velocity/AffiliateWaitingApproval.vm");
+      return emailTemplate;
     }
 
     return null;

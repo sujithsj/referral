@@ -58,15 +58,17 @@ public class CompanyAffiliate extends BaseDataObject {
 		this.companyShortName = companyShortName;
 	}
 
-/*
-	public Company getCompany() {
-		return this.company;
+	public Boolean isActive() {
+		return active;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public Boolean getActive() {
+		return active;
 	}
-*/
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
 
 	public CompanyAffiliate getParentCompanyAffiliate() {
 		return parentCompanyAffiliate;

@@ -39,7 +39,9 @@ public interface CompanyAffiliateService {
 
 	public List<CompanyAffiliate> getAllCompanyAffiliates(String companyShortName);
 
-	public long getCompanyAffiliateCount(String companyShortName);
+	public List<CompanyAffiliate> getActiveCompanyAffiliates(String companyShortName);
+
+	public long getActiveCompanyAffiliateCount(String companyShortName);
 
 	public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage);
 

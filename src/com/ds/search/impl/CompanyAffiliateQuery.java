@@ -19,6 +19,7 @@ public class CompanyAffiliateQuery extends AbstractSearchQuery {
 
 	private String login;
 	private String email;
+	private Boolean active;
 	private String companyShortName;
 	private Long excludingSelfId;
 
@@ -35,6 +36,10 @@ public class CompanyAffiliateQuery extends AbstractSearchQuery {
 
 	public void setCompanyShortName(String companyShortName) {
 		this.companyShortName = companyShortName;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	public void setExcludingSelfId(Long excludingSelfId) {
@@ -59,6 +64,12 @@ public class CompanyAffiliateQuery extends AbstractSearchQuery {
 			queryStr.append(" and ca.companyShortName  =  :companyShortName ");
 			getQueryParams().put("companyShortName", companyShortName);
 		}
+
+		if (active != null) {
+			queryStr.append(" and ca.active  =  :active ");
+			getQueryParams().put("active", active);
+		}
+
 
 		if (excludingSelfId != null) {
 			queryStr.append(" and ca.id != :excludingSelfId ");

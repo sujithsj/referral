@@ -2,6 +2,7 @@ package com.ds.impl.service.affiliate;
 
 import com.ds.api.FeatureAPI;
 import com.ds.constants.FeatureType;
+import com.ds.constants.EnumNotificationType;
 import com.ds.core.event.EmailEvent;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
@@ -9,6 +10,7 @@ import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.company.Company;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
+import com.ds.exception.FeatureNotAccessibleException;
 import com.ds.impl.service.mail.AffiliateContext;
 import com.ds.impl.service.mail.CompanyAffiliateInvEmailContext;
 import com.ds.pact.dao.affiliate.CompanyAffiliateDao;
@@ -18,6 +20,7 @@ import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.pact.service.core.SearchService;
 import com.ds.pact.service.mail.EmailTemplateService;
 import com.ds.pact.service.mail.MailService;
+import com.ds.pact.service.notification.NotificationService;
 import com.ds.search.impl.CompanyAffiliateInviteQuery;
 import com.ds.search.impl.CompanyAffiliateQuery;
 import com.ds.web.action.Page;
@@ -56,6 +59,8 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	private FeatureAPI featureAPI;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private NotificationService notificationService;
 
 	@Override
 	@Transactional
@@ -74,11 +79,11 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	}
 
 	/**
-	 * @param login Login
-	 * @param email Email
+	 * @param login            Login
+	 * @param email            Email
 	 * @param companyShortName CompanyShortName
-	 * @param pageNo PageNumber
-	 * @param perPage PerPage
+	 * @param pageNo           PageNumber
+	 * @param perPage          PerPage
 	 * @return Page
 	 */
 	@Override
@@ -94,7 +99,7 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	}
 
 	/**
-	 * @param affiliate Affiliate
+	 * @param affiliate        Affiliate
 	 * @param companyShortName Company Short Name
 	 */
 	@Override
@@ -102,10 +107,39 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	public CompanyAffiliate createCompanyAffiliate(Affiliate affiliate, String companyShortName) {
 		Company company = getAdminService().getCompany(companyShortName);
 		CompanyAffiliate companyAffiliate = new CompanyAffiliate();
+		CompanyAffiliateInvite companyAffiliateInvite;
 		companyAffiliate.setAffiliate(affiliate);
 		companyAffiliate.setCompanyShortName(companyShortName);
-		getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getCompanyAffiliateCount(companyShortName));
-		return getCompanyAffiliateDao().saveCompanyAffiliate(companyAffiliate);
+
+
+		companyAffiliateInvite = getCompanayAffiliateInvite(companyShortName, affiliate.getLogin());
+		if (companyAffiliateInvite != null) {
+			companyAffiliateInvite.setConverted(true);
+			companyAffiliateInvite = saveCompanyAffiliateInvite(companyAffiliateInvite);
+			companyAffiliate.setActive(true);
+		} else {
+			companyAffiliate.setActive(false);
+		}
+		try {
+			if (companyAffiliate.getActive()) {
+				getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getActiveCompanyAffiliateCount(companyShortName) + 1);
+			}
+		} catch (FeatureNotAccessibleException fnae) {
+			System.out.println(fnae.getI18nMessage().getMessageParams().toString());
+			companyAffiliate.setActive(false);
+		}
+		companyAffiliate = getCompanyAffiliateDao().saveCompanyAffiliate(companyAffiliate);
+		if (companyAffiliate.getActive()) {
+			affiliateService.sendWelcomeEmail(affiliate);
+			//send affiliate signed up email to company
+
+		} else {
+			affiliateService.sendAffiliateWaitingApprovalEmail(affiliate);
+			notificationService.createCompanyNotification(companyShortName, EnumNotificationType.COMPANY_AFFILIATE_APPROVAL_PENDING);
+			//todo : add approval pending email to company users (need to decide whom to send emails)
+			//send approval pending email to both affiliate and company
+		}
+		return companyAffiliate;
 
 	}
 
@@ -123,8 +157,8 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	}
 
 	/**
-	 * @param companyAffiliateId  CompanyAffiliateId
-	 * @param companyShortName CompanyShortName
+	 * @param companyAffiliateId CompanyAffiliateId
+	 * @param companyShortName   CompanyShortName
 	 * @return List of Company Affiliates
 	 */
 	@Override
@@ -141,12 +175,19 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		CompanyAffiliateQuery companyAffiliateQuery = new CompanyAffiliateQuery();
 		companyAffiliateQuery.setCompanyShortName(companyShortName);
 		return getSearchService().executeSearch(companyAffiliateQuery);
-
 	}
 
 	@Override
-	public long getCompanyAffiliateCount(String companyShortName) {
-		List<CompanyAffiliate> companyAffiliateList = getAllCompanyAffiliates(companyShortName);
+	public List<CompanyAffiliate> getActiveCompanyAffiliates(String companyShortName) {
+		CompanyAffiliateQuery companyAffiliateQuery = new CompanyAffiliateQuery();
+		companyAffiliateQuery.setCompanyShortName(companyShortName);
+		companyAffiliateQuery.setActive(true);
+		return getSearchService().executeSearch(companyAffiliateQuery);
+	}
+
+	@Override
+	public long getActiveCompanyAffiliateCount(String companyShortName) {
+		List<CompanyAffiliate> companyAffiliateList = getActiveCompanyAffiliates(companyShortName);
 		return companyAffiliateList == null ? 0 : companyAffiliateList.size();
 	}
 
@@ -292,4 +333,5 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 	public MessageDigestPasswordEncoder getMessageDigestPasswordEncoder() {
 		return messageDigestPasswordEncoder;
 	}
+
 }

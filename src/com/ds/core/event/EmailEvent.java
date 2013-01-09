@@ -15,15 +15,16 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import javax.mail.MessagingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 /**
  * @author adlakha.vaibhav
  */
 public class EmailEvent implements AsyncEvent {
 
-  
+
   private Logger logger = LoggerFactory.getLogger(EmailEvent.class);
-  
+
   private EmailTemplateService.EmailEventType eventType;
   private EmailContext context;
   //private PostDAO        postDAO;
@@ -80,6 +81,8 @@ public class EmailEvent implements AsyncEvent {
 
       case UserRegistrationConfirmation:
       case UserLoggedInThirdPartyEmailConfirmation:
+	      List<String> strings = null;
+	      String[] a = strings.toArray(new String[strings.size()]);
         /*UserAuthEmailContext userThirdPartyAuthEmailContext = (UserAuthEmailContext) context;
         mimeMessageHelper.setTo(userThirdPartyAuthEmailContext.getUserEmail());*/
         break;
@@ -95,13 +98,24 @@ public class EmailEvent implements AsyncEvent {
         CompanyAffiliateInvEmailContext companyAffiliateInvEmailContext = (CompanyAffiliateInvEmailContext) context;
         mimeMessageHelper.setTo(companyAffiliateInvEmailContext.getCompanyAffiliateInvite().getAffiliateEmail());
         break;
+	    case CompanyAffiliatePendingForApproval:
+	     // AffiliatePendingForApprovalContext affiliatePendingForApprovalContext = (AffiliatePendingForApprovalContext) context;
+		    
+	      //mimeMessageHelper.setTo(companyAffiliateInvEmailContext.getCompanyUserList().toArray(new String[]));
+	      break;
+	    case AffiliateWaitingApproval:
+		    affiliateContext = (AffiliateContext) context;
+		    mimeMessageHelper.setTo(affiliateContext.getAffiliate().getEmail());
+		    break;
+
+
       case ClaimReward:
         /*ClaimRewardContext claimRewardContext = (ClaimRewardContext) context;
         mimeMessageHelper.setTo(claimRewardContext.getUser().getEmail());*/
         break;
     }
   }
-
+	                                                                                                                               	
   @Override
   public Map<String, String> getWireRepresentation() {
     Map<String, String> data = new HashMap<String, String>();
@@ -122,7 +136,7 @@ public class EmailEvent implements AsyncEvent {
       logger.error("ERROR_IN_DESERIALIZATION", e);
       throw new DSException("ERROR_IN_DESERIALIZATION", e);
 
-      
+
     }
   }
 

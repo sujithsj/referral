@@ -46,6 +46,7 @@ public class AffiliateSignUpAction extends BaseAction {
 
 	private AffiliateLocaleContext affiliateLocaleContext = AffiliateLocaleContextHolder.getAffiliateLocaleContext();
 
+	@Autowired
 	CompanyAffiliateService companyAffiliateService;
 
 	@ValidationMethod()
@@ -73,14 +74,6 @@ public class AffiliateSignUpAction extends BaseAction {
 
 			CompanyAffiliate companyAffiliate = getCompanyAffiliateService().createCompanyAffiliate(affiliate, affiliateLocaleContext.getCompanyShortName());
 
-			//create company affiliate (check if company affiliate already exists)
-
-			//mark deleted false if company plan cannot add more affiliates
-			//if the plan allows and company affiliate invite exists then auto approve
-			//if plan allows and no invite but auto approve is true then auto approve.
-
-			//shoot an appropriate welcome email on basis of deleted flag
-
 		} catch (CompositeValidationException cve) {
 			List<ValidationException> validationExceptions = cve.getValidationExceptions();
 			for (ValidationException validationException : validationExceptions) {
@@ -92,8 +85,6 @@ public class AffiliateSignUpAction extends BaseAction {
 				}
 			}
 			logger.error("user exists with this email id " + affiliateDTO.getLogin());
-		} catch (FeatureNotAccessibleException fnae){
-			;
 		}
 
 
