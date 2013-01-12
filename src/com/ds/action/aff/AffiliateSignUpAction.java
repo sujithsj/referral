@@ -14,10 +14,7 @@ import com.ds.utils.BaseUtils;
 import com.ds.web.action.BaseAction;
 import com.ds.web.locale.AffiliateLocaleContext;
 import com.ds.web.locale.AffiliateLocaleContextHolder;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.RedirectResolution;
-import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationMethod;
 import org.apache.commons.lang.StringUtils;
@@ -87,7 +84,7 @@ public class AffiliateSignUpAction extends BaseAction {
 			logger.error("user exists with this email id " + affiliateDTO.getLogin());
 		}
 
-
+		addRedirectAlertMessage(new SimpleMessage("Successfully Signed Up, Please login to continue"));
 		return new RedirectResolution("http://www.google.com");
 	}
 
