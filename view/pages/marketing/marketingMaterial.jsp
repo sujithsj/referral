@@ -26,7 +26,8 @@
 									<i class=" icon-search"></i>
 								</span>
             <h5>Search Ads</h5>
-            <span class="label label-success tip-left" title="Total Ads">${mmSearchAction.totalAdCount}</span>
+            <%--<span class="label label-success tip-left" title="Total Ads">${mmSearchAction.totalAdCount}</span>--%>
+          <span class="label label-success tip-left" title="Total Ads">4</span>            
           </div>
           <div class="widget-content">
             <s:form beanclass="com.ds.action.marketing.MarketingMaterialSearchAction" id="mmSearchForm"
@@ -46,11 +47,11 @@
                 <a class="btn btn-inverse mmType" href="#" type="<%=EnumMarketingMaterialType.ALL.getId()%>">All</a>
                 <a class="btn btn-inverse mmType" href="#" type="<%=EnumMarketingMaterialType.Banner.getId()%>">Banner&nbsp;<span
                     class="label label-success"
-                    style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalBannerAds}</span></a>
+                    style="position:absolute; top:-8px;right:3px;"><%--${mmSearchAction.totalBannerAds}--%>2</span></a>
                 <a class="btn btn-inverse mmType" href="#" type="<%=EnumMarketingMaterialType.TextAd.getId()%>">Text
                   Ads&nbsp;<span
                       class="label label-success"
-                      style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalTextAds}</span></a>
+                      style="position:absolute; top:-8px;right:3px;"><%--${mmSearchAction.totalTextAds}--%> 2</span></a>
               </div>
 
               <%--<div class="navbar navbar-inverse">
@@ -135,11 +136,11 @@
     <s:layout-render name="/includes/footer.jsp"/>
   </div>
 
-  <div id="myModal" class="modal hide fade modalBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  <div id="previewModal" class="modal hide fade modalBox" tabindex="-1" role="dialog" aria-labelledby="adPreviewModalLabel"
        aria-hidden="true">
     <div class="modal-header modalHeader">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="myModalLabel" >Ad Preview</h3>
+      <h3 id="adPreviewModalLabel" >Ad Preview</h3>
     </div>
     <div class="modal-body" id="adPreviewModalContent" align="center">
       
@@ -148,6 +149,21 @@
       <button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">Close</button>
     </div>
   </div>
+
+    <div id="shareModal" class="modal hide fade modalBox" tabindex="-1" role="dialog" aria-labelledby="adShareModalLabel"
+       aria-hidden="true">
+    <div class="modal-header modalHeader">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="adShareModalLabel" >Ad Sharing Code</h3>
+    </div>
+    <div class="modal-body" style="margin-right:10px; text-align:center;overflow-y:hidden;">
+       <textarea rows="20" readonly="true" style="width:650px;cursor:copy;" onclick="this.select()" id="adShareModalContent"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+  </div>
+
 </s:layout-component>
 <s:layout-component name="scriptComponent">
 
@@ -174,10 +190,14 @@
       });
 
       $(".shareAd").click(function(event) {
-
+        jQuery.globalEval = function(){};
         var mmId = $(this).attr('mmId');
         DS.Ajax.getJson("/api/mm/" + mmId + "/share/999", function(response) {
-          alert(response.sc);
+
+             //alert(response.sc);
+            $("#shareModal").modal();
+          document.getElementById("adShareModalContent").innerHTML  = response.sc ;
+
         })
       });
 
@@ -186,11 +206,14 @@
 
         var mmId = $(this).attr('mmId');
         DS.Ajax.getJson("/api/mm/" + mmId + "/preview/", function(response) {
-          $("#myModal").modal();
+            
+          $("#previewModal").modal();
           $("#adPreviewModalContent").html(response.sc);
           //alert(response.sc);
         })
       });
+
+
 
     });
   </script>

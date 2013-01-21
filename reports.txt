@@ -1,0 +1,34 @@
+marketing reports
+
+
+Tables
+
+For a time period:
+
+1. total impressions and clicks, events by ad type
+2. Top 10 ads by clicks
+3.  Top 10 ads by conversions
+4. detailed day by day impression, click, sale, commission for ad.
+
+
+charts
+
+
+affiliate reports
+
+tables
+
+1)   total impressions and clicks, events by affiliate
+2)   Top 10 affiliate by clicks
+3.  Top 10 affiliate by conversions
+4. detailed day by day impression, click, sale, commission for an affiliate.
+
+
+affiliate charts
+
+1) top 10 affiliates by commission
+2) top 10 affiliates by click
+3) six month affiliate sale report (bar chart may be)
+
+
+

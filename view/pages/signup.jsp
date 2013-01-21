@@ -50,9 +50,9 @@
           <div class="controls">
 
             <div class="input-append">
-              <s:text name="companyRegistrationDTO.shortName" style="margin-left:30px;"
+              <s:text name="companyRegistrationDTO.shortName" style="width:140px;margin-left:30px;"
                     class="required"  placeholder="company short name"/>
-              <span class="add-on">.ds.com</span>
+              <span class="add-on">.referoscope.com</span>
                 <%--<div class="input-append"><span class="add-on">.ds.com</span></div>--%>
             </div>
           </div>

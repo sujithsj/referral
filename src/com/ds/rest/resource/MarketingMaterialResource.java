@@ -30,7 +30,7 @@ import javax.ws.rs.Produces;
 public class MarketingMaterialResource {
 
   //TODO: neeed to build this from company like pricemia.zferal.com  
-  private static final String BASE_URL = "hk.healthkart.com";
+  private static final String BASE_URL = "dev.healthkart.com";
 
   @Autowired
   private MarketingService marketingService;
