@@ -1,6 +1,7 @@
 package com.ds.rest.resource;
 
 import com.ds.constants.EnumMarketingMaterialType;
+import com.ds.constants.AppConstants;
 import com.ds.core.event.EventDispatcher;
 import com.ds.core.event.MarketingMaterialImpressionEvent;
 import com.ds.domain.company.Company;
@@ -30,7 +31,7 @@ import javax.ws.rs.Produces;
 public class MarketingMaterialResource {
 
   //TODO: neeed to build this from company like pricemia.zferal.com  
-  private static final String BASE_URL = "dev.healthkart.com";
+  private static final String BASE_URL = AppConstants.APP_URL;
 
   @Autowired
   private MarketingService marketingService;
@@ -99,7 +100,7 @@ public class MarketingMaterialResource {
     if (StringUtils.isBlank(sharingCode)) {
       return new JSONResponseBuilder().addField("exception", false).addField("sc", "No Sharing code could be loaded for this ad").build();
     } else {
-      return new JSONResponseBuilder().addField("exception", false).addField("sc", sharingCode).build();
+      return new JSONResponseBuilder().addField("exception", false).addField("sc", sharingCode+"'").build();
     }
   }
 

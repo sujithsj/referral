@@ -66,6 +66,7 @@
     <mapping class="com.ds.domain.commission.CommissionPlan"/>
     <mapping class="com.ds.domain.commission.CommissionCurrency"/>
     <mapping class="com.ds.domain.commission.CommissionStrategy"/>
+    <mapping class="com.ds.domain.commission.CommissionEarning"/>
     <mapping class="com.ds.domain.tracking.ImpressionTracking"/>
     <mapping class="com.ds.domain.tracking.ClickTracking"/>
     <mapping class="com.ds.domain.tracking.EventTracking"/>

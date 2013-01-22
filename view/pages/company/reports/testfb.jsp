@@ -9,6 +9,7 @@
  </head>
 
  <body>
+ hello
   <div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {

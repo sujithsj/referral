@@ -8,7 +8,10 @@ import com.ds.domain.campaign.Campaign;
 import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.domain.marketing.MarketingMaterialType;
 import com.ds.domain.tracking.EventTracking;
+import com.ds.domain.tracking.ImpressionTracking;
 import com.ds.domain.visitor.VisitorInfo;
+import com.ds.domain.commission.CommissionEarning;
+import com.ds.domain.commission.CommissionStrategy;
 import com.ds.exception.DSException;
 import com.ds.impl.service.marketing.MarketingMaterialContext;
 import com.ds.pact.dao.BaseDao;
@@ -16,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * @author adlakha.vaibhav
@@ -44,7 +49,9 @@ public class MarketingMaterialSaleEventListener implements EventListener {
       MarketingMaterialType mmType = getBaseDao().load(MarketingMaterialType.class, mmSaleEvent.getMarketingMaterialTypeId());
       VisitorInfo visitorInfo = getBaseDao().load(VisitorInfo.class, mmContext.getVisitorInfoId());
       //TODO: Load campaign from marketing Material
-      Campaign campaign = getBaseDao().get(Campaign.class, 2L);
+
+        Long campaignId = 2L;
+      Campaign campaign = getBaseDao().get(Campaign.class, campaignId);
 
 
       eventTracking.setRevenue(mmSaleEvent.getRevenue());
@@ -61,9 +68,23 @@ public class MarketingMaterialSaleEventListener implements EventListener {
 
 
       /**
-       * now that we have captured event tracking , we will capture the commission earning , may be we can do this via quartz.
+       * now that we have captured event tracking , we will capture the commission earning , may be we can
+       * do this via quartz.
        */
 
+
+        /**
+         * see if this affiliate already got a commission for this marketing material
+         *
+         */
+
+        
+
+
+        
+
+        
+            
 
     } catch (Throwable t) {
       logger.error("Unable to save sale event tracking" + eventTracking, t);
