@@ -52,7 +52,7 @@ public class FeatureAPIImpl implements FeatureAPI {
   }
 
   @Override
-  public void doesCompanyHaveAccessTo(Company company, FeatureType featureType, long count) {
+  public void doesCompanyHaveAccessTo(Company company, FeatureType featureType, long count) throws FeatureNotAccessibleException  {
     if (!isFeatureAccessible(company, featureType, count)) {
       throw new FeatureNotAccessibleException("FEATURE_NOT_ACCESSIBLE", featureType.featureType());
     }

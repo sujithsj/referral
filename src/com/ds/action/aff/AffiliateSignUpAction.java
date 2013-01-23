@@ -1,27 +1,26 @@
 package com.ds.action.aff;
 
+import com.ds.domain.affiliate.Affiliate;
+import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
+import com.ds.exception.CompositeValidationException;
+import com.ds.exception.ValidationConstants;
+import com.ds.exception.ValidationException;
+import com.ds.exception.FeatureNotAccessibleException;
+import com.ds.pact.service.affiliate.AffiliateService;
+import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.utils.BaseUtils;
 import com.ds.web.action.BaseAction;
 import com.ds.web.locale.AffiliateLocaleContext;
 import com.ds.web.locale.AffiliateLocaleContextHolder;
-import com.ds.pact.service.affiliate.CompanyAffiliateService;
-import com.ds.pact.service.affiliate.AffiliateService;
-import com.ds.domain.affiliate.Affiliate;
-import com.ds.exception.CompositeValidationException;
-import com.ds.exception.ValidationException;
-import com.ds.exception.ValidationConstants;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.RedirectResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationMethod;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -44,6 +43,7 @@ public class AffiliateSignUpAction extends BaseAction {
 
 	private AffiliateLocaleContext affiliateLocaleContext = AffiliateLocaleContextHolder.getAffiliateLocaleContext();
 
+	@Autowired
 	CompanyAffiliateService companyAffiliateService;
 
 	@ValidationMethod()
@@ -66,24 +66,17 @@ public class AffiliateSignUpAction extends BaseAction {
 
 
 		//create affiliate (check if email already there then only need to create compnay affiliate)
-		try{
-		Affiliate affiliate = getAffiliateService().createAffiliate(affiliateDTO);
+		try {
+			Affiliate affiliate = getAffiliateService().createAffiliate(affiliateDTO);
 
+			CompanyAffiliate companyAffiliate = getCompanyAffiliateService().createCompanyAffiliate(affiliate, affiliateLocaleContext.getCompanyShortName());
 
-		//create company affiliate (check if company affiliate already exists)
-
-		//mark deleted false if company plan cannot add more affiliates
-		//if the plan allows and company affiliate invite exists then auto approve
-		//if plan allows and no invite but auto approve is true then auto approve.
-
-		//shoot an appropriate welcome email on basis of deleted flag
-
-		}catch(CompositeValidationException cve){
+		} catch (CompositeValidationException cve) {
 			List<ValidationException> validationExceptions = cve.getValidationExceptions();
-			for(ValidationException validationException : validationExceptions){
-				if(validationException.getFieldName().equals(ValidationConstants.INVALID_EMAIL)){
+			for (ValidationException validationException : validationExceptions) {
+				if (validationException.getFieldName().equals(ValidationConstants.INVALID_AFFILIATE_EMAIL)) {
 					getContext().getValidationErrors().add("invalidEmail", new LocalizableError("/Signup.action.InvalidEmail"));
-				}else if(validationException.getFieldName().equals(ValidationConstants.LOGIN_EXISTS)){
+				} else if (validationException.getFieldName().equals(ValidationConstants.AFFILIATE_LOGIN_EXISTS)) {
 					addValidationError("userExists", new LocalizableError("/Signup.action.email.id.already.exists"));
 					return new ForwardResolution(getContext().getSourcePage());
 				}
@@ -91,7 +84,7 @@ public class AffiliateSignUpAction extends BaseAction {
 			logger.error("user exists with this email id " + affiliateDTO.getLogin());
 		}
 
-
+		addRedirectAlertMessage(new SimpleMessage("Successfully Signed Up, Please login to continue"));
 		return new RedirectResolution("http://www.google.com");
 	}
 

@@ -29,7 +29,7 @@ public interface CompanyAffiliateService {
 
 	public Page searchCompanyAffiliate(String login, String email, String companyShortName, int pageNo, int perPage);
 
-	public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName);
+	public CompanyAffiliate createCompanyAffiliate(Affiliate affiliate, String companyShortName);
 
 	public void sendWelcomeEmail(Affiliate affiliate);
 
@@ -38,6 +38,10 @@ public interface CompanyAffiliateService {
 	public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName);
 
 	public List<CompanyAffiliate> getAllCompanyAffiliates(String companyShortName);
+
+	public List<CompanyAffiliate> getActiveCompanyAffiliates(String companyShortName);
+
+	public long getActiveCompanyAffiliateCount(String companyShortName);
 
 	public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage);
 

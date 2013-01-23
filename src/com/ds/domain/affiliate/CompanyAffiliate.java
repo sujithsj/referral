@@ -26,6 +26,9 @@ public class CompanyAffiliate extends BaseDataObject {
 	@Column(name = "COMPANY_SHORTNAME", nullable = false)
 	private String companyShortName;
 
+	@Column(name = "ACTIVE", nullable = false)
+	private Boolean active = false;
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PARENT_COMPANY_AFFILIATE_ID", nullable = true)
@@ -55,15 +58,17 @@ public class CompanyAffiliate extends BaseDataObject {
 		this.companyShortName = companyShortName;
 	}
 
-/*
-	public Company getCompany() {
-		return this.company;
+	public Boolean isActive() {
+		return active;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public Boolean getActive() {
+		return active;
 	}
-*/
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
 
 	public CompanyAffiliate getParentCompanyAffiliate() {
 		return parentCompanyAffiliate;

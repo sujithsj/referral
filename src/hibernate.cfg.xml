@@ -72,6 +72,8 @@
     <mapping class="com.ds.domain.tracking.EventTracking"/>
     <mapping class="com.ds.domain.campaign.Campaign"/>
     <mapping class="com.ds.domain.campaign.CampaignType"/>
+	  <mapping class="com.ds.domain.notification.Notification"/>
+	  <mapping class="com.ds.domain.notification.NotificationType"/>
 
 
   </session-factory>

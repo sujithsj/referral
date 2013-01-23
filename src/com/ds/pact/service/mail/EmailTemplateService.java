@@ -1,5 +1,7 @@
 package com.ds.pact.service.mail;
 
+import com.ds.domain.affiliate.Affiliate;
+
 import javax.mail.internet.MimeMessage;
 
 /**
@@ -10,7 +12,7 @@ public interface EmailTemplateService {
   public enum EmailEventType {
         PostedEmployeeEvent, PostCommentedEmployeeEvent, FeedbackAnswered, PostCommented, PostStatusChanged,
         UserLoggedInThirdPartyEmailConfirmation, UserThirdPartyAssociationConfirmation,UserPasswordResetConfirmation,UserRegistrationConfirmation,
-        ClaimReward, WelcomeAffiliate, AffiliatePasswordResetConfirmation, AffiliateInvitationEmail
+        ClaimReward, WelcomeAffiliate, AffiliatePasswordResetConfirmation, AffiliateInvitationEmail, CompanyAffiliatePendingForApproval, AffiliateWaitingApproval
     }
 
     /**

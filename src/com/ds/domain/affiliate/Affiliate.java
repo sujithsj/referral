@@ -64,7 +64,7 @@ public class Affiliate extends BaseDataObject {
 	private String passwordChecksum;
 
 	@Column(name = "DELETED", nullable = false)
-	private Boolean deleted;
+	private Boolean deleted = false;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "affiliate")
 	private Set<CompanyAffiliate> companyAffiliates = new HashSet<CompanyAffiliate>(0);

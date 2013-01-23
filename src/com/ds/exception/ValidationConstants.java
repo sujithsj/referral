@@ -9,7 +9,7 @@ package com.ds.exception;
  */
 public class ValidationConstants {
 
-	public static final String INVALID_EMAIL = "invalidEmail";
-	public static final String LOGIN_EXISTS = "loginExists";
+	public static final String INVALID_AFFILIATE_EMAIL = "invalidAffiliateEmail";
+	public static final String AFFILIATE_LOGIN_EXISTS = "affiliateLoginExists";
 
 }
