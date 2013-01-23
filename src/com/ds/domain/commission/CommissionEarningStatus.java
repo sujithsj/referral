@@ -19,11 +19,9 @@ public class CommissionEarningStatus {
     @Column(name = "ID", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "STATUS_NAME", nullable = false, length = 100)
-    private String statusName;
 
     @Column(name = "STATUS", nullable = false)
-    private Long status;
+    private String status;
 
     public Long getId() {
         return id;
@@ -33,19 +31,12 @@ public class CommissionEarningStatus {
         this.id = id;
     }
 
-    public String getStatusName() {
-        return statusName;
-    }
 
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
-    }
-
-    public Long getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Long status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

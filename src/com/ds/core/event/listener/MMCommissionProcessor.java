@@ -7,9 +7,11 @@ import com.ds.domain.campaign.Campaign;
 import com.ds.domain.commission.CommissionEarning;
 import com.ds.domain.commission.CommissionStrategy;
 import com.ds.domain.commission.CommissionPlan;
+import com.ds.domain.commission.CommissionEarningStatus;
 import com.ds.domain.user.User;
 import com.ds.constants.EnumCommisionStrategy;
 import com.ds.constants.AppConstants;
+import com.ds.constants.EnumCommissionEarningStatus;
 import com.ds.pact.dao.BaseDao;
 import com.ds.impl.service.ServiceLocatorFactory;
 
@@ -78,10 +80,22 @@ public class MMCommissionProcessor {
 
             commissionEarning = getCommissionEarningWithBasicInfo();
             commissionEarning.setEarning(oneTimeFlatCommission);
-            commissionEarning.setApproved(isAutoApproved);
+            //commissionEarning.setApproved(isAutoApproved);
+
+            setCommissionEarningStatus(commissionEarning, isAutoApproved);
 
         }
         return commissionEarning;
+    }
+
+    private void setCommissionEarningStatus(CommissionEarning commissionEarning, boolean autoApproved) {
+        if(autoApproved){
+                CommissionEarningStatus commissionEarningStatus = EnumCommissionEarningStatus.APPROVED.asCommissionEarningStatus();
+            commissionEarning.setCommissionEarningStatus(commissionEarningStatus);
+        }else{
+            CommissionEarningStatus commissionEarningStatus = EnumCommissionEarningStatus.PENDING_APPROVAL.asCommissionEarningStatus();
+            commissionEarning.setCommissionEarningStatus(commissionEarningStatus);
+        }
     }
 
 
@@ -103,7 +117,8 @@ public class MMCommissionProcessor {
 
             commissionEarning = getCommissionEarningWithBasicInfo();
             commissionEarning.setEarning(oneTimeRevShareComm);
-            commissionEarning.setApproved(isAutoApproved);
+            //commissionEarning.setApproved(isAutoApproved);
+            setCommissionEarningStatus(commissionEarning, isAutoApproved);
 
         }
 
@@ -149,7 +164,8 @@ public class MMCommissionProcessor {
                 commissionEarning.setEarning(recurFlatComm);
             }
 
-            commissionEarning.setApproved(isAutoApproved);
+            //commissionEarning.setApproved(isAutoApproved);
+            setCommissionEarningStatus(commissionEarning, isAutoApproved);
         }
 
         return commissionEarning;
@@ -194,7 +210,8 @@ public class MMCommissionProcessor {
                 commissionEarning.setEarning(recurRevShareComm);
             }
 
-            commissionEarning.setApproved(isAutoApproved);
+            //commissionEarning.setApproved(isAutoApproved);
+            setCommissionEarningStatus(commissionEarning, isAutoApproved);
         }
 
         return commissionEarning;
@@ -240,7 +257,7 @@ public class MMCommissionProcessor {
         commissionEarning.setEventTracking(eventTracking);
         commissionEarning.setDirectCommission(true);
         User systemUser = getBaseDao().get(User.class, AppConstants.SYS_USER_ID);
-        commissionEarning.setApprovedBy(systemUser);
+        commissionEarning.setActedBy(systemUser);
 
         return commissionEarning;
     }

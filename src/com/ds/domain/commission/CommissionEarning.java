@@ -51,12 +51,12 @@ public class CommissionEarning implements Serializable {
     private EventTracking eventTracking;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "APPROVED_BY")
+    @JoinColumn(name = "ACTED_BY")
     private User actedBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMISSION_EARNING_STATUS_ID", nullable = false)
-    private CommissionEarningStatus notificationType;
+    private CommissionEarningStatus commissionEarningStatus;
 
     @Column(name = "DIRECT_COMMISSION", nullable = false)
     private boolean directCommission;
@@ -64,7 +64,7 @@ public class CommissionEarning implements Serializable {
     @Column(name = "RECUR_COMMISSION", nullable = false)
     private boolean recurCommission;
 
-    @Column(name = "APPROVED_ON")
+    @Column(name = "ACTED_ON")
     private Date actedOn;
 
     @Column(name = "EARNING_DATE")
@@ -125,12 +125,12 @@ public class CommissionEarning implements Serializable {
         this.actedBy = actedBy;
     }
 
-    public CommissionEarningStatus getNotificationType() {
-        return notificationType;
+    public CommissionEarningStatus getCommissionEarningStatus() {
+        return commissionEarningStatus;
     }
 
-    public void setNotificationType(CommissionEarningStatus notificationType) {
-        this.notificationType = notificationType;
+    public void setCommissionEarningStatus(CommissionEarningStatus commissionEarningStatus) {
+        this.commissionEarningStatus = commissionEarningStatus;
     }
 
     public Date getActedOn() {
