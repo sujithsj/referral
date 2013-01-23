@@ -14,6 +14,9 @@ import com.ds.pact.dao.BaseDao;
 import com.ds.impl.service.ServiceLocatorFactory;
 
 import java.util.List;
+import java.util.Date;
+
+import org.joda.time.Days;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,6 +33,14 @@ public class MMCommissionProcessor {
     private MarketingMaterial marketingMaterial;
     private Affiliate affiliate;
     private Campaign campaign;
+
+
+    public MMCommissionProcessor(EventTracking eventTracking, MarketingMaterial marketingMaterial, Affiliate affiliate, Campaign campaign) {
+        this.eventTracking = eventTracking;
+        this.marketingMaterial = marketingMaterial;
+        this.affiliate = affiliate;
+        this.campaign = campaign;
+    }
 
     private BaseDao baseDao;
 
@@ -60,7 +71,7 @@ public class MMCommissionProcessor {
         /**
          * if this is the first time we are giving a commission to aff for this ad
          */
-        if (existingCommissionEarnings == null || existingCommissionEarnings.size() > 0 ) {
+        if (existingCommissionEarnings == null || existingCommissionEarnings.size() > 0) {
             CommissionPlan commissionPlan = campaign.getCommissionPlan();
             double oneTimeFlatCommission = commissionPlan.getOneTimeCom();
             boolean isAutoApproved = commissionPlan.isAutoApproveComm();
@@ -81,7 +92,7 @@ public class MMCommissionProcessor {
         /**
          * if this is the first time we are giving a commission to aff for this ad
          */
-        if (existingCommissionEarnings == null || existingCommissionEarnings.size() > 0 ) {
+        if (existingCommissionEarnings == null || existingCommissionEarnings.size() > 0) {
             CommissionPlan commissionPlan = campaign.getCommissionPlan();
 
             double revenue = eventTracking.getRevenue();
@@ -99,57 +110,123 @@ public class MMCommissionProcessor {
         return commissionEarning;
     }
 
-    private CommissionEarning processRecurRevenueShareCommission() {
+
+    private CommissionEarning processRecurCommission() {
         List<CommissionEarning> existingCommissionEarnings = getExistingCommissionEarnings();
         CommissionEarning commissionEarning = null;
-        
+
         CommissionPlan commissionPlan = campaign.getCommissionPlan();
         boolean isAutoApproved = commissionPlan.isAutoApproveComm();
 
-        int limitRecur
+        Long limitRecurCommDays = commissionPlan.getLimitRecurCommDays();
+        Long limitRecurTxn = commissionPlan.getLimitRecurCommTxn();
 
-        /**
-         * if this is the first time we are giving a commission to aff for this ad
-         */
-        if (existingCommissionEarnings == null || existingCommissionEarnings.size() > 0 ) {
-            commissionEarning = getCommissionEarningWithBasicInfo();
+        boolean shouldAwardRecurCommission = shouldAwardRecurCommission(existingCommissionEarnings, limitRecurCommDays, limitRecurTxn);
 
-            double revenue = eventTracking.getRevenue();
+        if (shouldAwardRecurCommission) {
             /**
-             * since this is the first time we will use initCom
+             * if this is the first time we are giving a commission to aff for this ad
              */
-            double recurRevSharePercentage = commissionPlan.getInitCom();
-            double recurRevShareComm = (revenue * (recurRevSharePercentage / 100));
-            commissionEarning.setEarning(recurRevShareComm);
+            if (existingCommissionEarnings == null || existingCommissionEarnings.size() > 0) {
+                commissionEarning = getCommissionEarningWithBasicInfo();
 
-        } else {
-            commissionEarning = getCommissionEarningWithBasicInfo();
+                /**
+                 * since this is the first time we will use initCom
+                 */
 
-            double revenue = eventTracking.getRevenue();
-            /**
-             * since this is the first time we will use initCom
-             */
-            double recurRevSharePercentage = commissionPlan.getRecurCom();
-            double recurRevShareComm = (revenue * (recurRevSharePercentage / 100));
-            commissionEarning.setEarning(recurRevShareComm);
+                double recurFlatComm = commissionPlan.getInitCom();
+                commissionEarning.setEarning(recurFlatComm);
+
+            } else {
+                commissionEarning = getCommissionEarningWithBasicInfo();
+
+
+                /**
+                 * since this is the later to first time we will use initCom
+                 */
+
+                double recurFlatComm = commissionPlan.getRecurCom();
+                commissionEarning.setEarning(recurFlatComm);
+            }
+
+            commissionEarning.setApproved(isAutoApproved);
         }
 
-        commissionEarning.setApproved(isAutoApproved);
+        return commissionEarning;
+    }
+
+    private CommissionEarning processRecurRevenueShareCommission() {
+        List<CommissionEarning> existingCommissionEarnings = getExistingCommissionEarnings();
+        CommissionEarning commissionEarning = null;
+
+        CommissionPlan commissionPlan = campaign.getCommissionPlan();
+        boolean isAutoApproved = commissionPlan.isAutoApproveComm();
+
+        Long limitRecurCommDays = commissionPlan.getLimitRecurCommDays();
+        Long limitRecurTxn = commissionPlan.getLimitRecurCommTxn();
+
+        boolean shouldAwardRecurCommission = shouldAwardRecurCommission(existingCommissionEarnings, limitRecurCommDays, limitRecurTxn);
+
+        if (shouldAwardRecurCommission) {
+            /**
+             * if this is the first time we are giving a commission to aff for this ad
+             */
+            if (existingCommissionEarnings == null || existingCommissionEarnings.size() > 0) {
+                commissionEarning = getCommissionEarningWithBasicInfo();
+
+                double revenue = eventTracking.getRevenue();
+                /**
+                 * since this is the first time we will use initCom
+                 */
+                double recurRevSharePercentage = commissionPlan.getInitCom();
+                double recurRevShareComm = (revenue * (recurRevSharePercentage / 100));
+                commissionEarning.setEarning(recurRevShareComm);
+
+            } else {
+                commissionEarning = getCommissionEarningWithBasicInfo();
+
+                double revenue = eventTracking.getRevenue();
+                /**
+                 * since this is the first time we will use initCom
+                 */
+                double recurRevSharePercentage = commissionPlan.getRecurCom();
+                double recurRevShareComm = (revenue * (recurRevSharePercentage / 100));
+                commissionEarning.setEarning(recurRevShareComm);
+            }
+
+            commissionEarning.setApproved(isAutoApproved);
+        }
 
         return commissionEarning;
+    }
+
+    private boolean shouldAwardRecurCommission(List<CommissionEarning> existingCommissionEarnings, Long limitRecurCommDays, Long limitRecurTxn) {
+        boolean shouldAwardCommission = true;
+
+        if (existingCommissionEarnings != null) {
+
+            if (limitRecurTxn != null && limitRecurTxn == existingCommissionEarnings.size() - 1) {
+                shouldAwardCommission = false;
+            }
+
+            if (limitRecurCommDays != null) {
+                CommissionEarning firstCommission = existingCommissionEarnings.get(0);
+
+                int daysSinceFirstCommission = daysBetween(firstCommission.getEarningDate(), new Date());
+
+                if (daysSinceFirstCommission > limitRecurCommDays) {
+                    shouldAwardCommission = false;
+                }
+            }
+        }
+
+        return shouldAwardCommission;
     }
 
     private List<CommissionEarning> getExistingCommissionEarnings() {
         List<CommissionEarning> commissionEarning = (List<CommissionEarning>) getBaseDao().findByNamedQueryAndNamedParam("getEarningForAffOnAd",
                 new String[]{"mmId", "affId", "companyShortName"},
                 new Object[]{marketingMaterial.getId(), affiliate.getId(), marketingMaterial.getCompanyShortName()});
-        return commissionEarning;
-    }
-
-
-    private CommissionEarning processRecurCommission() {
-        CommissionEarning commissionEarning = getExistingCommissionEarnings();
-
         return commissionEarning;
     }
 
@@ -168,6 +245,11 @@ public class MMCommissionProcessor {
         return commissionEarning;
     }
 
+
+    private int daysBetween(Date d1, Date d2) {
+        return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+    }
+
     private BaseDao getBaseDao() {
         if (baseDao == null) {
             baseDao = (BaseDao) ServiceLocatorFactory.getService(BaseDao.class);
@@ -175,6 +257,5 @@ public class MMCommissionProcessor {
 
         return baseDao;
     }
-
 
 }
