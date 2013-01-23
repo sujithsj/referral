@@ -6,6 +6,7 @@ import com.ds.domain.campaign.Campaign;
 import com.ds.domain.tracking.EventTracking;
 import com.ds.domain.user.User;
 import com.ds.domain.marketing.MarketingMaterial;
+import com.ds.domain.notification.NotificationType;
 
 import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -51,10 +52,11 @@ public class CommissionEarning implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "APPROVED_BY")
-    private User approvedBy;
+    private User actedBy;
 
-    @Column(name = "APPROVED", nullable = false)
-    private boolean approved;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMMISSION_EARNING_STATUS_ID", nullable = false)
+    private CommissionEarningStatus notificationType;
 
     @Column(name = "DIRECT_COMMISSION", nullable = false)
     private boolean directCommission;
@@ -63,7 +65,7 @@ public class CommissionEarning implements Serializable {
     private boolean recurCommission;
 
     @Column(name = "APPROVED_ON")
-    private Date approvedOn;
+    private Date actedOn;
 
     @Column(name = "EARNING_DATE")
     private Date earningDate;
@@ -115,28 +117,28 @@ public class CommissionEarning implements Serializable {
         this.eventTracking = eventTracking;
     }
 
-    public User getApprovedBy() {
-        return approvedBy;
+    public User getActedBy() {
+        return actedBy;
     }
 
-    public void setApprovedBy(User approvedBy) {
-        this.approvedBy = approvedBy;
+    public void setActedBy(User actedBy) {
+        this.actedBy = actedBy;
     }
 
-    public boolean isApproved() {
-        return approved;
+    public CommissionEarningStatus getNotificationType() {
+        return notificationType;
     }
 
-    public void setApproved(boolean approved) {
-        this.approved = approved;
+    public void setNotificationType(CommissionEarningStatus notificationType) {
+        this.notificationType = notificationType;
     }
 
-    public Date getApprovedOn() {
-        return approvedOn;
+    public Date getActedOn() {
+        return actedOn;
     }
 
-    public void setApprovedOn(Date approvedOn) {
-        this.approvedOn = approvedOn;
+    public void setActedOn(Date actedOn) {
+        this.actedOn = actedOn;
     }
 
     public Double getEarning() {
