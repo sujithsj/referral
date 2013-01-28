@@ -1,0 +1,36 @@
+Embeddable Javascript Snippet
+Paste this javascript widget on the "success" page of the event you are tracking.
+The example code is pre-filled with campaign information for you, but you will need to alter the "mbsy_email" variable to correlate with your new customer.
+Multiple campaign events can be triggered by specifying multiple campaigns separated by commas in the "mbsy_campaign_uid" variable. The events will occur in the order provided.
+See the table below the code for additional data you can pass us.
+
+
+<script type="text/javascript">
+    <!--
+    var mbsy_username='pmia'; // Required
+    var mbsy_campaign_uid=750; // Required
+    var mbsy_email='example@example.com'; // Required - must be replaced with your customer's email
+    var mbsy_revenue='0.00'; // Optional - must be replaced with your revenue
+    //-->
+</script>
+<script type="text/javascript" src="https://mbsy.co/embed/v2/tracker.js"></script>
+
+
+mbsy_username	your company's username
+mbsy_campaign_uid	your campaign's ID
+mbsy_email	your customer's email address
+mbsy_first_name	your customer's first name
+mbsy_last_name	your customer's last name
+
+mbsy_short_code	referrer's "mbsy" shortcode, auto-retrieved by cookie		[cookie]
+mbsy_revenue	revenue amount of the event		0
+mbsy_transaction_uid	unique transaction ID for the event
+mbsy_uid	your customer's internal unique ID
+mbsy_email_new_ambassador	email login credentials to new ambassadors	1 - yes 0 - no	1
+mbsy_deactivate_new_ambassador	new ambassadors created are deactivated	1 - yes 0 - no	0
+mbsy_auto_create	if the customer is not an ambassador, create them	1 - yes 0 - no	1
+
+mbsy_add_to_group_id	define which group(s) new ambassadors will be created in. Using this parameter will override default group settings. Group IDs should be separated by commas
+mbsy_event_data1	custom field - related to event/commission
+mbsy_event_data2	custom field - related to event/commission
+mbsy_event_data3	custom field - related to event/commission

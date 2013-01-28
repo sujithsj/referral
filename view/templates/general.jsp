@@ -15,7 +15,7 @@
             </c:if>
           </c:otherwise>
         </c:choose>--%>
-      | HealthKart.com
+      | Referoscope.com
     </title>
     <s:layout-component name="htmlHead"/>
       <%--<link href="../assets/css/grid.css" rel="stylesheet" type="text/css"/>--%>

@@ -12,6 +12,7 @@ import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.marketing.MarketingService;
 import com.ds.utils.GeneralUtils;
 import com.ds.utils.UserAgentParser;
+import com.ds.constants.AppConstants;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -63,7 +64,7 @@ public class MMRedirectServlet extends HttpServlet {
 
     cookie1.setPath("/");
     //TODO: remove hard coding of domain name
-    cookie1.setDomain("healthkart.dolusmia.com");
+    cookie1.setDomain(AppConstants.APP_URL);
     resp.addCookie(cookie1);
 
     String redirectUrl = marketingMaterial.getLandingPageUrl();

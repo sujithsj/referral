@@ -1,11 +1,13 @@
 package com.ds.impl.service.marketing;
 
+import com.ds.constants.AppConstants;
+
 /**
  * @author adlakha.vaibhav
  */
 public class MMSharingTemplates {
 
-  private static final String IMG_HOST = "dev.healthkart.com";
+  private static final String IMG_HOST = AppConstants.APP_URL;
 
 
   private static final String BANNER_HTML_CONTENT = "<a href=\"http://#baseUrl/mmr/#bannerId/#affiliateId\" title=\"#mmTitle\">" +
@@ -64,7 +66,7 @@ public class MMSharingTemplates {
       "            }" +
       "          <\\/style>" +
       "          <div class=\"ad\">" +
-      "            <a target=\"_top\" href=\"http://#baseUrl/mm/#bannerId/#affiliateId\" class=\"adt\"><span>#mmTitle</span></a>" +
+      "            <a target=\"_top\" href=\"http://#baseUrl/mmr/#bannerId/#affiliateId\" class=\"adt\"><span>#mmTitle</span></a>" +
       "            <div class=\"adb\">#mmBody</div>" +
       "            <div class=\"add\"><a target=\"_top\" href=\"http://#baseUrl/mmr/#bannerId/#affiliateId\" class=\"adt\">#companyName</a></div>" +
       "          </div>";

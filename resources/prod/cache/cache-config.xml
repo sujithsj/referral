@@ -15,7 +15,7 @@
          There is no added cost to defining a transport but not creating a cache that uses one, since the transport
          is created and initialized lazily.
       -->
-      <transport clusterName="infinispan-cluster" distributedSyncTimeout="50000" nodeName="healthkart">
+      <transport clusterName="infinispan-cluster" distributedSyncTimeout="50000" nodeName="referoscope">
          <properties>
             <property name="configurationFile" value="jgroups-config.xml" />
          </properties>

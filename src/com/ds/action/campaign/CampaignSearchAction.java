@@ -48,8 +48,6 @@ public class CampaignSearchAction extends BasePaginatedAction {
   public Resolution searchCampaign() {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     companyShortName = loggedInUser.getCompanyShortName();
-    //get all marketing materials
-
 
     campaignPage = getCampaignService().searchCampaign(name, companyShortName,startDate, endDate, campaignTypeId, active, getPageNo(), getPerPage());
     campaigns = campaignPage.getList();
@@ -61,6 +59,8 @@ public class CampaignSearchAction extends BasePaginatedAction {
     return new ForwardResolution("/pages/campaign/campaign.jsp");
 
   }
+
+
 
   @Override
   public int getPageCount() {

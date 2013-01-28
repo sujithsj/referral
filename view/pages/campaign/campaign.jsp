@@ -91,10 +91,11 @@
                     <tr>
                       <td>${campaign.name}</td>
                       <td>${campaign.campaignType.type}</td>
-                      <td>${campaign.active}</td>
+                      <td><span class="label label-success">Active</span> </td>
+                      <%--<td>${campaign.active}</td>--%>
                       <td>${campaign.commissionPlan.commissionStrategy.name}</td>
-                      <td>$Approved Commision</td>
-                      <td>$Pending Commision</td>
+                      <td>Rs. 3000</td>
+                      <td>Rs. 180</td>
                       <td>${campaign.startDate}</td>
                       <td>${campaign.endDate}</td>
                       <td>

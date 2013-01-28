@@ -1,0 +1,15 @@
+<script type="text/javascript">
+    var mbsy_campaign_uid=750; // Required
+    var mbsy_email='example@example.com'; // Required - replace with your new customer's email
+    // Put additional optional variables here
+    var mbsy_revenue='0.00'; // Optional - replace with your revenue
+    var addthis_config = {
+       data_track_clickback: false
+    }
+    var addthis_share = {
+      templates : {
+       twitter : "{{title}} {{url}} (via @GetAmbassador)"
+      }
+    }
+</script>
+<script type="text/javascript" src="https://mbsy.co/v3/ecommerce/js/pmia"></script>
