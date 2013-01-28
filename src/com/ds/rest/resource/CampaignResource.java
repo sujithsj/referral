@@ -64,6 +64,8 @@ public class CampaignResource {
         if (trackCookie != null) {
             trackCommissionForSale(trackCookie, campaignConversionReq, request);
         }
+
+        //todo : create new affiliate 
     }
 
 

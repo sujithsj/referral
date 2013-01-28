@@ -5,6 +5,7 @@ import com.ds.security.helper.SecurityHelper;
 import com.ds.utils.GeneralUtils;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.util.StringUtils;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import java.net.URLDecoder;
 /**
  * @author adlakha.vaibhav
  */
+@Component
 public class AuthenticationSuccessRedirectHandler extends SimpleUrlAuthenticationSuccessHandler {
 
   private boolean useReferer = false;

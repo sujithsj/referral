@@ -16,7 +16,7 @@ public class AffiliateDTO {
 	private String firstName;
 	private String lastName;
 	private String email;
-
+                                        
 	private String state;
 	private String zip;
 	private String mobile;
