@@ -60,7 +60,7 @@ public class MMRedirectServlet extends HttpServlet {
     //TODO: replace this  campign id hard coding
     String valueInCoookie = "2" + "#" + marketingMaterial.getId() + "#" + affiliate.getId();
     //TODO: remove this hard coding of cookie name and separator in cookie
-    Cookie cookie1 = new Cookie("_track", valueInCoookie);
+    Cookie cookie1 = new Cookie(AppConstants.CONVERSION_TRACK_COOKIE_NAME, valueInCoookie);
 
     cookie1.setPath("/");
     //TODO: remove hard coding of domain name

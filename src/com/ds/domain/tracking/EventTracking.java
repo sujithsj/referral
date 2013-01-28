@@ -29,7 +29,7 @@ public class EventTracking {
   private String customerId;
 
   @Column(name = "UNIQUE_ID", length = 50)
-  private String uniqueId;
+  private String uniqueId;    //  this is the transaction Id
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "MARKETING_MATERIAL_TYPE_ID", nullable = false)

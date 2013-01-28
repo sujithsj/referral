@@ -23,6 +23,7 @@ import java.util.List;
 /**
  * @author adlakha.vaibhav
  */
+@Deprecated
 public class EventTrackingServlet extends HttpServlet {
 
   private EventDispatcher eventDispatcher;

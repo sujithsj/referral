@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> E com Widget </title>
+    <meta name="Generator" content="EditPlus">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+</head>
+
+<body>
+
+<link rel="stylesheet" href="http://dev.healthkart.com/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="http://dev.healthkart.com/assets/css/bootstrap-responsive.min.css"/>
+
+<div id="previewModal" class="modal hide fade modalBox" tabindex="-1" role="dialog"
+     aria-labelledby="adPreviewModalLabel"
+     aria-hidden="true">
+    <div class="modal-header modalHeader">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="adPreviewModalLabel">Refer your friend</h3>
+    </div>
+    <div class="modal-body" id="adPreviewModalContent" align="center">
+        test referal content
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+
+<script src="http://dev.healthkart.com/assets/js/jquery.min.js"></script>
+<script src="http://dev.healthkart.com/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+         $("#previewModal").modal();
+    });
+</script>
+</body>
+</html>
