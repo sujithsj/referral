@@ -7,9 +7,12 @@ import com.ds.web.action.Page;
 import java.util.List;
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author adlakha.vaibhav
  */
+@Service
 public class CommissionEarningServiceImpl implements CommissionEarningService {
 
     @Override
