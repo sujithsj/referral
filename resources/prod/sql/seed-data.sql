@@ -117,3 +117,4 @@ INSERT INTO
 insert into `commission_strategy` (`ID`,`NAME`) values (10,'With a recurring share of the revenue'),(20,'With a recurring commission'),(30,'With a one-time share of the revenue'),(40,'With a one-time flat commission');
 insert into `campaign_type` (`ID`,`TYPE`) values (10,'Sale'),(20,'Affiliate Sign Up'),(30,'User Sign up'),(40,'Registration'),(50,'Email opt in'),(60,'Social Media');
 insert into `marketing_material_type` (`ID`,`TYPE`) values (10,'Banner'),(20,'Text Link');
+insert into notification_type values (10, 'Company Affiliate Approval Pending', 1);
