@@ -11,175 +11,175 @@ import com.ds.domain.affiliate.Affiliate;
  */
 public class AffiliateDTO {
 
-	private Long affiliateId;
-	private String login;
-	private String firstName;
-	private String lastName;
-	private String email;
-                                        
-	private String state;
-	private String zip;
-	private String mobile;
-	private String address;
-	private String city;
+    private Long affiliateId;
+    private String login;
+    private String firstName;
+    private String lastName;
+    private String email;
 
-	private String passwordChecksum;
-	private Boolean deleted;
+    private String state;
+    private String zip;
+    private String mobile;
+    private String address;
+    private String city;
 
-	//private String companyShortName;
+    private String password;
 
+    /*private String passwordChecksum;*/
+    private Boolean deleted;
 
-	private String newPassword;      //to be used only for change passwor requests
-
-	/**
-	 * Accepts null as an affiliate and returns affiliate object accordingly
-	 *
-	 * @param affiliate
-	 * @return
-	 */
-	public Affiliate extractAffiliate(Affiliate affiliate) {
-
-		if (affiliate == null) {
-			affiliate = new Affiliate();
-		}
-		affiliate.setId(this.affiliateId);
-		if (this.login != null) {
-			affiliate.setLogin(this.login);
-		} else {
-			affiliate.setLogin(this.email);
-		}
-		affiliate.setFirstName(this.firstName);
-		affiliate.setLastName(this.lastName);
-		affiliate.setEmail(this.email);
-
-		affiliate.setState(this.state);
-		affiliate.setZip(this.zip);
-		affiliate.setMobile(this.mobile);
-		affiliate.setAddress(this.address);
-		affiliate.setCity(this.city);
-
-		//affiliate.setCompanyShortName(this.companyShortName);
-		affiliate.setPasswordChecksum(this.passwordChecksum);
-		affiliate.setDeleted(Boolean.valueOf(false));
-		//affiliate.getAffiliateCompanies()
+    //private String companyShortName;
 
 
-		return affiliate;
-	}
+    /*private String newPassword;      //to be used only for change passwor requests*/
 
-	public void bindAffiliate(Affiliate affiliate) {
+    /**
+     * Accepts null as an affiliate and returns affiliate object accordingly
+     *
+     * @param affiliate
+     * @return
+     */
+    public Affiliate extractAffiliate(Affiliate affiliate) {
 
-		this.affiliateId = affiliate.getId();
-		this.login = affiliate.getLogin();
-		this.firstName = affiliate.getFirstName();
-		this.lastName = affiliate.getLastName();
-		this.email = affiliate.getEmail();
+        if (affiliate == null) {
+            affiliate = new Affiliate();
+        }
+        affiliate.setId(this.affiliateId);
+        if (this.login != null) {
+            affiliate.setLogin(this.login);
+        } else {
+            affiliate.setLogin(this.email);
+        }
+        affiliate.setFirstName(this.firstName);
+        affiliate.setLastName(this.lastName);
+        affiliate.setEmail(this.email);
 
-		this.state = affiliate.getState();
-		this.zip = affiliate.getZip();
-		this.mobile = affiliate.getMobile();
-		this.address = affiliate.getAddress();
-		this.city = affiliate.getCity();
+        affiliate.setState(this.state);
+        affiliate.setZip(this.zip);
+        affiliate.setMobile(this.mobile);
+        affiliate.setAddress(this.address);
+        affiliate.setCity(this.city);
+        
 
-		//this.companyShortName = affiliate.getCompanyShortName();
-		this.passwordChecksum = affiliate.getPasswordChecksum();
+        //affiliate.setCompanyShortName(this.companyShortName);
+        /* affiliate.setPasswordChecksum(this.passwordChecksum);*/
+        affiliate.setDeleted(Boolean.valueOf(false));
+        //affiliate.getAffiliateCompanies()
 
 
-	}
+        return affiliate;
+    }
 
-	public String getLogin() {
-		return login;
-	}
+    public void bindAffiliate(Affiliate affiliate) {
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+        this.affiliateId = affiliate.getId();
+        this.login = affiliate.getLogin();
+        this.firstName = affiliate.getFirstName();
+        this.lastName = affiliate.getLastName();
+        this.email = affiliate.getEmail();
 
-	public String getFirstName() {
-		return firstName;
-	}
+        this.state = affiliate.getState();
+        this.zip = affiliate.getZip();
+        this.mobile = affiliate.getMobile();
+        this.address = affiliate.getAddress();
+        this.city = affiliate.getCity();
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 
-	public String getLastName() {
-		return lastName;
-	}
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getLogin() {
+        return login;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getZip() {
-		return zip;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getMobile() {
-		return mobile;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getZip() {
+        return zip;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getMobile() {
+        return mobile;
+    }
 
-	public String getPasswordChecksum() {
-		return passwordChecksum;
-	}
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
-	public void setPasswordChecksum(String passwordChecksum) {
-		this.passwordChecksum = passwordChecksum;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public Boolean isDeleted() {
-		return deleted;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public Long getAffiliateId() {
-		return affiliateId;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setAffiliateId(Long affiliateId) {
-		this.affiliateId = affiliateId;
-	}
+    public Boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Long getAffiliateId() {
+        return affiliateId;
+    }
+
+    public void setAffiliateId(Long affiliateId) {
+        this.affiliateId = affiliateId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

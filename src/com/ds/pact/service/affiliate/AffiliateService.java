@@ -21,33 +21,21 @@ import java.util.List;
 public interface AffiliateService {
 
 
-	/**
+    /*public Affiliate createAffiliate(AffiliateDTO affiliateDTO);
+
+	*//**
 	 * Saves a new Affiliate Record
 	 *
 	 * @param affiliate
-	 */
-	public Affiliate saveNewAffiliate(Affiliate affiliate);
+	 *//*
+	public Affiliate saveNewAffiliate(Affiliate affiliate);*/
 
 	/**
 	 *
 	 * @param affiliate
 	 * @return
 	 */
-	public Affiliate updateAffiliate(Affiliate affiliate);
-
-	/**
-	 * Finds the company corresponding to the companyShortName
-	 *
-	 * @return company
-	 */
-	public Company getCompany(String companyShortName) throws InvalidParameterException;
-
-	/**
-	 * Update any entity, possibly a company or user in context of this service.
-	 *
-	 * @param entity
-	 */
-	public void updateEntity(Object entity);
+	/*public Affiliate updateAffiliate(Affiliate affiliate);*/
 
 	/**
 	 * Returns a affiliate corresponding to the specified affiliateId
@@ -66,29 +54,20 @@ public interface AffiliateService {
 	 */
 	public long affiliatesCount(String companyShortName);
 
-	/**
-	 * Encrypts the password
-	 *
-	 * @param username
-	 * @param password
-	 * @return encrypted password
-	 */
-	public String getEncryptedPassword(String username, String password);
-
 	public Page searchAffiliate(String login, String email, String companyShortName, int pageNo, int perPage);
 
-
-	public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName);
-
-	public void sendWelcomeEmail(Affiliate affiliate);
-
-	public void sendAffiliateWaitingApprovalEmail(Affiliate affiliate);
-
-	public boolean isEmailIdValid(String emailId);
-
-	public boolean isAffiliateLoginTaken(String login);
+	/*public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName);*/
 
 	public Affiliate getAffiliateByLogin(String login);
 
-	public Affiliate createAffiliate(AffiliateDTO affiliateDTO);
+
+    /**
+     * email related methods
+      * @param affiliate
+     */
+    public void sendWelcomeEmail(Affiliate affiliate);
+
+	public void sendAffiliateWaitingApprovalEmail(Affiliate affiliate);
+
+
 }

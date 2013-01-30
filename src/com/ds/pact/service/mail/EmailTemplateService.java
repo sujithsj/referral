@@ -12,7 +12,7 @@ public interface EmailTemplateService {
   public enum EmailEventType {
         PostedEmployeeEvent, PostCommentedEmployeeEvent, FeedbackAnswered, PostCommented, PostStatusChanged,
         UserLoggedInThirdPartyEmailConfirmation, UserThirdPartyAssociationConfirmation,UserPasswordResetConfirmation,UserRegistrationConfirmation,
-        ClaimReward, WelcomeAffiliate, AffiliatePasswordResetConfirmation, AffiliateInvitationEmail, CompanyAffiliatePendingForApproval, AffiliateWaitingApproval
+        ClaimReward, WelcomeAffiliate, CompanyAffiliateInvitationEmail, AffiliateWaitingApproval
     }
 
     /**

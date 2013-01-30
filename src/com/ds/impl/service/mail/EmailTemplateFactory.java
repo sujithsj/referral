@@ -24,7 +24,7 @@ public class EmailTemplateFactory {
       emailTemplate.setHtml(true);
       emailTemplate.setBodyTemplateName("velocity/WelcomeAffiliate.vm");
       return emailTemplate;
-    } else if("AffiliateInvitationEmail".equals(templateKey)){
+    } else if("CompanyAffiliateInvitationEmail".equals(templateKey)){
       EmailTemplate emailTemplate = new EmailTemplate();
       emailTemplate.setSubject("Signup for affiliate Program!!");
       emailTemplate.setHtml(true);

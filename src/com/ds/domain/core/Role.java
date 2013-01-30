@@ -35,7 +35,7 @@ public class Role extends BaseDataObject {
 
 
   public enum RoleType {
-        admin, moderator
+        admin, moderator, affiliate
     }
 
   public Long getId() {

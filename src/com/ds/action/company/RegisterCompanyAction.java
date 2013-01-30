@@ -36,7 +36,7 @@ public class RegisterCompanyAction extends BaseAction {
 
     User user = new User();
 
-    user.setUsername(companyRegistrationDTO.getUserName());
+    user.setUsername(companyRegistrationDTO.getEmail());
     user.setFullName(companyRegistrationDTO.getUserName());
     user.setPassword(companyRegistrationDTO.getPassword());
     user.setEmail(companyRegistrationDTO.getEmail());

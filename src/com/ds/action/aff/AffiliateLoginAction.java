@@ -89,11 +89,11 @@ public class AffiliateLoginAction extends BaseAction {
       }
 
       String encodedPassword = getMessageDigestPasswordEncoder().encodePassword(password, affiliate.getLogin());
-      if (encodedPassword.equals(affiliate.getPasswordChecksum())) {
+     /* if (encodedPassword.equals(affiliate.getPasswordChecksum())) {
         authentication = new AffUsernamePasswordAuthenticationToken(login, password);
       } else {
         throw new AffAuthenticationException("INVALID_AFF_CREDENTIAL",(String) authentication.getCredentials());
-      }
+      }*/
       return authentication;
     } else {
       // throw some authentication exception here.

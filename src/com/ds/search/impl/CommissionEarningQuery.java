@@ -71,10 +71,13 @@ public class CommissionEarningQuery extends AbstractSearchQuery {
             getQueryParams().put("customer", "%" + customer + "%");
         }
 
-        /*if(affiliateId !=null)*/
+        if (affiliateId != null) {
+            queryStr.append(" and ce.affilate.id =  :affiliateId ");
+            getQueryParams().put("affiliateId", affiliateId);
+        }
 
         if (StringUtils.isNotBlank(companyShortName)) {
-            queryStr.append(" and c.companyShortName =  :companyShortName ");
+            queryStr.append(" and ce.companyShortName =  :companyShortName ");
             getQueryParams().put("companyShortName", companyShortName);
         }
 
@@ -85,13 +88,13 @@ public class CommissionEarningQuery extends AbstractSearchQuery {
         }
 
 
-        /*if (campaignType != null) {
-            queryStr.append(" and c.campaignType.id =  :campaignTypeId ");
-            getQueryParams().put("campaignTypeId", campaignType.getId());
-        }*/
+        if (commissionEarningStatusId != null) {
+            queryStr.append(" and ce.commissionEarningStatus.id =  :commissionEarningStatusId ");
+            getQueryParams().put("commissionEarningStatusId", commissionEarningStatusId);
+        }
 
-        queryStr.append(" and c.active =  :active ");
-        queryStr.append(" and c.isPrivate =  :isPrivate ");
+        /*queryStr.append(" and c.active =  :active ");
+        queryStr.append(" and c.isPrivate =  :isPrivate ");*/
         /*getQueryParams().put("active", active);
         getQueryParams().put("isPrivate", isPrivate);*/
 

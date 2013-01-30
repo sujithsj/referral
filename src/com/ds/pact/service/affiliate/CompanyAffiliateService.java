@@ -23,19 +23,23 @@ import java.util.List;
  */
 public interface CompanyAffiliateService {
 
-	public CompanyAffiliate saveCompanyAffiliate(CompanyAffiliate companyAffiliate);
+	/*public CompanyAffiliate saveCompanyAffiliate(CompanyAffiliate companyAffiliate);*/
+
+    /*public CompanyAffiliate createCompanyAffiliate(Affiliate affiliate, String companyShortName);*/
 
 	public CompanyAffiliate getCompanyAffiliate(Long companyAffiliateId);
 
+    public CompanyAffiliate getCompanyAffiliate(Long affiliateId, String companyShortName);
+
 	public Page searchCompanyAffiliate(String login, String email, String companyShortName, int pageNo, int perPage);
 
-	public CompanyAffiliate createCompanyAffiliate(Affiliate affiliate, String companyShortName);
 
-	public void sendWelcomeEmail(Affiliate affiliate);
+
+	/*public void sendWelcomeEmail(Affiliate affiliate);*/
 
 	public List<CompanyAffiliate> getCompanyAffiliatesExcludingSelf (Long companyAffiliateId, String companyShortName);
 
-	public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName);
+	//public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName);
 
 	public List<CompanyAffiliate> getAllCompanyAffiliates(String companyShortName);
 
@@ -43,13 +47,23 @@ public interface CompanyAffiliateService {
 
 	public long getActiveCompanyAffiliateCount(String companyShortName);
 
-	public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage);
 
+
+    /**
+     * invite related methods 
+     */
+
+    /***
+     *
+     * @param companyShortName
+     * @param affiliateEmail
+     * @return
+     */
 	public CompanyAffiliateInvite addCompanyAffiliateInvite(String companyShortName, String affiliateEmail);
 
 	public CompanyAffiliateInvite getCompanayAffiliateInvite(String companyShortName, String affiliateEmail);
 
-	public void sendCompanyAffiliateInvitationEmail(CompanyAffiliateInvite companyAffiliateInvite);
+    public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage);
 
 	public CompanyAffiliateInvite getCompanyAffiliateInvite(Long companyAffiliateInviteId);
 
@@ -57,4 +71,13 @@ public interface CompanyAffiliateService {
 
 	public CompanyAffiliateInvite saveCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite);
 
+    /**
+     * email methods
+     */
+
+    /**
+     *
+     * @param companyAffiliateInvite
+     */
+    public void sendCompanyAffiliateInvitationEmail(CompanyAffiliateInvite companyAffiliateInvite);
 }

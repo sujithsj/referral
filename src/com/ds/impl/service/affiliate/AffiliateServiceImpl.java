@@ -7,24 +7,33 @@ import com.ds.core.event.EmailEvent;
 import com.ds.core.event.EventDispatcher;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
+import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.company.Company;
+import com.ds.domain.user.User;
+import com.ds.domain.core.Role;
 import com.ds.dto.affiliate.AffiliateDTO;
+import com.ds.dto.affiliate.AffiliateSignupResponse;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.ValidationConstants;
 import com.ds.exception.ValidationException;
+import com.ds.exception.FeatureNotAccessibleException;
 import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.impl.service.mail.AffiliateContext;
 import com.ds.pact.dao.AdminDAO;
 import com.ds.pact.dao.affiliate.AffiliateDao;
 import com.ds.pact.service.HttpService;
 import com.ds.pact.service.admin.LoadPropertyService;
+import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.affiliate.AffiliateService;
+import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.pact.service.core.SearchService;
 import com.ds.pact.service.mail.EmailTemplateService;
 import com.ds.pact.service.mail.MailService;
 import com.ds.search.impl.AffiliateQuery;
 import com.ds.security.api.SecurityAPI;
 import com.ds.web.action.Page;
+import com.ds.constants.AppConstants;
+import com.ds.constants.FeatureType;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,416 +58,311 @@ import java.util.regex.Pattern;
 public class AffiliateServiceImpl implements AffiliateService {
 
 
-	private Logger logger = LoggerFactory.getLogger(AffiliateServiceImpl.class);
-
-	@Autowired
-	private MessageDigestPasswordEncoder messageDigestPasswordEncoder;
-	@Autowired
-	private AdminDAO adminDAO;
-	@Autowired
-	private AffiliateDao affiliateDao;
-	@Autowired
-	private HttpService httpService;
-	@Autowired
-	private MailService mailService;
-	//private String activationLink;                                   // TODO : to be removed.
-	@Autowired
-	private SecurityAPI securityAPI;
-	@Autowired
-	private SearchService searchService;
-
-	//      private PostService                  postService;
-	// private ScheduleService scheduleService;
-	@Autowired
-	private LoadPropertyService loadPropertyService;
-	//    private RPXService                   rpxService;
-	//   private RecaptchaService             recaptchaService;
-
-	@Autowired
-	private AdminAPI adminAPI;
-	@Autowired
-	private CacheAPI cacheAPI;
-	@Autowired
-	private FeatureAPI featureAPI;
-
-	private Map<String, Integer> defaultCompanyKarmaProfile;
-	private Map<String, Integer> defaultBadges;
-	private EventDispatcher eventDispatcher;
-
-
-	@Override
-	@Transactional
-	public Affiliate saveNewAffiliate(Affiliate affiliate) throws CompositeValidationException {
-
-		CompositeValidationException compositeValidationException = new CompositeValidationException();
-		validateAffiliate(affiliate, compositeValidationException, null);
-		if (!compositeValidationException.getValidationExceptions().isEmpty()) {
-			logger.error("Error while adding affiliate ", compositeValidationException);
-			throw compositeValidationException;
-		}
-		return affiliateDao.saveAffiliate(affiliate);
-	}
-
-	@Override
-	@Transactional
-	public Affiliate updateAffiliate(Affiliate affiliate) {
-		return affiliateDao.saveAffiliate(affiliate);
-	}
-
-
-	@Transactional
-	public void updateEntity(Object entity) {
-		getAdminDAO().update(entity);
-	}
-
-
-	public Affiliate getAffiliate(Long affiliateId) {
-		Affiliate affiliate = (Affiliate) getAffiliateDAO().load(Affiliate.class, affiliateId);
-
-		if (affiliate == null) {
-			logger.error("No such affiliate found in system: " + affiliateId);
-			throw new InvalidParameterException("INVALID_AFFILIATE");
-		}
-		return affiliate;
-	}
-
-	@Override
-	public Company getCompany(String companyShortName) {
-		Company company = getAdminAPI().getCompany(companyShortName);
-
-		if (company == null) {
-			logger.error("No such company found in system: " + companyShortName);
-			throw new InvalidParameterException("INVALID_COMPANY");
-		}
-		return company;
-	}
-
-	/**
-	 * @return the adminDAO
-	 */
-	public AdminDAO getAdminDAO() {
-		return adminDAO;
-	}
-
-	/**
-	 * @param adminDAO the adminDAO to set
-	 */
-	public void setAdminDAO(AdminDAO adminDAO) {
-		this.adminDAO = adminDAO;
-	}
-
-	public MailService getMailService() {
-		return mailService;
-	}
-
-	public void setMailService(MailService mailService) {
-		this.mailService = mailService;
-	}
-
-	/**
-	 * @return the httpService
-	 */
-	public HttpService getHttpService() {
-		return httpService;
-	}
-
-	/**
-	 * @param httpService the httpService to set
-	 */
-	public void setHttpService(HttpService httpService) {
-		this.httpService = httpService;
-	}
-
-
-	/**
-	 * @return the securityAPI
-	 */
-	public SecurityAPI getSecurityAPI() {
-		return securityAPI;
-	}
-
-	/**
-	 * @param securityAPI the securityAPI to set
-	 */
-	public void setSecurityAPI(SecurityAPI securityAPI) {
-		this.securityAPI = securityAPI;
-	}
-
-	/*@Override
-	 public List<IssueTrackerConfig> getIssueTrackers(String companyShortName) {
-		 return getAdminDAO().getIssueTrackers(companyShortName);
-	 }
- */
-
-	/**
-	 * @return the loadPropertyService
-	 */
-	public LoadPropertyService getLoadPropertyService() {
-		return loadPropertyService;
-	}
-
-	/**
-	 * @param loadPropertyService the loadPropertyService to set
-	 */
-	public void setLoadPropertyService(LoadPropertyService loadPropertyService) {
-		this.loadPropertyService = loadPropertyService;
-	}
-
-	/**
-	 * @return the defaultCompanyKarmaProfile
-	 */
-	public Map<String, Integer> getDefaultCompanyKarmaProfile() {
-		return defaultCompanyKarmaProfile;
-	}
-
-	/**
-	 * @param defaultCompanyKarmaProfile the defaultCompanyKarmaProfile to set
-	 */
-	public void setDefaultCompanyKarmaProfile(Map<String, Integer> defaultCompanyKarmaProfile) {
-		this.defaultCompanyKarmaProfile = defaultCompanyKarmaProfile;
-	}
-
-
-	/**
-	 * @return the eventDispatcher
-	 */
-	public EventDispatcher getEventDispatcher() {
-		if (this.eventDispatcher == null) {
-			this.eventDispatcher = ServiceLocatorFactory.getService(EventDispatcher.class);
-		}
-		return eventDispatcher;
-	}
-
-	/**
-	 * @param eventDispatcher the eventDispatcher to set
-	 */
-	public void setEventDispatcher(EventDispatcher eventDispatcher) {
-		this.eventDispatcher = eventDispatcher;
-	}
-
-
-	/**
-	 * @return the adminAPI
-	 */
-	public AdminAPI getAdminAPI() {
-		return adminAPI;
-	}
-
-	/**
-	 * @param adminAPI the adminAPI to set
-	 */
-	public void setAdminAPI(AdminAPI adminAPI) {
-		this.adminAPI = adminAPI;
-	}
-
-	@Override
-	public long affiliatesCount(String companyShortName) {
-		return getAffiliateDAO().affiliatesCount(companyShortName);
-	}
-
-	/**
-	 * @param login
-	 * @param email
-	 * @param companyShortName
-	 * @param pageNo
-	 * @param perPage
-	 * @return
-	 */
-	@Override
-	public Page searchAffiliate(String login, String email, String companyShortName, int pageNo, int perPage) {
-
-		AffiliateQuery affiliateQuery = new AffiliateQuery();
-		affiliateQuery.setCompanyShortName(companyShortName);
-		affiliateQuery.setEmail(email);
-		affiliateQuery.setLogin(login).setOrderByField("login").setPageNo(pageNo).setRows(perPage);
-		return getSearchService().list(affiliateQuery);
-
-		//return null;  //To change body of implemented methods use File | Settings | File Templates.
-	}
-
-
-	/**
-	 * @param affiliate
-	 * @param companyShortName
-	 */
-	@Override
-	@Transactional
-	public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName) {
-		CompanyAffiliate companyAffiliate = new CompanyAffiliate();
-		companyAffiliate.setAffiliate(affiliate);
-		companyAffiliate.setCompanyShortName(companyShortName);
-		return affiliateDao.saveAffiliateCompany(companyAffiliate);
-
-	}
-
-	private void validateAffiliate(Affiliate affiliate, CompositeValidationException compositeValidationException, Object[] recaptchaParams) {
-
-		if (!isEmailIdValid(affiliate.getEmail())) {
-			compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.INVALID_AFFILIATE_EMAIL, "not a valid email"));
-		} else if (isAffiliateLoginTaken(affiliate.getLogin())) {
-			compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.AFFILIATE_LOGIN_EXISTS, "login has already been taken"));
-		}
-
-		if (recaptchaParams != null) {
-			String remoteip = recaptchaParams.length >= 0 ? (String) recaptchaParams[0] : null;
-			String recaptchaChallengeField = recaptchaParams.length > 0 ? (String) recaptchaParams[1] : null;
-			String recaptchaResponsefield = recaptchaParams.length > 1 ? (String) recaptchaParams[2] : null;
-			boolean validateCaptcha = true;
-
-			if (remoteip == null || StringUtils.isEmpty(remoteip)) {
-				compositeValidationException.getValidationExceptions().add(new ValidationException("remoteip", "User ip cannot be blank"));
-				validateCaptcha = false;
-			}
-			if (recaptchaChallengeField == null || StringUtils.isEmpty(recaptchaChallengeField)) {
-				compositeValidationException.getValidationExceptions().add(new ValidationException("recaptchaChallengeField", "reCaptcha challenge can not be left blank."));
-				validateCaptcha = false;
-			}
-			if (recaptchaResponsefield == null || StringUtils.isEmpty(recaptchaResponsefield)) {
-				compositeValidationException.getValidationExceptions().add(new ValidationException("recaptchaResponsefield", "reCaptcha response can not be left blank."));
-				validateCaptcha = false;
-			}
-			/*if (validateCaptcha) {
-					  List<String> captchaResponse = getRecaptchaService().validateRecatchaResponse(remoteip, recaptchaChallengeField, recaptchaResponsefield);
-					  String isResponseValid = captchaResponse.get(0);
-					  boolean isValid = false;
-					  if (isResponseValid != null && StringUtils.isNotEmpty(isResponseValid))
-						isValid = Boolean.parseBoolean(isResponseValid);
-
-					  if (!isValid) {
-						String errorMsg = captchaResponse.get(1);
-						compositeValidationException.getValidationExceptions().add(
-							new ValidationException("recaptchaValidation", "reCaptcha response does not match, please try again."));
-					  }
-
-					}*/
-
-		}
-	}
-
-	@Override
-	public boolean isEmailIdValid(String emailId) {
-		Pattern pattern = Pattern.compile(".+@.+\\.[a-z]+");
-		Matcher matcher = pattern.matcher(emailId);
-
-		if (matcher.matches()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean isAffiliateLoginTaken(String login) {
-		return getAffiliateDAO().isAffiliateLoginTaken(login);
-	}
-
-
-	/**
-	 * @param affiliate
-	 */
-	public void sendWelcomeEmail(Affiliate affiliate) {
-
-		AffiliateContext affiliateContext = new AffiliateContext(affiliate);
-
-		EmailEvent emailEvent = new EmailEvent(EmailTemplateService.EmailEventType.WelcomeAffiliate, affiliateContext);
-		getMailService().sendAsyncMail(emailEvent);
-
-	}
-
-		public void sendAffiliateWaitingApprovalEmail(Affiliate affiliate) {
-
-		AffiliateContext affiliateContext = new AffiliateContext(affiliate);
-
-		EmailEvent emailEvent = new EmailEvent(EmailTemplateService.EmailEventType.AffiliateWaitingApproval, affiliateContext);
-		getMailService().sendAsyncMail(emailEvent);
-
-	}
-
-
-	/**
-	 * @return the cacheAPI
-	 */
-	public CacheAPI getCacheAPI() {
-		return cacheAPI;
-	}
-
-	/**
-	 * @param cacheAPI the cacheAPI to set
-	 */
-	public void setCacheAPI(CacheAPI cacheAPI) {
-		this.cacheAPI = cacheAPI;
-	}
-
-	/**
-	 * @return the messageDigestPasswordEncoder
-	 */
-	public MessageDigestPasswordEncoder getMessageDigestPasswordEncoder() {
-		return messageDigestPasswordEncoder;
-	}
-
-	/**
-	 * @param messageDigestPasswordEncoder the messageDigestPasswordEncoder to set
-	 */
-	public void setMessageDigestPasswordEncoder(MessageDigestPasswordEncoder messageDigestPasswordEncoder) {
-		this.messageDigestPasswordEncoder = messageDigestPasswordEncoder;
-	}
-
-	@Override
-	public String getEncryptedPassword(String username, String password) {
-
-		return getMessageDigestPasswordEncoder().encodePassword(password, username);
-	}
-
-
-	@Override
-	public Affiliate getAffiliateByLogin(String login) {
-		return getAffiliateDAO().getAffiliateByLogin(login);
-	}
-
-	@Override
-	@Transactional
-	public Affiliate createAffiliate(AffiliateDTO affiliateDTO) throws CompositeValidationException {
-
-		Affiliate affiliate = null;
-		affiliate = affiliateDTO.extractAffiliate(affiliate);
-		affiliate = saveNewAffiliate(affiliate);
-		return affiliate;
-	}
-
-	/**
-	 * @return the featureAPI
-	 */
-	public FeatureAPI getFeatureAPI() {
-		return featureAPI;
-	}
-
-	/**
-	 * @param featureAPI the featureAPI to set
-	 */
-	public void setFeatureAPI(FeatureAPI featureAPI) {
-		this.featureAPI = featureAPI;
-	}
-
-	/**
-	 * @return the logger
-	 */
-	public Logger getLogger() {
-		return logger;
-	}
-
-	public AffiliateDao getAffiliateDAO() {
-		return affiliateDao;
-	}
-
-	public void setAffiliateDAO(AffiliateDao affiliateDao) {
-		this.affiliateDao = affiliateDao;
-	}
-
-	public SearchService getSearchService() {
-		return searchService;
-	}
-
-	public void setSearchService(SearchService searchService) {
-		this.searchService = searchService;
-	}
+    private Logger logger = LoggerFactory.getLogger(AffiliateServiceImpl.class);
+
+    @Autowired
+    private AffiliateDao affiliateDao;
+    @Autowired
+    private MailService mailService;
+    @Autowired
+    private SearchService searchService;
+    @Autowired
+    private FeatureAPI featureAPI;
+    @Autowired
+    private AdminService adminService;
+    @Autowired
+    private CompanyAffiliateService companyAffiliateService;
+
+
+    private AffiliateSignupResponse signupAffiliate(AffiliateDTO affiliateDTO, String companyShortName, boolean isAutoCreate) {
+
+        String affiliateLogin = affiliateDTO.getEmail();
+
+        User user = getAdminService().getUser(affiliateLogin);
+        Company company = getAdminService().getCompany(companyShortName);
+        Affiliate affiliate = getAffiliateByLogin(affiliateLogin);
+
+        boolean newAffAdded = false, affExistsForCompany = false, affInviteConverted = false, companyAffAdded = false;
+
+        if (user == null) {
+            // user does not exist with his email id, so we will create a new one
+
+            String userFullName = StringUtils.isNotBlank(affiliateDTO.getFirstName()) ? affiliateDTO.getFirstName().concat(affiliateDTO.getLastName()) : null;
+            user = new User();
+
+            user.setUsername(affiliateLogin);
+            if (StringUtils.isNotBlank(userFullName)) {
+                user.setFullName(userFullName);
+            }
+            user.setPassword(affiliateDTO.getPassword());
+            user.setEmail(affiliateLogin);
+            user.setCompanyShortName(AppConstants.SYS_COMPANY_CODE);
+
+            getAdminService().addUser(user, new Role.RoleType[]{Role.RoleType.affiliate});
+        }
+
+        if (affiliate == null) {
+            // user does exist, check is he an affiliate
+            affiliate = affiliateDTO.extractAffiliate(affiliate);
+            affiliate = (Affiliate) getAffiliateDAO().save(affiliate);
+            newAffAdded = true;
+        }
+
+        // by now we have user and affiliate created for sure , so check if affiliate already exists for company
+        CompanyAffiliate companyAffiliate = null;
+        if (company != null) {
+            companyAffiliate = getCompanyAffiliateService().getCompanyAffiliate(affiliate.getId(), companyShortName);
+
+            if (companyAffiliate != null) {
+                affExistsForCompany = true;
+            } else {
+                // since aff is not added for company we need to check for existing invite and add it
+
+                try {
+                    if (companyAffiliate.getActive()) {
+                        getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT,
+                                getCompanyAffiliateService().getActiveCompanyAffiliateCount(companyShortName) + 1);
+                    }
+                } catch (FeatureNotAccessibleException fnae) {
+                    System.out.println(fnae.getI18nMessage().getMessageParams().toString());
+                    fnae.printStackTrace();
+                    //TODO: logger
+                }
+
+                companyAffiliate = new CompanyAffiliate();
+                companyAffiliate.setAffiliate(affiliate);
+                companyAffiliate.setCompanyShortName(companyShortName);
+
+                CompanyAffiliateInvite companyAffiliateInvite = getCompanyAffiliateService().getCompanayAffiliateInvite(companyShortName, affiliateLogin);
+
+                if (companyAffiliateInvite != null) {
+                    // mark an existing invite as converted
+                    companyAffiliateInvite.setConverted(true);
+                    affInviteConverted = true;
+                }
+
+                //aff is active either on invite or auto creation
+                if (isAutoCreate || companyAffiliateInvite != null) {
+                    companyAffiliate.setActive(true);
+                } else {
+                    companyAffiliate.setActive(false);
+                }
+
+                getAffiliateDAO().save(companyAffiliate);
+                getAffiliateDAO().save(companyAffiliateInvite);
+                companyAffAdded = true;
+
+            }
+        }
+
+        boolean isCompanyAffActive = companyAffiliate != null ? companyAffiliate.getActive() : false;
+
+        if (affInviteConverted) {
+            //TODO: add a notification that aff invite converted
+
+        }
+
+        if (companyAffAdded) {
+            //TODO: add a notification new aff added to company
+        }
+
+        if (affExistsForCompany) {
+            //TODO: shoot email you are already an affiliate for company, so use existing login/pwd
+        } else if (newAffAdded && companyAffAdded && isCompanyAffActive) {
+            //TODO: send welcome email with login/pwd
+        } else if (newAffAdded && companyAffAdded && !isCompanyAffActive) {
+            //TODO: send auth pending email with login/pwd
+            //TODO: add a notification for aff auth pending
+        } else if (!newAffAdded && companyAffAdded && isCompanyAffActive) {
+            //TODO: send welcome email  use existing login/pwd
+        } else if (!newAffAdded && companyAffAdded && !isCompanyAffActive) {
+            //TODO: send auth pending  use existing login/pwd
+            //TODO: add a notification for aff auth pending
+        }
+
+
+        return null;
+
+    }
+
+
+    @Override
+    public Affiliate getAffiliateByLogin(String login) {
+        return getAffiliateDAO().getAffiliateByLogin(login);
+    }
+
+
+    @Override
+    public void sendWelcomeEmail(Affiliate affiliate) {
+        AffiliateContext affiliateContext = new AffiliateContext(affiliate);
+        EmailEvent emailEvent = new EmailEvent(EmailTemplateService.EmailEventType.WelcomeAffiliate, affiliateContext);
+        getMailService().sendAsyncMail(emailEvent);
+
+    }
+
+    @Override
+    public void sendAffiliateWaitingApprovalEmail(Affiliate affiliate) {
+        AffiliateContext affiliateContext = new AffiliateContext(affiliate);
+        EmailEvent emailEvent = new EmailEvent(EmailTemplateService.EmailEventType.AffiliateWaitingApproval, affiliateContext);
+        getMailService().sendAsyncMail(emailEvent);
+    }
+
+
+    @Override
+    public Affiliate getAffiliate(Long affiliateId) {
+        Affiliate affiliate = getAffiliateDAO().load(Affiliate.class, affiliateId);
+
+        if (affiliate == null) {
+            logger.error("No such affiliate found in system: " + affiliateId);
+            throw new InvalidParameterException("INVALID_AFFILIATE");
+        }
+        return affiliate;
+    }
+
+    @Override
+    public long affiliatesCount(String companyShortName) {
+        return getAffiliateDAO().affiliatesCount(companyShortName);
+    }
+
+
+    @Override
+    public Page searchAffiliate(String login, String email, String companyShortName, int pageNo, int perPage) {
+
+        AffiliateQuery affiliateQuery = new AffiliateQuery();
+        affiliateQuery.setCompanyShortName(companyShortName);
+        affiliateQuery.setEmail(email);
+        affiliateQuery.setLogin(login).setOrderByField("login").setPageNo(pageNo).setRows(perPage);
+        return getSearchService().list(affiliateQuery);
+
+    }
+
+
+    /*@Override
+    @Transactional
+    public Affiliate saveNewAffiliate(Affiliate affiliate) throws CompositeValidationException {
+
+        CompositeValidationException compositeValidationException = new CompositeValidationException();
+        validateAffiliate(affiliate, compositeValidationException, null);
+        if (!compositeValidationException.getValidationExceptions().isEmpty()) {
+            logger.error("Error while adding affiliate ", compositeValidationException);
+            throw compositeValidationException;
+        }
+        return affiliateDao.saveAffiliate(affiliate);
+    }*/
+
+    /*@Override
+     @Transactional
+     public Affiliate updateAffiliate(Affiliate affiliate) {
+         return affiliateDao.saveAffiliate(affiliate);
+     }*/
+
+
+    /*@Transactional
+     public void updateEntity(Object entity) {
+         getAdminDAO().update(entity);
+     }*/
+
+
+    /*@Override
+    @Transactional
+    public CompanyAffiliate saveAffiliateCompany(Affiliate affiliate, String companyShortName) {
+        CompanyAffiliate companyAffiliate = new CompanyAffiliate();
+        companyAffiliate.setAffiliate(affiliate);
+        companyAffiliate.setCompanyShortName(companyShortName);
+        return affiliateDao.saveAffiliateCompany(companyAffiliate);
+
+    }*/
+
+    /*private void validateAffiliate(Affiliate affiliate, CompositeValidationException compositeValidationException, Object[] recaptchaParams) {
+
+        if (!isEmailIdValid(affiliate.getEmail())) {
+            compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.INVALID_AFFILIATE_EMAIL, "not a valid email"));
+        } else if (isAffiliateLoginTaken(affiliate.getLogin())) {
+            compositeValidationException.getValidationExceptions().add(new ValidationException(ValidationConstants.AFFILIATE_LOGIN_EXISTS, "login has already been taken"));
+        }
+
+        if (recaptchaParams != null) {
+            String remoteip = recaptchaParams.length >= 0 ? (String) recaptchaParams[0] : null;
+            String recaptchaChallengeField = recaptchaParams.length > 0 ? (String) recaptchaParams[1] : null;
+            String recaptchaResponsefield = recaptchaParams.length > 1 ? (String) recaptchaParams[2] : null;
+            boolean validateCaptcha = true;
+
+            if (remoteip == null || StringUtils.isEmpty(remoteip)) {
+                compositeValidationException.getValidationExceptions().add(new ValidationException("remoteip", "User ip cannot be blank"));
+                validateCaptcha = false;
+            }
+            if (recaptchaChallengeField == null || StringUtils.isEmpty(recaptchaChallengeField)) {
+                compositeValidationException.getValidationExceptions().add(new ValidationException("recaptchaChallengeField", "reCaptcha challenge can not be left blank."));
+                validateCaptcha = false;
+            }
+            if (recaptchaResponsefield == null || StringUtils.isEmpty(recaptchaResponsefield)) {
+                compositeValidationException.getValidationExceptions().add(new ValidationException("recaptchaResponsefield", "reCaptcha response can not be left blank."));
+                validateCaptcha = false;
+            }
+            *//*if (validateCaptcha) {
+                         List<String> captchaResponse = getRecaptchaService().validateRecatchaResponse(remoteip, recaptchaChallengeField, recaptchaResponsefield);
+                         String isResponseValid = captchaResponse.get(0);
+                         boolean isValid = false;
+                         if (isResponseValid != null && StringUtils.isNotEmpty(isResponseValid))
+                           isValid = Boolean.parseBoolean(isResponseValid);
+
+                         if (!isValid) {
+                           String errorMsg = captchaResponse.get(1);
+                           compositeValidationException.getValidationExceptions().add(
+                               new ValidationException("recaptchaValidation", "reCaptcha response does not match, please try again."));
+                         }
+
+                       }*//*
+
+        }
+    }*/
+
+
+    /*@Override
+    @Transactional
+    public Affiliate createAffiliate(AffiliateDTO affiliateDTO) throws CompositeValidationException {
+
+        Affiliate affiliate = null;
+        affiliate = affiliateDTO.extractAffiliate(affiliate);
+        affiliate = saveNewAffiliate(affiliate);
+        return affiliate;
+    }*/
+
+    public FeatureAPI getFeatureAPI() {
+        return featureAPI;
+    }
+
+
+    public AffiliateDao getAffiliateDAO() {
+        return affiliateDao;
+    }
+
+    public void setAffiliateDAO(AffiliateDao affiliateDao) {
+        this.affiliateDao = affiliateDao;
+    }
+
+    public SearchService getSearchService() {
+        return searchService;
+    }
+
+    public void setSearchService(SearchService searchService) {
+        this.searchService = searchService;
+    }
+
+    public MailService getMailService() {
+        return mailService;
+    }
+
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
+
+    public AdminService getAdminService() {
+        return adminService;
+    }
+
+
+    public CompanyAffiliateService getCompanyAffiliateService() {
+        return companyAffiliateService;
+    }
 }

@@ -1,9 +1,7 @@
 package com.ds.impl.dao.affiliate;
 
 import com.ds.impl.dao.BaseDaoImpl;
-import com.ds.pact.dao.affiliate.CompanyAffiliateDao;
 import com.ds.pact.dao.affiliate.CompanyAffiliateGroupDao;
-import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.affiliate.CompanyAffiliateGroup;
 import org.springframework.stereotype.Repository;
 

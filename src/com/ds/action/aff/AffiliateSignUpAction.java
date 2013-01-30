@@ -54,7 +54,7 @@ public class AffiliateSignUpAction extends BaseAction {
 		if (StringUtils.isBlank(affiliateDTO.getFirstName())) {
 			getContext().getValidationErrors().add("firstNameMandatory", new LocalizableError("/Signup.action.FirstNameMandatory"));
 		}
-		if (StringUtils.isBlank(affiliateDTO.getPasswordChecksum())) {
+		if (StringUtils.isBlank(affiliateDTO.getPassword())) {
 			getContext().getValidationErrors().add("passwordMandatory", new LocalizableError("/Signup.action.PasswordMandatory"));
 		}
 
@@ -65,12 +65,14 @@ public class AffiliateSignUpAction extends BaseAction {
 		System.out.println(affiliateLocaleContext.getCompanyShortName());
 
 
-		//create affiliate (check if email already there then only need to create compnay affiliate)
+		//TODO: create affiliate (check if email already there then only need to create compnay affiliate)
 		try {
-			Affiliate affiliate = getAffiliateService().createAffiliate(affiliateDTO);
+
+            
+			/*Affiliate affiliate = getAffiliateService().createAffiliate(affiliateDTO);
 
 			CompanyAffiliate companyAffiliate = getCompanyAffiliateService().createCompanyAffiliate(affiliate, affiliateLocaleContext.getCompanyShortName());
-
+*/
 		} catch (CompositeValidationException cve) {
 			List<ValidationException> validationExceptions = cve.getValidationExceptions();
 			for (ValidationException validationException : validationExceptions) {

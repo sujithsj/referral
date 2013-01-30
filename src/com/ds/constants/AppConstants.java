@@ -13,5 +13,9 @@ public class AppConstants {
     public static final String SYS_USER_ID = "vaibhav.adlakha";
 
 
+    public static final String REFEROSCOPE = "referoscope";
+    public static final String SYS_COMPANY_CODE = "rf";
+
+
     public static final String CONVERSION_TRACK_COOKIE_NAME = "_track";
 }

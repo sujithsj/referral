@@ -11,72 +11,76 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "company_affiliate")
+@NamedQueries({
+        @NamedQuery(name = "getCompanyAffiliateByAffIdAndCompany", query = "select ca from CompanyAffiliate ca where ca.affiliate.id = :affiliateId and ca.companyShortName = :companyShortName")
+
+})
 public class CompanyAffiliate extends BaseDataObject {
 
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", unique = true, nullable = false)
+    private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AFFILIATE_ID", nullable = false)
-	private Affiliate affiliate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "AFFILIATE_ID", nullable = false)
+    private Affiliate affiliate;
 
-	@Column(name = "COMPANY_SHORTNAME", nullable = false)
-	private String companyShortName;
+    @Column(name = "COMPANY_SHORTNAME", nullable = false)
+    private String companyShortName;
 
-	@Column(name = "ACTIVE", nullable = false)
-	private Boolean active = false;
+    @Column(name = "ACTIVE", nullable = false)
+    private Boolean active = false;
 
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PARENT_COMPANY_AFFILIATE_ID", nullable = true)
-	private CompanyAffiliate parentCompanyAffiliate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PARENT_COMPANY_AFFILIATE_ID", nullable = true)
+    private CompanyAffiliate parentCompanyAffiliate;
 
-	public Long getId() {
-		return this.id;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Affiliate getAffiliate() {
-		return this.affiliate;
-	}
+    public Affiliate getAffiliate() {
+        return this.affiliate;
+    }
 
-	public void setAffiliate(Affiliate affiliate) {
-		this.affiliate = affiliate;
-	}
+    public void setAffiliate(Affiliate affiliate) {
+        this.affiliate = affiliate;
+    }
 
-	public String getCompanyShortName() {
-		return companyShortName;
-	}
+    public String getCompanyShortName() {
+        return companyShortName;
+    }
 
-	public void setCompanyShortName(String companyShortName) {
-		this.companyShortName = companyShortName;
-	}
+    public void setCompanyShortName(String companyShortName) {
+        this.companyShortName = companyShortName;
+    }
 
-	public Boolean isActive() {
-		return active;
-	}
+    public Boolean isActive() {
+        return active;
+    }
 
-	public Boolean getActive() {
-		return active;
-	}
+    public Boolean getActive() {
+        return active;
+    }
 
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 
-	public CompanyAffiliate getParentCompanyAffiliate() {
-		return parentCompanyAffiliate;
-	}
+    public CompanyAffiliate getParentCompanyAffiliate() {
+        return parentCompanyAffiliate;
+    }
 
-	public void setParentCompanyAffiliate(CompanyAffiliate parentCompanyAffiliate) {
-		this.parentCompanyAffiliate = parentCompanyAffiliate;
-	}
+    public void setParentCompanyAffiliate(CompanyAffiliate parentCompanyAffiliate) {
+        this.parentCompanyAffiliate = parentCompanyAffiliate;
+    }
 }
 
 

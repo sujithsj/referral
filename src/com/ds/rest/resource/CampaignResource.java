@@ -22,8 +22,10 @@ import com.ds.core.event.EventDispatcher;
 import com.ds.constants.AppConstants;
 import com.ds.pact.service.marketing.MarketingService;
 import com.ds.pact.service.admin.AdminService;
+import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.utils.GeneralUtils;
 import com.ds.utils.UserAgentParser;
+import com.ds.dto.affiliate.AffiliateDTO;
 
 import java.util.List;
 
@@ -46,6 +48,8 @@ public class CampaignResource {
     private MarketingService marketingService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private AffiliateService affiliateService;
 
     @POST
     @Path("/track")
@@ -65,7 +69,32 @@ public class CampaignResource {
             trackCommissionForSale(trackCookie, campaignConversionReq, request);
         }
 
-        //todo : create new affiliate 
+        //todo : create new affiliate
+
+        if (campaignConversionReq.isRf_auto_create()) {
+            AffiliateDTO affiliateDTO = new AffiliateDTO();
+            affiliateDTO.setLogin(campaignConversionReq.getRf_u_email());
+            affiliateDTO.setEmail(campaignConversionReq.getRf_u_email());
+            affiliateDTO.setFirstName(campaignConversionReq.getRf_u_f_name());
+            affiliateDTO.setFirstName(campaignConversionReq.getRf_u_l_name());
+
+            //TOD: change this
+            if (campaignConversionReq.isRf_disable_new_referrer()) {
+                affiliateDTO.setDeleted(true);
+            }else{
+                affiliateDTO.setDeleted(false);
+            }
+
+            //TODO: set aff pwd
+
+            //affiliateDTO.setPasswordChecksum("abc");
+            //getAffiliateService().createAffiliate(affiliateDTO);
+
+            if(campaignConversionReq.isRf_email_new_referrer()){
+                       //todo: send email with credentials
+            }
+        }
+
     }
 
 
@@ -153,5 +182,9 @@ public class CampaignResource {
 
     public AdminService getAdminService() {
         return adminService;
+    }
+
+    public AffiliateService getAffiliateService() {
+        return affiliateService;
     }
 }

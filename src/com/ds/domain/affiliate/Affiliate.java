@@ -21,14 +21,6 @@ public class Affiliate extends BaseDataObject {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Long id;
 
-/*
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PARENT_AFFILIATE_ID")
-	private Affiliate parentAffiliate;
-*/
-
-	/*@Column(name = "COMPANY_SHORTNAME", nullable = false)
-	private String companyShortName;*/
 
 	@Column(name = "LOGIN", nullable = false, length = 45, unique = true)
 	private String login;
@@ -60,9 +52,9 @@ public class Affiliate extends BaseDataObject {
 	@Column(name = "COMMENTS", length = 65535)
 	private String comments;
 
-	@Column(name = "PASSWORD_CHECKSUM", length = 45)
+	/*@Column(name = "PASSWORD_CHECKSUM", length = 45)
 	private String passwordChecksum;
-
+*/
 	@Column(name = "DELETED", nullable = false)
 	private Boolean deleted = false;
 
@@ -180,13 +172,13 @@ public class Affiliate extends BaseDataObject {
 		this.comments = comments;
 	}
 
-	public String getPasswordChecksum() {
+	/*public String getPasswordChecksum() {
 		return this.passwordChecksum;
 	}
 
 	public void setPasswordChecksum(String passwordChecksum) {
 		this.passwordChecksum = passwordChecksum;
-	}
+	}*/
 
 	public Boolean getDeleted() {
 		return this.deleted;

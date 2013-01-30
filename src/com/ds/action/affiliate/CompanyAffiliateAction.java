@@ -38,7 +38,7 @@ import java.util.HashSet;
  */
 public class CompanyAffiliateAction extends BaseAction {
 
-	private String DEFAULT_USER_PWD = "password";
+	/*private String DEFAULT_USER_PWD = "password";
 
 	private String companyShortName;
 	private CompanyAffiliateDTO companyAffiliateDTO;
@@ -75,7 +75,7 @@ public class CompanyAffiliateAction extends BaseAction {
 	private CacheAPI cacheAPI;
 
 
-/*	@DefaultHandler
+*//*	@DefaultHandler
 	public Resolution createOrEditCompanyAffiliate() {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
@@ -98,7 +98,7 @@ public class CompanyAffiliateAction extends BaseAction {
 		}
 		return setParamsForView();
 	}
-	*/
+	*//*
 
 
 	@SuppressWarnings("unchecked")
@@ -241,5 +241,5 @@ public class CompanyAffiliateAction extends BaseAction {
 
 	public void setCompanyAffiliateInvites(List<CompanyAffiliateInvite> companyAffiliateInvites) {
 		this.companyAffiliateInvites = companyAffiliateInvites;
-	}
+	}*/
 }
