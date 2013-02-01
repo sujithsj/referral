@@ -7,6 +7,7 @@ import com.ds.domain.user.UserSettings;
 import com.ds.exception.DSException;
 import com.ds.web.action.Page;
 import com.ds.dto.affiliate.AffiliateDTO;
+import com.ds.dto.affiliate.AffiliateSignupResponse;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -20,6 +21,8 @@ import java.util.List;
  */
 public interface AffiliateService {
 
+
+    public AffiliateSignupResponse signupAffiliate(AffiliateDTO affiliateDTO, String companyShortName, boolean isAutoCreate);
 
     /*public Affiliate createAffiliate(AffiliateDTO affiliateDTO);
 

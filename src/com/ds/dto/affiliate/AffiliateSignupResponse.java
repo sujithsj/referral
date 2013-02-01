@@ -1,5 +1,7 @@
 package com.ds.dto.affiliate;
 
+import com.ds.domain.affiliate.Affiliate;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Vaibhav
@@ -8,4 +10,14 @@ package com.ds.dto.affiliate;
  * To change this template use File | Settings | File Templates.
  */
 public class AffiliateSignupResponse {
+
+    private Affiliate affiliate;
+
+    public Affiliate getAffiliate() {
+        return affiliate;
+    }
+
+    public void setAffiliate(Affiliate affiliate) {
+        this.affiliate = affiliate;
+    }
 }

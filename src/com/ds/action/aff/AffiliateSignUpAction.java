@@ -4,6 +4,7 @@ import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
+import com.ds.dto.affiliate.AffiliateSignupResponse;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.ValidationConstants;
 import com.ds.exception.ValidationException;
@@ -67,6 +68,8 @@ public class AffiliateSignUpAction extends BaseAction {
 
 		//TODO: create affiliate (check if email already there then only need to create compnay affiliate)
 		try {
+
+            getAffiliateService().signupAffiliate(affiliateDTO,affiliateLocaleContext.getCompanyShortName(),false );
 
             
 			/*Affiliate affiliate = getAffiliateService().createAffiliate(affiliateDTO);

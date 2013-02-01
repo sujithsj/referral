@@ -74,7 +74,8 @@ public class AffiliateServiceImpl implements AffiliateService {
     private CompanyAffiliateService companyAffiliateService;
 
 
-    private AffiliateSignupResponse signupAffiliate(AffiliateDTO affiliateDTO, String companyShortName, boolean isAutoCreate) {
+    public AffiliateSignupResponse signupAffiliate(AffiliateDTO affiliateDTO, String companyShortName, boolean isAutoCreate) {
+        AffiliateSignupResponse response = new AffiliateSignupResponse();
 
         String affiliateLogin = affiliateDTO.getEmail();
 
@@ -181,7 +182,8 @@ public class AffiliateServiceImpl implements AffiliateService {
         }
 
 
-        return null;
+        response.setAffiliate(affiliate);
+        return response;
 
     }
 

@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.core.Context;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Cookie;
@@ -25,6 +26,7 @@ import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.utils.GeneralUtils;
 import com.ds.utils.UserAgentParser;
+import com.ds.utils.JSONResponseBuilder;
 import com.ds.dto.affiliate.AffiliateDTO;
 
 import java.util.List;
@@ -51,11 +53,14 @@ public class CampaignResource {
     @Autowired
     private AffiliateService affiliateService;
 
-    @POST
+    @GET
     @Path("/track")
     @Produces("application/json")
-    public void handleConversionRequest(CampaignConversionReq campaignConversionReq, @Context HttpServletRequest request) {
+    public String handleConversionRequest( @Context HttpServletRequest request) {
+        CampaignConversionReq campaignConversionReq = new CampaignConversionReq();
         Cookie[] allCookies = request.getCookies();
+
+        request.getParameter("rf_c_short_code");
         Cookie trackCookie = null;
         for (Cookie cookie : allCookies) {
             if (AppConstants.CONVERSION_TRACK_COOKIE_NAME.equalsIgnoreCase(cookie.getName())) {
@@ -87,13 +92,15 @@ public class CampaignResource {
 
             //TODO: set aff pwd
 
-            //affiliateDTO.setPasswordChecksum("abc");
-            //getAffiliateService().createAffiliate(affiliateDTO);
+            getAffiliateService().signupAffiliate(affiliateDTO,campaignConversionReq.getRf_c_short_code() ,true );
 
             if(campaignConversionReq.isRf_email_new_referrer()){
                        //todo: send email with credentials
             }
         }
+
+        return new JSONResponseBuilder().addField("test", "test2").build();
+
 
     }
 
