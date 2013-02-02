@@ -70,7 +70,7 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
   private void populateAdCount() {
     Map<Long, Long> counts = getMarketingService().getCountForMarketingMaterialByType(companyShortName);
     totalBannerAds = counts.get(EnumMarketingMaterialType.Banner.getId());
-    totalTextAds = counts.get(EnumMarketingMaterialType.TextLink.getId());
+    totalTextAds = counts.get(EnumMarketingMaterialType.ReferalAd.getId());
 
     totalBannerAds = totalBannerAds == null ? 0 : totalBannerAds;
     totalTextAds = totalTextAds == null ? 0 : totalTextAds;

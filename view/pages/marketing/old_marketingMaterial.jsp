@@ -47,7 +47,7 @@
 
                   <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.ALL.getId()%>">All</a>
                   <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.Banner.getId()%>">Banner</a>
-                  <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.TextLink.getId()%>">Text Ads</a>
+                  <a class="btn mmType" href="#" type="<%=EnumMarketingMaterialType.ReferalAd.getId()%>">Text Ads</a>
                 </div>
               </div>
 

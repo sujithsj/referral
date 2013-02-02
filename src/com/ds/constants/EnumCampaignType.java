@@ -17,7 +17,7 @@ public enum EnumCampaignType {
   USER_SIGN_UP(30L,"User Sign up"),
   REGISTRATION(40L,"Registration"),
   EMAIL_OPT_IN(50L,"Email opt in"),
-  SOCIAL_MEDIA(60L,"Social Media");
+  SOCIAL_REFERRAL(60L,"Social Referral");
 
 
   private java.lang.String type;
@@ -45,7 +45,7 @@ public enum EnumCampaignType {
         EnumCampaignType.USER_SIGN_UP,
         EnumCampaignType.REGISTRATION,
         EnumCampaignType.EMAIL_OPT_IN,
-        EnumCampaignType.SOCIAL_MEDIA
+        EnumCampaignType.SOCIAL_REFERRAL
     );
 
   }

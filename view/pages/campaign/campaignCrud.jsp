@@ -97,12 +97,12 @@
     </s:select>
   </div>
 </div>
-<div class="control-group">
+<%--<div class="control-group">
   <s:label class="control-label" name="Enable tiered Commissions"/>
   <div class="controls">
     <s:checkbox id="tiered" name="commissionPlanDTO.tiered"/>
   </div>
-</div>
+</div>--%>
 <div id="tieredCommission">
   <div id="tier1Comm" class="control-group">
     <fieldset>

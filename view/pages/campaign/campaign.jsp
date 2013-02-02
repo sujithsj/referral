@@ -42,11 +42,9 @@
 
                     <a class="btn cpType" href="#" type="<%=EnumCampaignType.ALL.getId()%>">All</a>
                     <a class="btn cpType" href="#" type="<%=EnumCampaignType.SALE.getId()%>">Sale</a>
-                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.EMAIL_OPT_IN.getId()%>">Email Opt In</a>
-                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.USER_SIGN_UP.getId()%>">User Sign Up</a>
-                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.AFFILIATE_SIGN_UP.getId()%>">Affiliate
-                      Sign
-                      Up</a>
+                    <%--<a class="btn cpType" href="#" type="<%=EnumCampaignType.EMAIL_OPT_IN.getId()%>">Email Opt In</a>
+                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.USER_SIGN_UP.getId()%>">User Sign Up</a>--%>
+                    <a class="btn cpType" href="#" type="<%=EnumCampaignType.SOCIAL_REFERRAL.getId()%>">Social Referral</a>
                   </div>
                   <%--  </div>--%>
                   <s:submit name="searchCampaign" class="btn btn-inverse">Search</s:submit>

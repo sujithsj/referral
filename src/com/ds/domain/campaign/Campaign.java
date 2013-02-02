@@ -36,7 +36,7 @@ public class Campaign implements java.io.Serializable {
   private String name;
 
 
-  @Column(name = "DESCRIPTION", nullable = false, length = 1000)
+  @Column(name = "DESCRIPTION",  length = 1000)
   private String description;
 
   @Temporal(TemporalType.TIMESTAMP)

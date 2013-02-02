@@ -59,7 +59,7 @@
              <li class="btn btn-mini btn-inverse"><a class=" mmType" href="#" type="<%=EnumMarketingMaterialType.ALL.getId()%>">All</a></li>
               <li class="btn btn-mini btn-inverse"><a class=" mmType" href="#" type="<%=EnumMarketingMaterialType.Banner.getId()%>">Banner&nbsp;<span
                   class="label label-important" style="position:absolute; top:-8px;right:3px;">5</span></a></li>
-              <li class="btn btn-mini btn-inverse"><a class=" mmType" href="#" type="<%=EnumMarketingMaterialType.TextLink.getId()%>">Text Ads</a></li>
+              <li class="btn btn-mini btn-inverse"><a class=" mmType" href="#" type="<%=EnumMarketingMaterialType.ReferalAd.getId()%>">Text Ads</a></li>
             </ul>
               </div>--%>
               <s:submit name="searchMarketingMaterial" class="btn btn-success">Search</s:submit>

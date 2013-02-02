@@ -12,8 +12,8 @@ public enum EnumMarketingMaterialType {
 
   ALL(-999L,"All"),     //to be used only on UI 
   Banner(10L, "Banner"),
-  TextLink(20L, "Text Link"),
-  TextAd(30L, "Text Ad");  
+  ReferalAd(20L, "Referal Ad"),
+  TextAd(30L, "Text Ad");
 
 
   private java.lang.String type;
