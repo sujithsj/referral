@@ -1,7 +1,7 @@
 package com.ds.dto.affiliate;
 
 import com.ds.domain.affiliate.Affiliate;
-import com.sun.xml.internal.ws.util.StringUtils;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -52,7 +52,7 @@ public class AffiliateDTO {
             affiliate.setLogin(this.email);
         }
 
-        if (org.apache.commons.lang.StringUtils.isNotBlank(this.firstName)) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(this.firstName)) {
             affiliate.setFirstName(this.firstName);
         } else {
             affiliate.setFirstName(this.login);

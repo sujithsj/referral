@@ -101,7 +101,7 @@ public class AffiliateServiceImpl implements AffiliateService {
             user.setUsername(affiliateLogin);
             if (StringUtils.isNotBlank(userFullName)) {
                 user.setFullName(userFullName);
-            }else{
+            } else {
                 user.setFullName(affiliateLogin);
             }
             user.setPassword(affiliateDTO.getPassword());
@@ -129,10 +129,10 @@ public class AffiliateServiceImpl implements AffiliateService {
                 // since aff is not added for company we need to check for existing invite and add it
 
                 try {
-                    if (companyAffiliate.getActive()) {
-                        getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT,
-                                getCompanyAffiliateService().getActiveCompanyAffiliateCount(companyShortName) + 1);
-                    }
+                    /*if (companyAffiliate.getActive()) {*/
+                    getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT,
+                            getCompanyAffiliateService().getActiveCompanyAffiliateCount(companyShortName) + 1);
+                    //}
                 } catch (FeatureNotAccessibleException fnae) {
                     System.out.println(fnae.getI18nMessage().getMessageParams().toString());
                     fnae.printStackTrace();
@@ -159,7 +159,9 @@ public class AffiliateServiceImpl implements AffiliateService {
                 }
 
                 getAffiliateDAO().save(companyAffiliate);
-                getAffiliateDAO().save(companyAffiliateInvite);
+                if (companyAffiliateInvite != null) {
+                    getAffiliateDAO().save(companyAffiliateInvite);
+                }
                 companyAffAdded = true;
 
             }
