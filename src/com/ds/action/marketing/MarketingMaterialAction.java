@@ -21,135 +21,148 @@ import java.util.List;
 @Component
 public class MarketingMaterialAction extends BaseAction {
 
-  private String title;
-  private Long type;
-  private String body;
-  private String landingPageURL;
-  private Long imageId;
+    private String title;
+    private Long type;
+    private String body;
+    private String landingPageURL;
+    private Long imageId;
 
-  private Long marketingMaterialId;
+    private Long marketingMaterialId;
+    private Long campaignId;
 
-  private List<Campaign> allCampaigns;
+    private List<Campaign> allCampaigns;
 
-  @Autowired
-  private MarketingService marketingService;
-  @Autowired
-  private CampaignService campaignService;
+    @Autowired
+    private MarketingService marketingService;
+    @Autowired
+    private CampaignService campaignService;
 
-  @DefaultHandler
-  public Resolution createOrEditMarketingMaterial() {
-    allCampaigns = getCampaignService().getAllCampaigns();
-    if (marketingMaterialId != null) {
-      MarketingMaterial marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
-      title = marketingMaterial.getTitle();
-      type = marketingMaterial.getMarketingMaterialType().getId();
-      body = marketingMaterial.getBody();
-      landingPageURL = marketingMaterial.getLandingPageUrl();
+    @DefaultHandler
+    public Resolution createOrEditMarketingMaterial() {
+        allCampaigns = getCampaignService().getAllCampaigns();
+        if (marketingMaterialId != null) {
+            MarketingMaterial marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
+            title = marketingMaterial.getTitle();
+            type = marketingMaterial.getMarketingMaterialType().getId();
+            body = marketingMaterial.getBody();
+            landingPageURL = marketingMaterial.getLandingPageUrl();
+            campaignId = marketingMaterial.getCampaign().getId();
 
-      if (marketingMaterial.getImage() != null) {
-        imageId = marketingMaterial.getImage().getId();
-      }
+            if (marketingMaterial.getImage() != null) {
+                imageId = marketingMaterial.getImage().getId();
+            }
+        }
+
+
+        return new ForwardResolution("/pages/marketing/mmCrud.jsp");
     }
 
 
-    return new ForwardResolution("/pages/marketing/mmCrud.jsp");
-  }
+    public Resolution saveMarketingMaterial() {
+        MarketingMaterial marketingMaterial;
 
+        if (marketingMaterialId != null) {
+            marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
+        } else {
+            marketingMaterial = new MarketingMaterial();
+        }
 
-  public Resolution saveMarketingMaterial() {
-    MarketingMaterial marketingMaterial;
+        if (marketingMaterial != null) {
 
-    if (marketingMaterialId != null) {
-      marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
-    } else {
-      marketingMaterial = new MarketingMaterial();
+            //TODO: validate type of material here while setting values
+
+            User loggedInUser = SecurityHelper.getLoggedInUser();
+            String companyShortName = loggedInUser.getCompanyShortName();
+            marketingMaterial.setBody(body);
+            marketingMaterial.setCompanyShortName(companyShortName);
+            marketingMaterial.setLandingPageUrl(landingPageURL);
+            marketingMaterial.setTitle(title);
+            MarketingMaterialType marketingMaterialType = EnumMarketingMaterialType.getById(type).asMarketingMaterialType();
+            marketingMaterial.setMarketingMaterialType(marketingMaterialType);
+
+            Campaign campaign = getCampaignService().getCampaignById(campaignId);
+            marketingMaterial.setCampaign(campaign);
+
+            marketingMaterial = getMarketingService().saveMarketingMaterial(marketingMaterial);
+
+            addRedirectAlertMessage(new SimpleMessage("Changes saved successfully.Please upload a banner"));
+            return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial").addParameter("marketingMaterialId", marketingMaterial.getId());
+        } else {
+            addRedirectAlertMessage(new SimpleMessage("Could not find/create marketing material"));
+            return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial");
+        }
     }
 
-    if (marketingMaterial != null) {
 
-      //TODO: validate type of material here while setting values
-
-      User loggedInUser = SecurityHelper.getLoggedInUser();
-      String companyShortName = loggedInUser.getCompanyShortName();
-      marketingMaterial.setBody(body);
-      marketingMaterial.setCompanyShortName(companyShortName);
-      marketingMaterial.setLandingPageUrl(landingPageURL);
-      marketingMaterial.setTitle(title);
-      MarketingMaterialType marketingMaterialType = EnumMarketingMaterialType.getById(type).asMarketingMaterialType();
-      marketingMaterial.setMarketingMaterialType(marketingMaterialType);
-
-      marketingMaterial = getMarketingService().saveMarketingMaterial(marketingMaterial);
-
-      addRedirectAlertMessage(new SimpleMessage("Changes saved successfully.Please upload a banner"));
-      return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial").addParameter("marketingMaterialId", marketingMaterial.getId());
-    } else {
-      addRedirectAlertMessage(new SimpleMessage("Could not find/create marketing material"));
-      return new RedirectResolution(MarketingMaterialAction.class, "createOrEditMarketingMaterial");
+    public String getTitle() {
+        return title;
     }
-  }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public Long getType() {
+        return type;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public void setType(Long type) {
+        this.type = type;
+    }
 
-  public Long getType() {
-    return type;
-  }
+    public String getBody() {
+        return body;
+    }
 
-  public void setType(Long type) {
-    this.type = type;
-  }
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-  public String getBody() {
-    return body;
-  }
+    public Long getMarketingMaterialId() {
+        return marketingMaterialId;
+    }
 
-  public void setBody(String body) {
-    this.body = body;
-  }
+    public void setMarketingMaterialId(Long marketingMaterialId) {
+        this.marketingMaterialId = marketingMaterialId;
+    }
 
-  public Long getMarketingMaterialId() {
-    return marketingMaterialId;
-  }
+    public String getLandingPageURL() {
+        return landingPageURL;
+    }
 
-  public void setMarketingMaterialId(Long marketingMaterialId) {
-    this.marketingMaterialId = marketingMaterialId;
-  }
+    public void setLandingPageURL(String landingPageURL) {
+        this.landingPageURL = landingPageURL;
+    }
 
-  public String getLandingPageURL() {
-    return landingPageURL;
-  }
+    public MarketingService getMarketingService() {
+        return marketingService;
+    }
 
-  public void setLandingPageURL(String landingPageURL) {
-    this.landingPageURL = landingPageURL;
-  }
+    public Long getImageId() {
+        return imageId;
+    }
 
-  public MarketingService getMarketingService() {
-    return marketingService;
-  }
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
 
-  public Long getImageId() {
-    return imageId;
-  }
+    public CampaignService getCampaignService() {
+        return campaignService;
+    }
 
-  public void setImageId(Long imageId) {
-    this.imageId = imageId;
-  }
+    public List<Campaign> getAllCampaigns() {
+        return allCampaigns;
+    }
 
-  public CampaignService getCampaignService() {
-    return campaignService;
-  }
+    public void setAllCampaigns(List<Campaign> allCampaigns) {
+        this.allCampaigns = allCampaigns;
+    }
 
-  public List<Campaign> getAllCampaigns() {
-    return allCampaigns;
-  }
+    public Long getCampaignId() {
+        return campaignId;
+    }
 
-  public void setAllCampaigns(List<Campaign> allCampaigns) {
-    this.allCampaigns = allCampaigns;
-  }
+    public void setCampaignId(Long campaignId) {
+        this.campaignId = campaignId;
+    }
 }
