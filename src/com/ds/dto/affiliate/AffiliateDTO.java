@@ -1,6 +1,7 @@
 package com.ds.dto.affiliate;
 
 import com.ds.domain.affiliate.Affiliate;
+import com.sun.xml.internal.ws.util.StringUtils;
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,7 +51,13 @@ public class AffiliateDTO {
         } else {
             affiliate.setLogin(this.email);
         }
-        affiliate.setFirstName(this.firstName);
+
+        if (org.apache.commons.lang.StringUtils.isNotBlank(this.firstName)) {
+            affiliate.setFirstName(this.firstName);
+        } else {
+            affiliate.setFirstName(this.login);
+        }
+
         affiliate.setLastName(this.lastName);
         affiliate.setEmail(this.email);
 
@@ -59,7 +66,7 @@ public class AffiliateDTO {
         affiliate.setMobile(this.mobile);
         affiliate.setAddress(this.address);
         affiliate.setCity(this.city);
-        
+
 
         //affiliate.setCompanyShortName(this.companyShortName);
         /* affiliate.setPasswordChecksum(this.passwordChecksum);*/

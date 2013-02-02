@@ -53,14 +53,64 @@ public class CampaignResource {
     @Autowired
     private AffiliateService affiliateService;
 
+
+    private CampaignConversionReq getCampaignConversionReqFromHttpReq(HttpServletRequest request) {
+        CampaignConversionReq campaignConversionReq = new CampaignConversionReq();
+        String rf_c_short_code = request.getParameter("rf_c_short_code");
+        String rf_campaign_uid = request.getParameter("rf_campaign_uid");
+        String rf_u_email = request.getParameter("rf_u_email");
+        String rf_u_f_name = request.getParameter("rf_u_f_name");
+        String rf_u_l_name = request.getParameter("rf_u_l_name");
+
+        //TODO: validate mandatory params
+
+        campaignConversionReq.setRf_c_short_code(rf_c_short_code);
+        campaignConversionReq.setRf_campaign_uid(rf_campaign_uid);
+        campaignConversionReq.setRf_u_email(rf_u_email);
+        campaignConversionReq.setRf_u_f_name(rf_u_f_name);
+        campaignConversionReq.setRf_u_l_name(rf_u_l_name);
+
+        String revenue = request.getParameter("rf_revenue");
+
+        if (StringUtils.isNotBlank(revenue)) {
+            Double rf_revenue = Double.parseDouble(revenue);
+            campaignConversionReq.setRf_revenue(rf_revenue);
+        }
+
+        String rf_tx_uid = request.getParameter("rf_tx_uid");
+        campaignConversionReq.setRf_tx_uid(rf_tx_uid);
+
+
+        String emailNewReferrer = request.getParameter("rf_email_new_referrer");
+        String disableNewReferrer = request.getParameter("rf_disable_new_referrer");
+        String autoCreateReferrer = request.getParameter("rf_auto_create");
+
+        if (StringUtils.isNotBlank(emailNewReferrer)) {
+            boolean rf_email_new_referrer = Boolean.parseBoolean(emailNewReferrer);
+            campaignConversionReq.setRf_email_new_referrer(rf_email_new_referrer);
+        }
+        if (StringUtils.isNotBlank(disableNewReferrer)) {
+            boolean rf_disable_new_referrer = Boolean.parseBoolean(disableNewReferrer);
+            campaignConversionReq.setRf_disable_new_referrer(rf_disable_new_referrer);
+        }
+        if (StringUtils.isNotBlank(autoCreateReferrer)) {
+            boolean rf_auto_create = Boolean.parseBoolean(autoCreateReferrer);
+            campaignConversionReq.setRf_auto_create(rf_auto_create);
+        }
+
+
+        return campaignConversionReq;
+
+    }
+
     @GET
     @Path("/track")
     @Produces("application/json")
-    public String handleConversionRequest( @Context HttpServletRequest request) {
-        CampaignConversionReq campaignConversionReq = new CampaignConversionReq();
+    public String handleConversionRequest(@Context HttpServletRequest request) {
+        CampaignConversionReq campaignConversionReq = getCampaignConversionReqFromHttpReq(request);
         Cookie[] allCookies = request.getCookies();
 
-        request.getParameter("rf_c_short_code");
+
         Cookie trackCookie = null;
         for (Cookie cookie : allCookies) {
             if (AppConstants.CONVERSION_TRACK_COOKIE_NAME.equalsIgnoreCase(cookie.getName())) {
@@ -86,16 +136,16 @@ public class CampaignResource {
             //TOD: change this
             if (campaignConversionReq.isRf_disable_new_referrer()) {
                 affiliateDTO.setDeleted(true);
-            }else{
+            } else {
                 affiliateDTO.setDeleted(false);
             }
 
             //TODO: set aff pwd
 
-            getAffiliateService().signupAffiliate(affiliateDTO,campaignConversionReq.getRf_c_short_code() ,true );
+            getAffiliateService().signupAffiliate(affiliateDTO, campaignConversionReq.getRf_c_short_code(), true);
 
-            if(campaignConversionReq.isRf_email_new_referrer()){
-                       //todo: send email with credentials
+            if (campaignConversionReq.isRf_email_new_referrer()) {
+                //todo: send email with credentials
             }
         }
 

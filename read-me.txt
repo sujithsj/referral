@@ -1,2 +1,48 @@
 You will be needing javaee.jar for REST.
 Add the jar to Tomcat lib folder to make things work.
+
+
+
+http://api.addthis.com/oexchange/0.8/forward/facebook/offer?url=http://pricemia.com&pubid=ra-510c0f2f161a4f69
+
+
+
+/***
+         *
+         * if(user does not exists with email){
+         *          create user with with referoscope as company and affiliate role, no email at this point
+         * } else{
+         *      if(affiliate does not exist with email){
+         *          create affiliate entry , and a boolean  newAffAdded = true
+         *  }
+         * }
+         *
+         * // by now we have user and affiliate created for sure
+         *
+         * if(entry in company aff){
+         *      means aff already exists for company, boolean affExistsForCompany = true
+         * } else{
+         *
+         * if(entry in affiliate invite){
+         *  mark this entry converted, and a boolean  affInviteConeverted = true
+         * }
+         * else{
+         * means that affiliate is not invited
+         *  if(is auto create)  {
+         * boolean autoApprovedAndAdded = true
+         *  approve and add to company aff, entry in notification queue for aff added
+         * }
+         *
+         * else{
+         * boolean addedWaitingForAuth
+         * // self sign up
+         * disapprove and add to company aff, entry in notification queu for aff pending
+         * }
+         * }
+         *
+         *
+         * }
+         * }
+         *
+         *
+         */

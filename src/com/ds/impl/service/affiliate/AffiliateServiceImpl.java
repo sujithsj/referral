@@ -74,12 +74,19 @@ public class AffiliateServiceImpl implements AffiliateService {
     private CompanyAffiliateService companyAffiliateService;
 
 
+    @Transactional
     public AffiliateSignupResponse signupAffiliate(AffiliateDTO affiliateDTO, String companyShortName, boolean isAutoCreate) {
         AffiliateSignupResponse response = new AffiliateSignupResponse();
 
         String affiliateLogin = affiliateDTO.getEmail();
+        User user = null;
+        boolean isUserIdTaken = getAdminService().isUserIdTaken(affiliateLogin);
 
-        User user = getAdminService().getUser(affiliateLogin);
+        if (isUserIdTaken) {
+            user = getAdminService().getUser(affiliateLogin);
+        }
+
+        //TODO: validate company exists and return error if not
         Company company = getAdminService().getCompany(companyShortName);
         Affiliate affiliate = getAffiliateByLogin(affiliateLogin);
 
@@ -94,6 +101,8 @@ public class AffiliateServiceImpl implements AffiliateService {
             user.setUsername(affiliateLogin);
             if (StringUtils.isNotBlank(userFullName)) {
                 user.setFullName(userFullName);
+            }else{
+                user.setFullName(affiliateLogin);
             }
             user.setPassword(affiliateDTO.getPassword());
             user.setEmail(affiliateLogin);
