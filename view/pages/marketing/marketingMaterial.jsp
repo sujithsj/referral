@@ -52,6 +52,10 @@
                   Ads&nbsp;<span
                       class="label label-success"
                       style="position:absolute; top:-8px;right:3px;"><%--${mmSearchAction.totalTextAds}--%> 2</span></a>
+                  <a class="btn btn-inverse mmType" href="#" type="<%=EnumMarketingMaterialType.ReferalAd.getId()%>">Text
+                  Ads&nbsp;<span
+                      class="label label-success"
+                      style="position:absolute; top:-8px;right:3px;"><%--${mmSearchAction.totalTextAds}--%> 2</span></a>
               </div>
 
               <%--<div class="navbar navbar-inverse">

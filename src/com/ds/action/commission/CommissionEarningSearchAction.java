@@ -60,13 +60,16 @@ public class CommissionEarningSearchAction extends BasePaginatedAction {
         commissionEarningPage = getCommissionEarningService().searchCommissionEarning(affiliateId,
                 companyShortName, startDate, endDate,
                 commissionEarningStatusId, customer, getPageNo(), getPerPage());
-        commissionEarnings = commissionEarningPage.getList();
+
+        if (commissionEarningPage != null) {
+            commissionEarnings = commissionEarningPage.getList();
+        }
 
         if (commissionEarningStatusId == null) {
             commissionEarningStatusId = EnumCommissionEarningStatus.ALL.getId();
         }
 
-        return new ForwardResolution("/pages/campaign/campaign.jsp");
+        return new ForwardResolution("/pages/commission/commissionEarning.jsp");
 
     }
 

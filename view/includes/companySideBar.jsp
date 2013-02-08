@@ -51,6 +51,7 @@
       </li>
 
       <li><a href="grid.html"><i class="icon icon-gift"></i> <span>Payouts</span></a></li>
+      <li><a href="${pageContext.request.contextPath}/commission/CommissionEarningSearch.action"><i class="icon icon-gift"></i> <span>Commissions</span></a></li>
       <li class="submenu">
         <a href="#"><i class="icon icon-signal"></i> <span>Reports</span> <%--<span class="label">3</span>--%></a>
         <ul>
