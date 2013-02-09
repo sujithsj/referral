@@ -14,7 +14,7 @@ public class SecurityHelper {
         try {
           /*UserService userService = (UserService) ServiceLocatorFactory.getService(UserService.class);
           user = (User)userService.getUser("abc");*/
-          //TODO: remove this hardcoding  
+          //TODO: remove this hardcoding
           user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (ClassCastException cce) {      
             return null;
@@ -83,4 +83,13 @@ public class SecurityHelper {
         }
         return false;
     }
+
+	//todo might have to handle this via spring security, doing the basic stuff for now.
+	public static void logoutUser() {
+		SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+		SecurityContextHolder.getContext().setAuthentication(null);
+		SecurityContextHolder.clearContext();
+
+	}
+
 }
