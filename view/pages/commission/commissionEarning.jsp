@@ -34,10 +34,9 @@
                                         id="commissionSearchForm"
                                         class="form-inline">
                                     <div class="input-prepend">
-                                        <span class="add-on"><i class="icon-tag"></i></span><s:text name="customer"
-                                                                                                    placeholder="Customer Id"/>
+                                        <span class="add-on"><i class="icon-tag"></i></span><s:text name="customer"  placeholder="Customer id"/>
 
-                                       todo// affiliate ka drop down
+                                       <%--todo affiliate ka drop down--%>
                                     </div>
 
                                     <s:hidden name="commissionEarningStatusId" id="commissionEarningStatus"/>
@@ -103,7 +102,7 @@
                                             <td>${commissionEarning.directCommission}</td>
                                             <td>${commissionEarning.eventTracking.customerId}</td>
                                             <td>${commissionEarning.earningDate}</td>
-                                            <td>${commissionEarning.actedBy}</td>
+                                            <td>${commissionEarning.actedBy.username}</td>
                                             <td>${commissionEarning.actedOn}</td>
                                             <td>
                                                 <div class="btn-group">
@@ -112,6 +111,12 @@
                                                             title="Edit">
                                                         <i class="icon-edit"></i>View event details
                                                         <s:param name="campaignId" value="${campaign.id}"/>
+                                                    </s:link>
+                                                     <s:link beanclass="com.ds.action.commission.CommissionEarningSearchAction"
+                                                            event="markAsApproved" class="btn tip-bottom"
+                                                            title="Approve Commission">
+                                                        <i class="icon-edit"></i>Approve
+                                                        <s:param name="commissionEarningId" value="${commissionEarning.id}"/>
                                                     </s:link>
                                                         <%-- <s:link beanclass="com.ds.action.employee.UserAction"
                                                                 event="createOrEditUser" title="Edit">

@@ -34,7 +34,7 @@ public class CommissionEarningSearchAction extends BasePaginatedAction {
     private Long affiliateId;
     private Date startDate, endDate;
 
-    private Long commissionEarningStatusId;
+    private Long commissionEarningStatusId, commissionEarningId;
     private String companyShortName, customer;
 
 
@@ -48,7 +48,6 @@ public class CommissionEarningSearchAction extends BasePaginatedAction {
 
     @DefaultHandler
     public Resolution pre() {
-
         return searchCommissionEarnings();
     }
 
@@ -71,6 +70,22 @@ public class CommissionEarningSearchAction extends BasePaginatedAction {
 
         return new ForwardResolution("/pages/commission/commissionEarning.jsp");
 
+    }
+
+
+    public Resolution markAsApproved() {
+        getCommissionEarningService().changeCommissionEarningStatus(commissionEarningId, EnumCommissionEarningStatus.APPROVED.getId());
+        return searchCommissionEarnings();
+    }
+
+    public Resolution markAsRejected() {
+        getCommissionEarningService().changeCommissionEarningStatus(commissionEarningId, EnumCommissionEarningStatus.REJECTED.getId());
+        return searchCommissionEarnings();
+    }
+
+     public Resolution markAsPaid() {
+        getCommissionEarningService().changeCommissionEarningStatus(commissionEarningId, EnumCommissionEarningStatus.PAID.getId());
+        return searchCommissionEarnings();
     }
 
     @Override
@@ -154,5 +169,13 @@ public class CommissionEarningSearchAction extends BasePaginatedAction {
 
     public void setCustomer(String customer) {
         this.customer = customer;
+    }
+
+    public Long getCommissionEarningId() {
+        return commissionEarningId;
+    }
+
+    public void setCommissionEarningId(Long commissionEarningId) {
+        this.commissionEarningId = commissionEarningId;
     }
 }

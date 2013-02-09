@@ -19,7 +19,8 @@ public enum EnumCommissionEarningStatus {
 
     PENDING_APPROVAL(10L, "Pending For Approval"),
     APPROVED(50L, "Approved"),
-    REJECTED(100L, "Rejected");
+    PAID(100L, "Paid"),
+    REJECTED(999L, "Rejected");
 
     private java.lang.String status;
 
