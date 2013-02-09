@@ -19,61 +19,74 @@ import org.springframework.stereotype.Component;
 @Component
 public class CompanyAction extends BaseAction {
 
-  private CompanyRegistrationDTO companyDTO;
-  private String companyShortName;
+    private CompanyRegistrationDTO companyDTO;
+    private String companyShortName;
+    private Long imageId;
 
-  @Autowired
-  private AdminService adminService;
+    @Autowired
+    private AdminService adminService;
 
-  @DontValidate
-  @DefaultHandler
-  public Resolution pre() {
-    User loggedInUser = SecurityHelper.getLoggedInUser();
-    companyShortName = loggedInUser.getCompanyShortName();
-    companyDTO = new CompanyRegistrationDTO();
-    Company company = getAdminService().getCompany(companyShortName);
+    @DontValidate
+    @DefaultHandler
+    public Resolution pre() {
+        User loggedInUser = SecurityHelper.getLoggedInUser();
+        companyShortName = loggedInUser.getCompanyShortName();
+        companyDTO = new CompanyRegistrationDTO();
+        Company company = getAdminService().getCompany(companyShortName);
 
-    companyDTO.bindCompany(company);
+        if(company.getLogo() !=null){
+            imageId = company.getLogo().getId();
+        }
 
-    return new ForwardResolution("/pages/company/companyDetails.jsp");
-  }
+        companyDTO.bindCompany(company);
 
-
-  public Resolution updateCompany() {
-
-
-    Company company = companyDTO.extractCompany();
-    Company compToUpdate = getAdminService().getCompany(companyShortName);
-
-    if (compToUpdate != null) {
-      compToUpdate.syncWith(company);
-      getAdminService().updateEntity(compToUpdate);
-
-      //return new JSONResponse().addField("message", "Company Updated Successfully").build();
+        return new ForwardResolution("/pages/company/companyDetails.jsp");
     }
 
-    //return new JSONResponse().addField("message", "Company Does not Exist").build();
 
-    return new ForwardResolution("/pages/company/companyDetails.jsp");
-  }
+    public Resolution updateCompany() {
 
-  public CompanyRegistrationDTO getCompanyDTO() {
-    return companyDTO;
-  }
 
-  public void setCompanyDTO(CompanyRegistrationDTO companyDTO) {
-    this.companyDTO = companyDTO;
-  }
+        Company company = companyDTO.extractCompany();
+        Company compToUpdate = getAdminService().getCompany(companyShortName);
 
-  public String getCompanyShortName() {
-    return companyShortName;
-  }
+        if (compToUpdate != null) {
+            compToUpdate.syncWith(company);
+            getAdminService().updateEntity(compToUpdate);
 
-  public void setCompanyShortName(String companyShortName) {
-    this.companyShortName = companyShortName;
-  }
+            //return new JSONResponse().addField("message", "Company Updated Successfully").build();
+        }
 
-  public AdminService getAdminService() {
-    return adminService;
-  }
+        //return new JSONResponse().addField("message", "Company Does not Exist").build();
+
+        return new ForwardResolution("/pages/company/companyDetails.jsp");
+    }
+
+    public CompanyRegistrationDTO getCompanyDTO() {
+        return companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyRegistrationDTO companyDTO) {
+        this.companyDTO = companyDTO;
+    }
+
+    public String getCompanyShortName() {
+        return companyShortName;
+    }
+
+    public void setCompanyShortName(String companyShortName) {
+        this.companyShortName = companyShortName;
+    }
+
+    public AdminService getAdminService() {
+        return adminService;
+    }
+
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
 }
