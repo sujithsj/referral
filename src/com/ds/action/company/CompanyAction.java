@@ -6,6 +6,7 @@ import com.ds.dto.company.CompanyRegistrationDTO;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BaseAction;
+import com.ds.api.CacheAPI;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.Resolution;
@@ -25,6 +26,9 @@ public class CompanyAction extends BaseAction {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private CacheAPI cacheAPI;
 
     @DontValidate
     @DefaultHandler
@@ -52,14 +56,15 @@ public class CompanyAction extends BaseAction {
 
         if (compToUpdate != null) {
             compToUpdate.syncWith(company);
-            getAdminService().updateEntity(compToUpdate);
+            getAdminService().updateCompany(compToUpdate);
+            
 
             //return new JSONResponse().addField("message", "Company Updated Successfully").build();
         }
 
         //return new JSONResponse().addField("message", "Company Does not Exist").build();
 
-        return new ForwardResolution("/pages/company/companyDetails.jsp");
+        return pre();
     }
 
     public CompanyRegistrationDTO getCompanyDTO() {
@@ -89,4 +94,10 @@ public class CompanyAction extends BaseAction {
     public void setImageId(Long imageId) {
         this.imageId = imageId;
     }
+
+    public CacheAPI getCacheAPI() {
+        return cacheAPI;
+    }
+
+   
 }

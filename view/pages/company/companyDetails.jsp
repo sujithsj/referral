@@ -18,7 +18,7 @@
                              headerLabel="Company Settings"/>
 
 
-            <s:form beanclass="com.ds.action.company.CompanyAction" class="form-horizontal" id="mmCrudForm">
+            <s:form beanclass="com.ds.action.company.CompanyAction" class="form-horizontal" id="companyProfileForm">
                 <div class="container-fluid">
 
                     <div class="row-fluid">
@@ -94,8 +94,10 @@
                     </div>
                 </div>
             </s:form>
-            <c:if test="${companyAction.imageId !=null}">
-                <div class="container-fluid" id="imageContainer" style="display:none">
+            
+            <c:if test="${companyAction.imageId eq null}">
+                
+                <div class="container-fluid" id="imageContainer" >
                     <div class="row-fluid">
                         <div class="span5">
                             <div class="widget-box">
@@ -111,13 +113,13 @@
                                     <div class="widget-content">
                                         <form action="/fileUpload" multipart="1" method="post"
                                               enctype="multipart/form-data"
-                                              id="mmImageUploadForm">
+                                              id="companyLogoUploadForm">
                                             <input type="file" name="file" class="formelement" style="width: 312px;"
                                                    id="marketing_tool_banner">
                                             <input type="hidden" name="fileManageType"
                                                    value="<%=FileManageType.COMPANY_LOGO%>">
                                             <input type="hidden" name="identifier"
-                                                   value="${companyAction.imageId}">
+                                                   value="${companyAction.companyShortName}">
                                             <input type="submit" value="&nbsp;Upload" class="btn btn-success"><i
                                                 class="icon-hand-left icon-white"></i></input>
                                         </form>
@@ -138,7 +140,7 @@
 
 
         <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.validate.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/marketing/mmCrud.js"></script>
+        <%--<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/marketing/mmCrud.js"></script>--%>
         <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/select2.min.js"></script>
         <script type="text/javascript"
                 src="${pageContext.request.contextPath}/assets/js/unicorn.form_validation.js"></script>
