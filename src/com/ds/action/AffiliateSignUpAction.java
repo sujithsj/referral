@@ -1,14 +1,10 @@
-package com.ds.action.aff;
+package com.ds.action;
 
-import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
-import com.ds.dto.affiliate.AffiliateSignupResponse;
 import com.ds.exception.CompositeValidationException;
 import com.ds.exception.ValidationConstants;
 import com.ds.exception.ValidationException;
-import com.ds.exception.FeatureNotAccessibleException;
 import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.utils.BaseUtils;
@@ -58,6 +54,9 @@ public class AffiliateSignUpAction extends BaseAction {
 		if (StringUtils.isBlank(affiliateDTO.getPassword())) {
 			getContext().getValidationErrors().add("passwordMandatory", new LocalizableError("/Signup.action.PasswordMandatory"));
 		}
+		if (StringUtils.isBlank(companyAffiliateDTO.getCompanyShortName())) {
+			getContext().getValidationErrors().add("companayNameMandatory", new LocalizableError("/Signup.action.CompanayNameMandatory"));
+		}
 
 	}
 
@@ -69,13 +68,14 @@ public class AffiliateSignUpAction extends BaseAction {
 		//TODO: create affiliate (check if email already there then only need to create compnay affiliate)
 		try {
 
-            getAffiliateService().signupAffiliate(affiliateDTO,affiliateLocaleContext.getCompanyShortName(),false );
 
-            
+			getAffiliateService().signupAffiliate(affiliateDTO, companyAffiliateDTO.getCompanyShortName(), false);
+
+
 			/*Affiliate affiliate = getAffiliateService().createAffiliate(affiliateDTO);
 
-			CompanyAffiliate companyAffiliate = getCompanyAffiliateService().createCompanyAffiliate(affiliate, affiliateLocaleContext.getCompanyShortName());
-*/
+				 CompanyAffiliate companyAffiliate = getCompanyAffiliateService().createCompanyAffiliate(affiliate, affiliateLocaleContext.getCompanyShortName());
+	 */
 		} catch (CompositeValidationException cve) {
 			List<ValidationException> validationExceptions = cve.getValidationExceptions();
 			for (ValidationException validationException : validationExceptions) {

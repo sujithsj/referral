@@ -1,3 +1,4 @@
+/*
 package com.ds.action.aff;
 
 import com.ds.domain.affiliate.Affiliate;
@@ -5,6 +6,8 @@ import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.security.aff.AffAuthentication;
 import com.ds.security.aff.AffUsernamePasswordAuthenticationToken;
 import com.ds.web.action.BaseAction;
+import com.ds.action.aff.AffAuthenticationException;
+import com.ds.action.aff.AffNotFoundException;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+*/
 /**
  * Created by IntelliJ IDEA.
  * User: Rahul
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Component;
  * Time: 9:49:42 AM
  * To change this template use File | Settings | File Templates.
  */
+/*
 @Component
 public class AffiliateLoginAction extends BaseAction {
 
@@ -89,11 +94,13 @@ public class AffiliateLoginAction extends BaseAction {
       }
 
       String encodedPassword = getMessageDigestPasswordEncoder().encodePassword(password, affiliate.getLogin());
-     /* if (encodedPassword.equals(affiliate.getPasswordChecksum())) {
+     */
+/* if (encodedPassword.equals(affiliate.getPasswordChecksum())) {
         authentication = new AffUsernamePasswordAuthenticationToken(login, password);
       } else {
         throw new AffAuthenticationException("INVALID_AFF_CREDENTIAL",(String) authentication.getCredentials());
       }*/
+/*
       return authentication;
     } else {
       // throw some authentication exception here.
@@ -128,3 +135,4 @@ public class AffiliateLoginAction extends BaseAction {
     return messageDigestPasswordEncoder;
   }
 }
+*/
