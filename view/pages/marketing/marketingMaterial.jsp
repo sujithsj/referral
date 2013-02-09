@@ -17,7 +17,7 @@
         <a href="#" class="current">Ads</a>
     </div>
 
-    <c:set var="referalAdType" value="<%=EnumMarketingMaterialType.TextAd.getId()%>"/>
+    <c:set var="referalAdType" value="<%=EnumMarketingMaterialType.ReferalAd.getId()%>"/>
 
     <div class="container-fluid">
         <div class="row-fluid">

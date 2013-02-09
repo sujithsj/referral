@@ -34,6 +34,7 @@ import com.ds.security.api.SecurityAPI;
 import com.ds.web.action.Page;
 import com.ds.constants.AppConstants;
 import com.ds.constants.FeatureType;
+import com.ds.constants.EnumCompanyAffiliateSource;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,6 +143,10 @@ public class AffiliateServiceImpl implements AffiliateService {
                 companyAffiliate = new CompanyAffiliate();
                 companyAffiliate.setAffiliate(affiliate);
                 companyAffiliate.setCompanyShortName(companyShortName);
+
+                if(isAutoCreate){
+                    companyAffiliate.setSource(EnumCompanyAffiliateSource.REFERAL.getId());
+                }
 
                 CompanyAffiliateInvite companyAffiliateInvite = getCompanyAffiliateService().getCompanayAffiliateInvite(companyShortName, affiliateLogin);
 

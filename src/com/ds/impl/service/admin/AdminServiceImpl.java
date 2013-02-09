@@ -377,6 +377,12 @@ public class AdminServiceImpl implements AdminService {
         return company;
     }
 
+    @Override
+    public void updateCompany(Company company) {
+        updateEntity(company);
+        getCacheAPI().remove(CacheAPI.CacheConfig.COMPANY_CACHE, company.getShortName());
+    }
+
     /**
      * @return the adminDAO
      */

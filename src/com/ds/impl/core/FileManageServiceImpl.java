@@ -64,7 +64,7 @@ public class FileManageServiceImpl implements FileManageService {
     Company company = getAdminService().getCompany(companyShortName);
     FileAttachment logo = getFileAttachmentService().loadFileAttachment(fileAttachmentId);
     company.setLogo(logo);
-    getAdminService().updateEntity(company);
+    getAdminService().updateCompany(company);
     return company;
   }
 

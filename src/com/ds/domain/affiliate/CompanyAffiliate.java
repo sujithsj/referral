@@ -38,6 +38,9 @@ public class CompanyAffiliate extends BaseDataObject {
     @JoinColumn(name = "PARENT_COMPANY_AFFILIATE_ID", nullable = true)
     private CompanyAffiliate parentCompanyAffiliate;
 
+    @Column(name = "SOURCE")
+    private long source;
+
     public Long getId() {
         return this.id;
     }
@@ -80,6 +83,14 @@ public class CompanyAffiliate extends BaseDataObject {
 
     public void setParentCompanyAffiliate(CompanyAffiliate parentCompanyAffiliate) {
         this.parentCompanyAffiliate = parentCompanyAffiliate;
+    }
+
+    public long getSource() {
+        return source;
+    }
+
+    public void setSource(long source) {
+        this.source = source;
     }
 }
 
