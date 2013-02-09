@@ -17,6 +17,7 @@
         <a href="#" class="current">Dashboard</a>
     </div>
 
+    <s:useActionBean beanclass="com.ds.action.company.CompanyDashboardAction" var="companyDashboardAction"/>
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span12 center" style="text-align: center;">
@@ -111,8 +112,8 @@
                         <div class="row-fluid">
                             <div class="span3">
                                 <ul class="site-stats">
-                                    <li><i class="icon-user"></i> <strong>1433</strong>
-                                        <small>Total Users</small>
+                                    <li><i class="icon-user"></i> <strong>${companyDashboardAction.totalReferrers}</strong>
+                                        <small>Total Referrers</small>
                                     </li>
                                     <li><i class="icon-arrow-right"></i> <strong>16</strong>
                                         <small>New Users (last week)</small>

@@ -22,7 +22,7 @@
   <div id="sidebar">
       <%--<a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard kk</a>--%>
     <ul>
-      <li><a href="/pages/company/dashboard.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+      <li><a href="${pageContext.request.contextPath}/company/CompanyDashboard.action"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
       <li>
         <a href="${pageContext.request.contextPath}/employee/UserSearch.action"><i class="icon icon-user"></i> <span>Users</span></a>
       </li>

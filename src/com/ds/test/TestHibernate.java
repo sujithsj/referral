@@ -4,9 +4,11 @@ package com.ds.test;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.SQLQuery;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import java.util.List;
+import java.math.BigInteger;
 
 /**
  * @author adlakha.vaibhav
@@ -41,8 +43,14 @@ public class TestHibernate {
 Query query = session.createQuery("select it from ImpressionTracking it " +
           "where it.id = 1 " );
 
-      
 
+        SQLQuery sqlQuery = session.createSQLQuery("select count(*) from company_affiliate where COMPANY_SHORTNAME = 'hk'");
+
+        List sqlQueryResult = sqlQuery.list();
+
+        
+        Integer x = ((BigInteger)sqlQueryResult.get(0)).intValue();
+        System.out.println(x);
       //query.setParameter("allowedPos", "IN");
       //query.setParameter("destination", "BOM");
 
