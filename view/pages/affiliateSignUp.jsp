@@ -8,13 +8,16 @@
 		<p style="color:white;text-align:center;font-size:medium;">
 			Affiliate Sign Up
 		</p>
-		<s:useActionBean beanclass="com.ds.action.aff.AffiliateSignUpAction" var="affiliateSignUpAction"/>
+		<s:useActionBean beanclass="com.ds.action.AffiliateSignUpAction" var="affiliateSignUpAction"/>
 		<%
 			String email = request.getParameter("email");
 			pageContext.setAttribute("email", email);
+
+			String csn = request.getParameter("csn");
+			pageContext.setAttribute("csn", csn);
 		%>
 		<div id="loginbox" style="height:230px;">
-		<s:form id="loginform" beanclass="com.ds.action.aff.AffiliateSignUpAction" class="form-vertical">
+		<s:form id="loginform" beanclass="com.ds.action.AffiliateSignUpAction" class="form-vertical">
 			<br/>
 
 			<div class="control-group">
@@ -46,12 +49,12 @@
 				<div class="controls ">
 					<div class="input-prepend">
 						<span class="add-on"><i class="icon-tag"></i></span>
-						<s:password name="affiliateDTO.passwordChecksum" placeholder="Password" class="required"/>
+						<s:password name="affiliateDTO.password" placeholder="Password" class="required"/>
 					</div>
 				</div>
 			</div>
 			<s:hidden name="companyAffiliateDTO.companyShortName"
-			          value="${affiliateSignUpAction.affiliateLocaleContext.companyShortName}"/>
+			          value="${csn}"/>
 			<div class="control-group">
 				<div class="controls ">
 					<s:submit name="registerAffiliate" value="Create Affiliate" class="btn btn-success"/>
@@ -62,6 +65,7 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.validate.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/signup/signup.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/select2.min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/unicorn.form_validation.js"></script>
+		<script type="text/javascript"
+		        src="${pageContext.request.contextPath}/assets/js/unicorn.form_validation.js"></script>
 	</s:layout-component>
 </s:layout-render>
