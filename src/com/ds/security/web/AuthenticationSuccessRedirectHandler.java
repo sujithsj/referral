@@ -3,6 +3,7 @@ package com.ds.security.web;
 
 import com.ds.security.helper.SecurityHelper;
 import com.ds.utils.GeneralUtils;
+import com.ds.domain.user.User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.util.StringUtils;
 import org.springframework.stereotype.Component;
@@ -41,6 +42,13 @@ public class AuthenticationSuccessRedirectHandler extends SimpleUrlAuthenticatio
 
       return targetUrl;
     }
+	  User loggedInUser = SecurityHelper.getLoggedInUser();
+	  for (String roleName : loggedInUser.getRoleNames()) {
+		  if(roleName.equals("affiliate")){
+			  targetUrl = "/aff/AffiliateDashboard.action";
+			  return targetUrl;
+		  }
+	  }
 
     if (useReferer && !StringUtils.hasLength(targetUrl)) {
       targetUrl = request.getHeader("Referer");

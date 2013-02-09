@@ -48,7 +48,11 @@ public class AcegiUserDetailsServiceImpl implements AcegiUserDetailsService {
             // Test implementation
 
             for (String roleName : user.getRoleNames()) {
-                authorities.add(new GrantedAuthorityImpl(roleName));
+	            if (roleName.equals("affiliate")) {
+		            authorities.add(new GrantedAuthorityImpl("ROLE_AFFILIATE"));
+	            } else {
+		            authorities.add(new GrantedAuthorityImpl(roleName));
+	            }
             }
 
             for (String permission : getSecurityAPI().getPermissionsGrantedToUser(user)) {

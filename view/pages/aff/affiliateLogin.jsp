@@ -1,8 +1,9 @@
+<%--
 <%@include file="/includes/taglibInclude.jsp" %>
 
 <s:layout-render name="/templates/general.jsp">
 
-	<%--<s:layout-component name="heading">Split Base Order Manually</s:layout-component>--%>
+
 	<s:layout-component name="content">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.login.css" type="text/css"/>
 
@@ -37,16 +38,15 @@
 					</div>
 				</div>
 				<div class="form-actions">
-					<span class="pull-left"><a href="#" class="flip-link" id="to-recover">Lost password?</a></span>
+					<span class="pull-left"><a href="affiliateLogin.jsp#" class="flip-link" id="to-recover">Lost password?</a></span>
 		      <span class="pull-right"><s:submit name="loginAffiliate" class="btn btn-inverse" value="Login"/>
-			    <c:url value="/pages/aff/affiliateSignUp.jsp" var="signUpUrl">
+			    <c:url value="/pages/affiliateSignUp.jsp" var="signUpUrl">
 						<c:param name="email" value="${email}"/>
 					</c:url>
 					<a href="${signUpUrl}" class="btn btn-success">Sign Up</a>
-				</div>
-				<%--</form>--%>
+				</div>				
 			</s:form>
-			<form id="recoverform" action="#" class="form-vertical">
+			<form id="recoverform" action="affiliateLogin.jsp#" class="form-vertical">
 				<p>Enter your e-mail address below and we will send you instructions how to recover a password.</p>
 
 				<div class="control-group">
@@ -57,7 +57,7 @@
 					</div>
 				</div>
 				<div class="form-actions">
-					<span class="pull-left"><a href="#" class="flip-link" id="to-login">&lt; Back to login</a></span>
+					<span class="pull-left"><a href="affiliateLogin.jsp#" class="flip-link" id="to-login">&lt; Back to login</a></span>
 					<span class="pull-right"><input type="submit" class="btn btn-inverse" value="Recover"/></span>
 				</div>
 			</form>
@@ -66,3 +66,4 @@
 
 	</s:layout-component>
 </s:layout-render>
+--%>
