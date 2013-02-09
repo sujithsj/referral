@@ -24,7 +24,7 @@
       </li>
       <li class="btn btn-inverse"><a title="" href="${pageContext.request.contextPath}/company/Company.action"><i
           class="icon icon-cog"></i> <span
-          class="text">Settings</span></a></li>
+          class="text">Company Profile</span></a></li>
       <li class="btn btn-inverse"><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span
           class="text">Logout</span></a></li>
     </ul>

@@ -66,7 +66,7 @@
       <li class="submenu">
         <a href="#"><i class="icon icon-wrench"></i> <span>Settings</span> <%--<span class="label">4</span>--%></a>
         <ul>
-          <li><a href="invoice.html">Company Settings</a></li>
+          <li><a href="${pageContext.request.contextPath}/company/Company.action">Company Profile</a></li>
           <li><a href="chat.html">Email Settings</a></li>
           <li><a href="calendar.html">Invoice Settings</a></li>
           <li><a href="gallery.html">Tracking Settings</a></li>
