@@ -1,6 +1,9 @@
 package com.ds.pact.service.dashboard;
 
+import com.ds.dto.dashboard.AffiliateByCommissionDto;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,6 +22,9 @@ public interface CompanyDashboardService {
 
     public long getTotalRevenueTrackedForCompany(String companyShortName);
 
-    public long getTotalCommissionTrackedForCompany(String companyShortName);
+    public long getPaidCommissionTrackedForCompany(String companyShortName);
+
+
+    public List<AffiliateByCommissionDto> getTopTenAffiliateByCommission(String companyShortName, Date startDate, Date endDate);
 
 }

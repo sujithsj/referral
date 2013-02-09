@@ -114,12 +114,24 @@
                         <a href="#collapseTTAffByClick" data-toggle="collapse">
                             <span class="icon"><i class="icon-signal"></i></span><h5>Top Ten Affiliate By Clicks</h5>
                         </a>
+
                             <%--<div class="buttons"><a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>
                             </div>--%>
                     </div>
                     <div class="collapse in" id="collapseTTAffByClick">
                         <div class="widget-content ">
-                            <div class="ttAffByCommPie"></div>
+                            <div id="topTenAffiliateByClickPieChart"
+                                 style="width: 450px; height: 300px; ">
+                                <div id="control1"></div>
+                                <div id="control2"></div>
+                                <div id="chart1"></div>
+                            </div>
+                                <%--<div id="topTenAffiliateByCommissionPieChart"
+                                     style="width: 300px;  float:right;">
+                                    <div id="control3"></div>
+                                    <div id="control4"></div>
+                                    <div id="chart2"></div>
+                                </div>--%>
                         </div>
                     </div>
                 </div>
@@ -130,6 +142,9 @@
                         <a href="#collapseTTAffByRevenue" data-toggle="collapse">
                             <span class="icon"><i class="icon-signal"></i></span><h5>Pie</h5>
                         </a>
+
+                            <%--<div class="buttons"><a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>
+                            </div>--%>
                     </div>
                     <div class="collapse in" id="collapseTTAffByRevenue">
                         <div class="widget-content ">
@@ -185,7 +200,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/date.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/daterangepicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.pie.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/company/dashboard/companyDashboard.js"></script>
 
 <script type="text/javascript">
     var data = [];

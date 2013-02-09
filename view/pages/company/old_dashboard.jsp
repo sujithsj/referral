@@ -255,6 +255,86 @@
 
 
 
+<script type="text/javascript">
+
+    google.load('visualization', '1.0', {'packages':['controls']});
+
+    google.setOnLoadCallback(drawPieChart);
+
+    function drawPieChart() {
+        var query = new google.visualization.Query("/datasource?dsName=ttAffByClick&companyShortName=" + 'hk' + "&startDate=2012-12-01&endDate=2012-12-31");
+        query.send(drawTopTenAffByClickChart);
+    }
+    var drawTopTenAffByClickChart = function(response) {
+
+        if (response.isError()) {
+            alert("Error in query: " + response.getMessage() + " " + response.getDetailedMessage());
+            return;
+        }
+
+        var data = response.getDataTable();
+
+
+        // Define a slider control for the Age column.
+        var slider = new google.visualization.ControlWrapper({
+            'controlType': 'NumberRangeFilter',
+            'containerId': 'control1',
+            'options': {
+                'filterColumnLabel': 'Clicks',
+                'ui': {'labelStacking': 'vertical', orientation:'horizontal'}
+
+            }
+        });
+
+        slider.setState({'lowValue': 26});
+
+
+        // Define a category picker control for the Gender column
+        /*   var categoryPicker = new google.visualization.ControlWrapper({
+         'controlType': 'CategoryFilter',
+         'containerId': 'control2',
+         'options': {
+         'filterColumnLabel': 'Affiliate Type',
+         filterColumnIndex : 1,
+         'ui': {
+         'labelStacking': 'vertical',
+         'allowTyping': false,
+         'allowMultiple': false
+         }
+         }
+         });
+         */
+
+        // Define a Pie chart
+        var pie = new google.visualization.ChartWrapper({
+            'chartType': 'PieChart',
+            'containerId': 'chart1',
+            'options': {
+                'width': 500,
+                'height': 250,
+                /*'chartArea': {'left': 15, 'top': 15, 'right': 0, 'bottom': 0},*/
+                'pieSliceText': 'label',
+                'legend': 'right',
+                'backgroundColor': '#F9F9F9',
+                'is3D':true
+            },
+            // Instruct the piechart to use colums 0 (Name) and 3 (Clicks)
+
+            'view': {'columns': [0, 2]}
+        });
+
+
+        // Create a dashboard
+        new google.visualization.Dashboard(document.getElementById('topTenAffiliateByClickPieChart')).
+            // Establish bindings, declaring the both the slider and the category
+            // picker will drive both charts.
+                bind([slider], [pie]).draw(data);
+        // Draw the entire dashboard.
+
+    };
+
+</script>
+
 </s:layout-component>
 
 </s:layout-render>

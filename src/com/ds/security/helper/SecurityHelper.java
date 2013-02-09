@@ -9,19 +9,29 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class SecurityHelper {
 
-  public static User getLoggedInUser() {
+    public static User getLoggedInUser() {
         User user = null;
         try {
-          /*UserService userService = (UserService) ServiceLocatorFactory.getService(UserService.class);
+            /*UserService userService = (UserService) ServiceLocatorFactory.getService(UserService.class);
           user = (User)userService.getUser("abc");*/
-          //TODO: remove this hardcoding
-          user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        } catch (ClassCastException cce) {      
+            //TODO: remove this hardcoding
+            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (ClassCastException cce) {
             return null;
         } catch (NullPointerException npe) {
             return null;
         }
         return user;
+    }
+
+    public static String getCompanyShortNameForLoggedInUser() {
+        User user = getLoggedInUser();
+        if (user != null) {
+            return user.getCompanyShortName();
+        }
+
+        return null;
+
     }
 
     public static User getLoggedInUserOrAnonymousUser() {
@@ -76,7 +86,7 @@ public class SecurityHelper {
     public static boolean isLoggedInUserStoreEmployee() {
         User user = getLoggedInUser();
         if (user != null) {
-           /* if (!StringUtils.isEmpty(user.getCompanyShortName())) {
+            /* if (!StringUtils.isEmpty(user.getCompanyShortName())) {
                 Company company = ServiceLocatorFactory.getService(AdminService.class).getCompany(user.getCompanyShortName());
                 return !company.isVendor();
             }*/
@@ -84,12 +94,12 @@ public class SecurityHelper {
         return false;
     }
 
-	//todo might have to handle this via spring security, doing the basic stuff for now.
-	public static void logoutUser() {
-		SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
-		SecurityContextHolder.getContext().setAuthentication(null);
-		SecurityContextHolder.clearContext();
+    //todo might have to handle this via spring security, doing the basic stuff for now.
+    public static void logoutUser() {
+        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.clearContext();
 
-	}
+    }
 
 }
