@@ -103,6 +103,12 @@
                            <i class="icon-edit"></i>
                             <s:param name="campaignId" value="${campaign.id}"/>
                           </s:link>
+                          <s:link beanclass="com.ds.action.campaign.CampaignIntegrateAction"
+                                  event="integrate" class="btn tip-bottom" title="Integrate">
+                           <i class="icon-edit"></i>
+                            <s:param name="campaignId" value="${campaign.id}"/>
+                          </s:link>
+
                          <%-- <s:link beanclass="com.ds.action.employee.UserAction"
                                   event="createOrEditUser" title="Edit">
                             <i class="icon-edit"></i>
