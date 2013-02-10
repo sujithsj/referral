@@ -61,7 +61,7 @@ function drawTopTenAffByCommissionPie() {
             data[index] = {label: value.affiliateLogin, data:value.commission };
         });
 
-        var pie = $.plot($(".pie"), data, {
+        var pie = $.plot($("#ttAffByCommission"), data, {
             series: {
                 pie: {
                     show: true,

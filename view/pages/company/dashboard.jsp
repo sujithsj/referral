@@ -119,7 +119,7 @@
                     </div>
                     <div class="collapse in" id="collapseTTAffByClick">
                         <div class="widget-content ">
-                            <div class="ttAffByCommPie"></div>
+                            <div class="pie" id="ttAffByCommission" ></div>
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="collapse in" id="collapseTTAffByRevenue">
                         <div class="widget-content ">
-                            <div class="pie"></div>
+                            <div class="pie" id="ttAffByRevenue" ></div>
                         </div>
                     </div>
                 </div>
