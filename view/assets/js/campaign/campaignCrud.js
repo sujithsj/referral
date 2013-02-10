@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 
     $("#form-wizard").get(0).setAttribute('action', "/campaign/Campaign.action?saveCampaign");
-    
+
     $("#commStSel").change(function() {
         var type = $(this).attr('value');
         setCommissionViews(type);
@@ -181,4 +181,17 @@ $(document).ready(function() {
     $("#tier3RecurCommDiv").hide();
     $("#tier3OneTimeRevShareDiv").hide();
     $("#tier3OneTimeCommDiv").hide();
+
+
+    $('#campaignRange').daterangepicker({}, function(start, end) {
+
+        $(this).val(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+
+        $("#startDate").val(start.toString('MMMM dd yyyy'));
+        $("#endDate").val(end.toString('MMMM dd yyyy'));
+
+
+    });
+
+
 });

@@ -24,46 +24,49 @@ import org.springframework.stereotype.Component;
 @Component
 public class MarketingMaterialServeEventListener implements EventListener {
 
-  private Logger logger = LoggerFactory.getLogger(MarketingMaterialServeEventListener.class);
-  
-  @Autowired
-  private BaseDao baseDao;
+    private Logger logger = LoggerFactory.getLogger(MarketingMaterialServeEventListener.class);
 
-  @Override
-  public void handleEvent(Event event) {
-    ClickTracking clickTracking = new ClickTracking();
-    try {
+    @Autowired
+    private BaseDao baseDao;
 
-      MarketingMaterialServeEvent mmServeEvent = (MarketingMaterialServeEvent) event;
-      MarketingMaterialContext mmContext = mmServeEvent.getMarketingMaterialContext();
+    @Override
+    public void handleEvent(Event event) {
+        ClickTracking clickTracking = new ClickTracking();
+        try {
 
-
-      MarketingMaterial marketingMaterial = getBaseDao().load(MarketingMaterial.class, mmContext.getMarketingMaterialId());
-      Affiliate affiliate = getBaseDao().load(Affiliate.class, mmContext.getAffiliateId());
-      MarketingMaterialType mmType = getBaseDao().load(MarketingMaterialType.class, mmServeEvent.getMarketingMaterialTypeId());
-      VisitorInfo visitorInfo = getBaseDao().load(VisitorInfo.class, mmContext.getVisitorInfoId());
-      //TODO: Load campaign from marketing Material
-      Campaign campaign = getBaseDao().get(Campaign.class, 2L);
+            MarketingMaterialServeEvent mmServeEvent = (MarketingMaterialServeEvent) event;
+            MarketingMaterialContext mmContext = mmServeEvent.getMarketingMaterialContext();
 
 
-      clickTracking.setMarketingMaterial(marketingMaterial);
-      clickTracking.setAffiliate(affiliate);
-      clickTracking.setMarketingMaterialType(mmType);
-      clickTracking.setVisitorInfo(visitorInfo);
-      clickTracking.setCampaign(campaign);
-      clickTracking.setCompanyShortName(marketingMaterial.getCompanyShortName());
+            MarketingMaterial marketingMaterial = getBaseDao().load(MarketingMaterial.class, mmContext.getMarketingMaterialId());
+            Affiliate affiliate = getBaseDao().load(Affiliate.class, mmContext.getAffiliateId());
+            MarketingMaterialType mmType = getBaseDao().load(MarketingMaterialType.class, mmServeEvent.getMarketingMaterialTypeId());
+            VisitorInfo visitorInfo = getBaseDao().load(VisitorInfo.class, mmContext.getVisitorInfoId());
 
-      getBaseDao().save(clickTracking);
 
-    } catch (Throwable t) {
-      logger.error("Unable to save click tracking" + clickTracking, t);
-      throw  new DSException("UNABLE_TO_SAVE_CLICK_TRACKING");
+            
+            //Campaign campaign = getBaseDao().get(Campaign.class, 2L);
+
+            Campaign campaign = marketingMaterial.getCampaign();
+
+            clickTracking.setMarketingMaterial(marketingMaterial);
+            clickTracking.setAffiliate(affiliate);
+            clickTracking.setMarketingMaterialType(mmType);
+            clickTracking.setVisitorInfo(visitorInfo);
+            clickTracking.setCampaign(campaign);
+            clickTracking.setCompanyShortName(marketingMaterial.getCompanyShortName());
+
+            getBaseDao().save(clickTracking);
+
+        } catch (Throwable t) {
+            logger.error("Unable to save click tracking" + clickTracking, t);
+            throw new DSException("UNABLE_TO_SAVE_CLICK_TRACKING");
+        }
+
+
     }
 
-
-  }
-
-  public BaseDao getBaseDao() {
-    return baseDao;
-  }
+    public BaseDao getBaseDao() {
+        return baseDao;
+    }
 }

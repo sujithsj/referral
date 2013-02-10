@@ -51,11 +51,13 @@ public class MarketingMaterialSaleEventListener implements EventListener {
             Affiliate affiliate = getBaseDao().load(Affiliate.class, mmContext.getAffiliateId());
             MarketingMaterialType mmType = getBaseDao().load(MarketingMaterialType.class, mmSaleEvent.getMarketingMaterialTypeId());
             VisitorInfo visitorInfo = getBaseDao().load(VisitorInfo.class, mmContext.getVisitorInfoId());
-            //TODO: Load campaign from marketing Material
+            
 
-            Long campaignId = 2L;
-            Campaign campaign = getBaseDao().get(Campaign.class, campaignId);
+            //Long campaignId = 2L;
+            //Long campaignId = marketingMaterial.getCampaign().getId();
+            //Campaign campaign = getBaseDao().get(Campaign.class, campaignId);
 
+            Campaign campaign = marketingMaterial.getCampaign();
 
             eventTracking.setRevenue(mmSaleEvent.getRevenue());
             eventTracking.setCustomerId(mmSaleEvent.getCustomerId());
