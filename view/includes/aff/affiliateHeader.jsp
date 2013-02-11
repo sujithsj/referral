@@ -1,6 +1,6 @@
 <%@include file="/includes/taglibInclude.jsp" %>
 
-
+<s:useActionBean beanclass="com.ds.action.aff.AffiliateDashboardAction" var="affiliateDashboardAction"  />
 <s:layout-definition>
 
 	<div id="header">
@@ -17,7 +17,7 @@
 					<i class="icon icon-envelope"></i>
 					<span class="text">Notification</span>
 					<%--todo rahul: get the unread notification number below --%>
-					<span	class="label label-important">5</span>
+					<span	class="label label-important">${affiliateDashboardAction.numberOfPendingNotifications}</span>
 				</a>
 				<%--<ul class="dropdown-menu">
 					<li><a class="sAdd" title="" href="#">new message</a></li>

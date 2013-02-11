@@ -37,11 +37,11 @@ public class CompanyDashboardAction extends BaseAction {
         User loggedInUser = SecurityHelper.getLoggedInUser();
         String companyShortName = loggedInUser.getCompanyShortName();
 
-        totalReferrers = getCompanyDashboardService().getTotalReferrersForCompany(companyShortName);
+        /*totalReferrers = getCompanyDashboardService().getTotalReferrersForCompany(companyShortName);
         referersInLastWeek = getCompanyDashboardService().getReferrersForCompanyInTimePeriod(companyShortName, null, null);
         numberOfPendingCommission = getCompanyDashboardService().getTotalNumberOfPendingCommissions(companyShortName);
         totalRevenue = getCompanyDashboardService().getTotalRevenueTrackedForCompany(companyShortName);
-        totalCommission = getCompanyDashboardService().getPaidCommissionTrackedForCompany(companyShortName);
+        totalCommission = getCompanyDashboardService().getPaidCommissionTrackedForCompany(companyShortName);*/
 
         return new ForwardResolution("/pages/company/dashboard.jsp");
     }

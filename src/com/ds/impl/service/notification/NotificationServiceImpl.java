@@ -2,9 +2,11 @@ package com.ds.impl.service.notification;
 
 import com.ds.domain.notification.Notification;
 import com.ds.pact.dao.BaseDao;
+import com.ds.pact.dao.notification.NotificationDao;
 import com.ds.pact.service.notification.NotificationService;
 import com.ds.constants.EnumNotificationType;
 import com.ds.constants.NotificationMessages;
+import com.ds.impl.dao.notification.NotificationDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Autowired
 	private BaseDao baseDao;
+	@Autowired
+	private NotificationDao notificationDao;
 
 	public Notification getNotificationById(Long notificationId) {
 		Notification notification = (Notification) getBaseDao().load(Notification.class, notificationId);
@@ -54,6 +58,10 @@ public class NotificationServiceImpl implements NotificationService {
 		return saveNotification(notification);
 	}
 
+	public long getPendingNotificationForAffiliate(String userId) {
+		return notificationDao.getPendingNotificationForUser(userId);
+	}
+
 
 	public BaseDao getBaseDao() {
 		return baseDao;
@@ -71,5 +79,12 @@ public class NotificationServiceImpl implements NotificationService {
 		this.logger = logger;
 	}
 
+	public NotificationDao getNotificationDao() {
+		return notificationDao;
+	}
+
+	public void setNotificationDao(NotificationDao notificationDao) {
+		this.notificationDao = notificationDao;
+	}
 }
 

@@ -49,6 +49,10 @@ public class Notification {
 	@Column(name = "COMPANY_SHORTNAME", nullable = false, length = 50)
 	private String companyShortName;
 
+	@Column(name = "NOTIFIED", nullable = false)
+	private Boolean notified = false;
+
+
 	public Long getId() {
 		return id;
 	}
