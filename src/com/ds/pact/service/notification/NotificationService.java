@@ -2,6 +2,7 @@ package com.ds.pact.service.notification;
 
 import com.ds.domain.notification.Notification;
 import com.ds.constants.EnumNotificationType;
+import com.ds.web.action.Page;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface NotificationService {
 	public Notification createCompanyNotification(String companyShortName,final EnumNotificationType enumNotificationType);
 
 	public long getPendingNotificationForAffiliate(String affiliateEmailId);
+
+	public Page searchCompanyAffiliatePendingNotification(String userId,int pageNo,int perPage);
 
 	/*public List<Notification> getNotificationForAffiliate(*/
 

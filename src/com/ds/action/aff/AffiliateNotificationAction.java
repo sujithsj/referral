@@ -7,6 +7,7 @@ import com.ds.domain.user.User;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.affiliate.CompanyAffiliateService;
+import com.ds.pact.service.notification.NotificationService;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.security.service.UserService;
 import com.ds.utils.BaseUtils;
@@ -17,6 +18,8 @@ import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationMethod;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.ds.domain.notification.Notification;
+
 
 import java.util.List;
 import java.util.Set;
@@ -26,7 +29,7 @@ import java.util.Set;
  * Date: Feb 9, 2013
  * Time: 4:14:18 PM
  */
-public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
+public class AffiliateNotificationAction extends BasePaginatedAction {
 
 	private String companyShortName;
 
@@ -34,12 +37,12 @@ public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
 	private String affiliateEmail;
 
 
-	private Page companyAffiliateNotificationPage;
-	private List<CompanyAffiliateInvite> companyAffiliateInvites;
+	private Page affiliateNotificationPage;
+	private List<Notification> notificationList;
 
 	private User loggedInUser;
 	private Company company;
-	private Long companyAffiliateInviteId;
+	private Long notificationId;
 
 	@Autowired
 	private AdminService adminService;
@@ -49,6 +52,8 @@ public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
 	private CompanyAffiliateService companyAffiliateService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private NotificationService notificationService;
 
 
 	@DefaultHandler
@@ -58,9 +63,9 @@ public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
 
-		companyAffiliateNotificationPage = getCompanyAffiliateService().searchCompanyAffiliatePendingInvites(companyShortName, getPageNo(), getPerPage());
-		companyAffiliateInvites = companyAffiliateNotificationPage.getList();
-		return new ForwardResolution("/pages/affiliate/companyAffiliateInvites.jsp");
+		affiliateNotificationPage = getNotificationService().searchCompanyAffiliatePendingNotification(loggedInUser.getUsername(), pageNo, perPage);
+		notificationList = affiliateNotificationPage.getList();
+		return new ForwardResolution("/pages/aff/affiliateNotification.jsp");
 
 	}
 
@@ -77,8 +82,8 @@ public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
 		CompanyAffiliateInvite companyAffiliateInvite = null;
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
-		if (companyAffiliateInviteId != null) {
-			companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(companyAffiliateInviteId);
+		if (notificationId != null) {
+			companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(notificationId);
 			if (companyAffiliateInvite != null) {
 				getCompanyAffiliateService().sendCompanyAffiliateInvitationEmail(companyAffiliateInvite);
 			} else {
@@ -91,12 +96,11 @@ public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
 				companyAffiliateInvite = getCompanyAffiliateService().addCompanyAffiliateInvite(companyShortName, affiliateEmail);
 				getCompanyAffiliateService().sendCompanyAffiliateInvitationEmail(companyAffiliateInvite);
 
-			} else if (companyAffiliateInvite.getDeleted()){ //someone trying to send email to already existing invite
+			} else if (companyAffiliateInvite.getDeleted()) { //someone trying to send email to already existing invite
 				companyAffiliateInvite.setDeleted(false);
 				companyAffiliateInvite = getCompanyAffiliateService().saveCompanyAffiliateInvite(companyAffiliateInvite);
 				getCompanyAffiliateService().sendCompanyAffiliateInvitationEmail(companyAffiliateInvite);
-			}
-			else { //someone trying to send email to already existing invite
+			} else { //someone trying to send email to already existing invite
 				addValidationError("inviteAlreadyExists", new LocalizableError("/Invite.action.email.id.already.exists"));
 				return new ForwardResolution(getContext().getSourcePage());
 			}
@@ -110,7 +114,7 @@ public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
 
-		CompanyAffiliateInvite companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(companyAffiliateInviteId);
+		CompanyAffiliateInvite companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(notificationId);
 		if (companyAffiliateInvite != null) {
 			getCompanyAffiliateService().deleteCompanyAffiliateInvite(companyAffiliateInvite);
 		}
@@ -122,12 +126,12 @@ public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
 
 	@Override
 	public int getPageCount() {
-		return companyAffiliateNotificationPage != null ? companyAffiliateNotificationPage.getTotalPages() : 0;
+		return affiliateNotificationPage != null ? affiliateNotificationPage.getTotalPages() : 0;
 	}
 
 	@Override
 	public int getResultCount() {
-		return companyAffiliateNotificationPage != null ? companyAffiliateNotificationPage.getTotalResults() : 0;
+		return affiliateNotificationPage != null ? affiliateNotificationPage.getTotalResults() : 0;
 	}
 
 	@Override
@@ -169,20 +173,12 @@ public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
 		this.affiliateService = affiliateService;
 	}
 
-	public Page getCompanyAffiliateNotificationPage() {
-		return companyAffiliateNotificationPage;
+	public Page getAffiliateNotificationPage() {
+		return affiliateNotificationPage;
 	}
 
-	public void setCompanyAffiliateNotificationPage(Page companyAffiliateNotificationPage) {
-		this.companyAffiliateNotificationPage = companyAffiliateNotificationPage;
-	}
-
-	public List<CompanyAffiliateInvite> getCompanyAffiliateInvites() {
-		return companyAffiliateInvites;
-	}
-
-	public void setCompanyAffiliateInvites(List<CompanyAffiliateInvite> companyAffiliateInvites) {
-		this.companyAffiliateInvites = companyAffiliateInvites;
+	public void setAffiliateNotificationPage(Page affiliateNotificationPage) {
+		this.affiliateNotificationPage = affiliateNotificationPage;
 	}
 
 	public String getAffiliateEmail() {
@@ -193,11 +189,43 @@ public class CompanyAffiliateNotificationAction extends BasePaginatedAction {
 		this.affiliateEmail = affiliateEmail;
 	}
 
-	public Long getCompanyAffiliateInviteId() {
-		return companyAffiliateInviteId;
+	public Long getNotificationId() {
+		return notificationId;
 	}
 
-	public void setCompanyAffiliateInviteId(Long companyAffiliateInviteId) {
-		this.companyAffiliateInviteId = companyAffiliateInviteId;
+	public void setNotificationId(Long notificationId) {
+		this.notificationId = notificationId;
+	}
+
+	public NotificationService getNotificationService() {
+		return notificationService;
+	}
+
+	public void setNotificationService(NotificationService notificationService) {
+		this.notificationService = notificationService;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public User getLoggedInUser() {
+		return loggedInUser;
+	}
+
+	public void setLoggedInUser(User loggedInUser) {
+		this.loggedInUser = loggedInUser;
+	}
+
+	public List<Notification> getNotificationList() {
+		return notificationList;
+	}
+
+	public void setNotificationList(List<Notification> notificationList) {
+		this.notificationList = notificationList;
 	}
 }
