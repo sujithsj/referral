@@ -49,6 +49,17 @@ public enum EnumCommissionEarningStatus {
 
     }
 
+    public static EnumCommissionEarningStatus getEnumCommissionEarningStatus(String statusName){
+        for(EnumCommissionEarningStatus enumCommissionEarningStatus : EnumCommissionEarningStatus.values()) {
+            if(enumCommissionEarningStatus.getStatus().equalsIgnoreCase(statusName)){
+                return enumCommissionEarningStatus;
+            }
+        }
+        return null;
+    }
+
+    
+
 
     public CommissionEarningStatus asCommissionEarningStatus() {
         CommissionEarningStatus commissionEarningStatus = new CommissionEarningStatus();

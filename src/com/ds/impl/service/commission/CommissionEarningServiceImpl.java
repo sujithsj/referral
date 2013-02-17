@@ -4,8 +4,10 @@ import com.ds.pact.service.commission.CommissionEarningService;
 import com.ds.pact.service.core.SearchService;
 import com.ds.pact.dao.BaseDao;
 import com.ds.domain.commission.CommissionEarning;
+import com.ds.domain.commission.CommissionEarningStatus;
 import com.ds.web.action.Page;
 import com.ds.constants.EnumCampaignType;
+import com.ds.constants.EnumCommissionEarningStatus;
 import com.ds.search.impl.CampaignQuery;
 import com.ds.search.impl.CommissionEarningQuery;
 import com.ds.exception.InvalidParameterException;
@@ -16,6 +18,8 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.SQLQuery;
+import org.hibernate.Query;
 
 /**
  * @author adlakha.vaibhav
@@ -52,6 +56,24 @@ public class CommissionEarningServiceImpl implements CommissionEarningService {
             throw new InvalidParameterException("NULL_CE_ID");
         }
         getBaseDao().executeNativeSql("update commission_earning set commission_earning_status_id = ? where id = ?", newStatusId, commissionEarningId);
+    }
+
+
+    @Transactional
+    public void bulkChangeCommissionEarningStatus(List<Long> earningIds, Long newStatusId) {
+                    //TODO: add acted by and acted on
+        if(earningIds ==null || newStatusId == null){
+            throw new InvalidParameterException("NULL_CE_IDS");
+        }
+
+        CommissionEarningStatus commissionEarningStatus = EnumCommissionEarningStatus.getById(newStatusId).asCommissionEarningStatus();
+
+        Query query = getBaseDao().createQuery("update CommissionEarning set commissionEarningStatus = :newStatus where id in (:earningIds)");
+
+        query.setParameter("newStatus", commissionEarningStatus);
+        query.setParameterList("earningIds", earningIds);
+
+        query.executeUpdate();
     }
 
     public SearchService getSearchService() {

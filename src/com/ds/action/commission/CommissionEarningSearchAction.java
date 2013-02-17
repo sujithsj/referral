@@ -42,6 +42,9 @@ public class CommissionEarningSearchAction extends BasePaginatedAction {
     private List<CommissionEarning> commissionEarnings;
 
 
+    private List<Long> earningIds;
+    private String bulkAction;
+
     @Autowired
     private CommissionEarningService commissionEarningService;
 
@@ -83,8 +86,15 @@ public class CommissionEarningSearchAction extends BasePaginatedAction {
         return searchCommissionEarnings();
     }
 
-     public Resolution markAsPaid() {
+    public Resolution markAsPaid() {
         getCommissionEarningService().changeCommissionEarningStatus(commissionEarningId, EnumCommissionEarningStatus.PAID.getId());
+        return searchCommissionEarnings();
+    }
+
+    public Resolution bulkUpdateCommissionEarning() {
+        EnumCommissionEarningStatus enumCommissionEarningStatus = EnumCommissionEarningStatus.getEnumCommissionEarningStatus(bulkAction);
+
+        getCommissionEarningService().bulkChangeCommissionEarningStatus(earningIds, enumCommissionEarningStatus.getId());
         return searchCommissionEarnings();
     }
 
@@ -121,6 +131,22 @@ public class CommissionEarningSearchAction extends BasePaginatedAction {
 
     public CommissionEarningService getCommissionEarningService() {
         return commissionEarningService;
+    }
+
+    public List<Long> getEarningIds() {
+        return earningIds;
+    }
+
+    public void setEarningIds(List<Long> earningIds) {
+        this.earningIds = earningIds;
+    }
+
+    public String getBulkAction() {
+        return bulkAction;
+    }
+
+    public void setBulkAction(String bulkAction) {
+        this.bulkAction = bulkAction;
     }
 
     public Long getAffiliateId() {

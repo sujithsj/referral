@@ -17,6 +17,8 @@ public interface CommissionEarningService {
 
     public void changeCommissionEarningStatus(Long commissionEarningId, Long newStatusId);
 
+    public void bulkChangeCommissionEarningStatus(List<Long> earningIds, Long newStatusId);
+
 
 
 }
