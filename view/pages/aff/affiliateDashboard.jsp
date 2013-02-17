@@ -4,6 +4,7 @@
 
 <s:layout-component name="content">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.main.css" type="text/css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/daterangepicker.css" type="text/css"/>
 <s:layout-render name="/includes/aff/affiliateHeader.jsp"/>
 <s:layout-render name="/includes/aff/affiliateSideBar.jsp"/>
 
@@ -16,7 +17,11 @@
         <a href="#" class="current">Dashboard</a>
     </div>
 
+    <s:useActionBean beanclass="com.ds.action.aff.AffiliateDashboardAction" var="affiliateDashboardAction"/>
     <div class="container-fluid">
+        <input type="hidden" id="startDate"/>
+        <input type="hidden" id="endDate"/>
+
         <div class="row-fluid">
             <div class="span12 center" style="text-align: center;">
                 <ul class="quick-actions">
@@ -43,6 +48,18 @@
         </div>
 
         <div class="row-fluid">
+
+            <div class="well">
+
+                <div id="reportrange" class="pull-right"
+                     style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                    <i class="icon-calendar icon-large"></i>
+                    <span></span> <b class="caret" style="margin-top: 8px"></b>
+                </div>
+
+
+            </div>
+
             <div class="widget-box collapsible">
                 <div class="widget-title">
                     <a href="#collapseStats" data-toggle="collapse">
@@ -57,21 +74,26 @@
                         <div class="row-fluid">
                             <div class="span3">
                                 <ul class="site-stats">
-                                    <li><i class="icon-user"></i> <strong>1433</strong>
-                                        <small>Total Users</small>
+                                    <li><i class="icon-user"></i>
+                                        <strong>${affiliateDashboardAction.totalReferrers}</strong>
+                                        <small>Total Referrers</small>
                                     </li>
-                                    <li><i class="icon-arrow-right"></i> <strong>16</strong>
+                                    <li><i class="icon-arrow-right"></i>
+                                        <strong>${affiliateDashboardAction.referersInLastWeek}</strong>
                                         <small>New Users (last week)</small>
                                     </li>
                                     <li class="divider"></li>
-                                    <li><i class="icon-shopping-cart"></i> <strong>259</strong>
-                                        <small>Total Shop Items</small>
+                                    <li><i class="icon-shopping-cart"></i>
+                                        <strong>${affiliateDashboardAction.totalRevenue}</strong>
+                                        <small>Total Revenue Tracked</small>
                                     </li>
-                                    <li><i class="icon-tag"></i> <strong>8650</strong>
-                                        <small>Total Orders</small>
+                                    <li><i class="icon-tag"></i>
+                                        <strong>${affiliateDashboardAction.totalCommission}</strong>
+                                        <small>Total Commission Tracked</small>
                                     </li>
-                                    <li><i class="icon-repeat"></i> <strong>29</strong>
-                                        <small>Pending Orders</small>
+                                    <li><i class="icon-repeat"></i>
+                                        <strong>${affiliateDashboardAction.numberOfPendingCommission}</strong>
+                                        <small>Pending Commissions</small>
                                     </li>
                                 </ul>
                             </div>
@@ -92,24 +114,12 @@
                         <a href="#collapseTTAffByClick" data-toggle="collapse">
                             <span class="icon"><i class="icon-signal"></i></span><h5>Top Ten Affiliate By Clicks</h5>
                         </a>
-
                             <%--<div class="buttons"><a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>
                             </div>--%>
                     </div>
                     <div class="collapse in" id="collapseTTAffByClick">
                         <div class="widget-content ">
-                            <div id="topTenAffiliateByClickPieChart"
-                                 style="width: 450px; height: 300px; ">
-                                <div id="control1"></div>
-                                <div id="control2"></div>
-                                <div id="chart1"></div>
-                            </div>
-                                <%--<div id="topTenAffiliateByCommissionPieChart"
-                                     style="width: 300px;  float:right;">
-                                    <div id="control3"></div>
-                                    <div id="control4"></div>
-                                    <div id="chart2"></div>
-                                </div>--%>
+                            <div class="pie" id="ttAffByCommission" ></div>
                         </div>
                     </div>
                 </div>
@@ -120,13 +130,10 @@
                         <a href="#collapseTTAffByRevenue" data-toggle="collapse">
                             <span class="icon"><i class="icon-signal"></i></span><h5>Pie</h5>
                         </a>
-
-                            <%--<div class="buttons"><a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>
-                            </div>--%>
                     </div>
                     <div class="collapse in" id="collapseTTAffByRevenue">
                         <div class="widget-content ">
-                            <div class="pie"></div>
+                            <div class="pie" id="ttAffByRevenue" ></div>
                         </div>
                     </div>
                 </div>
@@ -155,7 +162,7 @@
         var data = response.getDataTable(),
                 chart = new google.visualization.AnnotatedTimeLine(document.getElementById('feedbackTypeDistribution'));
 
-        console.log(data);
+        /*console.log(data);*/
         chart.draw(data);
         /*chart.draw(data, {
          height: 200,
@@ -167,85 +174,7 @@
 
 </script>
 
-<script type="text/javascript">
 
-    google.load('visualization', '1.0', {'packages':['controls']});
-
-    google.setOnLoadCallback(drawPieChart);
-
-    function drawPieChart() {
-        var query = new google.visualization.Query("/datasource?dsName=ttAffByClick&companyShortName=" + 'hk' + "&startDate=2012-12-01&endDate=2012-12-31");
-        query.send(drawTopTenAffByClickChart);
-    }
-    var drawTopTenAffByClickChart = function(response) {
-
-        if (response.isError()) {
-            alert("Error in query: " + response.getMessage() + " " + response.getDetailedMessage());
-            return;
-        }
-
-        var data = response.getDataTable();
-
-
-        // Define a slider control for the Age column.
-        var slider = new google.visualization.ControlWrapper({
-            'controlType': 'NumberRangeFilter',
-            'containerId': 'control1',
-            'options': {
-                'filterColumnLabel': 'Clicks',
-                'ui': {'labelStacking': 'vertical', orientation:'horizontal'}
-
-            }
-        });
-
-        slider.setState({'lowValue': 26});
-
-
-        // Define a category picker control for the Gender column
-        /*   var categoryPicker = new google.visualization.ControlWrapper({
-         'controlType': 'CategoryFilter',
-         'containerId': 'control2',
-         'options': {
-         'filterColumnLabel': 'Affiliate Type',
-         filterColumnIndex : 1,
-         'ui': {
-         'labelStacking': 'vertical',
-         'allowTyping': false,
-         'allowMultiple': false
-         }
-         }
-         });
-         */
-
-        // Define a Pie chart
-        var pie = new google.visualization.ChartWrapper({
-            'chartType': 'PieChart',
-            'containerId': 'chart1',
-            'options': {
-                'width': 500,
-                'height': 250,
-                /*'chartArea': {'left': 15, 'top': 15, 'right': 0, 'bottom': 0},*/
-                'pieSliceText': 'label',
-                'legend': 'right',
-                'backgroundColor': '#F9F9F9',
-                'is3D':true
-            },
-            // Instruct the piechart to use colums 0 (Name) and 3 (Clicks)
-
-            'view': {'columns': [0, 2]}
-        });
-
-
-        // Create a dashboard
-        new google.visualization.Dashboard(document.getElementById('topTenAffiliateByClickPieChart')).
-            // Establish bindings, declaring the both the slider and the category
-            // picker will drive both charts.
-                bind([slider], [pie]).draw(data);
-        // Draw the entire dashboard.
-
-    };
-
-</script>
 <s:layout-render name="/includes/footer.jsp"/>
 </div>
 
@@ -253,13 +182,11 @@
 
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/date.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/daterangepicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.pie.min.js"></script>
-<%--
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/excanvas.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.peity.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/unicorn.dashboard.js"></script>
---%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/company/dashboard/companyDashboard.js"></script>
+
 <script type="text/javascript">
     var data = [];
     var series = Math.floor(Math.random() * 10) + 1;

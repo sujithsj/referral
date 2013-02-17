@@ -2,9 +2,15 @@ package com.ds.impl.service.notification;
 
 import com.ds.domain.notification.Notification;
 import com.ds.pact.dao.BaseDao;
+import com.ds.pact.dao.notification.NotificationDao;
 import com.ds.pact.service.notification.NotificationService;
+import com.ds.pact.service.core.SearchService;
 import com.ds.constants.EnumNotificationType;
 import com.ds.constants.NotificationMessages;
+import com.ds.impl.dao.notification.NotificationDaoImpl;
+import com.ds.web.action.Page;
+import com.ds.search.impl.CompanyAffiliateInviteQuery;
+import com.ds.search.impl.NotificationQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +32,10 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Autowired
 	private BaseDao baseDao;
+	@Autowired
+	private NotificationDao notificationDao;
+	@Autowired
+	private SearchService searchService;
 
 	public Notification getNotificationById(Long notificationId) {
 		Notification notification = (Notification) getBaseDao().load(Notification.class, notificationId);
@@ -54,6 +64,21 @@ public class NotificationServiceImpl implements NotificationService {
 		return saveNotification(notification);
 	}
 
+	public long getPendingNotificationForAffiliate(String userId) {
+		return notificationDao.getPendingNotificationForUser(userId);
+	}
+
+	public Page searchCompanyAffiliatePendingNotification(String userId,int pageNo,int perPage){
+
+		NotificationQuery notificationQuery = new NotificationQuery();
+		notificationQuery.setUserId(userId);
+		notificationQuery.setNotified(false);
+		notificationQuery.setOrderByField("id").setPageNo(pageNo).setRows(perPage);
+		return getSearchService().list(notificationQuery);
+
+
+	}
+
 
 	public BaseDao getBaseDao() {
 		return baseDao;
@@ -71,5 +96,20 @@ public class NotificationServiceImpl implements NotificationService {
 		this.logger = logger;
 	}
 
+	public NotificationDao getNotificationDao() {
+		return notificationDao;
+	}
+
+	public void setNotificationDao(NotificationDao notificationDao) {
+		this.notificationDao = notificationDao;
+	}
+
+	public SearchService getSearchService() {
+		return searchService;
+	}
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
 }
 

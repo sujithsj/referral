@@ -7,112 +7,113 @@ package com.ds.action.aff;
  */
 
 import com.ds.domain.user.User;
-import com.ds.security.service.UserService;
+import com.ds.pact.service.notification.NotificationService;
 import com.ds.security.helper.SecurityHelper;
-import com.ds.web.action.BasePaginatedAction;
-import com.ds.web.action.Page;
+import com.ds.web.action.BaseAction;
+import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.DefaultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.Date;
 
 /**
  * @author adlakha.vaibhav
  */
 @Component
-public class AffiliateDashboardAction extends BasePaginatedAction {
+public class AffiliateDashboardAction extends BaseAction {
 
-  private String userName;
-  private String email;
-	private String companyShortName;
+	private int totalReferrers, referersInLastWeek, numberOfPendingCommission;
+	private long totalRevenue, totalCommission, numberOfPendingNotifications;
 
-  private Page userPage;
-  private List<User> users;
+	private Date startDate, endDate;
 
-  @Autowired
-  private UserService userService;
+	@Autowired
+	private NotificationService notificationService;
 
-   @DefaultHandler
-   public Resolution pre() {
-    return new ForwardResolution("/pages/aff/affiliateDashboard.jsp");
-   }
 
-  @SuppressWarnings("unchecked")
-  public Resolution searchUsers() {
-	  User loggedInUser = SecurityHelper.getLoggedInUser();
-	  companyShortName = loggedInUser.getCompanyShortName();
-    userPage = getUserService().searchUser(userName, email, companyShortName, getPageNo(), getPerPage());
-    users = userPage.getList();
+	@DefaultHandler
+	public Resolution pre() {
+		//numberOfPendingNotifications = 500;
+		User loggedInUser = SecurityHelper.getLoggedInUser();
+		String companyShortName = loggedInUser.getCompanyShortName();
 
-    return new ForwardResolution("/pages/company/users.jsp");
+		/*totalReferrers = getCompanyDashboardService().getTotalReferrersForCompany(companyShortName);*/
+		numberOfPendingNotifications = notificationService.getPendingNotificationForAffiliate(loggedInUser.getEmail());
 
-  }
-
-  @Override
-  public int getPageCount() {
-    return userPage != null ? userPage.getTotalPages() : 0;
-  }
-
-  @Override
-  public int getResultCount() {
-    return userPage != null ? userPage.getTotalResults() : 0;
-  }
-
-  @Override
-  public Set<String> getParamSet() {
-    HashSet<String> params = new HashSet<String>();
-    params.add("userName");
-    params.add("email");
-
-    return params;
-  }
-
-  public UserService getUserService() {
-    return userService;
-  }
-
-  public Page getUserPage() {
-    return userPage;
-  }
-
-  public void setUserPage(Page userPage) {
-    this.userPage = userPage;
-  }
-
-  public List<User> getUsers() {
-    return users;
-  }
-
-  public void setUsers(List<User> users) {
-    this.users = users;
-  }
-
-  public String getUserName() {
-    return userName;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-	public String getCompanyShortName() {
-		return companyShortName;
+		return new ForwardResolution("/pages/aff/affiliateDashboard.jsp");
 	}
 
-	public void setCompanyShortName(String companyShortName) {
-		this.companyShortName = companyShortName;
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public int getTotalReferrers() {
+		return totalReferrers;
+	}
+
+	public void setTotalReferrers(int totalReferrers) {
+		this.totalReferrers = totalReferrers;
+	}
+
+	public int getReferersInLastWeek() {
+		return referersInLastWeek;
+	}
+
+	public void setReferersInLastWeek(int referersInLastWeek) {
+		this.referersInLastWeek = referersInLastWeek;
+	}
+
+	public int getNumberOfPendingCommission() {
+		return numberOfPendingCommission;
+	}
+
+	public void setNumberOfPendingCommission(int numberOfPendingCommission) {
+		this.numberOfPendingCommission = numberOfPendingCommission;
+	}
+
+	public long getTotalRevenue() {
+		return totalRevenue;
+	}
+
+	public void setTotalRevenue(long totalRevenue) {
+		this.totalRevenue = totalRevenue;
+	}
+
+	public long getTotalCommission() {
+		return totalCommission;
+	}
+
+	public void setTotalCommission(long totalCommission) {
+		this.totalCommission = totalCommission;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public NotificationService getNotificationService() {
+		return notificationService;
+	}
+
+	public void setNotificationService(NotificationService notificationService) {
+		this.notificationService = notificationService;
+	}
+
+	public long getNumberOfPendingNotifications() {
+		return numberOfPendingNotifications;
+	}
+
+	public void setNumberOfPendingNotifications(long numberOfPendingNotifications) {
+		this.numberOfPendingNotifications = numberOfPendingNotifications;
 	}
 }

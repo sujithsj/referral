@@ -17,8 +17,9 @@ public class NotificationQuery extends AbstractSearchQuery {
 	private Long notificationTypeId;
 	private Long affiliateId;
 	private Long companyAffiliateId;
-	private Long userId;
+	private String userId;
 	private String companyShortName;
+	private Boolean notified;
 
 	public NotificationQuery setNotificationTypeId(Long notificationTypeId) {
 		this.notificationTypeId = notificationTypeId;
@@ -35,7 +36,7 @@ public class NotificationQuery extends AbstractSearchQuery {
 		return this;
 	}
 
-	public NotificationQuery setUserId(Long userId) {
+	public NotificationQuery setUserId(String userId) {
 		this.userId = userId;
 		return this;
 	}
@@ -45,6 +46,9 @@ public class NotificationQuery extends AbstractSearchQuery {
 		return this;
 	}
 
+	public void setNotified(Boolean notified) {
+		this.notified = notified;
+	}
 
 	@Override
 	protected String getBaseQuery() {
@@ -66,7 +70,7 @@ public class NotificationQuery extends AbstractSearchQuery {
 			getQueryParams().put("companyAffiliateId", companyAffiliateId);
 		}
 
-		if (userId != null) {
+		if (StringUtils.isNotBlank(userId)) {
 			queryStr.append(" and nf.userId =  :userId ");
 			getQueryParams().put("userId", userId);
 		}
@@ -74,6 +78,11 @@ public class NotificationQuery extends AbstractSearchQuery {
 		if (StringUtils.isNotBlank(companyShortName)) {
 			queryStr.append(" and nf.companyShortName =  :companyShortName ");
 			getQueryParams().put("companyShortName", companyShortName);
+		}
+
+		if (notified != null) {
+			queryStr.append(" and nf.notified =  :notified ");
+			getQueryParams().put("notified", notified);
 		}
 
 		return queryStr.toString();
