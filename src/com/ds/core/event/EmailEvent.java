@@ -5,6 +5,7 @@ import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.impl.service.mail.UserContext;
 import com.ds.impl.service.mail.AffiliateContext;
 import com.ds.impl.service.mail.CompanyAffiliateInvEmailContext;
+import com.ds.impl.service.mail.UserAuthEmailContext;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.mail.EmailContext;
 import com.ds.pact.service.mail.EmailTemplateService;
@@ -80,11 +81,9 @@ public class EmailEvent implements AsyncEvent {
                 break;
 
             case UserRegistrationConfirmation:
-            case UserLoggedInThirdPartyEmailConfirmation:
-                List<String> strings = null;
-                String[] a = strings.toArray(new String[strings.size()]);
-                /*UserAuthEmailContext userThirdPartyAuthEmailContext = (UserAuthEmailContext) context;
-                mimeMessageHelper.setTo(userThirdPartyAuthEmailContext.getUserEmail());*/
+
+                UserAuthEmailContext userThirdPartyAuthEmailContext = (UserAuthEmailContext) context;
+                mimeMessageHelper.setTo(userThirdPartyAuthEmailContext.getUserEmail());
                 break;
             case UserPasswordResetConfirmation:
                 UserContext userContext = (UserContext) context;

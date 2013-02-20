@@ -26,81 +26,81 @@ import java.util.Map;
 @Service
 public class EmailTemplateServiceImpl implements EmailTemplateService {
 
-  private Logger logger = LoggerFactory.getLogger(EmailTemplateServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(EmailTemplateServiceImpl.class);
 
-  /*private Map<String, EmailTemplate> emailTemplates = new HashMap<String, EmailTemplate>();*/
-  @Autowired
-  private JavaMailSenderImpl mailSender;
-  @Autowired
-  private VelocityEngine velocityEngine;
+    /*private Map<String, EmailTemplate> emailTemplates = new HashMap<String, EmailTemplate>();*/
+    @Autowired
+    private JavaMailSenderImpl mailSender;
+    @Autowired
+    private VelocityEngine velocityEngine;
 
-  @Override
-  public MimeMessage createEmail(EmailTemplateService.EmailEventType eventType, EmailContext context) {
-    if (eventType == null || context == null) {
-      throw new InvalidParameterException("EVENTTYPE_OR_CONTEXT_IS_NULL");
+    @Override
+    public MimeMessage createEmail(EmailTemplateService.EmailEventType eventType, EmailContext context) {
+        if (eventType == null || context == null) {
+            throw new InvalidParameterException("EVENTTYPE_OR_CONTEXT_IS_NULL");
+        }
+
+        /**
+         * We do not use a template in case this was a post reply, since reply already has subject, to , from and message body, so no template required.
+         */
+        /*if(EmailTemplateService.EmailEventType.FeedbackAnswered.equals(eventType)){
+
+          try {
+            MimeMessage message = getMailSender().createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
+
+            FeedbackAnswerContext feedbackAnsweredContext = (FeedbackAnswerContext)context;
+            Answer answer = feedbackAnsweredContext.getAnswer();
+
+            mimeMessageHelper.setFrom(answer.getAnsweringUser().getEmail());
+            mimeMessageHelper.setSubject(answer.getPost().getTitle());
+            mimeMessageHelper.setText(new String(answer.getContent()));
+
+            return mimeMessageHelper.getMimeMessage();
+
+          }catch (Exception ex) {
+            LOGGER.error("Error occured in Creating MimeMessage in EmailTemplateServiceImpl", ex);
+            throw new UserrulesException("EXCEPTION_IN_CREATING_EMAIL_MESSAGE", ex);
+          }
+        }*/
+
+        if (EmailTemplateFactory.getEmailTemplate(eventType.toString()) == null) {
+            throw new InvalidParameterException("NO_EMAIL_TEMPLATE_FOUND");
+        }
+
+        EmailTemplate emailTemplate = EmailTemplateFactory.getEmailTemplate(eventType.toString());
+
+        try {
+            MimeMessage message = getMailSender().createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
+
+            if (context instanceof CompanyContext) {
+                CompanyContext companyContext = (CompanyContext) context;
+                mimeMessageHelper.setFrom(companyContext.getCompany().getFromEmail() != null ? companyContext.getCompany().getFromEmail() : "support@referoscope.com");
+            } else {
+                //TODO: change this to support@referoscope.com
+                mimeMessageHelper.setFrom("adlakha.vaibhav@gmail.com");
+            }
+
+            Map<String, Object> vc = new HashMap<String, Object>();
+            vc.put("context", context);
+
+            String content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, emailTemplate.getBodyTemplateName(), vc);
+
+            mimeMessageHelper.setText(content, emailTemplate.isHtml());
+
+            StringWriter subject = new StringWriter();
+
+            velocityEngine.evaluate(new VelocityContext(vc), subject, "Template Subject", emailTemplate.getSubject());
+
+            mimeMessageHelper.setSubject(subject.toString());
+
+            return mimeMessageHelper.getMimeMessage();
+        } catch (Exception ex) {
+            logger.error("Error occured in Creating MimeMessage in EmailTemplateServiceImpl", ex);
+            throw new DSException("EXCEPTION_IN_CREATING_EMAIL_MESSAGE", ex);
+        }
     }
-
-    /**
-     * We do not use a template in case this was a post reply, since reply already has subject, to , from and message body, so no template required.
-     */
-    /*if(EmailTemplateService.EmailEventType.FeedbackAnswered.equals(eventType)){
-
-      try {
-        MimeMessage message = getMailSender().createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
-
-        FeedbackAnswerContext feedbackAnsweredContext = (FeedbackAnswerContext)context;
-        Answer answer = feedbackAnsweredContext.getAnswer();
-
-        mimeMessageHelper.setFrom(answer.getAnsweringUser().getEmail());
-        mimeMessageHelper.setSubject(answer.getPost().getTitle());
-        mimeMessageHelper.setText(new String(answer.getContent()));
-
-        return mimeMessageHelper.getMimeMessage();
-
-      }catch (Exception ex) {
-        LOGGER.error("Error occured in Creating MimeMessage in EmailTemplateServiceImpl", ex);
-        throw new UserrulesException("EXCEPTION_IN_CREATING_EMAIL_MESSAGE", ex);
-      }
-    }*/
-
-    if (EmailTemplateFactory.getEmailTemplate(eventType.toString()) == null) {
-      throw new InvalidParameterException("NO_EMAIL_TEMPLATE_FOUND");
-    }
-
-    EmailTemplate emailTemplate = EmailTemplateFactory.getEmailTemplate(eventType.toString());
-
-    try {
-      MimeMessage message = getMailSender().createMimeMessage();
-      MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
-
-      /*if(context instanceof CompanyContext){
-        CompanyContext companyContext = (CompanyContext)context;
-        mimeMessageHelper.setFrom(companyContext.getCompany().getFromEmail() != null ? companyContext.getCompany().getFromEmail() : "support@userrules.com");
-      }
-      else{*/
-      mimeMessageHelper.setFrom("adlakha.vaibhav@gmail.com");
-      //}
-
-      Map<String, Object> vc = new HashMap<String, Object>();
-      vc.put("context", context);
-
-      String content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, emailTemplate.getBodyTemplateName(), vc);
-
-      mimeMessageHelper.setText(content, emailTemplate.isHtml());
-
-      StringWriter subject = new StringWriter();
-
-      velocityEngine.evaluate(new VelocityContext(vc), subject, "Template Subject", emailTemplate.getSubject());
-
-      mimeMessageHelper.setSubject(subject.toString());
-
-      return mimeMessageHelper.getMimeMessage();
-    } catch (Exception ex) {
-      logger.error("Error occured in Creating MimeMessage in EmailTemplateServiceImpl", ex);
-      throw new DSException("EXCEPTION_IN_CREATING_EMAIL_MESSAGE", ex);
-    }
-  }
 
 //    private MimeMessage createEmail(EmailEventType eventType, MimeMessageHelper mimeMessageHelper){
 //
@@ -132,40 +132,41 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
 //        }
 //    }
 
-  /**//**
-   * @return the emailTemplates
-   *//*
+     /**//**
+     * @return the emailTemplates
+     *//*
   public Map<String, EmailTemplate> getEmailTemplates() {
     return emailTemplates;
   }
 
-  *//**
-   * @param emailTemplates the emailTemplates to set
-   *//*
+  */
+
+    /**
+     * @param emailTemplates the emailTemplates to set
+     *//*
   public void setEmailTemplates(Map<String, EmailTemplate> emailTemplates) {
     this.emailTemplates = emailTemplates;
   }*/
+    public JavaMailSenderImpl getMailSender() {
+        return mailSender;
+    }
 
-  public JavaMailSenderImpl getMailSender() {
-    return mailSender;
-  }
+    public void setMailSender(JavaMailSenderImpl mailSender) {
+        this.mailSender = mailSender;
+    }
 
-  public void setMailSender(JavaMailSenderImpl mailSender) {
-    this.mailSender = mailSender;
-  }
+    /**
+     * @return the velocityEngine
+     */
+    public VelocityEngine getVelocityEngine() {
+        return velocityEngine;
+    }
 
-  /**
-   * @return the velocityEngine
-   */
-  public VelocityEngine getVelocityEngine() {
-    return velocityEngine;
-  }
-
-  /**
-   * @param velocityEngine the velocityEngine to set
-   */
-  public void setVelocityEngine(VelocityEngine velocityEngine) {
-    this.velocityEngine = velocityEngine;
-  }
+    /**
+     * @param velocityEngine the velocityEngine to set
+     */
+    public void setVelocityEngine(VelocityEngine velocityEngine) {
+        this.velocityEngine = velocityEngine;
+    }
 
 }

@@ -36,6 +36,7 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.support.TransactionCallback;
 
 import javax.servlet.http.HttpServletRequest;
@@ -678,25 +679,30 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public UserLoginConfirmationRequest associateEmailToUserLoginConfirmationRequest(final UserLoginConfirmationRequest userLoginConfirmationRequest, final String userEmail,
                                                                                      boolean isThirdPartyConfirmation) {
 
-        ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
+        /*ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
 
             @Override
+            @Transactional
             public Object doInTransaction(TransactionStatus status) {
                 userLoginConfirmationRequest.setVerifiedEmail(userEmail);
                 getAdminDAO().saveOrUpdate(userLoginConfirmationRequest);
                 return null;
             }
 
-        });
+        });*/
+
+        userLoginConfirmationRequest.setVerifiedEmail(userEmail);
+        getAdminDAO().saveOrUpdate(userLoginConfirmationRequest);
 
         if (isThirdPartyConfirmation) {
-            getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserLoggedInThirdPartyEmailConfirmation));
+            //getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserLoggedInThirdPartyEmailConfirmation));
         } else {
             //Todo: uncomment the below line: was giving exception while adding new company
-            //getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserRegistrationConfirmation));
+            getEventDispatcher().dispatchEvent(new UserLoginEmailConfirmationRequestEvent(userLoginConfirmationRequest, EmailTemplateService.EmailEventType.UserRegistrationConfirmation));
         }
 
         return userLoginConfirmationRequest;

@@ -55,8 +55,10 @@ public class UserLoginEmailConfirmationRequestEvent implements AsyncEvent {
   public void prepareFromWireRepresentation(Map<String, String> values) {
     String userLoginConfirmationRequestId = values.get(USER_LOGIN_EMAIL_CONFIRMATION_REQUEST_ID);
     this.userLoginConfirmationRequest = ServiceLocatorFactory.getService(AdminService.class).loadUserLoginConfirmationRequest(Long.parseLong(userLoginConfirmationRequestId));
-    this.emailEventType = values.get(USER_LOGIN_EVENT_TYPE).equals(EmailTemplateService.EmailEventType.UserLoggedInThirdPartyEmailConfirmation.toString()) ?
-        EmailTemplateService.EmailEventType.UserLoggedInThirdPartyEmailConfirmation : EmailTemplateService.EmailEventType.UserRegistrationConfirmation;
+    /*this.emailEventType = values.get(USER_LOGIN_EVENT_TYPE).equals(EmailTemplateService.EmailEventType.UserLoggedInThirdPartyEmailConfirmation.toString()) ?
+        EmailTemplateService.EmailEventType.UserLoggedInThirdPartyEmailConfirmation : EmailTemplateService.EmailEventType.UserRegistrationConfirmation;*/
+
+      this.emailEventType = EmailTemplateService.EmailEventType.UserRegistrationConfirmation;
   }
 
 }
