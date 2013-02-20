@@ -1,7 +1,14 @@
 $(document).ready(function() {
-
+    var campaignType = $(this).attr('value');
+    renderLandingPageCg(campaignType);
 
     $("#form-wizard").get(0).setAttribute('action', "/campaign/Campaign.action?saveCampaign");
+
+    $("#campaignTypeSel").change(function() {
+        var type = $(this).attr('value');
+        renderLandingPageCg(type);
+
+    });
 
     $("#commStSel").change(function() {
         var type = $(this).attr('value');
@@ -12,6 +19,14 @@ $(document).ready(function() {
     $("#advControlBtn").click(function() {
         $("#advanceControls").toggle();
     });
+
+    function renderLandingPageCg(type) {
+        if (type == 60) {
+            $("#landingPageCg").show();
+        } else {
+            $("#landingPageCg").hide();
+        }
+    }
 
     function setCommissionViews(type) {
         var tier1Visible = $("#tier1Comm").is(":visible");

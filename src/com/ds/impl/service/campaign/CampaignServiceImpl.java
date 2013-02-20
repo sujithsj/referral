@@ -21,6 +21,8 @@ import com.ds.web.action.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.commons.lang.StringUtils;
+
 
 import java.util.Date;
 import java.util.List;
@@ -129,17 +131,23 @@ public class CampaignServiceImpl implements CampaignService {
 
         campaign = (Campaign) getBaseDao().save(campaign);
 
+        if (EnumCampaignType.SOCIAL_REFERRAL.getId().equals(campaignDTO.getCampaignTypeId())) {
+            if(StringUtils.isBlank(campaignDTO.getLandingPage())){
+                throw new InvalidParameterException("LANDING_PAGE_NULL_FOR_SOCIAL_CAMPAIGN");
+            }
 
-        MarketingMaterial marketingMaterial = new MarketingMaterial();
-        MarketingMaterialType marketingMaterialType = EnumMarketingMaterialType.getById(EnumMarketingMaterialType.ReferalAd.getId()).asMarketingMaterialType();
-        
-        marketingMaterial.setTitle(campaign.getName());
-        marketingMaterial.setCampaign(campaign);
-        marketingMaterial.setMarketingMaterialType(marketingMaterialType);
-        marketingMaterial.setCompanyShortName(campaign.getCompanyShortName());
-        //TODO: set landig page url
+            MarketingMaterial marketingMaterial = new MarketingMaterial();
+            MarketingMaterialType marketingMaterialType = EnumMarketingMaterialType.getById(EnumMarketingMaterialType.ReferalAd.getId()).asMarketingMaterialType();
 
-        getMarketingService().saveMarketingMaterial(marketingMaterial);
+            marketingMaterial.setTitle(campaign.getName());
+            marketingMaterial.setCampaign(campaign);
+            marketingMaterial.setMarketingMaterialType(marketingMaterialType);
+            marketingMaterial.setCompanyShortName(campaign.getCompanyShortName());
+            marketingMaterial.setLandingPageUrl(campaignDTO.getLandingPage());
+
+
+            getMarketingService().saveMarketingMaterial(marketingMaterial);
+        }
 
         return campaign;
     }

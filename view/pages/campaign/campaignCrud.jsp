@@ -81,11 +81,17 @@
 <div class="control-group">
     <s:label class="control-label" name="Campaign Type"/>
     <div class="controls">
-        <s:select name="campaignDTO.campaignTypeId" style="width:200px;">
+        <s:select name="campaignDTO.campaignTypeId" style="width:200px;" id="campaignTypeSel">
             <c:forEach items="<%=EnumCampaignType.getAllCampaignTypes()%>" var="pType">
                 <s:option value="${pType.id}">${pType.type}</s:option>
             </c:forEach>
         </s:select>
+    </div>
+</div>
+<div class="control-group" id="landingPageCg" style="display:none;" >
+    <s:label class="control-label" name="Default landing page"/>
+    <div class="controls">
+        <s:text name="campaignDTO.landingPage" placeholder="http://www..com"/>
     </div>
 </div>
 <div class="control-group">

@@ -9,79 +9,90 @@ import java.util.Date;
  */
 public class CampaignDTO {
 
-  private String name;
-  private String description;
-  private Date startDate, endDate;
-  private Boolean visibleToAll = true;
-  private Long campaignTypeId;
+    private String name;
+    private String description;
+    private Date startDate, endDate;
+    private Boolean visibleToAll = true;
+    private Long campaignTypeId;
+    private String landingPage;
 
-  public CampaignDTO() {
-  }
+    public CampaignDTO() {
+    }
 
-  public CampaignDTO(Campaign campaign) {
-    this.name = campaign.getName();
-    this.description = campaign.getDescription();
-    this.startDate = campaign.getStartDate();
-    this.endDate = campaign.getEndDate();
-    this.visibleToAll = campaign.isPrivate();
-    this.campaignTypeId = campaign.getCampaignType().getId();
-  }
-
-
-  public void syncToCampaign(Campaign campaign) {
-    campaign.setName(this.name);
-    campaign.setDescription(this.description);
-    campaign.setStartDate(this.startDate);
-    campaign.setEndDate(this.endDate);
-    campaign.setPrivate(this.visibleToAll);
-  }
+    public CampaignDTO(Campaign campaign) {
+        this.name = campaign.getName();
+        this.description = campaign.getDescription();
+        this.startDate = campaign.getStartDate();
+        this.endDate = campaign.getEndDate();
+        this.visibleToAll = campaign.isPrivate();
+        this.campaignTypeId = campaign.getCampaignType().getId();
+        this.landingPage = campaign.getLandingPage();
+    }
 
 
-  public String getName() {
-    return name;
-  }
+    public void syncToCampaign(Campaign campaign) {
+        campaign.setName(this.name);
+        campaign.setDescription(this.description);
+        campaign.setStartDate(this.startDate);
+        campaign.setEndDate(this.endDate);
+        campaign.setPrivate(this.visibleToAll);
+        campaign.setLandingPage(this.landingPage);
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
 
-  public Date getStartDate() {
-    return startDate;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setStartDate(Date startDate) {
-    this.startDate = startDate;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public Date getEndDate() {
-    return endDate;
-  }
+    public Date getStartDate() {
+        return startDate;
+    }
 
-  public void setEndDate(Date endDate) {
-    this.endDate = endDate;
-  }
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
-  public Boolean isVisibleToAll() {
-    return visibleToAll;
-  }
+    public Date getEndDate() {
+        return endDate;
+    }
 
-  public void setVisibleToAll(Boolean visibleToAll) {
-    this.visibleToAll = visibleToAll;
-  }
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-  public Long getCampaignTypeId() {
-    return campaignTypeId;
-  }
+    public Boolean isVisibleToAll() {
+        return visibleToAll;
+    }
 
-  public void setCampaignTypeId(Long campaignTypeId) {
-    this.campaignTypeId = campaignTypeId;
-  }
+    public void setVisibleToAll(Boolean visibleToAll) {
+        this.visibleToAll = visibleToAll;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public Long getCampaignTypeId() {
+        return campaignTypeId;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public void setCampaignTypeId(Long campaignTypeId) {
+        this.campaignTypeId = campaignTypeId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLandingPage() {
+        return landingPage;
+    }
+
+    public void setLandingPage(String landingPage) {
+        this.landingPage = landingPage;
+    }
 }
