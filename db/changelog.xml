@@ -1,0 +1,1233 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+ <databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+
+    <changeSet author="Rahul (generated)" id="1361383845317-1">
+        <createTable tableName="affiliate">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="LOGIN" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIRST_NAME" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_NAME" type="VARCHAR(45)"/>
+            <column name="EMAIL" type="VARCHAR(45)"/>
+            <column name="ADDRESS" type="VARCHAR(90)"/>
+            <column name="CITY" type="VARCHAR(45)"/>
+            <column name="STATE" type="VARCHAR(45)"/>
+            <column name="ZIP" type="VARCHAR(45)"/>
+            <column name="MOBILE" type="VARCHAR(25)"/>
+            <column name="COMMENTS" type="TEXT"/>
+            <column name="PASSWORD_CHECKSUM" type="VARCHAR(45)"/>
+            <column defaultValueNumeric="0" name="DELETED" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AFFILIATE_TYPE" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-2">
+        <createTable tableName="affiliate_karma_profile">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="KARMA_POINTS" type="INT"/>
+            <column name="KARMA_POINTS_CONSUMED" type="INT"/>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-3">
+        <createTable tableName="announcement">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TITLE_KEY" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ANNOUNCEMENT_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ANNOUNCEMENT_EXPIRY_DATE" type="DATETIME"/>
+            <column name="ANNOUNCEMENT" type="LONGTEXT"/>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="VARCHAR(255)"/>
+            <column name="LINK" type="VARCHAR(1000)"/>
+            <column name="PUBLISHED" type="CHAR(1)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-4">
+        <createTable tableName="badge">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="KARMA_POINTS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-5">
+        <createTable tableName="campaign">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CAMPAIGN_TYPE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMMISSION_PLAN_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTIVE" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(500)"/>
+            <column name="START_DATE" type="TIMESTAMP"/>
+            <column name="END_DATE" type="TIMESTAMP"/>
+            <column name="PRIVATE" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DELETED" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-6">
+        <createTable tableName="campaign_type">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="TYPE" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-7">
+        <createTable tableName="click_tracking">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CLICK_DATE" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MARKETING_MATERIAL_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CAMPAIGN_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AFFILIATE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VISITOR_ACTIVITY_DETAILS_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MARKETING_MATERIAL_TYPE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-8">
+        <createTable tableName="com_aff_grp_com_aff">
+            <column name="AFFILIATE_GROUP_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_AFFILIATE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-9">
+        <createTable tableName="commission_currency">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="CURR_CODE" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-10">
+        <createTable tableName="commission_earning">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="CAMPAIGN_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AFFILIATE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MARKETING_MATERIAL_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMMISSION_EARNING_STATUS_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EVENT_TRACKING_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EARNING" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="EARNING_DATE" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DIRECT_COMMISSION" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RECUR_COMMISSION" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTED_BY" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTED_ON" type="DATETIME"/>
+            <column name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-11">
+        <createTable tableName="commission_earning_status">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="STATUS" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-12">
+        <createTable tableName="commission_plan">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="COMMISSION_STRATEGY_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ONE_TIME_COM" type="DOUBLE"/>
+            <column name="INIT_COM" type="DOUBLE"/>
+            <column name="RECUR_COM" type="DOUBLE"/>
+            <column name="TIERED" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TIER_1_ONE_TIME_COM" type="DOUBLE"/>
+            <column name="TIER_1_INIT_COM" type="DOUBLE"/>
+            <column name="TIER_1_RECUR_COM" type="DOUBLE"/>
+            <column name="TIER_2_ONE_TIME_COM" type="DOUBLE"/>
+            <column name="TIER_2_INIT_COM" type="DOUBLE"/>
+            <column name="TIER_2_RECUR_COM" type="DOUBLE"/>
+            <column name="TIER_3_ONE_TIME_COM" type="DOUBLE"/>
+            <column name="TIER_3_INIT_COM" type="DOUBLE"/>
+            <column name="TIER_3_RECUR_COM" type="DOUBLE"/>
+            <column name="LIMIT_RECUR_COMM_DAYS" type="INT"/>
+            <column name="LIMIT_RECUR_COMM_TXN" type="INT"/>
+            <column name="RECUR_COMM_GRADE" type="DOUBLE"/>
+            <column name="COMMISSION_CURRENCY_ID" type="INT"/>
+            <column name="AUTO_APPROVE_COMM" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-13">
+        <createTable tableName="commission_strategy">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-14">
+        <createTable tableName="company">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SHORTNAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERIFICATIONTOKEN" type="VARCHAR(100)"/>
+            <column defaultValue="0" name="ENABLED" type="CHAR(1)"/>
+            <column name="DESCRIPTION" type="VARCHAR(500)"/>
+            <column name="FROM_EMAIL" type="VARCHAR(255)"/>
+            <column name="URL" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOGO_FILE_ID" type="INT"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-15">
+        <createTable tableName="company_affiliate">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="AFFILIATE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORTNAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PARENT_COMPANY_AFFILIATE_ID" type="INT"/>
+            <column defaultValueNumeric="0" name="ACTIVE" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SOURCE" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-16">
+        <createTable tableName="company_affiliate_billing_address">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="COMPANY_AFFILIATE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LINE1" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LINE2" type="VARCHAR(45)"/>
+            <column name="CITY" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PINCODE" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATE" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COUNTRY" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-17">
+        <createTable tableName="company_affiliate_group">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="COMPANY_SHORTNAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DEFAULT_GROUP" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DELETED" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-18">
+        <createTable tableName="company_affiliate_invite">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="COMPANY_SHORTNAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AFFILIATE_EMAIL" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="CONVERTED" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DELETED" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-19">
+        <createTable tableName="company_feature">
+            <column name="FEATURE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORTNAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-20">
+        <createTable tableName="company_karma_profile">
+            <column defaultValue="" name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTIVITY_NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTIVIY_POINTS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-21">
+        <createTable tableName="company_settings">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="COMPANY_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="5" name="GA_CUSTOM_VAR_NO" type="INT"/>
+            <column name="DEFAULT_PUBLISH" type="CHAR(1)"/>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="API_KEY" type="VARCHAR(500)"/>
+            <column name="DOMAIN_ALIAS_URL" type="VARCHAR(500)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-22">
+        <createTable tableName="event_tracking">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="EVENT_DATE" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVENUE" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CAMPAIGN_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CUSTOMER_ID" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MARKETING_MATERIAL_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MARKETING_MATERIAL_TYPE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AFFILIATE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UNIQUE_ID" type="VARCHAR(150)"/>
+            <column name="VISITOR_ACTIVITY_DETAILS_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-23">
+        <createTable tableName="feature">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FEATURE_TYPE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COUNT" type="INT"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PLAN_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-24">
+        <createTable tableName="file_attachment">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="FILE_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MIME_TYPE" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FILE_SIZE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="WIDTH" type="INT"/>
+            <column name="HEIGHT" type="INT"/>
+            <column name="FILE_CONTENT" type="LONGBLOB"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-25">
+        <createTable tableName="ga_auth_info">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="USER_NAME" type="VARCHAR(200)"/>
+            <column name="PASSWORD" type="VARCHAR(200)"/>
+            <column name="PROFILE_NAME" type="VARCHAR(1000)"/>
+            <column name="ACCESS_TOKEN" type="VARCHAR(200)"/>
+            <column name="TOKEN_SECRET" type="VARCHAR(200)"/>
+            <column name="TABLE_ID" type="VARCHAR(300)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT"/>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-26">
+        <createTable tableName="impression_tracking">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="MARKETING_MATERIAL_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MARKETING_MATERIAL_TYPE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AFFILIATE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COUNT" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IMPRESSION_DATE" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-27">
+        <createTable tableName="ipcitylatlongispdomain">
+            <column defaultValueNumeric="0" name="ipFROM" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="ipTO" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="countrySHORT" type="CHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="countryLONG" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ipREGION" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ipCITY" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ipLATITUDE" type="DOUBLE"/>
+            <column name="ipLONGITUDE" type="DOUBLE"/>
+            <column name="ipISP" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ipDOMAIN" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-28">
+        <createTable tableName="karma_profile_badge">
+            <column name="KARMA_PROFILE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BADGE_NAME" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-29">
+        <createTable tableName="karma_profile_reward">
+            <column name="KARMA_PROFILE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REWARD_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-30">
+        <createTable tableName="marketing_material">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CAMPAIGN_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MARKETING_MATERIAL_TYPE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BODY" type="LONGTEXT"/>
+            <column name="FILE_ATTACHMENT_ID" type="INT"/>
+            <column name="COMPANY_SHORTNAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LANDING_PAGE_URL" type="VARCHAR(1000)"/>
+            <column name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-31">
+        <createTable tableName="marketing_material_has_product">
+            <column name="MARKETING_MATERIAL_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-32">
+        <createTable tableName="marketing_material_type">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="TYPE" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-33">
+        <createTable tableName="notification">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NOTIFICATION_TYPE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="VARCHAR(255)"/>
+            <column name="COMPANY_AFFILIATE_ID" type="INT"/>
+            <column name="AFFILIATE_ID" type="INT"/>
+            <column name="COMPANY_SHORTNAME" type="VARCHAR(50)"/>
+            <column name="MESSAGE" type="TEXT"/>
+            <column name="NOTIFIED" type="TINYINT"/>
+            <column name="CREATE_DT" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-34">
+        <createTable tableName="notification_type">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="TYPE" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRIORITY" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-35">
+        <createTable tableName="permission">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-36">
+        <createTable tableName="plan">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(255)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-37">
+        <createTable tableName="product">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(1000)"/>
+            <column name="COMPANY_SHORTNAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPID" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-38">
+        <createTable tableName="product_group">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="COMPANY_SHORTNAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-39">
+        <createTable tableName="product_group_has_product">
+            <column name="PRODUCT_GROUP_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-40">
+        <createTable tableName="role">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-41">
+        <createTable tableName="role_permission">
+            <column name="ROLE_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PERMISSION_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-42">
+        <createTable tableName="schedule">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="USERID" type="VARCHAR(255)"/>
+            <column defaultValue="Y" name="ENABLED" type="CHAR(1)"/>
+            <column name="SCHEDULEREFERENCE" type="VARCHAR(255)"/>
+            <column name="DESCRIPTION" type="VARCHAR(255)"/>
+            <column name="JOB_CLASS" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TASK_TYPE" type="VARCHAR(10)"/>
+            <column name="CRONSTRING" type="VARCHAR(255)"/>
+            <column name="EXECUTION_TIME" type="VARCHAR(10)"/>
+            <column name="SCHEDULE_TYPE" type="VARCHAR(20)"/>
+            <column name="START_DATE" type="DATETIME"/>
+            <column name="END_DATE" type="DATETIME"/>
+            <column name="SCHEDULE_EMAIL_CONFIG_ID" type="INT"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="CREATED_BY" type="VARCHAR(40)"/>
+            <column name="UPDATED_DATE" type="DATETIME"/>
+            <column name="UPDATED_BY" type="VARCHAR(40)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-43">
+        <createTable tableName="schedule_email_config">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="SUBJECT" type="VARCHAR(255)"/>
+            <column name="EMAILBODY" type="VARCHAR(2000)"/>
+            <column name="FROMEMAILADDRESS" type="VARCHAR(100)"/>
+            <column name="REPORT_EMAIL_CONFIG_ID" type="INT"/>
+            <column name="SCHEDULE_ID" type="INT"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="CREATED_BY" type="VARCHAR(40)"/>
+            <column name="UPDATED_DATE" type="DATETIME"/>
+            <column name="UPDATED_BY" type="VARCHAR(40)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-44">
+        <createTable tableName="schedule_execution">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="RUN_DATE" type="DATETIME"/>
+            <column name="NEXT_SCH_DATE" type="DATETIME"/>
+            <column name="SCHEDULE_ID" type="INT"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="CREATED_BY" type="VARCHAR(40)"/>
+            <column name="UPDATED_DATE" type="DATETIME"/>
+            <column name="UPDATED_BY" type="VARCHAR(40)"/>
+            <column name="STATUS" type="VARCHAR(1000)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-45">
+        <createTable tableName="third_party_auth">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="USER_ID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROVIDER_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PREFERRED_USER_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERIFIED_EMAIL" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IDENTIFIER" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PHOTO_URL" type="VARCHAR(255)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-46">
+        <createTable tableName="user">
+            <column name="USERID" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="USER_SETTINGS_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FULLNAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORIGINAL_IMAGE_URL" type="VARCHAR(255)"/>
+            <column name="THUMBNAIL_IMAGE_URL" type="VARCHAR(255)"/>
+            <column defaultValue="Y" name="ACCOUNT_NON_EXPIRED" type="CHAR(1)"/>
+            <column defaultValue="Y" name="ACCOUNT_NON_LOCKED" type="CHAR(1)"/>
+            <column defaultValue="Y" name="CREDENTIALS_NON_EXPIRED" type="CHAR(1)"/>
+            <column name="EMAIL" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="Y" name="ENABLED" type="CHAR(1)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-47">
+        <createTable tableName="user_login_confirmation_request">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="PROVIDER_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERIFIED_EMAIL" type="VARCHAR(255)"/>
+            <column name="PREFERRED_USER_NAME" type="VARCHAR(255)"/>
+            <column name="CONFIRMATION_KEY" type="VARCHAR(255)"/>
+            <column defaultValue="0" name="CONFIRMED" type="CHAR(1)"/>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IDENTIFIER" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AUTH_INFO" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-48">
+        <createTable tableName="user_permission">
+            <column name="PERMISSION_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USERID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-49">
+        <createTable tableName="user_role">
+            <column name="USERID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROLE_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-50">
+        <createTable tableName="user_settings">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="USERID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="1" name="SEND_EMAIL_ON_ADD_AFF" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="1" name="SEND_EMAIL_ON_TERM_AFF" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="1" name="SEND_EMAIL_ON_JOIN_AFF" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="1" name="SEND_EMAIL_ON_PAYOUT" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="1" name="SEND_EMAIL_ON_GOAL_CONV" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-51">
+        <createTable tableName="visitor_activity_details">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="VISITOR_ID" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_NAME" type="VARCHAR(200)"/>
+            <column name="COMPANY_SHORT_NAME" type="VARCHAR(50)"/>
+            <column name="OPERATION" type="VARCHAR(50)"/>
+            <column name="ENTITY" type="VARCHAR(50)"/>
+            <column name="ENTITY_ID" type="VARCHAR(20)"/>
+            <column name="IP_ADDRESS" type="VARCHAR(20)"/>
+            <column name="HOST_NAME" type="VARCHAR(500)"/>
+            <column name="BROWSER_NAME" type="VARCHAR(200)"/>
+            <column name="BROWSER_VERSION" type="VARCHAR(100)"/>
+            <column name="OS_NAME" type="VARCHAR(200)"/>
+            <column name="OS_VERSION" type="VARCHAR(50)"/>
+            <column name="CITY" type="VARCHAR(200)"/>
+            <column name="COUNTRY" type="VARCHAR(200)"/>
+            <column name="ISP" type="VARCHAR(200)"/>
+            <column name="CURRENT_URL" type="VARCHAR(1000)"/>
+            <column name="HTTP_METHOD_TYPE" type="VARCHAR(50)"/>
+            <column name="REQUEST_TIME" type="VARCHAR(100)"/>
+            <column name="SEARCH_QUERY" type="VARCHAR(1000)"/>
+            <column name="LATITUDE" type="VARCHAR(100)"/>
+            <column name="LONGITUDE" type="VARCHAR(100)"/>
+            <column name="DOMAIN" type="VARCHAR(100)"/>
+            <column name="REFERER_URL" type="VARCHAR(1000)"/>
+            <column defaultValueNumeric="-1" name="LOCK_VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-52">
+        <addPrimaryKey columnNames="COMPANY_SHORT_NAME, ACTIVITY_NAME" tableName="company_karma_profile"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-53">
+        <addPrimaryKey columnNames="ipFROM, ipTO" tableName="ipcitylatlongispdomain"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-54">
+        <addPrimaryKey columnNames="KARMA_PROFILE_ID, BADGE_NAME" tableName="karma_profile_badge"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-55">
+        <addPrimaryKey columnNames="KARMA_PROFILE_ID, REWARD_ID" tableName="karma_profile_reward"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-56">
+        <addPrimaryKey columnNames="ROLE_NAME, PERMISSION_ID" tableName="role_permission"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-57">
+        <createIndex indexName="LOGIN_UNIQUE" tableName="affiliate" unique="true">
+            <column name="LOGIN"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-58">
+        <createIndex indexName="status_UNIQUE" tableName="commission_earning_status" unique="true">
+            <column name="STATUS"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-59">
+        <createIndex indexName="SHORTNAME_UNIQUE" tableName="company" unique="true">
+            <column name="SHORTNAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-60">
+        <createIndex indexName="afiliate_id_company_shortname_uq" tableName="company_affiliate" unique="true">
+            <column name="AFFILIATE_ID"/>
+            <column name="COMPANY_SHORTNAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-61">
+        <createIndex indexName="COMPANY_SHORT_NAME_AFFILIATE_EMAIL_UQ" tableName="company_affiliate_invite" unique="true">
+            <column name="COMPANY_SHORTNAME"/>
+            <column name="AFFILIATE_EMAIL"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-62">
+        <createIndex indexName="SCHEDULE_UK" tableName="schedule" unique="true">
+            <column name="NAME"/>
+            <column name="USERID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-63">
+        <addForeignKeyConstraint baseColumnNames="COMPANY_ID" baseTableName="announcement" constraintName="fk_ANNOUNCEMENT_COMPANY1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="company"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-64">
+        <addForeignKeyConstraint baseColumnNames="CAMPAIGN_TYPE_ID" baseTableName="campaign" constraintName="fk_CAMPAIGN_CAMPAIGN_TYPE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="campaign_type"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-65">
+        <addForeignKeyConstraint baseColumnNames="COMMISSION_PLAN_ID" baseTableName="campaign" constraintName="fk_CAMPAIGN_COMMISSION_PLAN1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="commission_plan"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-66">
+        <addForeignKeyConstraint baseColumnNames="AFFILIATE_ID" baseTableName="click_tracking" constraintName="fk_CLICK_TRACKING_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-67">
+        <addForeignKeyConstraint baseColumnNames="CAMPAIGN_ID" baseTableName="click_tracking" constraintName="fk_CLICK_TRACKING_CAMPAIGN1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="campaign"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-68">
+        <addForeignKeyConstraint baseColumnNames="MARKETING_MATERIAL_ID" baseTableName="click_tracking" constraintName="fk_CLICK_TRACKING_MARKETING_MATERIAL1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="marketing_material"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-69">
+        <addForeignKeyConstraint baseColumnNames="MARKETING_MATERIAL_TYPE_ID" baseTableName="click_tracking" constraintName="fk_CLICK_TRACKING_MARKETING_MATERIAL_TYPE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="marketing_material_type"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-70">
+        <addForeignKeyConstraint baseColumnNames="VISITOR_ACTIVITY_DETAILS_ID" baseTableName="click_tracking" constraintName="fk_CLICK_TRACKING_VISITOR_ACTIVITY_DETAILS1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="visitor_activity_details"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-71">
+        <addForeignKeyConstraint baseColumnNames="AFFILIATE_GROUP_ID" baseTableName="com_aff_grp_com_aff" constraintName="fk_AFF_GROUP_AFFILIATE_AFFILIATE_GROUP1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="company_affiliate_group"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-72">
+        <addForeignKeyConstraint baseColumnNames="COMPANY_AFFILIATE_ID" baseTableName="com_aff_grp_com_aff" constraintName="fk_AFFILIATE_GROUP_AFFILIATE_COMPANY_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="company_affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-73">
+        <addForeignKeyConstraint baseColumnNames="ACTED_BY" baseTableName="commission_earning" constraintName="fk_COMMISSION_EARNING_USER1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="USERID" referencedTableName="user"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-74">
+        <addForeignKeyConstraint baseColumnNames="AFFILIATE_ID" baseTableName="commission_earning" constraintName="fk_COMMISSION_EARNING_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-75">
+        <addForeignKeyConstraint baseColumnNames="CAMPAIGN_ID" baseTableName="commission_earning" constraintName="fk_COMMISSION_EARNING_CAMPAIGN1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="campaign"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-76">
+        <addForeignKeyConstraint baseColumnNames="COMMISSION_EARNING_STATUS_ID" baseTableName="commission_earning" constraintName="fk_COMMISSION_EARNING_COMMISSION_EARNING_STATUS1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="commission_earning_status"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-77">
+        <addForeignKeyConstraint baseColumnNames="EVENT_TRACKING_ID" baseTableName="commission_earning" constraintName="fk_COMMISSION_EARNING_EVENT_TRACKING1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_tracking"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-78">
+        <addForeignKeyConstraint baseColumnNames="MARKETING_MATERIAL_ID" baseTableName="commission_earning" constraintName="fk_COMMISSION_EARNING_MARKETING_MATERIAL1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="marketing_material"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-79">
+        <addForeignKeyConstraint baseColumnNames="COMMISSION_CURRENCY_ID" baseTableName="commission_plan" constraintName="fk_COMMISSION_PLAN_COMMISSION_CURRENCY1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="commission_currency"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-80">
+        <addForeignKeyConstraint baseColumnNames="COMMISSION_STRATEGY_ID" baseTableName="commission_plan" constraintName="fk_COMMISSION_PLAN_COMMISSION_STRATEGY1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="commission_strategy"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-81">
+        <addForeignKeyConstraint baseColumnNames="AFFILIATE_ID" baseTableName="company_affiliate" constraintName="fk_AFFILIATE_COMPANY_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-82">
+        <addForeignKeyConstraint baseColumnNames="PARENT_COMPANY_AFFILIATE_ID" baseTableName="company_affiliate" constraintName="fk_COMPANY_AFFILIATE_COMPANY_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="company_affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-83">
+        <addForeignKeyConstraint baseColumnNames="COMPANY_AFFILIATE_ID" baseTableName="company_affiliate_billing_address" constraintName="fk_COMPANY_AFFILIATE_BILLING_ADDRESS_COMPANY_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="company_affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-84">
+        <addForeignKeyConstraint baseColumnNames="COMPANY_SHORTNAME" baseTableName="company_affiliate_group" constraintName="fk_AFFILIATE_GROUP_COMPANY1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SHORTNAME" referencedTableName="company"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-85">
+        <addForeignKeyConstraint baseColumnNames="FEATURE_ID" baseTableName="company_feature" constraintName="fk_COMPANY_FEATURE_FEATURE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="feature"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-86">
+        <addForeignKeyConstraint baseColumnNames="COMPANY_ID" baseTableName="company_settings" constraintName="fk_COMPANY_SETTINGS_COMPANY1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="company"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-87">
+        <addForeignKeyConstraint baseColumnNames="AFFILIATE_ID" baseTableName="event_tracking" constraintName="fk_EVENT_TRACKING_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-88">
+        <addForeignKeyConstraint baseColumnNames="CAMPAIGN_ID" baseTableName="event_tracking" constraintName="fk_EVENT_TRACKING_CAMPAIGN1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="campaign"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-89">
+        <addForeignKeyConstraint baseColumnNames="MARKETING_MATERIAL_ID" baseTableName="event_tracking" constraintName="fk_EVENT_TRACKING_MARKETING_MATERIAL1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="marketing_material"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-90">
+        <addForeignKeyConstraint baseColumnNames="MARKETING_MATERIAL_TYPE_ID" baseTableName="event_tracking" constraintName="fk_EVENT_TRACKING_MARKETING_MATERIAL_TYPE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="marketing_material_type"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-91">
+        <addForeignKeyConstraint baseColumnNames="VISITOR_ACTIVITY_DETAILS_ID" baseTableName="event_tracking" constraintName="fk_EVENT_TRACKING_VISITOR_ACTIVITY_DETAILS1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="visitor_activity_details"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-92">
+        <addForeignKeyConstraint baseColumnNames="PLAN_ID" baseTableName="feature" constraintName="fk_FEATURE_PLAN1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="plan"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-93">
+        <addForeignKeyConstraint baseColumnNames="AFFILIATE_ID" baseTableName="impression_tracking" constraintName="fk_IMPRESSION_TRACKING_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-94">
+        <addForeignKeyConstraint baseColumnNames="MARKETING_MATERIAL_ID" baseTableName="impression_tracking" constraintName="fk_IMPRESSION_TRACKING_MARKETING_MATERIAL1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="marketing_material"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-95">
+        <addForeignKeyConstraint baseColumnNames="MARKETING_MATERIAL_TYPE_ID" baseTableName="impression_tracking" constraintName="fk_IMPRESSION_TRACKING_MARKETING_MATERIAL_TYPE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="marketing_material_type"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-96">
+        <addForeignKeyConstraint baseColumnNames="CAMPAIGN_ID" baseTableName="marketing_material" constraintName="fk_MARKETING_MATERIAL_CAMPAIGN1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="campaign"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-97">
+        <addForeignKeyConstraint baseColumnNames="FILE_ATTACHMENT_ID" baseTableName="marketing_material" constraintName="fk_MARKETING_MATERIAL_FILE_ATTACHMENT1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="file_attachment"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-98">
+        <addForeignKeyConstraint baseColumnNames="MARKETING_MATERIAL_TYPE_ID" baseTableName="marketing_material" constraintName="fk_MARKETING_MATERIAL_MARKETING_MATERIAL_TYPE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="marketing_material_type"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-99">
+        <addForeignKeyConstraint baseColumnNames="MARKETING_MATERIAL_ID" baseTableName="marketing_material_has_product" constraintName="fk_MARKETING_MATERIAL_HAS_PRODUCT_MARKETING_MATERIAL1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="marketing_material"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-100">
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="marketing_material_has_product" constraintName="fk_MARKETING_MATERIAL_HAS_PRODUCT_PRODUCT1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="product"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-101">
+        <addForeignKeyConstraint baseColumnNames="AFFILIATE_ID" baseTableName="notification" constraintName="fk_NOTIFICATION_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-102">
+        <addForeignKeyConstraint baseColumnNames="COMPANY_AFFILIATE_ID" baseTableName="notification" constraintName="fk_NOTIFICATION_COMPANY_AFFILIATE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="company_affiliate"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-103">
+        <addForeignKeyConstraint baseColumnNames="NOTIFICATION_TYPE_ID" baseTableName="notification" constraintName="fk_NOTIFICATION_NOTIFICATION_TYPE1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="notification_type"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-104">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="notification" constraintName="fk_NOTIFICATION_USER1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="USERID" referencedTableName="user"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-105">
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_GROUP_ID" baseTableName="product_group_has_product" constraintName="fk_PRODUCT_GROUP_HAS_PRODUCT_PRODUCT_GROUP1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="product_group"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-106">
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="product_group_has_product" constraintName="fk_PRODUCT_GROUP_HAS_PRODUCT_PRODUCT1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="product"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-107">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="third_party_auth" constraintName="fk_THIRD_PARTY_AUTH_USER1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="USERID" referencedTableName="user"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-108">
+        <addForeignKeyConstraint baseColumnNames="USER_SETTINGS_ID" baseTableName="user" constraintName="fk_USER_USER_SETTINGS1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="user_settings"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-109">
+        <addForeignKeyConstraint baseColumnNames="PERMISSION_ID" baseTableName="user_permission" constraintName="fk_USER_PERMISSION_PERMISSION1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="permission"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-110">
+        <addForeignKeyConstraint baseColumnNames="USERID" baseTableName="user_permission" constraintName="fk_USER_PERMISSION_USER1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="USERID" referencedTableName="user"  referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="Rahul (generated)" id="1361383845317-111">
+        <addForeignKeyConstraint baseColumnNames="USERID" baseTableName="user_role" constraintName="fk_USER_ROLE_USER1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="USERID" referencedTableName="user"  referencesUniqueColumn="false"/>
+    </changeSet>
+</databaseChangeLog>
