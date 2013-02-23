@@ -786,12 +786,16 @@ public class AdminServiceImpl implements AdminService {
 
         if (!userLoginConfirmationRequest.isConfirmed() && userLoginConfirmationRequest.getConfirmationKey().equalsIgnoreCase(confirmationKey)
                 && !("userrules".equalsIgnoreCase(userLoginConfirmationRequest.getProviderName()))) {
-            /*userLoginConfirmationRequest.setConfirmed(true);
-          saveUserLoginConfirmationRequest(userLoginConfirmationRequest);
-          getRpxService().confirmUserEmail(request, response, userLoginConfirmationRequest);*/
+            userLoginConfirmationRequest.setConfirmed(true);
+            User user = getUser(userLoginConfirmationRequest.getVerifiedEmail());
+            user.setEnabled(true);
+
+            getAdminDAO().save(user);
+            saveUserLoginConfirmationRequest(userLoginConfirmationRequest);
+            /*getRpxService().confirmUserEmail(request, response, userLoginConfirmationRequest);*/
             return true;
         } else if (!userLoginConfirmationRequest.isConfirmed() && userLoginConfirmationRequest.getConfirmationKey().equalsIgnoreCase(confirmationKey)
-                && "userrules".equalsIgnoreCase(userLoginConfirmationRequest.getProviderName())) {
+                && "referoscope".equalsIgnoreCase(userLoginConfirmationRequest.getProviderName())) {
             userLoginConfirmationRequest.setConfirmed(true);
             User user = getUser(userLoginConfirmationRequest.getVerifiedEmail());
             user.setEnabled(true);
