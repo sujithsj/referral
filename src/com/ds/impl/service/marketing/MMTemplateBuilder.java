@@ -7,30 +7,38 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MMTemplateBuilder {
 
-  public static String getSharingCodeForBanner(String baseUrl, Long bannerId, Long affiliateId, String mmTitle, Long imageId) {
+  public static String getSharingCodeForBanner(String baseUrl, Long bannerId, Long affiliateId, String mmTitle, Long imageId,String mmBody, String companyName) {
     String sharingCode = MMSharingTemplates.BANNER_SHARE_TEMPLATE;
-    sharingCode = replaceTokensInBannerTemplate(sharingCode, baseUrl, bannerId, affiliateId, mmTitle, imageId);
+    sharingCode = replaceTokensInBannerTemplate(sharingCode, baseUrl, bannerId, affiliateId, mmTitle, imageId, mmBody, companyName);
     return sharingCode;
   }
 
-  public static String getPreviewForBanner(String baseUrl, Long bannerId, String mmTitle, Long imageId) {
+  public static String getPreviewForBanner(String baseUrl, Long bannerId, String mmTitle, Long imageId,String mmBody, String companyName) {
     String sharingCode = MMSharingTemplates.BANNER_PREVIEW_TEMPLATE;
-    sharingCode = replaceTokensInBannerTemplate(sharingCode, baseUrl, bannerId, null, mmTitle, imageId);
+    sharingCode = replaceTokensInBannerTemplate(sharingCode, baseUrl, bannerId, null, mmTitle, imageId,mmBody, companyName);
     return sharingCode;
   }
 
-  public static String getBannerByJS(String baseUrl, Long bannerId, Long affiliateId, String mmTitle, Long imageId) {
+  public static String getBannerByJS(String baseUrl, Long bannerId, Long affiliateId, String mmTitle, Long imageId,String mmBody, String companyName) {
     String bannerJSContent = MMSharingTemplates.BANNER_THRU_JS;
-    bannerJSContent = replaceTokensInBannerTemplate(bannerJSContent, baseUrl, bannerId, affiliateId, mmTitle, imageId);
+    bannerJSContent = replaceTokensInBannerTemplate(bannerJSContent, baseUrl, bannerId, affiliateId, mmTitle, imageId,mmBody, companyName);
     return bannerJSContent;
   }
 
-  private static String replaceTokensInBannerTemplate(String templateContent, String baseUrl, Long bannerId, Long affiliateId, String mmTitle, Long imageId) {
+  private static String replaceTokensInBannerTemplate(String templateContent, String baseUrl, Long bannerId, Long affiliateId, String mmTitle, Long imageId,String mmBody, String companyName) {
     templateContent = templateContent.replaceAll("#baseUrl", baseUrl);
     templateContent = templateContent.replaceAll("#bannerId", bannerId.toString());
     if (affiliateId != null) {
       templateContent = templateContent.replaceAll("#affiliateId", affiliateId.toString());
     }
+
+    if (StringUtils.isNotBlank(mmBody)) {
+      templateContent = templateContent.replaceAll("#mmBody", mmBody);
+    } else {
+      templateContent = templateContent.replaceAll("#mmBody", "");
+    }
+    templateContent = templateContent.replaceAll("#companyName", companyName);
+
     templateContent = templateContent.replaceAll("#imageId", imageId.toString());
     templateContent = templateContent.replaceAll("#mmTitle", mmTitle);
     return templateContent;

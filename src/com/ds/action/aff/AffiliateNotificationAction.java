@@ -29,6 +29,7 @@ import java.util.Set;
  * Date: Feb 9, 2013
  * Time: 4:14:18 PM
  */
+@SuppressWarnings("unchecked")
 public class AffiliateNotificationAction extends BasePaginatedAction {
 
 	private String companyShortName;

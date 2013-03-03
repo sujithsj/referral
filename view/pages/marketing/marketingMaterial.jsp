@@ -101,6 +101,7 @@
                             <thead>
                             <tr>
                                 <th>Title</th>
+                                <th>Campaign</th>
                                 <th>Type</th>
                                 <th>Landing Page</th>
                                 <th style="width: 10%">Actions</th>
@@ -110,6 +111,7 @@
                             <c:forEach items="${mmSearchAction.marketingMaterials}" var="marketingMaterail">
                                 <tr>
                                     <td>${marketingMaterail.title}</td>
+                                    <td>${marketingMaterail.campaign.name}</td>
                                     <td>${marketingMaterail.marketingMaterialType.type}</td>
                                     <td>${marketingMaterail.landingPageUrl}</td>
                                     <td>
