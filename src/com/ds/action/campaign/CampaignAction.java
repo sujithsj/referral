@@ -56,11 +56,13 @@ public class CampaignAction extends BaseAction {
 
     if (campaign != null) {
       addRedirectAlertMessage(new SimpleMessage("Campaign updated successfully.Please upload a banner"));
-      return new RedirectResolution(CampaignAction.class, "createOrEditCampaign").addParameter("campaignId", campaign.getId());
+      //return new RedirectResolution(CampaignAction.class, "createOrEditCampaign").addParameter("campaignId", campaign.getId());
     } else {
       addRedirectAlertMessage(new SimpleMessage("Could not find/create campaign"));
-      return new RedirectResolution(CampaignAction.class, "createOrEditCampaign");
+      //return new RedirectResolution(CampaignAction.class, "createOrEditCampaign");
     }
+
+    return new RedirectResolution(CampaignSearchAction.class).addParameter("name", campaignDTO.getName());
   }
 
   public CampaignService getCampaignService() {

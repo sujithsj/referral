@@ -36,8 +36,8 @@
 									<i class=" icon-search"></i>
 								</span>
                         <h5>Search Ads</h5>
-                            <%--<span class="label label-success tip-left" title="Total Ads">${mmSearchAction.totalAdCount}</span>--%>
-                        <span class="label label-success tip-left" title="Total Ads">4</span>
+                            <span class="label label-success tip-left" title="Total Ads">${mmSearchAction.totalAdCount}</span>
+                        <%--<span class="label label-success tip-left" title="Total Ads">4</span>--%>
                     </div>
                     <div class="widget-content">
                         <s:form beanclass="com.ds.action.marketing.MarketingMaterialSearchAction" id="mmSearchForm"
@@ -59,17 +59,17 @@
                                 <a class="btn btn-inverse mmType" href="#"
                                    type="<%=EnumMarketingMaterialType.Banner.getId()%>">Banner&nbsp;<span
                                         class="label label-success"
-                                        style="position:absolute; top:-8px;right:3px;"><%--${mmSearchAction.totalBannerAds}--%>2</span></a>
+                                        style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalBannerAds}</span></a>
                                 <a class="btn btn-inverse mmType" href="#"
                                    type="<%=EnumMarketingMaterialType.TextAd.getId()%>">Text
                                     Ads&nbsp;<span
                                             class="label label-success"
-                                            style="position:absolute; top:-8px;right:3px;"><%--${mmSearchAction.totalTextAds}--%> 2</span></a>
+                                            style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalTextAds}</span></a>
                                 <a class="btn btn-inverse mmType" href="#"
                                    type="<%=EnumMarketingMaterialType.ReferalAd.getId()%>">Referal
                                     Ads&nbsp;<span
                                             class="label label-success"
-                                            style="position:absolute; top:-8px;right:3px;"><%--${mmSearchAction.totalTextAds}--%> 2</span></a>
+                                            style="position:absolute; top:-8px;right:3px;">${mmSearchAction.totalReferalAds}</span></a>
                             </div>
 
                             <%--<div class="navbar navbar-inverse">

@@ -91,7 +91,7 @@
 <div class="control-group" id="landingPageCg" style="display:none;" >
     <s:label class="control-label" name="Default landing page"/>
     <div class="controls">
-        <s:text name="campaignDTO.landingPage" placeholder="http://www..com"/>
+        <s:text name="campaignDTO.landingPage" placeholder="http://www.test.com"/>
     </div>
 </div>
 <div class="control-group">
@@ -110,7 +110,7 @@
         <s:checkbox id="tiered" name="commissionPlanDTO.tiered"/>
       </div>
     </div>--%>
-<div id="tieredCommission">
+<div id="tieredCommission" style="display:none;">
     <div id="tier1Comm" class="control-group">
         <fieldset>
             <div class="control-group" style="margin-right:10px;">

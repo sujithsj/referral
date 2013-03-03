@@ -13,10 +13,10 @@ public enum EnumCampaignType {
 
   ALL (-999L,"All"), //to be used only on UI 
   SALE(10L,"Sale"),
-  AFFILIATE_SIGN_UP(20L,"Affiliate Sign Up"),
-  USER_SIGN_UP(30L,"User Sign up"),
-  REGISTRATION(40L,"Registration"),
-  EMAIL_OPT_IN(50L,"Email opt in"),
+  //AFFILIATE_SIGN_UP(20L,"Affiliate Sign Up"),
+  //USER_SIGN_UP(30L,"User Sign up"),
+  //REGISTRATION(40L,"Registration"),
+  //EMAIL_OPT_IN(50L,"Email opt in"),
   SOCIAL_REFERRAL(60L,"Social Referral");
 
 
@@ -40,11 +40,11 @@ public enum EnumCampaignType {
 
   public static List<EnumCampaignType> getAllCampaignTypes() {
     return Arrays.asList(
-        EnumCampaignType.AFFILIATE_SIGN_UP,
+        //EnumCampaignType.AFFILIATE_SIGN_UP,
         EnumCampaignType.SALE,
-        EnumCampaignType.USER_SIGN_UP,
-        EnumCampaignType.REGISTRATION,
-        EnumCampaignType.EMAIL_OPT_IN,
+        //EnumCampaignType.USER_SIGN_UP,
+        //EnumCampaignType.REGISTRATION,
+        //EnumCampaignType.EMAIL_OPT_IN,
         EnumCampaignType.SOCIAL_REFERRAL
     );
 
