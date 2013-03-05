@@ -114,12 +114,12 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
 
-		CompanyAffiliateInvite companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(notificationId);
+		/*CompanyAffiliateInvite companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(notificationId);
 		if (companyAffiliateInvite != null) {
 			getCompanyAffiliateService().deleteCompanyAffiliateInvite(companyAffiliateInvite);
-		}
+		}*/
 
-		return new RedirectResolution(CompanyAffiliateInviteAction.class);
+		return new RedirectResolution(AffiliateNotificationAction.class);
 
 	}
 

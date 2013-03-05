@@ -18,28 +18,6 @@
 
 			<div class="container-fluid">
 
-				<%--<div class="row-fluid">
-					<div class="span12">
-						<div class="widget-box">
-							<div class="widget-title">
-								<span class="icon">
-									<i class=" icon-envelope"></i>
-								</span>
-								<h5>Send Invite to Affiliate</h5>
-							</div>
-							<div class="widget-content">
-								<s:form beanclass="com.ds.action.aff.AffiliateNotificationAction" class="form-inline">
-									<div class="input-prepend">
-										<span class="add-on"><i class="icon-envelope"></i></span><s:text name="affiliateEmail"
-										                                                                 placeholder="Email To Send Invite"/>
-									</div>
-									<s:submit name="sendInviteEmail" class="btn btn-success">Send Mail Invite</s:submit>
-								</s:form>
-							</div>
-						</div>
-					</div>
-
-				</div>--%>
 
 				<div class="row-fluid">
 					<div class="span12">
@@ -85,10 +63,10 @@
 							<div class="row-fluid">
 								<div class="span3">
 									<s:layout-render name="/layouts/paginationResultCount.jsp"
-									                 paginatedBean="${companyAffiliateInviteAction}"/>
+									                 paginatedBean="${affiliateNotificationAction}"/>
 								</div>
 								<div class="span9">
-									<s:layout-render name="/layouts/pagination.jsp" paginatedBean="${companyAffiliateInviteAction}"/>
+									<s:layout-render name="/layouts/pagination.jsp" paginatedBean="${affiliateNotificationAction}"/>
 								</div>
 
 							</div>
