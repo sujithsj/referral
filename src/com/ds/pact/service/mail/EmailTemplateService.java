@@ -11,7 +11,7 @@ public interface EmailTemplateService {
 
   public enum EmailEventType {
         PostedEmployeeEvent, PostCommentedEmployeeEvent, FeedbackAnswered, PostCommented, PostStatusChanged,
-        UserLoggedInThirdPartyEmailConfirmation, UserThirdPartyAssociationConfirmation,UserPasswordResetConfirmation,UserRegistrationConfirmation,
+        UserPasswordResetConfirmation,UserRegistrationConfirmation,
         ClaimReward, WelcomeAffiliate, CompanyAffiliateInvitationEmail, AffiliateWaitingApproval
     }
 

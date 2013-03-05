@@ -51,14 +51,14 @@ public class MarketingMaterialResource {
     MarketingMaterial marketingMaterial = getMarketingService().getMarektingMaterialById(marketingMaterialId);
 
     Long mmTypeId = marketingMaterial.getMarketingMaterialType().getId();
+    Company company = getAdminService().getCompany(marketingMaterial.getCompanyShortName());
 
     if (EnumMarketingMaterialType.Banner.getId().equals(mmTypeId)) {
       if (marketingMaterial.getImage() != null) {
-        previewCode = MMTemplateBuilder.getPreviewForBanner(BASE_URL, marketingMaterial.getId(), marketingMaterial.getTitle(), marketingMaterial.getImage().getId());
+        previewCode = MMTemplateBuilder.getPreviewForBanner(BASE_URL, marketingMaterial.getId(), marketingMaterial.getTitle(), marketingMaterial.getImage().getId(),marketingMaterial.getBody(), company.getName());
       }
     }
     if (EnumMarketingMaterialType.TextAd.getId().equals(mmTypeId)) {
-      Company company = getAdminService().getCompany(marketingMaterial.getCompanyShortName());
       previewCode = MMTemplateBuilder.getPreviewForTextAd(BASE_URL, marketingMaterial.getId(), marketingMaterial.getTitle(), marketingMaterial.getBody(), company.getName());
     }
 
@@ -85,14 +85,14 @@ public class MarketingMaterialResource {
 
     //TODO: handle null marketing material
     Long mmTypeId = marketingMaterial.getMarketingMaterialType().getId();
-
+    Company company = getAdminService().getCompany(marketingMaterial.getCompanyShortName());
+    
     if (EnumMarketingMaterialType.Banner.getId().equals(mmTypeId)) {
       if (marketingMaterial.getImage() != null) {
-        sharingCode = MMTemplateBuilder.getSharingCodeForBanner(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getImage().getId());
+        sharingCode = MMTemplateBuilder.getSharingCodeForBanner(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getImage().getId(),marketingMaterial.getBody(), company.getName());
       }
     }
     if (EnumMarketingMaterialType.TextAd.getId().equals(mmTypeId)) {
-      Company company = getAdminService().getCompany(marketingMaterial.getCompanyShortName());
       sharingCode = MMTemplateBuilder.getSharingCodeForTextAd(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getBody(), company.getName());
     }
 
@@ -128,15 +128,16 @@ public class MarketingMaterialResource {
 
     //TODO: handle null marketingmaterial
     Long mmTypeId = marketingMaterial.getMarketingMaterialType().getId();
+    Company company = getAdminService().getCompany(marketingMaterial.getCompanyShortName());
 
     if (EnumMarketingMaterialType.Banner.getId().equals(mmTypeId)) {
       if (marketingMaterial.getImage() != null) {
-        jsContent = MMTemplateBuilder.getBannerByJS(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getImage().getId());
+        jsContent = MMTemplateBuilder.getBannerByJS(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getImage().getId(),marketingMaterial.getBody(), company.getName());
       }
     }
 
     if (EnumMarketingMaterialType.TextAd.getId().equals(mmTypeId)) {
-      Company company = getAdminService().getCompany(marketingMaterial.getCompanyShortName());
+
       jsContent = MMTemplateBuilder.getTextAdByJS(BASE_URL, marketingMaterial.getId(), affiliateId, marketingMaterial.getTitle(), marketingMaterial.getBody(), company.getName());
     }
 

@@ -32,6 +32,7 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
   private Long totalAdCount;
   private Long totalBannerAds;
   private Long totalTextAds;
+  private Long totalReferalAds;
 
 
   private Page marketingMaterialPage;
@@ -70,12 +71,14 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
   private void populateAdCount() {
     Map<Long, Long> counts = getMarketingService().getCountForMarketingMaterialByType(companyShortName);
     totalBannerAds = counts.get(EnumMarketingMaterialType.Banner.getId());
-    totalTextAds = counts.get(EnumMarketingMaterialType.ReferalAd.getId());
+    totalTextAds = counts.get(EnumMarketingMaterialType.TextAd.getId());
+    totalReferalAds = counts.get(EnumMarketingMaterialType.ReferalAd.getId());
 
     totalBannerAds = totalBannerAds == null ? 0 : totalBannerAds;
     totalTextAds = totalTextAds == null ? 0 : totalTextAds;
+    totalReferalAds = totalReferalAds == null ? 0 : totalReferalAds;
 
-    totalAdCount = totalBannerAds + totalTextAds;
+    totalAdCount = totalBannerAds + totalTextAds + totalReferalAds;
   }
 
   @Override
@@ -174,5 +177,13 @@ public class MarketingMaterialSearchAction extends BasePaginatedAction {
 
   public void setTotalTextAds(Long totalTextAds) {
     this.totalTextAds = totalTextAds;
+  }
+
+  public Long getTotalReferalAds() {
+    return totalReferalAds;
+  }
+
+  public void setTotalReferalAds(Long totalReferalAds) {
+    this.totalReferalAds = totalReferalAds;
   }
 }

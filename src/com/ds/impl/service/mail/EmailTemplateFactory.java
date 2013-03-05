@@ -1,5 +1,8 @@
 package com.ds.impl.service.mail;
 
+import com.ds.core.event.UserLoginEmailConfirmationRequestEvent;
+import com.ds.pact.service.mail.EmailTemplateService;
+
 import java.util.Map;
 import java.util.HashMap;
 
@@ -37,6 +40,13 @@ public class EmailTemplateFactory {
       emailTemplate.setBodyTemplateName("velocity/AffiliateWaitingApproval.vm");
       return emailTemplate;
     }
+    else if(EmailTemplateService.EmailEventType.UserRegistrationConfirmation.toString().equals(templateKey)){
+      EmailTemplate emailTemplate = new EmailTemplate();
+      emailTemplate.setSubject("Thanks for signing up. Please verify your account");
+      emailTemplate.setHtml(true);
+      emailTemplate.setBodyTemplateName("velocity/"+ EmailTemplateService.EmailEventType.UserRegistrationConfirmation.toString() + ".vm");
+      return emailTemplate;
+    }  
 
     return null;
   }

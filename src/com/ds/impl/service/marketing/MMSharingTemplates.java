@@ -11,10 +11,10 @@ public class MMSharingTemplates {
 
 
   private static final String BANNER_HTML_CONTENT = "<a href=\"http://#baseUrl/mmr/#bannerId/#affiliateId\" title=\"#mmTitle\">" +
-      "<img src=\"http://" + IMG_HOST + "/getImage/#imageId\" alt=\"\" title=\"\" style=\"border: none\"   /></a>";
+      "<img src=\"http://" + IMG_HOST + "/getImage/#imageId\" alt=\"\" title=\"\" style=\"border: none\"   />#mmTitle<br/>#mmBody<br/>#companyName</a>";
 
   private static final String BANNER_PREVIEW_CONTENT = "<a href=\"javascript:void(0)\" title=\"#mmTitle\">" +
-      "<img src=\"http://" + IMG_HOST + "/getImage/#imageId\" alt=\"\" title=\"\" style=\"border: none\"   /></a>";
+      "<img src=\"http://" + IMG_HOST + "/getImage/#imageId\" alt=\"\" title=\"\" style=\"border: none\"   />#mmTitle<br/>#mmBody<br/>#companyName</a>";
 
 
   private static final String strVar = "<style type=\"text\\/css\" media=\"screen\">" +

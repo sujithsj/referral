@@ -22,7 +22,9 @@ public interface CampaignService {
 
   public Campaign updateCampaign(Long campaignId, CommissionPlanDTO commissionPlanDTO, CampaignDTO campaignDTO);
 
-  public List<Campaign> getAllCampaigns();
+  public List<Campaign> getAllCampaigns(String companyShortName);
+  
+  public List<Campaign> getAllCampaignsEligibleForAd(String companyShortName);
 
   public Page getCampaignsVisibleToAffiliate(String companyShortName,int pageNo, int perPage);
 

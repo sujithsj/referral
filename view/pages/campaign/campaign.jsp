@@ -89,11 +89,13 @@
                     <tr>
                       <td>${campaign.name}</td>
                       <td>${campaign.campaignType.type}</td>
-                      <td><span class="label label-success">Active</span> </td>
+                      <td>
+                      <%-- <span class="label label-success">Active</span>--%> 
+                      </td>
                       <%--<td>${campaign.active}</td>--%>
                       <td>${campaign.commissionPlan.commissionStrategy.name}</td>
-                      <td>Rs. 3000</td>
-                      <td>Rs. 180</td>
+                      <td></td>
+                      <td></td>
                       <td>${campaign.startDate}</td>
                       <td>${campaign.endDate}</td>
                       <td>
@@ -105,7 +107,7 @@
                           </s:link>
                           <s:link beanclass="com.ds.action.campaign.CampaignIntegrateAction"
                                   event="integrate" class="btn tip-bottom" title="Integrate">
-                           <i class="icon-edit"></i>
+                           <i class="icon-screenshot"></i>
                             <s:param name="campaignId" value="${campaign.id}"/>
                           </s:link>
 

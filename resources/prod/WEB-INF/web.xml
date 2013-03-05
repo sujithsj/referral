@@ -256,6 +256,17 @@
 		<url-pattern>/ets/*</url-pattern>
 	</servlet-mapping>
 
+     <servlet id="EmailConfirmServlet">
+		<servlet-name>EmailConfirmServlet</servlet-name>
+		<servlet-class>
+			com.ds.web.servlet.EmailConfirmServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmailConfirmServlet</servlet-name>
+		<url-pattern>/tpEmailConfirm</url-pattern>
+	</servlet-mapping>
+
 
   <servlet id="GoogleVisualizationDataSourceServlet">
 		<servlet-name>GoogleVisualizationDataSourceServlet</servlet-name>

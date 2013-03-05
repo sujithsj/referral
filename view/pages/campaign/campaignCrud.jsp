@@ -91,7 +91,7 @@
 <div class="control-group" id="landingPageCg" style="display:none;" >
     <s:label class="control-label" name="Default landing page"/>
     <div class="controls">
-        <s:text name="campaignDTO.landingPage" placeholder="http://www..com"/>
+        <s:text name="campaignDTO.landingPage" placeholder="http://www.test.com"/>
     </div>
 </div>
 <div class="control-group">
@@ -110,7 +110,7 @@
         <s:checkbox id="tiered" name="commissionPlanDTO.tiered"/>
       </div>
     </div>--%>
-<div id="tieredCommission">
+<div id="tieredCommission" style="display:none;">
     <div id="tier1Comm" class="control-group">
         <fieldset>
             <div class="control-group" style="margin-right:10px;">
@@ -132,12 +132,12 @@
             <div class="control-group" id="tier1RecurCommDiv">
                 <s:label class="control-label" name="Initial Commission"/>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
                     <s:text name="commissionPlanDTO.tier1InitCom"/>
                 </div>
                 <s:label class="control-label" name="Recurring Commission"/>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs</span></div>
                     <s:text name="commissionPlanDTO.tier1RecurCom"/>
                 </div>
             </div>
@@ -153,7 +153,7 @@
             <div class="control-group" id="tier1OneTimeCommDiv">
                 <s:label class="control-label" name="Commission"/>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
                     <s:text name="commissionPlanDTO.tier1OneTimeCom"/>
                 </div>
             </div>
@@ -183,12 +183,12 @@
             <div class="control-group" id="tier2RecurCommDiv">
                 <s:label class="control-label" name="Initial Commission"/>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
                     <s:text name="commissionPlanDTO.tier2InitCom"/>
                 </div>
                 <s:label class="control-label" name="Recurring Commission"/>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
                     <s:text name="commissionPlanDTO.tier2RecurCom"/>
                 </div>
             </div>
@@ -204,7 +204,7 @@
             <div class="control-group" id="tier2OneTimeCommDiv">
                 <s:label class="control-label" name="Commission"/>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
                     <s:text name="commissionPlanDTO.tier2OneTimeCom"/>
                 </div>
             </div>
@@ -234,12 +234,12 @@
             <div class="control-group" id="tier3RecurCommDiv">
                 <s:label class="control-label" name="Initial Commission"/>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
                     <s:text name="commissionPlanDTO.tier3InitCom"/>
                 </div>
                 <s:label class="control-label" name="Recurring Commission"/>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
                     <s:text name="commissionPlanDTO.tier3RecurCom"/>
                 </div>
             </div>
@@ -255,7 +255,7 @@
             <div class="control-group" id="tier3OneTimeCommDiv">
                 <s:label class="control-label" name="Commission"/>
                 <div class="controls">
-                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+                    <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
                     <s:text name="commissionPlanDTO.tier3OneTimeCom"/>
                 </div>
             </div>
@@ -282,12 +282,12 @@
     <div class="control-group" id="recurCommDiv">
         <s:label class="control-label" name="Initial Commission"/>
         <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
             <s:text name="commissionPlanDTO.initCom"/>
         </div>
         <s:label class="control-label" name="Recurring Commission"/>
         <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
             <s:text name="commissionPlanDTO.recurCom"/>
         </div>
     </div>
@@ -303,7 +303,7 @@
     <div class="control-group" id="oneTimeCommDiv">
         <s:label class="control-label" name="Commission"/>
         <div class="controls">
-            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">$</span></div>
+            <div class="input-prepend"><span class="add-on" style="margin-right:-5px;">Rs.</span></div>
             <s:text name="commissionPlanDTO.oneTimeCom"/>
         </div>
     </div>

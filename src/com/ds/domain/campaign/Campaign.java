@@ -9,7 +9,9 @@ import java.util.Date;
 @Entity
 @Table(name = "campaign")
 @NamedQueries({
-        @NamedQuery(name = "getCampaignById", query = "select c from Campaign c where c.id = :campaignId")
+        @NamedQuery(name = "getCampaignById", query = "select c from Campaign c where c.id = :campaignId"),
+        @NamedQuery(name = "getAllCampaignsForCompany", query = "select c from Campaign c where c.companyShortName = :companyShortName"),
+        @NamedQuery(name = "getAllCampaignsEligibleForAdForCompany", query = "select c from Campaign c where c.companyShortName = :companyShortName and c.campaignType.id <> 60")
 
 })
 public class Campaign implements java.io.Serializable {

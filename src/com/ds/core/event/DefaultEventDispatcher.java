@@ -36,6 +36,7 @@ public class DefaultEventDispatcher implements EventDispatcher {
     asyncEvents.add(MarketingMaterialServeEvent.class.getSimpleName());
     asyncEvents.add(MarketingMaterialSaleEvent.class.getSimpleName());
     asyncEvents.add(MarketingMaterialImpressionEvent.class.getSimpleName());
+    asyncEvents.add(UserLoginEmailConfirmationRequestEvent.class.getSimpleName());
   }
 
   @Override

@@ -1,0 +1,19 @@
+call impressions reach and if impression is for same user on same day dont count it.
+
+mixpanel, chartbeat, flurry : online analytics
+
+
+An example is determining if a company’s Facebook posts work better on Wednesdays than on Thursdays, and changing their social media strategy accordingly
+
+https://www.viralheat.com/
+
+http://www.shareaholic.com/api/
+
+
+show on dashboard
+
+referrers, shares, referals, conversions as first on dashboard on top.
+
+Top URLs
+
+

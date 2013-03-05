@@ -11,7 +11,7 @@ public class SystemSettings {
 private static LoadPropertyService loadPropertyService;
 
     public static String getBaseUrl() {
-        String baseUrl = (String) getLoadPropertyService().getProperty("userrule.baseUrl");
+        String baseUrl = (String) getLoadPropertyService().getProperty("referoscope.baseUrl");
         return baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
     }
 

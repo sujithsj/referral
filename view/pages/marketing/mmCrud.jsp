@@ -39,7 +39,7 @@
                             <div class="control-group">
                                 <s:label class="control-label" name="Type Of Ad"/>
                                 <div class="controls">
-                                    <s:select name="type" id="adTypeSelect">
+                                    <s:select name="type" id="adTypeSelect"  style="width:220px;">
                                         <c:forEach items="<%=EnumMarketingMaterialType.getAllMMTypes()%>" var="pType">
                                             <s:option value="${pType.id}">${pType.type}</s:option>
                                         </c:forEach>
@@ -62,7 +62,7 @@
                         <div class="collapse in " id="collapseCampaigns" style="border-bottom:1px solid #CDCDCD;">
                             <div class="widget-content" style="border-bottom:none;">
                                <%-- <div class="span4">--%>
-                                    <s:select name="campaignId" style="width:200px;">
+                                    <s:select name="campaignId" style="width:400px;">
                                         <c:forEach items="${mmAction.allCampaigns}" var="campaign">
                                             <s:option value="${campaign.id}">${campaign.name}</s:option>
                                         </c:forEach>
