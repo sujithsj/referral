@@ -11,7 +11,7 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
 <div id="content">
-    <s:layout-render name="/includes/companyContentHeader.jsp" headerLabel="Dashboard"/>
+    <%--<s:layout-render name="/includes/companyContentHeader.jsp" headerLabel="Dashboard"/>--%>
     <div id="breadcrumb">
         <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>Home</a>
         <a href="#" class="current">Dashboard</a>
@@ -22,7 +22,7 @@
         <input type="hidden" id="startDate"/>
         <input type="hidden" id="endDate"/>
 
-        <div class="row-fluid">
+        <%--<div class="row-fluid">
             <div class="span12 center" style="text-align: center;">
                 <ul class="quick-actions">
                     <li>
@@ -45,7 +45,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div>--%>
 
         <div class="row-fluid">
 

@@ -1,17 +1,10 @@
 package com.ds.pact.service.affiliate;
 
-import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.company.Company;
-import com.ds.domain.user.UserSettings;
-import com.ds.exception.DSException;
 import com.ds.web.action.Page;
-import com.ds.dto.affiliate.CompanyAffiliateDTO;
-import com.ds.dto.affiliate.AffiliateDTO;
-import com.ds.search.impl.AffiliateGroupQuery;
 
-import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
@@ -29,7 +22,7 @@ public interface CompanyAffiliateService {
 
 	public CompanyAffiliate getCompanyAffiliate(Long companyAffiliateId);
 
-    public CompanyAffiliate getCompanyAffiliate(Long affiliateId, String companyShortName);
+	public CompanyAffiliate getCompanyAffiliate(Long affiliateId, String companyShortName);
 
 	public Page searchCompanyAffiliate(String login, String email, String companyShortName, int pageNo, int perPage);
 
@@ -37,7 +30,7 @@ public interface CompanyAffiliateService {
 
 	/*public void sendWelcomeEmail(Affiliate affiliate);*/
 
-	public List<CompanyAffiliate> getCompanyAffiliatesExcludingSelf (Long companyAffiliateId, String companyShortName);
+	public List<CompanyAffiliate> getCompanyAffiliatesExcludingSelf(Long companyAffiliateId, String companyShortName);
 
 	//public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName);
 
@@ -47,23 +40,22 @@ public interface CompanyAffiliateService {
 
 	public long getActiveCompanyAffiliateCount(String companyShortName);
 
+	public List<Company> getAllCompanyForAffiliate(String email);
 
+	/**
+	 * invite related methods
+	 */
 
-    /**
-     * invite related methods 
-     */
-
-    /***
-     *
-     * @param companyShortName
-     * @param affiliateEmail
-     * @return
-     */
+	/**
+	 * @param companyShortName
+	 * @param affiliateEmail
+	 * @return
+	 */
 	public CompanyAffiliateInvite addCompanyAffiliateInvite(String companyShortName, String affiliateEmail);
 
 	public CompanyAffiliateInvite getCompanayAffiliateInvite(String companyShortName, String affiliateEmail);
 
-    public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage);
+	public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage);
 
 	public CompanyAffiliateInvite getCompanyAffiliateInvite(Long companyAffiliateInviteId);
 
@@ -71,13 +63,12 @@ public interface CompanyAffiliateService {
 
 	public CompanyAffiliateInvite saveCompanyAffiliateInvite(CompanyAffiliateInvite companyAffiliateInvite);
 
-    /**
-     * email methods
-     */
+	/**
+	 * email methods
+	 */
 
-    /**
-     *
-     * @param companyAffiliateInvite
-     */
-    public void sendCompanyAffiliateInvitationEmail(CompanyAffiliateInvite companyAffiliateInvite);
+	/**
+	 * @param companyAffiliateInvite
+	 */
+	public void sendCompanyAffiliateInvitationEmail(CompanyAffiliateInvite companyAffiliateInvite);
 }
