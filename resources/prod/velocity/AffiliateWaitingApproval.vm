@@ -1,0 +1,24 @@
+<html>
+<body>
+<br>
+Hi ${context.affiliate.firstName},
+<br><br>
+Welcome to Referoscope.
+
+Your affiliate request is waiting for approval, you will hear back soon from us.
+<br>
+Have a nice day!!!
+<br>
+
+
+<br><br>
+<br><br>
+Thanks,<br>
+Referoscope Team<br>
+<br>
+<br>
+<font size=1><font color=#666666>Copyright © 2013 Referoscope.com</font></font><br>
+<br>
+</body>
+
+</html>

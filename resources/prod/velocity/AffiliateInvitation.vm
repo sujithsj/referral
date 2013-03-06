@@ -1,0 +1,27 @@
+<html>
+<body>
+<br/><br/>
+Hi ${context.companyAffiliateInvite.affiliateEmail},
+<br><br>
+Welcome to Referoscope
+<br/><br/>
+Have a nice day!!!
+<br/><br/>
+
+Please <a href="http://dev.healthkart.com/pages/affiliateSignUp.jsp?email=${context.companyAffiliateInvite.affiliateEmail}&csn=${context.companyAffiliateInvite.companyShortName}">click here</a> to sign up into your affiliate account
+<br/> <br/>
+If the above link does not work copy paste the below in your browser
+<br/><br/>
+http://dev.healthkart.com/pages/affiliateSignUp.jsp?email=${context.companyAffiliateInvite.affiliateEmail}&csn=${context.companyAffiliateInvite.companyShortName}
+
+<br/><br/>
+<br/><br/>
+Thanks,<br/>
+The Referoscope Team<br/>
+<br/>
+<br/>
+<font size=1><font color=#666666>Copyright © 2013 Referoscope.com</font></font><br/>
+<br/>
+</body>
+
+</html>

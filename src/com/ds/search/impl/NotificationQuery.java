@@ -61,17 +61,17 @@ public class NotificationQuery extends AbstractSearchQuery {
 		}
 
 		if (affiliateId != null) {
-			queryStr.append(" and nf.affiliateId =  :affiliateId ");
+			queryStr.append(" and nf.affiliate.id =  :affiliateId ");
 			getQueryParams().put("affiliateId", affiliateId );
 		}
 
 		if (companyAffiliateId != null) {
-			queryStr.append(" and nf.companyAffiliateId =  :companyAffiliateId ");
+			queryStr.append(" and nf.companyAffiliate =  :companyAffiliateId ");
 			getQueryParams().put("companyAffiliateId", companyAffiliateId);
 		}
 
 		if (StringUtils.isNotBlank(userId)) {
-			queryStr.append(" and nf.userId =  :userId ");
+			queryStr.append(" and nf.user.id =  :userId ");
 			getQueryParams().put("userId", userId);
 		}
 

@@ -18,9 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-/**
- * @author adlakha.vaibhav
- */
+
 @Component
 public class AffiliateDashboardAction extends BaseAction {
 

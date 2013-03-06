@@ -1,16 +1,14 @@
 package com.ds.impl.service.notification;
 
+import com.ds.constants.EnumNotificationType;
+import com.ds.constants.NotificationMessages;
 import com.ds.domain.notification.Notification;
 import com.ds.pact.dao.BaseDao;
 import com.ds.pact.dao.notification.NotificationDao;
-import com.ds.pact.service.notification.NotificationService;
 import com.ds.pact.service.core.SearchService;
-import com.ds.constants.EnumNotificationType;
-import com.ds.constants.NotificationMessages;
-import com.ds.impl.dao.notification.NotificationDaoImpl;
-import com.ds.web.action.Page;
-import com.ds.search.impl.CompanyAffiliateInviteQuery;
+import com.ds.pact.service.notification.NotificationService;
 import com.ds.search.impl.NotificationQuery;
+import com.ds.web.action.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +71,7 @@ public class NotificationServiceImpl implements NotificationService {
 		NotificationQuery notificationQuery = new NotificationQuery();
 		notificationQuery.setUserId(userId);
 		notificationQuery.setNotified(false);
-		notificationQuery.setOrderByField("id").setPageNo(pageNo).setRows(perPage);
+		notificationQuery.setOrderByField("priority").setPageNo(pageNo).setRows(perPage);
 		return getSearchService().list(notificationQuery);
 
 
