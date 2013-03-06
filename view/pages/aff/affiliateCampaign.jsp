@@ -76,16 +76,16 @@
             </tr>
 
             <tbody>
-            <c:forEach items="${affCampaignSearchAction.campaigns}" var="campaign">
+            <c:forEach items="${affCampaignSearchAction.campaigns}" var="company">
               <tr>
-                <td>${campaign.name}</td>
-                <td>${campaign.campaignType.type}</td>
+                <td>${company.name}</td>
+                <td>${company.campaignType.type}</td>
                 <%--<td>${campaign.active}</td>--%>
-                <td>${campaign.commissionPlan.commissionStrategy.name}</td>
+                <td>${company.commissionPlan.commissionStrategy.name}</td>
                 <td>$Approved Commision</td>
                 <td>$Pending Commision</td>
-                <td>${campaign.startDate}</td>
-                <td>${campaign.endDate}</td>
+                <td>${company.startDate}</td>
+                <td>${company.endDate}</td>
                 <td>
                   <%--<s:link beanclass="com.ds.action.campaign.CampaignAction"
                           event="createOrEditCampaign" class="button blue small">
