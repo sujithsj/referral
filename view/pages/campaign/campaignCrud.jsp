@@ -327,7 +327,9 @@
         </div>
     </div>
 
-    <input type="hidden" id="startDate" name="campaignDTO.startDate"/>
+  <s:text name="campaignDTO.startDate"/>
+
+    <input type="text" name="campaignDTO.startDate"/>
     <input type="hidden" id="endDate" name="campaignDTO.endDate"/>
 
    <%-- <div class="control-group">

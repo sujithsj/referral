@@ -33,7 +33,8 @@ public class CampaignIntegrateAction extends BaseAction {
     public Resolution integrate() {
 
         //TODO: check campaign Id is valid
-        getCampaignService().getCampaignById(campaignId);
+        Campaign campaign = getCampaignService().getCampaignById(campaignId);
+        companyShortName = campaign.getCompanyShortName();
 
         return new ForwardResolution("/pages/campaign/campaignIntegrate.jsp");
     }
