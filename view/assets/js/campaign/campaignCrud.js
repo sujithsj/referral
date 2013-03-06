@@ -171,33 +171,33 @@ $(document).ready(function() {
 
   /*$("#recurRevShareDiv").show();
 
-  $("#tieredCommission").hide();
-  $("#tier2Comm").hide();
-  $("#tier3Comm").hide();
+   $("#tieredCommission").hide();
+   $("#tier2Comm").hide();
+   $("#tier3Comm").hide();
 
-  $("#recurCommDiv").hide();
-  $("#oneTimeRevShareDiv").hide();
-  $("#oneTimeCommDiv").hide();
-  $("#advanceControls").hide();
-
-
-  $("#tier1RecurRevShareDiv").show();
-  $("#tier1RecurCommDiv").hide();
-  $("#tier1OneTimeRevShareDiv").hide();
-  $("#tier1OneTimeCommDiv").hide();
+   $("#recurCommDiv").hide();
+   $("#oneTimeRevShareDiv").hide();
+   $("#oneTimeCommDiv").hide();
+   $("#advanceControls").hide();
 
 
-  $("#tier2RecurRevShareDiv").show();
-  $("#tier2RecurCommDiv").hide();
-  $("#tier2OneTimeRevShareDiv").hide();
-  $("#tier2OneTimeCommDiv").hide();
+   $("#tier1RecurRevShareDiv").show();
+   $("#tier1RecurCommDiv").hide();
+   $("#tier1OneTimeRevShareDiv").hide();
+   $("#tier1OneTimeCommDiv").hide();
 
 
-  $("#tier3RecurRevShareDiv").show();
-  $("#tier3RecurCommDiv").hide();
-  $("#tier3OneTimeRevShareDiv").hide();
-  $("#tier3OneTimeCommDiv").hide();
-*/
+   $("#tier2RecurRevShareDiv").show();
+   $("#tier2RecurCommDiv").hide();
+   $("#tier2OneTimeRevShareDiv").hide();
+   $("#tier2OneTimeCommDiv").hide();
+
+
+   $("#tier3RecurRevShareDiv").show();
+   $("#tier3RecurCommDiv").hide();
+   $("#tier3OneTimeRevShareDiv").hide();
+   $("#tier3OneTimeCommDiv").hide();
+   */
 
   $('#campaignRange').daterangepicker({}, function(start, end) {
 
@@ -209,6 +209,11 @@ $(document).ready(function() {
 
   });
 
+  var startDate = $("#startDate").val();
+
+  var endDate = $("#endDate").val();
+
+  $('#campaignRange').val(startDate.toString('MMMM d, yyyy') + ' - ' + endDate.toString('MMMM d, yyyy'));
 
 
 });
