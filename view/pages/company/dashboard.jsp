@@ -151,7 +151,7 @@
   google.setOnLoadCallback(drawChart);
 
   function drawChart() {
-    var query = new google.visualization.Query("/datasource?dsName=cIt&companyShortName=" + 'hk' + "&startDate=2012-12-01&endDate=2012-12-31");
+    var query = new google.visualization.Query("/datasource?dsName=cIt&companyShortName=" + $("#companyShortName").val() + "&startDate=2012-12-01&endDate=2012-12-31");
     query.send(drawFeedbackTypeDistributionChart);
   }
   var drawFeedbackTypeDistributionChart = function(response) {
