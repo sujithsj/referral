@@ -63,12 +63,10 @@
 		<s:layout-render name="/includes/footer.jsp"/>
 
 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/date.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/daterangepicker.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.pie.min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/company/dashboard/companyDashboard.js"></script>
-
+		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.validate.js"></script>
+		<%--<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/marketing/mmCrud.js"></script>--%>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/select2.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/unicorn.form_validation.js"></script>
 
 	</s:layout-component>
 

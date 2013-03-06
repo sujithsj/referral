@@ -39,7 +39,7 @@ public class AffiliateAdsAction extends BaseAction {
 		User loggedInUser = SecurityHelper.getLoggedInUser();
 		String companyShortName = loggedInUser.getCompanyShortName();
 
-		allEligibleCompanies =
+		//allEligibleCompanies =
 
 		numberOfPendingNotifications = notificationService.getPendingNotificationForAffiliate(loggedInUser.getEmail());
 
