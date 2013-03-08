@@ -301,7 +301,7 @@ public class AdminServiceImpl implements AdminService {
     userLoginConfirmationRequest.setIdentifier(userLoginConfirmationRequest.getConfirmationKey());
     userLoginConfirmationRequest.setConfirmed(false);
 
-    associateEmailToUserLoginConfirmationRequest(userLoginConfirmationRequest, user.getEmail(), false);
+	  getSelf().associateEmailToUserLoginConfirmationRequest(userLoginConfirmationRequest, user.getEmail(), false);
 
   }
 
@@ -678,12 +678,16 @@ public class AdminServiceImpl implements AdminService {
     getAdminDAO().saveUserLoginConfirmationRequest(userLoginConfirmationRequest);
   }
 
+	private AdminService getSelf(){
+		return ServiceLocatorFactory.getService(AdminService.class);
+	}
+
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public UserLoginConfirmationRequest associateEmailToUserLoginConfirmationRequest(final UserLoginConfirmationRequest userLoginConfirmationRequest, final String userEmail,
                                                                                    boolean isThirdPartyConfirmation) {
 
-    /*ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
+   /* ServiceLocatorFactory.getService(RequiresNewTemplate.class).executeInNewTransaction(new TransactionCallback() {
 
         @Override
         @Transactional

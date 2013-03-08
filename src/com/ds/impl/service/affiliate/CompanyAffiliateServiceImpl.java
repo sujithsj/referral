@@ -4,6 +4,7 @@ import com.ds.api.FeatureAPI;
 import com.ds.core.event.EmailEvent;
 import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.affiliate.CompanyAffiliateInvite;
+import com.ds.domain.company.Company;
 import com.ds.impl.service.mail.CompanyAffiliateInvEmailContext;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.affiliate.AffiliateService;
@@ -159,6 +160,12 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
         List<CompanyAffiliate> companyAffiliateList = getActiveCompanyAffiliates(companyShortName);
         return companyAffiliateList == null ? 0 : companyAffiliateList.size();
     }
+
+	public List<Company> getAllCompanyForAffiliate(String email) {
+
+
+		return null;
+	}
 
 
     /*@Transactional

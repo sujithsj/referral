@@ -55,6 +55,8 @@
 			</div>
 			<s:hidden name="companyAffiliateDTO.companyShortName"
 			          value="${csn}"/>
+			<s:hidden name="affiliateDTO.login"
+						          value="${email}"/>
 			<div class="control-group">
 				<div class="controls ">
 					<s:submit name="registerAffiliate" value="Create Affiliate" class="btn btn-success"/>

@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.grey.css" class="skin-color" type="text/css"/>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.ui.custom.js"></script>
+    <%--<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.ui.custom.js"></script>--%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.uniform.js"></script>
 
