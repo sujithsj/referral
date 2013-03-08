@@ -219,7 +219,8 @@
                 jQuery.globalEval = function() {
                 };
                 var mmId = $(this).attr('mmId');
-                DS.Ajax.getJson("/api/mm/" + mmId + "/share/999", function(response) {
+                var affId = 1005;
+                DS.Ajax.getJson("/api/mm/" + mmId + "/share/" + affId , function(response) {
 
                     //alert(response.sc);
                     $("#shareModal").modal();
