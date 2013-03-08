@@ -49,6 +49,10 @@
                                         var rf_campaign_uid = ${campaignIntegrateAction.campaignId}; // Required
                                         var rf_u_email = 'example@example.com'; // Required - must be replaced with customer's email
                                         var rf_revenue = '0.00'; // Optional - must be replaced with your sale value
+
+                                        var rf_u_f_name="first name";
+                                        var rf_u_l_name="last name";
+                                        var rf_tx_uid="10001";
                                         //-->
                                     </script>
                                     <script type="text/javascript"
