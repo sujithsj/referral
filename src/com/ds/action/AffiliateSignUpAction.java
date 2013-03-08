@@ -1,5 +1,6 @@
 package com.ds.action;
 
+import com.ds.domain.affiliate.Affiliate;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.CompanyAffiliateDTO;
 import com.ds.exception.CompositeValidationException;
@@ -88,9 +89,10 @@ public class AffiliateSignUpAction extends BaseAction {
 			}
 			logger.error("user exists with this email id " + affiliateDTO.getLogin());
 		}
-
+		Affiliate affiliate = affiliateService.getAffiliateByLogin(affiliateDTO.getEmail());
+		getAffiliateService().sendWelcomeEmail(affiliate);
 		addRedirectAlertMessage(new SimpleMessage("Successfully Signed Up, Please login to continue"));
-		return new RedirectResolution("http://www.google.com");
+		return new RedirectResolution(LoginAction.class);
 	}
 
 	public AffiliateDTO getAffiliateDTO() {
