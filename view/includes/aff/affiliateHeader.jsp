@@ -12,8 +12,8 @@
 			<li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span
 					class="text">Profile</span></a></li>
 
-			<li class="btn btn-inverse dropdown" id="menu-messages">
-				<a title="" href="${pageContext.request.contextPath}/aff/AffiliateNotification.action" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle">
+			<li class="btn btn-inverse">
+				<a title="" href="${pageContext.request.contextPath}/aff/AffiliateNotification.action">
 					<i class="icon icon-envelope"></i>
 					<span class="text">Notification</span>
 					<%--todo rahul: get the unread notification number below --%>
