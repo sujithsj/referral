@@ -12,7 +12,8 @@ import java.util.Arrays;
  */
 public enum EnumNotificationType {
 
-	COMPANY_AFFILIATE_APPROVAL_PENDING(10L, "Company Affiliate Approval Pending", 1L);
+	COMPANY_AFFILIATE_APPROVAL_PENDING(10L, NotificationMessages.COMPANY_AFFILIATE_APPROVAL_PENDING, 1L),
+	COMPANY_SALE_VIA_AFFILIATE(20L, NotificationMessages.COMPANY_SALE_VIA_AFFILIATE, 2L);
 
 	private String type;
 	private Long id;

@@ -1,10 +1,8 @@
 package com.ds.pact.service.notification;
 
 import com.ds.domain.notification.Notification;
-import com.ds.constants.EnumNotificationType;
 import com.ds.web.action.Page;
-
-import java.util.List;
+import com.ds.executor.notification.NotificationRequest;
 
 /**
  * User: Rahul
@@ -17,7 +15,7 @@ public interface NotificationService {
 
 	public Notification saveNotification(Notification notification);
 
-	public Notification createCompanyNotification(String companyShortName,final EnumNotificationType enumNotificationType);
+	public Notification createNotification(NotificationRequest notificationRequest);
 
 	public long getPendingNotificationForAffiliate(String affiliateEmailId);
 

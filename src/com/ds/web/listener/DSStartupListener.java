@@ -1,5 +1,8 @@
 package com.ds.web.listener;
 
+import com.ds.executor.RequestProcessorFactory;
+import com.ds.executor.notification.NotificationRequest;
+import com.ds.executor.notification.NotificationRequestProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +25,9 @@ public class DSStartupListener implements ServletContextListener {
     logger.info("logger configured");*/
 
     System.out.println("================  STARTING DS  ==================");
+
+    RequestProcessorFactory.register(NotificationRequest.class, new NotificationRequestProcessor());
+    
     //MemcacheClientFactory.setInstance("127.0.0.1:11211");
     logger.info("================  STARTING DS  ==================");
   }

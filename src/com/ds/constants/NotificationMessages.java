@@ -7,5 +7,6 @@ package com.ds.constants;
  */
 public class NotificationMessages {
 
-	public static final String COMPANY_AFFILIATE_APPROVAL_PENDING = "Affiliate pending for approval, Please approve";
+	public static final String COMPANY_AFFILIATE_APPROVAL_PENDING = "Affiliate #0# Signed up and is pending for approval";
+	public static final String COMPANY_SALE_VIA_AFFILIATE = "Affiliate #0# referred a sale worth #1#";
 }
