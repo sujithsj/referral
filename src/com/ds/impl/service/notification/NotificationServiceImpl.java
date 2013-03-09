@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 
 /**
  * User: Rahul
@@ -54,17 +55,23 @@ public class NotificationServiceImpl implements NotificationService {
     return (Notification) getBaseDao().save(notification);
   }
 
+  @Override
+  @SuppressWarnings("unchecked")
+  public List<Notification> getLastestUnreadNotificationsForCompany(String companyShortName, int maxCount) {
+    return getBaseDao().find("select nf from Notification nf where nf.notified = 0 and nf.companyShortName = ? order by nf.createDate",  new Object[]{companyShortName},0, maxCount);  
+  }
+
   /*public Notification createCompanyNotification(String companyShortName,final EnumNotificationType enumNotificationType) {
-     Notification notification = new Notification();
-     notification.setCompanyShortName(companyShortName);
-     switch(enumNotificationType) {
-       case COMPANY_AFFILIATE_APPROVAL_PENDING:
-         notification.setNotificationType(EnumNotificationType.COMPANY_AFFILIATE_APPROVAL_PENDING.asNotificationType());
-         notification.setMessage(NotificationMessages.COMPANY_AFFILIATE_APPROVAL_PENDING);
-         break;
-     }
-     return saveNotification(notification);
-   }*/
+    Notification notification = new Notification();
+    notification.setCompanyShortName(companyShortName);
+    switch(enumNotificationType) {
+      case COMPANY_AFFILIATE_APPROVAL_PENDING:
+        notification.setNotificationType(EnumNotificationType.COMPANY_AFFILIATE_APPROVAL_PENDING.asNotificationType());
+        notification.setMessage(NotificationMessages.COMPANY_AFFILIATE_APPROVAL_PENDING);
+        break;
+    }
+    return saveNotification(notification);
+  }*/
 
   @Override
   @Transactional
@@ -87,7 +94,7 @@ public class NotificationServiceImpl implements NotificationService {
     return notification;
   }
 
-  public long getPendingNotificationForAffiliate(String userId) {
+  public long getPendingNotificationCountForUser(String userId) {
     return notificationDao.getPendingNotificationForUser(userId);
   }
 

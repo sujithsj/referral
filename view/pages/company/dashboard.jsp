@@ -5,7 +5,7 @@
 <s:layout-component name="content">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/unicorn.main.css" type="text/css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/daterangepicker.css" type="text/css"/>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jquery.gritter.css" type="text/css"/>
+
 <s:layout-render name="/includes/companyHeader.jsp"/>
 <s:layout-render name="/includes/companySideBar.jsp"/>
 
@@ -189,7 +189,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/daterangepicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.pie.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.flot.pie.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.gritter.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/assets/js/company/dashboard/companyDashboard.js"></script>
 

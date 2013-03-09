@@ -3,6 +3,8 @@
 
 <s:layout-definition>
 
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jquery.gritter.css" type="text/css"/>
+  
   <div id="header">
     <h1><a href="./dashboard.html">Unicorn Admin</a></h1>
   </div>
@@ -29,4 +31,6 @@
           class="text">Logout</span></a></li>
     </ul>
   </div>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.gritter.min.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/company/notification.js"></script>
 </s:layout-definition>

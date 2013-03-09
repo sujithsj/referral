@@ -35,10 +35,10 @@ public class AffiliateDashboardAction extends BaseAction {
 	public Resolution pre() {
 		//numberOfPendingNotifications = 500;
 		User loggedInUser = SecurityHelper.getLoggedInUser();
-		String companyShortName = loggedInUser.getCompanyShortName();
+		//String companyShortName = loggedInUser.getCompanyShortName();
 
 		/*totalReferrers = getCompanyDashboardService().getTotalReferrersForCompany(companyShortName);*/
-		numberOfPendingNotifications = notificationService.getPendingNotificationForAffiliate(loggedInUser.getEmail());
+		numberOfPendingNotifications = notificationService.getPendingNotificationCountForUser(loggedInUser.getEmail());
 
 		return new ForwardResolution("/pages/aff/affiliateDashboard.jsp");
 	}

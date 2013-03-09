@@ -3,6 +3,7 @@ package com.ds.domain.notification;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.user.User;
+import com.ds.domain.core.JSONObject;
 
 import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -19,7 +20,7 @@ import java.util.Date;
 @NamedQueries({
 		@NamedQuery(name = "getNotificationById", query = "select nf from Notification nf where nf.id = :nfId")
 })
-public class Notification {
+public class Notification extends JSONObject{
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -132,4 +133,14 @@ public class Notification {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+
+  @Override
+  protected String[] getKeys() {
+    return new String[]{"id","type", "msg"};
+  }
+
+  @Override
+  protected Object[] getValues() {
+    return new Object[]{this.id, this.notificationType.getType(), this.message};  
+  }
 }

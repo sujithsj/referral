@@ -41,7 +41,7 @@ public class AffiliateAdsAction extends BaseAction {
 
 		//allEligibleCompanies =
 
-		numberOfPendingNotifications = notificationService.getPendingNotificationForAffiliate(loggedInUser.getEmail());
+		numberOfPendingNotifications = notificationService.getPendingNotificationCountForUser(loggedInUser.getEmail());
 
 		return new ForwardResolution("/pages/aff/affiliateAds.jsp");
 	}

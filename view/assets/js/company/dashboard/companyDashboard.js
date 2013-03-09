@@ -1,10 +1,6 @@
 $(document).ready(function() {
 
-  $.gritter.add({
-    title:  'Sticky notification',
-    text:  'This is a sticky notification',
-    sticky: true
-  });
+  
 
   
 
