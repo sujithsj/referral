@@ -1,25 +1,17 @@
 package com.ds.action.aff;
 
-import com.ds.action.affiliate.CompanyAffiliateInviteAction;
-import com.ds.domain.affiliate.CompanyAffiliateInvite;
 import com.ds.domain.company.Company;
+import com.ds.domain.notification.Notification;
 import com.ds.domain.user.User;
-import com.ds.pact.service.admin.AdminService;
-import com.ds.pact.service.affiliate.AffiliateService;
-import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.pact.service.notification.NotificationService;
 import com.ds.security.helper.SecurityHelper;
-import com.ds.security.service.UserService;
-import com.ds.utils.BaseUtils;
 import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
-import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.validation.LocalizableError;
-import net.sourceforge.stripes.validation.Validate;
-import net.sourceforge.stripes.validation.ValidationMethod;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.DontValidate;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.ds.domain.notification.Notification;
-
 
 import java.util.List;
 import java.util.Set;
@@ -32,10 +24,10 @@ import java.util.Set;
 @SuppressWarnings("unchecked")
 public class AffiliateNotificationAction extends BasePaginatedAction {
 
-	private String companyShortName;
+	/*private String companyShortName;
 
 	@Validate(required = true)
-	private String affiliateEmail;
+	private String affiliateEmail;*/
 
 
 	private Page affiliateNotificationPage;
@@ -45,14 +37,14 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 	private Company company;
 	private Long notificationId;
 
-	@Autowired
+	/*@Autowired
 	private AdminService adminService;
 	@Autowired
 	private AffiliateService affiliateService;
 	@Autowired
 	private CompanyAffiliateService companyAffiliateService;
 	@Autowired
-	private UserService userService;
+	private UserService userService;*/
 	@Autowired
 	private NotificationService notificationService;
 
@@ -62,7 +54,7 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 	public Resolution displayAllNotifications() {
 
 		loggedInUser = SecurityHelper.getLoggedInUser();
-		companyShortName = loggedInUser.getCompanyShortName();
+		//companyShortName = loggedInUser.getCompanyShortName();
 
 		affiliateNotificationPage = getNotificationService().searchCompanyAffiliatePendingNotification(loggedInUser.getUsername(), pageNo, perPage);
 		notificationList = affiliateNotificationPage.getList();
@@ -70,7 +62,7 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 
 	}
 
-	@ValidationMethod()
+	/*@ValidationMethod()
 	public void isValidAffiliateEmail() {
 		if (!BaseUtils.isValidEmail(affiliateEmail)) {
 			getContext().getValidationErrors().add("invalidEmail", new LocalizableError("/Signup.action.InvalidEmail"));
@@ -115,14 +107,14 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		companyShortName = loggedInUser.getCompanyShortName();
 
-		/*CompanyAffiliateInvite companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(notificationId);
+		*//*CompanyAffiliateInvite companyAffiliateInvite = getCompanyAffiliateService().getCompanyAffiliateInvite(notificationId);
 		if (companyAffiliateInvite != null) {
 			getCompanyAffiliateService().deleteCompanyAffiliateInvite(companyAffiliateInvite);
-		}*/
+		}*//*
 
 		return new RedirectResolution(AffiliateNotificationAction.class);
 
-	}
+	}*/
 
 
 	@Override
@@ -141,15 +133,15 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 	}
 
 
-	public AdminService getAdminService() {
+	/*public AdminService getAdminService() {
 		return adminService;
 	}
 
 	public UserService getUserService() {
 		return userService;
-	}
+	}*/
 
-	public String getCompanyShortName() {
+	/*public String getCompanyShortName() {
 		return companyShortName;
 	}
 
@@ -172,7 +164,7 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 
 	public void setAffiliateService(AffiliateService affiliateService) {
 		this.affiliateService = affiliateService;
-	}
+	}*/
 
 	public Page getAffiliateNotificationPage() {
 		return affiliateNotificationPage;
@@ -182,13 +174,13 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 		this.affiliateNotificationPage = affiliateNotificationPage;
 	}
 
-	public String getAffiliateEmail() {
+	/*public String getAffiliateEmail() {
 		return affiliateEmail;
 	}
 
 	public void setAffiliateEmail(String affiliateEmail) {
 		this.affiliateEmail = affiliateEmail;
-	}
+	}*/
 
 	public Long getNotificationId() {
 		return notificationId;
