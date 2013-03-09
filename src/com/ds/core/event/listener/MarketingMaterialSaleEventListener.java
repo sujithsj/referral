@@ -5,13 +5,11 @@ import com.ds.core.event.EventListener;
 import com.ds.core.event.MarketingMaterialSaleEvent;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.campaign.Campaign;
+import com.ds.domain.commission.CommissionEarning;
 import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.domain.marketing.MarketingMaterialType;
 import com.ds.domain.tracking.EventTracking;
-import com.ds.domain.tracking.ImpressionTracking;
 import com.ds.domain.visitor.VisitorInfo;
-import com.ds.domain.commission.CommissionEarning;
-import com.ds.domain.commission.CommissionStrategy;
 import com.ds.exception.DSException;
 import com.ds.impl.service.marketing.MarketingMaterialContext;
 import com.ds.pact.dao.BaseDao;
@@ -19,10 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.Transient;
-import java.util.Date;
 
 /**
  * @author adlakha.vaibhav
@@ -37,7 +31,6 @@ public class MarketingMaterialSaleEventListener implements EventListener {
     private BaseDao baseDao;
 
     @Override
-    @Transactional
     public void handleEvent(Event event) {                                   
         EventTracking eventTracking = new EventTracking();
 
@@ -69,7 +62,7 @@ public class MarketingMaterialSaleEventListener implements EventListener {
             eventTracking.setCampaign(campaign);
             eventTracking.setCompanyShortName(marketingMaterial.getCompanyShortName());
 
-            getBaseDao().save(eventTracking);
+            eventTracking = (EventTracking)getBaseDao().save(eventTracking);
 
 
             /**

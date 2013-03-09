@@ -176,7 +176,7 @@ public class CampaignResource {
 
         Double revenue = campaignConversionReq.getRf_revenue();
         String uniqueId = campaignConversionReq.getRf_tx_uid();
-        String coustomerId = campaignConversionReq.getRf_uid();
+        String coustomerId = campaignConversionReq.getRf_u_email();
 
         getEventDispatcher().dispatchEvent(new MarketingMaterialSaleEvent(marketingMaterial.getMarketingMaterialType().getId(), marketingMaterialContext, revenue, campaignId, coustomerId, uniqueId));
 

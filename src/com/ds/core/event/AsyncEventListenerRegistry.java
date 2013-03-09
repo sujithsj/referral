@@ -34,7 +34,10 @@ public class AsyncEventListenerRegistry {
 
             if (MarketingMaterialSaleEvent.class.getSimpleName().equalsIgnoreCase(eventName)) {
                 List<EventListener> mmSaleEventListeners = new ArrayList<EventListener>();
+              MarketingMaterialServeEventListener marketingMaterialServeEventListener = (MarketingMaterialServeEventListener) ServiceLocatorFactory.getService("MarketingMaterialServeEventListener");
+              MarketingMaterialImpressionEventListener impressionEventListener = (MarketingMaterialImpressionEventListener) ServiceLocatorFactory.getService("MarketingMaterialImpressionEventListener");
                 MarketingMaterialSaleEventListener mmSaleEventListener = (MarketingMaterialSaleEventListener) ServiceLocatorFactory.getService("MarketingMaterialSaleEventListener");
+
                 mmSaleEventListeners.add(mmSaleEventListener);
 
                 String key = MarketingMaterialSaleEvent.class.getSimpleName();

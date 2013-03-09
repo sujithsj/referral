@@ -65,12 +65,13 @@ public class MMRedirectServlet extends HttpServlet {
     cookie1.setPath("/");
     //TODO: remove hard coding of domain name
     cookie1.setDomain(AppConstants.APP_URL);
+    cookie1.setMaxAge(3600);
     resp.addCookie(cookie1);
 
     String redirectUrl = marketingMaterial.getLandingPageUrl();
 
     //try {
-    resp.setStatus(301);
+    resp.setStatus(302);
     resp.setHeader("Location", redirectUrl);
     resp.setHeader("Connection", "close");
 
