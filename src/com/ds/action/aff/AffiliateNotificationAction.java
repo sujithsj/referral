@@ -7,10 +7,7 @@ import com.ds.pact.service.notification.NotificationService;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BasePaginatedAction;
 import com.ds.web.action.Page;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.DontValidate;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -115,6 +112,13 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 		return new RedirectResolution(AffiliateNotificationAction.class);
 
 	}*/
+
+	public Resolution notificationRead() {
+
+			notificationService.markNotificationRead(notificationId);
+			return new RedirectResolution(AffiliateNotificationAction.class);
+
+		}
 
 
 	@Override
