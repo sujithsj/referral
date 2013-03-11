@@ -83,49 +83,6 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
     }
 
 
-    /*@Override
-    @Transactional*/
-    /* public CompanyAffiliate createCompanyAffiliate(Affiliate affiliate, String companyShortName) {
-        Company company = getAdminService().getCompany(companyShortName);
-        CompanyAffiliate companyAffiliate = new CompanyAffiliate();
-        CompanyAffiliateInvite companyAffiliateInvite;
-        companyAffiliate.setAffiliate(affiliate);
-        companyAffiliate.setCompanyShortName(companyShortName);
-
-
-        companyAffiliateInvite = getCompanayAffiliateInvite(companyShortName, affiliate.getLogin());
-        if (companyAffiliateInvite != null) {
-            companyAffiliateInvite.setConverted(true);
-            companyAffiliateInvite = saveCompanyAffiliateInvite(companyAffiliateInvite);
-            companyAffiliate.setActive(true);
-        } else {
-            companyAffiliate.setActive(false);
-        }
-        try {
-            if (companyAffiliate.getActive()) {
-                getFeatureAPI().doesCompanyHaveAccessTo(company, FeatureType.AFFILIATE_COUNT, getActiveCompanyAffiliateCount(companyShortName) + 1);
-            }
-        } catch (FeatureNotAccessibleException fnae) {
-            System.out.println(fnae.getI18nMessage().getMessageParams().toString());
-            companyAffiliate.setActive(false);
-        }
-        companyAffiliate = getCompanyAffiliateDao().saveCompanyAffiliate(companyAffiliate);
-        if (companyAffiliate.getActive()) {
-            affiliateService.sendWelcomeEmail(affiliate);
-            //TODO: add notification for company aff added in queue
-            //send affiliate signed up email to company
-
-        } else {
-            affiliateService.sendAffiliateWaitingApprovalEmail(affiliate);
-            notificationService.createCompanyNotification(companyShortName, EnumNotificationType.COMPANY_AFFILIATE_APPROVAL_PENDING);
-            //todo : add approval pending email to company users (need to decide whom to send emails)
-            //send approval pending email to both affiliate and company
-        }
-        return companyAffiliate;
-
-    }*/
-
-
     /**
      * @param companyAffiliateId CompanyAffiliateId
      * @param companyShortName   CompanyShortName
@@ -167,44 +124,6 @@ public class CompanyAffiliateServiceImpl implements CompanyAffiliateService {
 		return null;
 	}
 
-
-    /*@Transactional
-     @Override
-     public CompanyAffiliate createOrUpdateCompanyAffiliate(CompanyAffiliateDTO companyAffiliateDTO, AffiliateDTO affiliateDTO, String companyShortName) {
-         if (companyAffiliateDTO == null) {
-             companyAffiliateDTO = new CompanyAffiliateDTO();
-         }
-         Long parentAffiliateId = companyAffiliateDTO.getParentCompanyAffiliateId();
-         CompanyAffiliate parentCompanyAffiliate = null;
-         if (parentAffiliateId != null) {
-             parentCompanyAffiliate = getCompanyAffiliate(parentAffiliateId);
-         }
-         Affiliate affiliate = getAffiliateService().getAffiliateByLogin(affiliateDTO.getLogin());
-         //affiliate already exists setting the Id and would update the first name last name as per the newly filled values
-         if (affiliate != null) {
-             affiliateDTO.setAffiliateId(affiliate.getId());
-         }
-         affiliate = affiliateDTO.extractAffiliate(affiliate);
-         if (affiliate.getId() == null) {
-             affiliate = affiliateService.saveNewAffiliate(affiliate);
-         } else {
-             affiliate = affiliateService.updateAffiliate(affiliate);
-         }
-
-         CompanyAffiliate companyAffiliate = null;
-         companyAffiliate = companyAffiliateDTO.extractCompanyAffiliate(companyAffiliate);
-         if (parentCompanyAffiliate != null) {
-             companyAffiliate.setParentCompanyAffiliate(parentCompanyAffiliate);
-         }
-         if (companyShortName != null) {
-             companyAffiliate.setCompanyShortName(companyShortName);
-         }
-         if (affiliate != null) {
-             companyAffiliate.setAffiliate(affiliate);
-         }
-         companyAffiliate = saveCompanyAffiliate(companyAffiliate);
-         return companyAffiliate;
-     }*/
 
     @Override
     public Page searchCompanyAffiliatePendingInvites(String companyShortName, int pageNo, int perPage) {

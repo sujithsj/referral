@@ -33,6 +33,7 @@
 								<div class="collapse in " id="collapseCampaigns" style="border-bottom:1px solid #CDCDCD;">
 									<div class="widget-content" style="border-bottom:none;">
 										<s:select name="companyShortName" style="width:400px;">
+											<s:option value="AllCompanies">All</s:option>
 											<c:forEach items="${affiliateAdsAction.allEligibleCompanies}" var="company">
 												<s:option value="${company.shortName}">${company.name}</s:option>
 											</c:forEach>

@@ -32,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -249,6 +250,11 @@ public class AffiliateServiceImpl implements AffiliateService {
     return getSearchService().list(affiliateQuery);
 
   }
+
+	@Override
+	public List<Company> getAllCompaniesForAffiliate(String login){
+		return getAffiliateDAO().getAllCompaniesForAffiliate(login);
+	}
 
 
   /*@Override

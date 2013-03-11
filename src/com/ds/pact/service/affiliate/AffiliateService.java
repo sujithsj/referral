@@ -1,15 +1,11 @@
 package com.ds.pact.service.affiliate;
 
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.company.Company;
-import com.ds.domain.user.UserSettings;
-import com.ds.exception.DSException;
-import com.ds.web.action.Page;
 import com.ds.dto.affiliate.AffiliateDTO;
 import com.ds.dto.affiliate.AffiliateSignupResponse;
+import com.ds.web.action.Page;
 
-import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
@@ -71,6 +67,8 @@ public interface AffiliateService {
     public void sendWelcomeEmail(Affiliate affiliate);
 
 	public void sendAffiliateWaitingApprovalEmail(Affiliate affiliate);
+
+	public List<Company> getAllCompaniesForAffiliate(String login);
 
 
 }

@@ -1,13 +1,8 @@
 package com.ds.pact.dao.affiliate;
 
-import com.ds.pact.dao.BaseDao;
-import com.ds.domain.company.Company;
-import com.ds.domain.user.User;
-import com.ds.domain.user.UserLoginConfirmationRequest;
-import com.ds.domain.user.UserSettings;
-import com.ds.domain.core.Plan;
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.CompanyAffiliate;
+import com.ds.domain.company.Company;
+import com.ds.pact.dao.BaseDao;
 
 import java.util.List;
 
@@ -36,4 +31,11 @@ public interface AffiliateDao extends BaseDao {
      * @return
      */
     public Affiliate getAffiliateByLogin(String login);
+
+	/**
+	 *
+	 * @param login
+	 * @return
+	 */
+	public List<Company> getAllCompaniesForAffiliate(String login);
 }

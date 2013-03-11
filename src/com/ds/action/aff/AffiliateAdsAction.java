@@ -2,6 +2,7 @@ package com.ds.action.aff;
 
 import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
+import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.notification.NotificationService;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BaseAction;
@@ -31,6 +32,8 @@ public class AffiliateAdsAction extends BaseAction {
 
 	@Autowired
 	private NotificationService notificationService;
+	@Autowired
+	private AffiliateService affiliateService;
 
 
 	@DefaultHandler
@@ -39,9 +42,7 @@ public class AffiliateAdsAction extends BaseAction {
 		User loggedInUser = SecurityHelper.getLoggedInUser();
 		String companyShortName = loggedInUser.getCompanyShortName();
 
-		//allEligibleCompanies =
-
-		numberOfPendingNotifications = notificationService.getPendingNotificationCountForUser(loggedInUser.getEmail());
+		allEligibleCompanies = getAffiliateService().getAllCompaniesForAffiliate(loggedInUser.getUsername());
 
 		return new ForwardResolution("/pages/aff/affiliateAds.jsp");
 	}
@@ -116,5 +117,13 @@ public class AffiliateAdsAction extends BaseAction {
 
 	public void setAllEligibleCompanies(List<Company> allEligibleCompanies) {
 		this.allEligibleCompanies = allEligibleCompanies;
+	}
+
+	public AffiliateService getAffiliateService() {
+		return affiliateService;
+	}
+
+	public void setAffiliateService(AffiliateService affiliateService) {
+		this.affiliateService = affiliateService;
 	}
 }
