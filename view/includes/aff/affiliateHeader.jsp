@@ -1,6 +1,6 @@
 <%@include file="/includes/taglibInclude.jsp" %>
 
-<s:useActionBean beanclass="com.ds.action.aff.AffiliateDashboardAction" var="affiliateDashboardAction"  />
+<s:useActionBean beanclass="com.ds.action.aff.AffiliateDashboardAction" var="affiliateDashboardAction" event="pre"  />
 <s:layout-definition>
 
 	<div id="header">
