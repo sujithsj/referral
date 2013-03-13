@@ -15,6 +15,10 @@ public interface NotificationService {
 
 	public Notification getNotificationById(Long Id);
 
+  public void markNotificationAsRead(Long notificationId);
+
+  public void deleteNotification(Long notificationId);
+
 	public Notification saveNotification(Notification notification);
 
 	public Notification createNotification(NotificationRequest notificationRequest);

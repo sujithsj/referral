@@ -21,7 +21,8 @@
   <s:useActionBean beanclass="com.ds.action.company.CompanyDashboardAction" var="companyDashboardAction"/>
   <div class="container-fluid">
     <s:form beanclass="com.ds.action.company.CompanyDashboardAction" class="form-horizontal" id="companyDashboardForm">
-      <s:hidden id="companyShortName" name="companyShortName" value="${companyDashboardAction.companyShortName}" class="autoId"/>
+      <s:hidden id="companyShortName" name="companyShortName" value="${companyDashboardAction.companyShortName}"
+                class="autoId"/>
       <s:hidden id="endDate" name="endDate" value="${companyDashboardAction.endDate}" class="autoId"/>
       <s:hidden id="startDate" name="startDate" value="${companyDashboardAction.startDate}" class="autoId"/>
     </s:form>
@@ -142,6 +143,48 @@
         </div>
       </div>
     </div>
+
+
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="widget-box collapsible">
+          <div class="widget-title">
+            <a href="#recentNotifications" data-toggle="collapse">
+              <span class="icon"><i class="icon-signal"></i></span><h5>Recent Notifications</h5>
+            </a>
+              <%--<div class="buttons"><a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>
+              </div>--%>
+          </div>
+          <div class="collapse in" id="recentNotifications">
+            <div class="widget-content nopadding">
+              <ul class="activity-list">
+                <li><a href="#">
+                  <i class="icon-user"></i>
+                  <strong>Admin</strong> added <strong>1 user</strong> <span>2 hours ago</span>
+                </a></li>
+                <li><a href="#">
+                  <i class="icon-file"></i>
+                  <strong>Caroline Trin</strong> write a <strong>blog post</strong> <span>Yesterday</span>
+                </a></li>
+                <li><a href="#">
+                  <i class="icon-envelope"></i>
+                  <strong>John Doe</strong> sent a <strong>message</strong> <span>2 days ago</span>
+                </a></li>
+                <li><a href="#">
+                  <i class="icon-picture"></i>
+                  <strong>Matt Armon</strong> updated <strong>profile photo</strong> <span>2 days ago</span>
+                </a></li>
+                <li><a href="#">
+                  <i class="icon-user"></i>
+                  <strong>Admin</strong> bans <strong>3 users</strong> <span>week ago</span>
+                </a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -195,7 +238,6 @@
 <script type="text/javascript">
 
 
-  
   var data = [];
   var series = Math.floor(Math.random() * 10) + 1;
   for (var i = 0; i < series; i++)

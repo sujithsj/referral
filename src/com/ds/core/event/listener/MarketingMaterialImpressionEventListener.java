@@ -75,6 +75,7 @@ public class MarketingMaterialImpressionEventListener implements EventListener {
       notificationRequest.setUserId(affiliate.getEmail());
       notificationRequest.setNotificationType(EnumNotificationType.COMPANY_SALE_VIA_AFFILIATE.getId());
       notificationRequest.setParams(new String[]{affiliate.getEmail(), "Rs. 987"});
+
       AppRequestHandler.handleNotificationRequest(notificationRequest);
 
 

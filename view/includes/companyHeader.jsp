@@ -32,5 +32,5 @@
     </ul>
   </div>
   <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.gritter.min.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/company/notification.js"></script>
+  <%--<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/company/notification.js"></script>--%>
 </s:layout-definition>
