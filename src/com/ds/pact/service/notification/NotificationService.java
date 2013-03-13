@@ -15,7 +15,7 @@ public interface NotificationService {
 
 	public Notification getNotificationById(Long Id);
 
-  public void markNotificationAsRead(Long notificationId);
+  public void markNotificationRead(Long notificationId);
 
   public void deleteNotification(Long notificationId);
 
@@ -27,9 +27,9 @@ public interface NotificationService {
 
   public List<Notification> getLastestUnreadNotificationsForCompany(String companyShortName, int maxCount);
 
-	public Page searchCompanyAffiliatePendingNotification(String userId,int pageNo,int perPage);
+	public Page searchUserPendingNotification(String userId,int pageNo,int perPage);
 
-	public void markNotificationRead(Long notificationId);
+
 
 	/*public List<Notification> getNotificationForAffiliate(*/
 

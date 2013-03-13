@@ -13,17 +13,17 @@
     <ul class="nav btn-group">
       <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span
           class="text">Profile</span></a></li>
-      <li class="btn btn-inverse dropdown" id="menu-messages"><a href="#" data-toggle="dropdown"
+      <%--<li class="btn btn-inverse" id="menu-messages"><a href="${pageContext.request.contextPath}/company/CompanyNotification.action" data-toggle="dropdown"
                                                                  data-target="#menu-messages" class="dropdown-toggle"><i
           class="icon icon-envelope"></i> <span class="text">Messages</span> <span
           class="label label-important">5</span> <b class="caret"></b></a>
-        <ul class="dropdown-menu">
+        --%><%--<ul class="dropdown-menu">
           <li><a class="sAdd" title="" href="#">new message</a></li>
           <li><a class="sInbox" title="" href="#">inbox</a></li>
           <li><a class="sOutbox" title="" href="#">outbox</a></li>
           <li><a class="sTrash" title="" href="#">trash</a></li>
-        </ul>
-      </li>
+        </ul>--%><%--
+      </li>--%>
       <li class="btn btn-inverse"><a title="" href="${pageContext.request.contextPath}/company/Company.action"><i
           class="icon icon-cog"></i> <span
           class="text">Company Profile</span></a></li>

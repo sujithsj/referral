@@ -53,7 +53,7 @@ public class AffiliateNotificationAction extends BasePaginatedAction {
 		loggedInUser = SecurityHelper.getLoggedInUser();
 		//companyShortName = loggedInUser.getCompanyShortName();
 
-		affiliateNotificationPage = getNotificationService().searchCompanyAffiliatePendingNotification(loggedInUser.getUsername(), pageNo, perPage);
+		affiliateNotificationPage = getNotificationService().searchUserPendingNotification(loggedInUser.getUsername(), pageNo, perPage);
 		notificationList = affiliateNotificationPage.getList();
 		return new ForwardResolution("/pages/aff/affiliateNotification.jsp");
 

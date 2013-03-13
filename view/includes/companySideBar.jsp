@@ -61,7 +61,7 @@
         </ul>
       </li>
       <li>
-        <a href="charts.html"><i class="icon icon-comment"></i> <span>Notifications</span></a>
+        <a href="${pageContext.request.contextPath}/company/CompanyNotification.action"><i class="icon icon-comment"></i> <span>Notifications</span></a>
       </li>
       <li class="submenu">
         <a href="#"><i class="icon icon-wrench"></i> <span>Settings</span> <%--<span class="label">4</span>--%></a>

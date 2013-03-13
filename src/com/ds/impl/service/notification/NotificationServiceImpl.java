@@ -98,23 +98,26 @@ public class NotificationServiceImpl implements NotificationService {
     return notificationDao.getPendingNotificationForUser(userId);
   }
 
-  public Page searchCompanyAffiliatePendingNotification(String userId, int pageNo, int perPage) {
+  public Page searchUserPendingNotification(String userId, int pageNo, int perPage) {
 
     NotificationQuery notificationQuery = new NotificationQuery();
     notificationQuery.setUserId(userId);
     notificationQuery.setNotified(false);
     notificationQuery.setOrderByField("priority").setPageNo(pageNo).setRows(perPage);
     return getSearchService().list(notificationQuery);
-
-
   }
 
-	@Override
+  @Override
+  @Transactional
+  public void deleteNotification(Long notificationId) {
+    Notification notification = getNotificationById(notificationId);    
+    getNotificationDao().delete(notification);
+  }
+
+  @Override
 	@Transactional
 	public void markNotificationRead(Long notificationId){
-
-		notificationDao.markNotificationRead(notificationId);
-
+		getNotificationDao().markNotificationRead(notificationId);
 	}
 
 
