@@ -48,7 +48,7 @@
 											<td>
 												<div class="btn-group">
 													<s:link beanclass="com.ds.action.aff.AffiliateNotificationAction"
-													        event="deleteInvite" class="btn btn-success tip-bottom" title="Message Read">
+													        event="notificationRead" class="btn btn-success tip-bottom" title="Message Read">
 														<i class="icon-minus-sign"></i>
 														<s:param name="notificationId" value="${notification.id}"/>
 													</s:link>

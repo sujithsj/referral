@@ -29,13 +29,13 @@
 								<a href="${pageContext.request.contextPath}/employee/UserSearch.action"><i class="icon icon-user"></i> <span>Users</span></a>
 							</li>
 				--%>
-			<li><a href="${pageContext.request.contextPath}/campaign/CampaignSearch.action"><i class="icon icon-tint"></i>
+			<li><a href="${pageContext.request.contextPath}/aff/marketing/AffiliateClickTraffic.action"><i class="icon icon-tint"></i>
 				<span>Click Traffic (x)</span></a>
 			</li>
-			<li><a href="${pageContext.request.contextPath}/marketing/MarketingMaterialSearch.action"><i class="icon icon-file"></i>
+			<li><a href="${pageContext.request.contextPath}/aff/marketing/AffiliateRevenue.action"><i class="icon icon-file"></i>
 				<span>Revenue (x)</span></a>
 			</li>
-			<li><a href="${pageContext.request.contextPath}/marketing/MarketingMaterialSearch.action"><i class="icon icon-file"></i>
+			<li><a href="${pageContext.request.contextPath}/aff/marketing/AffiliateConversion.action"><i class="icon icon-file"></i>
 				<span>Conversion (x)</span></a>
 			</li>
 			<li><a href="${pageContext.request.contextPath}/marketing/MarketingMaterialSearch.action"><i class="icon icon-file"></i>

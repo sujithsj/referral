@@ -9,14 +9,14 @@
 		<s:layout-render name="/includes/aff/affiliateSideBar.jsp"/>
 
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-		<s:useActionBean beanclass="com.ds.action.aff.AffiliateAdsAction" var="affiliateAdsAction"/>
+		<s:useActionBean beanclass="com.ds.action.aff.marketing.AffiliateRevenueAction" var="affiliateRevenueAction"/>
 		<div id="content">
 			<div id="breadcrumb">
 				<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>Home</a>
 				<a href="#" class="current">Dashboard</a>
 			</div>
 
-			<s:form beanclass="com.ds.action.aff.AffiliateAdsAction" class="form-horizontal" id="mmCrudForm">
+			<s:form beanclass="com.ds.action.aff.marketing.AffiliateRevenueAction" class="form-horizontal" id="mmCrudForm">
 				<div class="container-fluid">
 
 					<div class="row-fluid">
@@ -34,7 +34,7 @@
 									<div class="widget-content" style="border-bottom:none;">
 										<s:select name="companyShortName" style="width:400px;">
 											<s:option value="AllCompanies">All</s:option>
-											<c:forEach items="${affiliateAdsAction.allEligibleCompanies}" var="company">
+											<c:forEach items="${affiliateRevenueAction.allEligibleCompanies}" var="company">
 												<s:option value="${company.shortName}">${company.name}</s:option>
 											</c:forEach>
 										</s:select>

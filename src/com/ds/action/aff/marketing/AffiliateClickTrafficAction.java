@@ -1,4 +1,4 @@
-package com.ds.action.aff;
+package com.ds.action.aff.marketing;
 
 import com.ds.domain.company.Company;
 import com.ds.domain.user.User;
@@ -21,7 +21,7 @@ import java.util.List;
  * Time: 11:25 AM
  */
 @Component
-public class AffiliateAdsAction extends BaseAction {
+public class AffiliateClickTrafficAction extends BaseAction {
 
 	private int totalReferrers, referersInLastWeek, numberOfPendingCommission;
 	private long numberOfPendingNotifications;
@@ -44,7 +44,7 @@ public class AffiliateAdsAction extends BaseAction {
 
 		allEligibleCompanies = getAffiliateService().getAllCompaniesForAffiliate(loggedInUser.getUsername());
 
-		return new ForwardResolution("/pages/aff/affiliateAds.jsp");
+		return new ForwardResolution("/pages/aff/marketing/affiliateClickTraffic.jsp");
 	}
 
 	public Date getEndDate() {

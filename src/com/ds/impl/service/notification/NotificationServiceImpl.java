@@ -109,6 +109,14 @@ public class NotificationServiceImpl implements NotificationService {
 
   }
 
+	@Override
+	@Transactional
+	public void markNotificationRead(Long notificationId){
+
+		notificationDao.markNotificationRead(notificationId);
+
+	}
+
 
   public BaseDao getBaseDao() {
     return baseDao;

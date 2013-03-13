@@ -29,6 +29,8 @@ public interface NotificationService {
 
 	public Page searchCompanyAffiliatePendingNotification(String userId,int pageNo,int perPage);
 
+	public void markNotificationRead(Long notificationId);
+
 	/*public List<Notification> getNotificationForAffiliate(*/
 
 }

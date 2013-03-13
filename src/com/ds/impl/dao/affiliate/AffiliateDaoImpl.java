@@ -1,19 +1,12 @@
 package com.ds.impl.dao.affiliate;
 
 import com.ds.domain.affiliate.Affiliate;
-import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.company.Company;
-import com.ds.domain.core.Plan;
-import com.ds.domain.user.User;
-import com.ds.domain.user.UserLoginConfirmationRequest;
-import com.ds.domain.user.UserSettings;
-import com.ds.pact.dao.affiliate.AffiliateDao;
 import com.ds.impl.dao.BaseDaoImpl;
-import org.apache.commons.lang.StringUtils;
+import com.ds.pact.dao.affiliate.AffiliateDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.security.InvalidParameterException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -46,6 +39,13 @@ public class AffiliateDaoImpl extends BaseDaoImpl implements AffiliateDao {
         }
         return affiliate;
     }
+
+	public List<Company> getAllCompaniesForAffiliate(String login) {
+
+		return getSession().createQuery("select  c from CompanyAffiliate ca, Company c where ca.affiliate.login = :login and ca.companyShortName = c.shortName ")
+				.setString("login", login).list();
+
+	}
 
 
 }

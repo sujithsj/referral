@@ -20,4 +20,9 @@ public class NotificationDaoImpl extends BaseDaoImpl implements NotificationDao 
 		return count("select count(*) from Notification where user.id = ? and notified = 0", userId);
 	}
 
+	@Override
+	public void markNotificationRead(Long notificationId) {
+		getSession().createQuery("update Notification n set n.notified = 1 where n.id = :notificationId ").setLong("notificationId",notificationId).executeUpdate();
+	}
+
 }
