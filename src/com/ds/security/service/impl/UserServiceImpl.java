@@ -97,6 +97,7 @@ public class UserServiceImpl implements UserService {
     return userDao.getUsers(false);
   }
 
+  @Transactional
   public void updateUser(User user) {
     userDao.update(user);
 

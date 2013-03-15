@@ -11,7 +11,7 @@
 
   <div id="user-nav" class="navbar navbar-inverse">
     <ul class="nav btn-group">
-      <li class="btn btn-inverse"><a title="" href="#"><i class="icon icon-user"></i> <span
+      <li class="btn btn-inverse"><a title="" href="${pageContext.request.contextPath}/employee/MyProfile.action"><i class="icon icon-user"></i> <span
           class="text">Profile</span></a></li>
       <%--<li class="btn btn-inverse" id="menu-messages"><a href="${pageContext.request.contextPath}/company/CompanyNotification.action" data-toggle="dropdown"
                                                                  data-target="#menu-messages" class="dropdown-toggle"><i
