@@ -2,10 +2,10 @@ package com.ds.core.event;
 
 import com.ds.exception.DSException;
 import com.ds.impl.service.ServiceLocatorFactory;
-import com.ds.impl.service.mail.UserContext;
 import com.ds.impl.service.mail.AffiliateContext;
 import com.ds.impl.service.mail.CompanyAffiliateInvEmailContext;
 import com.ds.impl.service.mail.UserAuthEmailContext;
+import com.ds.impl.service.mail.UserContext;
 import com.ds.pact.service.admin.AdminService;
 import com.ds.pact.service.mail.EmailContext;
 import com.ds.pact.service.mail.EmailTemplateService;
@@ -16,7 +16,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import javax.mail.MessagingException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
 
 /**
  * @author adlakha.vaibhav
@@ -57,31 +56,7 @@ public class EmailEvent implements AsyncEvent {
 
     public void setReceivers(MimeMessageHelper mimeMessageHelper) throws MessagingException {
         switch (eventType) {
-            case PostStatusChanged:
-            case PostCommented:
-            case FeedbackAnswered:
-                /* Post post1 = ((PostContext) context).getPost();
-               List<String> followerEmails = getPostDAO().findFollowerEmails(post1.getId());
-               mimeMessageHelper.setBcc(followerEmails.toArray(new String[followerEmails.size()]));*/
-                break;
-            case PostCommentedEmployeeEvent:
-                /* Post post2 = ((PostContext) context).getPost();
-                // It May happen that after an Email Event was queue and before it was processed Employee was unassigned
-                // from Post
-                if (post2.getEmployee() != null) {
-                  mimeMessageHelper.setTo(getAdminService().getUser(post2.getEmployee()).getEmail());
-                } else {
-                  throw new UserrulesException("EMPLOYEE_UNASSIGNED_FROM_POST_AFTER_EMAIL_EVENT_RAISED", post2.getId());
-                }*/
-                break;
-            case PostedEmployeeEvent:
-                /*Post post3 = ((PostContext) context).getPost();
-               List<String> employeeEmails = getPostDAO().findEmployeeEmailsInterestedInPostEmailNotifications(post3.getCompanyShortName());
-               mimeMessageHelper.setBcc(employeeEmails.toArray(new String[employeeEmails.size()]));*/
-                break;
-
             case UserRegistrationConfirmation:
-
                 UserAuthEmailContext userThirdPartyAuthEmailContext = (UserAuthEmailContext) context;
                 mimeMessageHelper.setTo(userThirdPartyAuthEmailContext.getUserEmail());
                 break;
@@ -97,16 +72,9 @@ public class EmailEvent implements AsyncEvent {
                 CompanyAffiliateInvEmailContext companyAffiliateInvEmailContext = (CompanyAffiliateInvEmailContext) context;
                 mimeMessageHelper.setTo(companyAffiliateInvEmailContext.getCompanyAffiliateInvite().getAffiliateEmail());
                 break;
-
             case AffiliateWaitingApproval:
                 affiliateContext = (AffiliateContext) context;
                 mimeMessageHelper.setTo(affiliateContext.getAffiliate().getEmail());
-                break;
-
-
-            case ClaimReward:
-                /*ClaimRewardContext claimRewardContext = (ClaimRewardContext) context;
-                mimeMessageHelper.setTo(claimRewardContext.getUser().getEmail());*/
                 break;
         }
     }

@@ -1,10 +1,9 @@
 package com.ds.impl.service.mail;
 
-import com.ds.core.event.UserLoginEmailConfirmationRequestEvent;
 import com.ds.pact.service.mail.EmailTemplateService;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author adlakha.vaibhav
@@ -15,9 +14,9 @@ public class EmailTemplateFactory {
 
 
   public static EmailTemplate getEmailTemplate(String templateKey){
-    if("UserPasswordResetConfirmation".equals(templateKey)){
+    if(EmailTemplateService.EmailEventType.UserRegistrationConfirmation.toString().equals(templateKey)){
       EmailTemplate emailTemplate = new EmailTemplate();
-      emailTemplate.setSubject("DS Password Reset Confirmation!");
+      emailTemplate.setSubject("Referoscope Password Reset Confirmation!");
       emailTemplate.setHtml(true);
       emailTemplate.setBodyTemplateName("velocity/UserPasswordResetConfirmation.vm");
       return emailTemplate;
