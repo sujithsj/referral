@@ -13,6 +13,11 @@ import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.campaign.CampaignService;
 import com.ds.pact.service.commission.CommissionEarningService;
 import com.ds.security.helper.SecurityHelper;
+import com.ds.web.action.BaseAction;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.RedirectResolution;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.DontValidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +31,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-public class CommissionEarningAction {
+public class CommissionEarningAction extends BaseAction {
 
   private Long campaignId;
   private Double revenue;
@@ -49,9 +54,13 @@ public class CommissionEarningAction {
   private BaseDao baseDao;
 
 
-  private void pre() {
+  @DefaultHandler
+  @DontValidate
+  public Resolution pre() {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     campaignsForCompany = getCampaignService().getAllCampaigns(loggedInUser.getCompanyShortName());
+
+    return new RedirectResolution("/pages/commission/addCommissionEarning.jsp");
   }
 
   public void addCommission() {
