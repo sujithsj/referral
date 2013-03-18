@@ -1,12 +1,10 @@
 package com.ds.domain.commission;
 
-import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.campaign.Campaign;
+import com.ds.domain.marketing.MarketingMaterial;
 import com.ds.domain.tracking.EventTracking;
 import com.ds.domain.user.User;
-import com.ds.domain.marketing.MarketingMaterial;
-import com.ds.domain.notification.NotificationType;
 
 import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -19,6 +17,8 @@ import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = "getEarningForAffOnAd", query = "select ce from CommissionEarning ce where ce.marketingMaterial.id = :mmId " +
+                "and ce.affiliate.id = :affId and ce.companyShortName =:companyShortName order by ce.earningDate "),
+    @NamedQuery(name = "getEarningForAffOnCampaign", query = "select ce from CommissionEarning ce where ce.campaign.id = :campaignId " +
                 "and ce.affiliate.id = :affId and ce.companyShortName =:companyShortName order by ce.earningDate ")
 })
 @Entity

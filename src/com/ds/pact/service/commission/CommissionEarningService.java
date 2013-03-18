@@ -1,24 +1,25 @@
 package com.ds.pact.service.commission;
 
-import com.ds.domain.commission.CommissionEarning;
 import com.ds.web.action.Page;
+import com.ds.domain.commission.CommissionEarning;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author adlakha.vaibhav
  */
 public interface CommissionEarningService {
 
-    //public List<CommissionEarning> getOneTimeDirectCommissionEarnings(Long campaignId, Long companyAffiliateId);
+  public CommissionEarning saveCommissionEarning(CommissionEarning commissionEarning);
 
-    public Page searchCommissionEarning(Long affiliateId, String companyShortName, Date startDate, Date endDate, Long commissionEarningStatusId, String customer, int pageNo, int perPage);
+  //public List<CommissionEarning> getOneTimeDirectCommissionEarnings(Long campaignId, Long companyAffiliateId);
 
-    public void changeCommissionEarningStatus(Long commissionEarningId, Long newStatusId);
+  public Page searchCommissionEarning(Long affiliateId, String companyShortName, Date startDate, Date endDate, Long commissionEarningStatusId, String customer, int pageNo, int perPage);
 
-    public void bulkChangeCommissionEarningStatus(List<Long> earningIds, Long newStatusId);
+  public void changeCommissionEarningStatus(Long commissionEarningId, Long newStatusId);
 
+  public void bulkChangeCommissionEarningStatus(List<Long> earningIds, Long newStatusId);
 
 
 }

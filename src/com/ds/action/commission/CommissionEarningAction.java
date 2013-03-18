@@ -1,18 +1,18 @@
 package com.ds.action.commission;
 
+import com.ds.constants.AppConstants;
+import com.ds.constants.EnumCommissionEarningStatus;
+import com.ds.core.event.listener.MMCommissionProcessor;
 import com.ds.domain.affiliate.Affiliate;
 import com.ds.domain.campaign.Campaign;
-import com.ds.domain.tracking.EventTracking;
-import com.ds.domain.user.User;
 import com.ds.domain.commission.CommissionEarning;
 import com.ds.domain.commission.CommissionEarningStatus;
+import com.ds.domain.user.User;
 import com.ds.pact.dao.BaseDao;
 import com.ds.pact.service.affiliate.AffiliateService;
 import com.ds.pact.service.campaign.CampaignService;
+import com.ds.pact.service.commission.CommissionEarningService;
 import com.ds.security.helper.SecurityHelper;
-import com.ds.core.event.listener.MMCommissionProcessor;
-import com.ds.constants.EnumCommissionEarningStatus;
-import com.ds.constants.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,12 +30,12 @@ public class CommissionEarningAction {
 
   private Long campaignId;
   private Double revenue;
-  private String customerId;
   private Long affiliateId;
-  private String uniqueId; //  this is the transaction Id
   private Double earning;
 
-  private double revenueToUseForEarning;
+  //private String customerId;
+  //private String uniqueId; //  this is the transaction Id
+  //private double revenueToUseForEarning;
 
   private List<Campaign> campaignsForCompany;
 
@@ -43,6 +43,8 @@ public class CommissionEarningAction {
   private AffiliateService affiliateService;
   @Autowired
   private CampaignService campaignService;
+  @Autowired
+  private CommissionEarningService commissionEarningService;
   @Autowired
   private BaseDao baseDao;
 
@@ -62,42 +64,35 @@ public class CommissionEarningAction {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     Affiliate affiliate = getAffiliateService().getAffiliate(affiliateId);
     Campaign campaign = getCampaignService().getCampaignById(campaignId);
-    revenueToUseForEarning = revenue != null ? revenue : earning;
+    //revenueToUseForEarning = revenue != null ? revenue : earning;
+    //EventTracking eventTracking = getEventTracking(affiliate, campaign, loggedInUser.getCompanyShortName());
+    //eventTracking = (EventTracking) getBaseDao().save(eventTracking);
 
-    EventTracking eventTracking = getEventTracking(affiliate, campaign, loggedInUser.getCompanyShortName());
-
-
-    eventTracking = (EventTracking) getBaseDao().save(eventTracking);
-
+    CommissionEarning commissionEarning = null;
     if (earning == null) {
-      CommissionEarning commissionEarning = new MMCommissionProcessor(eventTracking, null, affiliate, campaign).process();
-
-      if (commissionEarning != null) {
-        getBaseDao().save(commissionEarning);
-      }
+      commissionEarning = new MMCommissionProcessor(revenue, null, affiliate, campaign).process();
     } else {
-      CommissionEarning commissionEarning = new CommissionEarning();
+      commissionEarning = new CommissionEarning();
       commissionEarning.setCampaign(campaign);
       commissionEarning.setCompanyShortName(campaign.getCompanyShortName());
       commissionEarning.setAffiliate(affiliate);
       CommissionEarningStatus commissionEarningStatus = EnumCommissionEarningStatus.APPROVED.asCommissionEarningStatus();
       commissionEarning.setCommissionEarningStatus(commissionEarningStatus);
-      commissionEarning.setEventTracking(eventTracking);
+      //commissionEarning.setEventTracking(eventTracking);
       commissionEarning.setDirectCommission(true);
       commissionEarning.setRecurCommission(false);
       User systemUser = getBaseDao().get(User.class, AppConstants.SYS_USER_ID);
       commissionEarning.setActedBy(systemUser);
     }
 
+    if (commissionEarning != null) {
+      getCommissionEarningService().saveCommissionEarning(commissionEarning);
+    }
 
   }
 
 
-  private void getCommissionEarning() {
-
-  }
-
-  private EventTracking getEventTracking(Affiliate affiliate, Campaign campaign, String companyShortName) {
+  /*private EventTracking getEventTracking(Affiliate affiliate, Campaign campaign, String companyShortName) {
     EventTracking eventTracking = new EventTracking();
     eventTracking.setRevenue(revenueToUseForEarning);
     eventTracking.setCustomerId(customerId);
@@ -107,7 +102,7 @@ public class CommissionEarningAction {
     eventTracking.setCompanyShortName(companyShortName);
 
     return eventTracking;
-  }
+  }*/
 
 
   public AffiliateService getAffiliateService() {
@@ -134,6 +129,7 @@ public class CommissionEarningAction {
     this.revenue = revenue;
   }
 
+/*
   public String getCustomerId() {
     return customerId;
   }
@@ -141,6 +137,7 @@ public class CommissionEarningAction {
   public void setCustomerId(String customerId) {
     this.customerId = customerId;
   }
+*/
 
   public Long getAffiliateId() {
     return affiliateId;
@@ -150,6 +147,7 @@ public class CommissionEarningAction {
     this.affiliateId = affiliateId;
   }
 
+/*
   public String getUniqueId() {
     return uniqueId;
   }
@@ -157,6 +155,7 @@ public class CommissionEarningAction {
   public void setUniqueId(String uniqueId) {
     this.uniqueId = uniqueId;
   }
+*/
 
   public Double getEarning() {
     return earning;
@@ -176,5 +175,9 @@ public class CommissionEarningAction {
 
   public BaseDao getBaseDao() {
     return baseDao;
+  }
+
+  public CommissionEarningService getCommissionEarningService() {
+    return commissionEarningService;
   }
 }

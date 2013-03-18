@@ -9,8 +9,6 @@ import com.ds.domain.commission.CommissionEarning;
 import com.ds.domain.commission.CommissionEarningStatus;
 import com.ds.domain.commission.CommissionPlan;
 import com.ds.domain.commission.CommissionStrategy;
-import com.ds.domain.marketing.MarketingMaterial;
-import com.ds.domain.tracking.EventTracking;
 import com.ds.domain.user.User;
 import com.ds.impl.service.ServiceLocatorFactory;
 import com.ds.pact.dao.BaseDao;
@@ -28,18 +26,19 @@ import java.util.List;
 
 public class MMCommissionProcessor {
 
-
-  private EventTracking eventTracking;
-  private MarketingMaterial marketingMaterial;
   private Affiliate affiliate;
   private Campaign campaign;
 
+  private Long marketingMaterialId;
+  private Double revenue;
+  private String companyShortName;
 
-  public MMCommissionProcessor(EventTracking eventTracking, MarketingMaterial marketingMaterial, Affiliate affiliate, Campaign campaign) {
-    this.eventTracking = eventTracking;
-    this.marketingMaterial = marketingMaterial;
+  public MMCommissionProcessor(Double revenue, Long marketingMaterialId, Affiliate affiliate, Campaign campaign) {
+    this.revenue = revenue;
+    this.marketingMaterialId = marketingMaterialId;
     this.affiliate = affiliate;
     this.campaign = campaign;
+    this.companyShortName = campaign.getCompanyShortName();
   }
 
   private BaseDao baseDao;
@@ -107,7 +106,7 @@ public class MMCommissionProcessor {
     if (existingCommissionEarnings == null || existingCommissionEarnings.size() > 0) {
       CommissionPlan commissionPlan = campaign.getCommissionPlan();
 
-      double revenue = eventTracking.getRevenue();
+      //double revenue = eventTracking.getRevenue();
       double oneTimeRevSharePercentage = commissionPlan.getOneTimeCom();
       double oneTimeRevShareComm = (revenue * (oneTimeRevSharePercentage / 100));
 
@@ -123,7 +122,7 @@ public class MMCommissionProcessor {
     return commissionEarning;
   }
 
-                                                   //TODO: direct and recur not set properly.
+  //TODO: direct and recur not set properly.
   private CommissionEarning processRecurCommission() {
     List<CommissionEarning> existingCommissionEarnings = getExistingCommissionEarnings();
     CommissionEarning commissionEarning = null;
@@ -188,7 +187,7 @@ public class MMCommissionProcessor {
       if (existingCommissionEarnings == null || existingCommissionEarnings.size() > 0) {
         commissionEarning = getCommissionEarningWithBasicInfo();
 
-        double revenue = eventTracking.getRevenue();
+        //double revenue = eventTracking.getRevenue();
         /**
          * since this is the first time we will use initCom
          */
@@ -199,7 +198,7 @@ public class MMCommissionProcessor {
       } else {
         commissionEarning = getCommissionEarningWithBasicInfo();
 
-        double revenue = eventTracking.getRevenue();
+        //double revenue = eventTracking.getRevenue();
         /**
          * since this is the first time we will use initCom
          */
@@ -238,24 +237,29 @@ public class MMCommissionProcessor {
     return shouldAwardCommission;
   }
 
+  @SuppressWarnings("unchecked")
   private List<CommissionEarning> getExistingCommissionEarnings() {
-    List<CommissionEarning> commissionEarning = (List<CommissionEarning>) getBaseDao().findByNamedQueryAndNamedParam("getEarningForAffOnAd",
-        new String[]{"mmId", "affId", "companyShortName"},
-        new Object[]{marketingMaterial.getId(), affiliate.getId(), marketingMaterial.getCompanyShortName()});
+    if (marketingMaterialId != null) {
 
-    //TODO: handle null marketing material
-    
-    return commissionEarning;
+      return (List<CommissionEarning>) getBaseDao().findByNamedQueryAndNamedParam("getEarningForAffOnAd",
+          new String[]{"mmId", "affId", "companyShortName"},
+          new Object[]{marketingMaterialId, affiliate.getId(), companyShortName});
+
+    } else {
+      return (List<CommissionEarning>) getBaseDao().findByNamedQueryAndNamedParam("getEarningForAffOnCampaign",
+          new String[]{"campaignId", "affId", "companyShortName"},
+          new Object[]{campaign.getId(), affiliate.getId(), companyShortName});
+    }
   }
 
 
   private CommissionEarning getCommissionEarningWithBasicInfo() {
     CommissionEarning commissionEarning = new CommissionEarning();
     commissionEarning.setCampaign(campaign);
-    commissionEarning.setMarketingMaterial(marketingMaterial);
+    //commissionEarning.setMarketingMaterial(marketingMaterial);
     commissionEarning.setCompanyShortName(campaign.getCompanyShortName());
     commissionEarning.setAffiliate(affiliate);
-    commissionEarning.setEventTracking(eventTracking);
+    //commissionEarning.setEventTracking(eventTracking);
     commissionEarning.setDirectCommission(true);
     User systemUser = getBaseDao().get(User.class, AppConstants.SYS_USER_ID);
     commissionEarning.setActedBy(systemUser);
@@ -272,8 +276,8 @@ public class MMCommissionProcessor {
     if (baseDao == null) {
       baseDao = (BaseDao) ServiceLocatorFactory.getService(BaseDao.class);
     }
-
     return baseDao;
   }
+
 
 }
