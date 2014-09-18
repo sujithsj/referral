@@ -10,7 +10,7 @@
     <s:useActionBean beanclass="com.ds.action.commission.CommissionEarningAction" var="commEarningAction"/>
     <div id="content">
       <s:layout-render name="/includes/companyContentHeader.jsp" includeHeaderBtnGrp="false"
-                       headerLabel="Update Profile"/>
+                       headerLabel="Add Commission"/>
 
       <s:form beanclass="com.ds.action.commission.CommissionEarningAction" id="commEarningForm" class="form-horizontal">
         <div class="container-fluid">
@@ -38,7 +38,7 @@
                   </div>
                   <div class="control-group">
                     <s:label class="control-label" name="Old Password"/>
-                    <div class="controls">
+                    <div class="controls">                                                                  
                       <s:password name="oldPassword" minlength="6"/>
                     </div>
                   </div>
@@ -74,11 +74,10 @@
     </div>
 
 
-    <%--<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/user/userCrud.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/select2.min.js"></script>
     <script type="text/javascript"
             src="${pageContext.request.contextPath}/assets/js/unicorn.form_validation.js"></script>
---%>
 
 
   </s:layout-component>

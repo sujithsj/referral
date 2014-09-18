@@ -4,20 +4,22 @@ import com.ds.constants.AppConstants;
 import com.ds.constants.EnumCommissionEarningStatus;
 import com.ds.core.event.listener.MMCommissionProcessor;
 import com.ds.domain.affiliate.Affiliate;
+import com.ds.domain.affiliate.CompanyAffiliate;
 import com.ds.domain.campaign.Campaign;
 import com.ds.domain.commission.CommissionEarning;
 import com.ds.domain.commission.CommissionEarningStatus;
 import com.ds.domain.user.User;
 import com.ds.pact.dao.BaseDao;
 import com.ds.pact.service.affiliate.AffiliateService;
+import com.ds.pact.service.affiliate.CompanyAffiliateService;
 import com.ds.pact.service.campaign.CampaignService;
 import com.ds.pact.service.commission.CommissionEarningService;
 import com.ds.security.helper.SecurityHelper;
 import com.ds.web.action.BaseAction;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,6 +45,7 @@ public class CommissionEarningAction extends BaseAction {
   //private double revenueToUseForEarning;
 
   private List<Campaign> campaignsForCompany;
+  private List<CompanyAffiliate> affiliatesForCompany;
 
   @Autowired
   private AffiliateService affiliateService;
@@ -50,6 +53,8 @@ public class CommissionEarningAction extends BaseAction {
   private CampaignService campaignService;
   @Autowired
   private CommissionEarningService commissionEarningService;
+  @Autowired
+  private CompanyAffiliateService companyAffiliateService;
   @Autowired
   private BaseDao baseDao;
 
@@ -60,7 +65,7 @@ public class CommissionEarningAction extends BaseAction {
     User loggedInUser = SecurityHelper.getLoggedInUser();
     campaignsForCompany = getCampaignService().getAllCampaigns(loggedInUser.getCompanyShortName());
 
-    return new RedirectResolution("/pages/commission/addCommissionEarning.jsp");
+    return new ForwardResolution("/pages/commission/addCommissionEarning.jsp");
   }
 
   public void addCommission() {

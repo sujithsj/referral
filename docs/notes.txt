@@ -3,7 +3,7 @@ call impressions reach and if impression is for same user on same day dont count
 mixpanel, chartbeat, flurry : online analytics
 
 
-An example is determining if a company’s Facebook posts work better on Wednesdays than on Thursdays, and changing their social media strategy accordingly
+  An example is determining if a company’s Facebook posts work better on Wednesdays than on Thursdays, and changing their social media strategy accordingly
 
 https://www.viralheat.com/
 
